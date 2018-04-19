@@ -6,6 +6,7 @@
 package main;
 
 import java.io.IOException;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
@@ -53,8 +54,10 @@ public class GUIController {
     private Scene previousScene;
     private Scene modalScene;
     
+    private Stack<Scene> executionStack;
     
     private GUIController() {
+        executionStack = new Stack<>();
     }
     
     public static GUIController getInstance() {
@@ -75,6 +78,9 @@ public class GUIController {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
         nowScene = new Scene(indexParent);
+        
+        executionStack.push(nowScene);
+        
         mainStage.setScene(nowScene);
         mainStage.show();
     }
@@ -88,6 +94,7 @@ public class GUIController {
             nowScene = new Scene(actionParent);
             controller.setActionType(actionType);
             controller.setInformation();
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -104,6 +111,7 @@ public class GUIController {
             nowScene = new Scene(queryGenericTransaction);
             controller.setTransactionType(transactionType);
             controller.setInformation();
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -118,6 +126,7 @@ public class GUIController {
             ServiceQueryController controller = (ServiceQueryController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(queryService);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -132,6 +141,7 @@ public class GUIController {
             BrandQueryController controller = (BrandQueryController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(queryBrand);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -147,6 +157,7 @@ public class GUIController {
             StockQueryController controller = (StockQueryController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(queryStock);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -163,6 +174,7 @@ public class GUIController {
             nowScene = new Scene(queryPerson);
             controller.setPersonType(personType);
             controller.setInformation();
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -177,6 +189,7 @@ public class GUIController {
             CustomerRegisterController controller = (CustomerRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerCustomer);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -191,6 +204,7 @@ public class GUIController {
             EmployeeRegisterController controller = (EmployeeRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerEmployee);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -208,6 +222,7 @@ public class GUIController {
             if(edit){
                 controller.setEdit();
             }
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -222,6 +237,7 @@ public class GUIController {
             SupplierRegisterController controller = (SupplierRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerSupplier);
+            executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
@@ -248,8 +264,8 @@ public class GUIController {
     }
     
     public void backToPrevious() {
-        nowScene = previousScene;
-        previousScene = null;
+        executionStack.pop();
+        nowScene = executionStack.peek();
         mainStage.setScene(nowScene);
         mainStage.show();
     } 
