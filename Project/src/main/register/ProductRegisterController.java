@@ -20,7 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
-import main.objects.persons.Brand;
+import main.objects.transations.Brand;
 import main.utils.Validate;
 
 /**

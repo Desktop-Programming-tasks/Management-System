@@ -15,8 +15,8 @@ public class Employee extends LegalPerson{
     private String login;
     private String password;
 
-    public Employee(String login, String password, String name, Address address, ArrayList<String> telephones, String Id) {
-        super(name, address, telephones, Id);
+    public Employee(String login, String password, String name, Address address, ArrayList<String> telephones, String cpf) {
+        super(name, address, telephones, cpf);
         this.login = login;
         this.password = password;
     }

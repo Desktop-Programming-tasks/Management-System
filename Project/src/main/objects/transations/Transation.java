@@ -29,7 +29,7 @@ public abstract class Transation {
         return price;
     }
 
-    public void setPrice(float price) {
+    protected void setPrice(float price) {
         this.price = price;
     }    
 }

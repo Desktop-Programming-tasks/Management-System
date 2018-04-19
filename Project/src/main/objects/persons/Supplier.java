@@ -5,6 +5,7 @@
  */
 package main.objects.persons;
 
+import main.objects.transations.Brand;
 import java.util.ArrayList;
 
 /**

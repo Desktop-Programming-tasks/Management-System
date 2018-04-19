@@ -19,6 +19,7 @@ public class Movimentation extends Transation{
         this.product = product;
         this.operationType = operationType;
         this.quantity = quantity;
+        super.setPrice(product.getPrice()* quantity);
     }
     
     

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class LegalPerson extends Person{
     private String RG;
 
-    public LegalPerson(String name, Address address, ArrayList<String> telephones, String Id) {
-        super(name, address, telephones, Id);
+    public LegalPerson(String name, Address address, ArrayList<String> telephones, String cpf) {
+        super(name, address, telephones, cpf);
     }
 
     public String getRG() {
@@ -25,6 +25,12 @@ public class LegalPerson extends Person{
     public void setRG(String RG) {
         this.RG = RG;
     }
-
+    
+    public String getCPF(){
+        return getId();
+    }
+    public void setCPF(String cpf){
+        setId(cpf);
+    }
     
 }
