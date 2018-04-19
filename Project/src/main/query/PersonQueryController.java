@@ -7,7 +7,10 @@ package main.query;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import main.GUIController;
 
 /**
  * FXML Controller class
@@ -16,6 +19,11 @@ import javafx.fxml.Initializable;
  */
 public class PersonQueryController implements Initializable {
 
+    String personType;
+    
+    @FXML 
+    private Label personQueryTitle;
+    
     /**
      * Initializes the controller class.
      */
@@ -23,5 +31,18 @@ public class PersonQueryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    public void setInformation(){
+        personQueryTitle.setText("Consulta de "+personType);
+    }
+
+    public void setPersonType(String personType) {
+        this.personType = personType;
+    }
+    
+    @FXML
+    public void back() {
+        GUIController.getInstance().backToPrevious();
+    }
     
 }

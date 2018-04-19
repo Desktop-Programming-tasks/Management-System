@@ -7,7 +7,9 @@ package main.register;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import main.GUIController;
 
 /**
  * FXML Controller class
@@ -24,4 +26,8 @@ public class EmployeeRegisterController implements Initializable {
         // TODO
     }    
     
+    @FXML
+    public void back() {
+        GUIController.getInstance().backToPrevious();
+    }
 }

@@ -48,4 +48,46 @@ public class IndexController implements Initializable {
         GUIController.getInstance().showGenericTransationQuery(itemName.getText());
     }
     
+    @FXML
+    private void showServiceQuery() {
+        GUIController.getInstance().showServiceQuery();
+    }
+    
+    @FXML
+    private void showBrandQuery() {
+        GUIController.getInstance().showBrandQuery();
+    }
+    
+    @FXML
+    private void showStockQuery() {
+        System.out.println("WT");
+        GUIController.getInstance().showStockQuery();
+    }
+    
+    @FXML
+    private void showPersonQuery(ActionEvent evt) {
+        MenuItem itemName = (MenuItem) (evt.getSource());
+        
+        GUIController.getInstance().showGenericTransationQuery(itemName.getText());
+    }
+    
+    @FXML
+    private void showCustomerRegister() {
+        GUIController.getInstance().showCustomerRegister();
+    }
+    
+    @FXML
+    private void showEmployeeRegister() {
+        GUIController.getInstance().showEmployeeRegister();
+    }
+    
+    @FXML
+    private void showProductRegister() {
+        GUIController.getInstance().showProductRegister();
+    }
+    
+    @FXML
+    private void showSupplierRegister() {
+        GUIController.getInstance().showSupplierRegister();
+    }
 }
