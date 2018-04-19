@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.transations.Movimentation;
+import main.objects.transations.Product;
 import main.utils.Validate;
 
 /**
@@ -46,6 +48,8 @@ public class AddProductController implements Initializable {
             Validate.validateAddressNumber(ProductQuantity.getText());
         }
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        Product product = new Product(ProductName.getText());
+        Movimentation mov = new Movimentation(product, "dummy",Integer.parseInt(ProductQuantity.getText()));
     }
 
     @FXML

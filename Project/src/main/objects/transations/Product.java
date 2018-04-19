@@ -16,6 +16,11 @@ public class Product {
     private float price;
     private String name;
 
+    public Product(String barCode) {
+        this.barCode = barCode;
+    }
+
+    
     public Product(String barCode, Brand brand, float price, String name) {
         this.barCode = barCode;
         this.brand = brand;

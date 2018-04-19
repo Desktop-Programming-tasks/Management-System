@@ -7,12 +7,14 @@ package main.modal;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.transations.Service;
 import main.utils.Validate;
 
 /**
@@ -54,6 +56,8 @@ public class AddServiceController implements Initializable {
         Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        Service serv = new Service(beginDate.getValue(), endDate.getValue(),
+                Integer.parseInt(nameTextField.getText()));
     }
     
     @FXML

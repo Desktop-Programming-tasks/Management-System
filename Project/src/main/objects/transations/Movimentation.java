@@ -14,6 +14,14 @@ public class Movimentation extends Transation{
     private String operationType;
     private int quantity;
 
+    public Movimentation(Product product, String operationType, int quantity) {
+        this.product = product;
+        this.operationType = operationType;
+        this.quantity = quantity;
+        super.setPrice(product.getPrice()* quantity);
+    }
+
+    
     public Movimentation(Product product, String operationType, int quantity, int id) {
         super(id);
         this.product = product;

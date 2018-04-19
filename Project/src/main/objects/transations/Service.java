@@ -5,6 +5,7 @@
  */
 package main.objects.transations;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,9 +13,9 @@ import java.util.Date;
  * @author gabriel
  */
 public class Service extends Transation{
-    private Date startDate;
-    private Date estimatedDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate estimatedDate;
+    private LocalDate finishDate;
     private String status;
     private int codServ;
     private String assignedEmployee;
@@ -26,7 +27,7 @@ public class Service extends Transation{
         super.setPrice(price);
     }
     
-    public Service(Date startDate, Date estimatedDate, Date finishDate, String status, int codServ, String assignedEmployee, String name, int id) {
+    public Service(LocalDate startDate, LocalDate estimatedDate, LocalDate finishDate, String status, int codServ, String assignedEmployee, String name, int id) {
         super(id);
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
@@ -36,30 +37,39 @@ public class Service extends Transation{
         this.assignedEmployee = assignedEmployee;
         this.name = name;
     }
+
+    public Service(LocalDate startDate, LocalDate estimatedDate, int codServ) {
+        this.startDate = startDate;
+        this.estimatedDate = estimatedDate;
+        this.codServ = codServ;
+    }
+
+    
+    
        
     
     
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEstimatedDate() {
+    public LocalDate getEstimatedDate() {
         return estimatedDate;
     }
 
-    public void setEstimatedDate(Date estimatedDate) {
+    public void setEstimatedDate(LocalDate estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
 
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 

@@ -12,6 +12,9 @@ package main.objects.transations;
 public abstract class Transation {
     private float price;
     private int id;
+
+    public Transation() {
+    }
     
     public Transation(int id) {
         this.id = id;
