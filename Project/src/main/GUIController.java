@@ -125,6 +125,9 @@ public class GUIController {
             GenericTransactionQueryController controller = (GenericTransactionQueryController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(queryGenericTransaction);
+            if(transactionType.contains("Consulta")){
+                transactionType=transactionType.replace("Consulta", "");
+            }            
             controller.setTransactionType(transactionType);
             controller.setInformation();
             executionStack.push(nowScene);
