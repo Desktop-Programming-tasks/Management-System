@@ -30,6 +30,13 @@ public class TemplateController implements Initializable {
     @FXML
     private Button registerBtnMainAction;
     @FXML
+    private Button addProductBtn;
+    @FXML
+    private Button addServiceBtn;
+    @FXML
+    private Button deleteEntry;
+    
+    @FXML
     private Label mainActionScreenTitle;
     @FXML
     private Label FinalPrice;
@@ -109,6 +116,20 @@ public class TemplateController implements Initializable {
         if(errorMsg.isEmpty()){
             System.out.println("foi");
         }
+    }
+    
+    public void setEdit(){
+        mainActionScreenTitle.setText("Detalhes de "+actionType);
+        
+        registerBtnMainAction.setVisible(false);
+        
+        customerOrSupplier.setDisable(true);
+        
+        customerOrSupplier.setText("Custumer 01");
+        
+        addProductBtn.setVisible(false);
+        addServiceBtn.setVisible(false);
+        deleteEntry.setVisible(false);
     }
     
     @FXML

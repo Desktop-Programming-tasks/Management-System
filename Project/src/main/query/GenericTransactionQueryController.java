@@ -68,8 +68,11 @@ public class GenericTransactionQueryController implements Initializable {
     public void setInformation() {
         genericTransactionQueryTitle.setText("Consulta de " + transactionType);
         genericTransationQueryBtn.setText("Cancelar " + transactionType);
-        
-
+    }
+    
+    @FXML
+    private void details(){
+        GUIController.getInstance().showMainActionScreen(transactionType, true);
     }
 
     public void setTransactionType(String transationType) {

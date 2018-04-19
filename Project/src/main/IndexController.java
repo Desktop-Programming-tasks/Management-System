@@ -41,7 +41,7 @@ public class IndexController implements Initializable {
             actionType = "Compra";
         }
         
-        GUIController.getInstance().showMainActionScreen(actionType);
+        GUIController.getInstance().showMainActionScreen(actionType,false);
     }
     
     @FXML

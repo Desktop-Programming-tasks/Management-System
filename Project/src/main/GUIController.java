@@ -97,13 +97,16 @@ public class GUIController {
         mainStage.show();
     }
     
-    public void showMainActionScreen(String actionType) {
+    public void showMainActionScreen(String actionType,boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Template.fxml"));
             actionParent = loader.load();
             TemplateController controller = (TemplateController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(actionParent);
+            if(edit){
+                controller.setEdit();
+            }
             controller.setActionType(actionType);
             controller.setInformation();
             executionStack.push(nowScene);
