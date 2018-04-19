@@ -15,6 +15,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.transations.Service;
 import main.utils.Validate;
 
 /**
@@ -45,6 +46,7 @@ public class UpdateServiceController implements Initializable {
         // TODO
         textFieldValue.setText("56.41");
         textFieldValue.setDisable(true);
+        beginDate.setDisable(true);
     }    
     
     @FXML
@@ -59,6 +61,10 @@ public class UpdateServiceController implements Initializable {
         Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        if(Validate.getErrorMessage().isEmpty()){
+            Service serv= new Service(Integer.parseInt(textFieldServiceName.getText()));
+            serv.setFinishDate(endDate.getValue());
+        }
     }
     
     public void setEdit() {

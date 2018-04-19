@@ -44,6 +44,10 @@ public class Service extends Transation{
         this.codServ = codServ;
     }
 
+    public Service(int codServ) {
+        this.codServ = codServ;
+    }
+
     
     
        
