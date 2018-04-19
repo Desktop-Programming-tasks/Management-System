@@ -7,6 +7,7 @@ package main.query;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,10 +41,22 @@ public class ServiceQueryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        services=FXCollections.observableArrayList();
         //Dummies
-        Service s1 = new Service("Batata", 0);
+        Service s1 = new Service("Limpeza de cu", 1);
+        s1.setCodServ(1);
         s1.setPrice(300);
         services.add(s1);
+        
+        Service s2= new Service("Troca de esner", 2);
+        s2.setCodServ(666);
+        s2.setPrice(500);
+        services.add(s2);
+        
+        Service s3 = new Service("Boquete com anal giratório", 3);
+        s3.setPrice(400);
+        s3.setCodServ(24);
+        services.add(s3);
         //Dummies end
         Code.setCellValueFactory(new PropertyValueFactory<>("codServ"));
         Description.setCellValueFactory(new PropertyValueFactory<>("name"));
