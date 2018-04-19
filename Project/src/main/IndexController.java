@@ -60,7 +60,6 @@ public class IndexController implements Initializable {
     
     @FXML
     private void showStockQuery() {
-        System.out.println("WT");
         GUIController.getInstance().showStockQuery();
     }
     
@@ -69,6 +68,11 @@ public class IndexController implements Initializable {
         MenuItem itemName = (MenuItem) (evt.getSource());
         
         GUIController.getInstance().showPersonQuery(itemName.getText());
+    }
+    
+    @FXML 
+    private void showSupplierQuery() {
+        
     }
     
     @FXML

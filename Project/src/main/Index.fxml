@@ -57,6 +57,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#showServiceQuery" text="Serviços" />
                         <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Funcionários" />
                         <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Clientes" />
+                        <MenuItem mnemonicParsing="false" onAction="#showSupplierQuery" text="Fornecedores" />
                         <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Marcas" />
                     </items>
                      <graphic>
