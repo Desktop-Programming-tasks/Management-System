@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.modal.UpdateServiceController;
@@ -339,17 +341,35 @@ public class GUIController {
     }
     
     public void showModalRegisterBrand() {
-   try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
-            modalRegisterBrand = loader.load();
-            //ServiceController controller = (ServiceController) loader.getController();
-            modalScene = new Scene(modalRegisterBrand);
-            modalStage.setScene(modalScene);
-            
-            modalStage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
+                 modalRegisterBrand = loader.load();
+                 //ServiceController controller = (ServiceController) loader.getController();
+                 modalScene = new Scene(modalRegisterBrand);
+                 modalStage.setScene(modalScene);
+
+                 modalStage.show();
+             } catch (IOException ex) {
+                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+    }
+    
+    public void showInformationAlert(String msg) {
+        Alert informationDiag;
+        if(msg.isEmpty()) {
+            informationDiag = new Alert(Alert.AlertType.CONFIRMATION);
+            informationDiag.setTitle("Operação bem sucedida");
+            informationDiag.setHeaderText("Confirmação de operação!");
+            informationDiag.setContentText("Operação realizada com sucesso!");
+        } else {
+            informationDiag = new Alert(Alert.AlertType.ERROR);
+            informationDiag.setTitle("Operação falhou");
+            informationDiag.setHeaderText("Falha de operação");
+            informationDiag.setContentText(msg);
         }
+        DialogPane diagPanel = informationDiag.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        informationDiag.showAndWait();
     }
     
     public void closeModal() {

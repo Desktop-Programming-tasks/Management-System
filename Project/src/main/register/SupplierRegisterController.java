@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -64,11 +65,8 @@ public class SupplierRegisterController implements Initializable {
         if(Validate.validateEmpty("'Número da casa'", numberTextField.getText())) {
             Validate.validateAddressNumber(numberTextField.getText());   
         }
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
  
     @FXML
