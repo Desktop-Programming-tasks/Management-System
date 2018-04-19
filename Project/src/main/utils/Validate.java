@@ -17,6 +17,7 @@ public class Validate {
     private static final int  NICK_MIN_LENGTH = 4;
     private static final int  NICK_MAX_LENGTH = 25;
     private static final int  PASSWORD_MIN_LENGTH = 6;
+    private static final int  PASSWORD_MAX_LENGTH = 15;
     
     private static final String TEL_NUMBER_PATTERN= "0?[0-9]{2}[0-9]?[0-9]{4}[0-9]{4}";
     private static final String NICKNAME_PATTERN= "[a-z][a-z0-9]*";
@@ -66,7 +67,10 @@ public class Validate {
         if(password.isEmpty()){
             return false;
         }
-        return password.length() >= PASSWORD_MIN_LENGTH;
+        if(password.length()>PASSWORD_MAX_LENGTH){
+            return false;
+        }
+        return password.length() > PASSWORD_MIN_LENGTH;
     }
 
     public static boolean validaNumAddress(String num) {
