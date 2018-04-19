@@ -27,9 +27,8 @@
               </columns>
             </TableView>
             <Button layoutX="46.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button fx:id="registerBtnMainAction" layoutX="971.0" layoutY="621.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-5.0" />
-            <TextField layoutY="74.0" prefWidth="600.0" promptText="Cliente / Fornecedor *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <TextField layoutX="10.0" layoutY="110.0" prefWidth="600.0" promptText="Funcionário responsável *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="150.0" />
+            <Button fx:id="registerBtnMainAction" layoutX="971.0" layoutY="621.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-5.0" />
+            <TextField fx:id="customerOrSupplier" layoutY="74.0" prefWidth="600.0" promptText="Cliente / Fornecedor *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="520.0" layoutY="526.0" text="R$" AnchorPane.leftAnchor="520.0" AnchorPane.topAnchor="526.0">
                <font>
                   <Font size="20.0" />
@@ -58,7 +57,7 @@
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <TextArea layoutX="2.0" layoutY="231.0" prefHeight="105.0" prefWidth="600.0" promptText="Descrição *" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0" />
+            <TextArea fx:id="description" layoutY="167.0" prefHeight="105.0" prefWidth="600.0" promptText="Descrição *" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="167.0" />
          </children>
       </AnchorPane>
    </children>
