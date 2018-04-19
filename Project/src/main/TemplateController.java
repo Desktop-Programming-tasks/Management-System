@@ -75,7 +75,7 @@ public class TemplateController implements Initializable {
     
     @FXML
     public void showModalAddProduct() {
-        
+        GUIController.getInstance().showModalAddProduct();
     }
     
     @FXML

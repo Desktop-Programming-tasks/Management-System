@@ -24,7 +24,7 @@
                   <TableColumn fx:id="Price" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor" />
                </columns>
             </TableView>
-            <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Atualizar serviço" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
+            <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onAction="#showModalUpdateService" prefHeight="35.0" prefWidth="150.0" text="Atualizar serviço" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

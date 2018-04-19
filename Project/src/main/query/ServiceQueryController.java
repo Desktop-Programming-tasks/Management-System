@@ -68,4 +68,9 @@ public class ServiceQueryController implements Initializable {
     public void back() {
         GUIController.getInstance().backToPrevious();
     }
+    
+    @FXML
+    public void showModalUpdateService() {
+        GUIController.getInstance().showModalUpdateService();
+    }
 }
