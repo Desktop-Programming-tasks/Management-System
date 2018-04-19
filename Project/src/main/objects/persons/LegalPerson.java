@@ -12,15 +12,10 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class LegalPerson extends Person{
-    private String CPF;
     private String RG;
 
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public LegalPerson(String name, Address address, ArrayList<String> telephones, String Id) {
+        super(name, address, telephones, Id);
     }
 
     public String getRG() {
@@ -31,14 +26,5 @@ public class LegalPerson extends Person{
         this.RG = RG;
     }
 
-    public LegalPerson(String CPF, String RG, String name, Address address, ArrayList<String> telephones) {
-        super(name, address, telephones);
-        this.CPF = CPF;
-        this.RG = RG;
-    }
-    @Override
-    public String getId() {
-        return CPF;
-    }   
     
 }

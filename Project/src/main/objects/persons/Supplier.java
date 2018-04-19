@@ -22,10 +22,12 @@ public class Supplier extends LegalPerson{
         this.avaliableBrands = avaliableBrands;
     }
 
-    public Supplier(ArrayList<Brand> avaliableBrands, String CPF, String RG, String name, Address address, ArrayList<String> telephones) {
-        super(CPF, RG, name, address, telephones);
+    public Supplier(ArrayList<Brand> avaliableBrands, String name, Address address, ArrayList<String> telephones, String Id) {
+        super(name, address, telephones, Id);
         this.avaliableBrands = avaliableBrands;
     }
+
+
     
     
 }

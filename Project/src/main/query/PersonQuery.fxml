@@ -12,7 +12,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Label layoutY="6.0" text="Consulta de Cliente/Funcionario" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="personQueryTitle" layoutY="6.0" text="Consulta de Cliente/Funcionario" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="25.0" />
                </font>

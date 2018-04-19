@@ -18,6 +18,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
 import main.objects.persons.Address;
+import main.objects.persons.JuridicalPerson;
 import main.objects.persons.LegalPerson;
 import main.objects.persons.Person;
 
@@ -52,10 +53,12 @@ public class PersonQueryController implements Initializable {
         Address address = new Address("32321", 0, "dsdas", "dsda", "dsadsa");
         ArrayList<String> telephones = new ArrayList<>();
         telephones.add("dsada");
-        LegalPerson lp= new LegalPerson("32312", "dassdas", "cu", address, telephones);
+        LegalPerson lp= new LegalPerson("batata",address,telephones,"312321");
         customers.add(lp);
+        JuridicalPerson jp = new JuridicalPerson("batata2", address, telephones, "9031231212");
+        customers.add(jp);
         
-        Id.setCellValueFactory(new PropertyValueFactory<>("getId"));
+        Id.setCellValueFactory(new PropertyValueFactory<>("Id"));
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));
         PersonTable.setItems(customers);
     }    
