@@ -334,6 +334,10 @@ public class GUIController {
         }
     }
     
+    public void closeModal() {
+        modalStage.close();
+    }
+    
     public void backToPrevious() {
         executionStack.pop();
         nowScene = executionStack.peek();
