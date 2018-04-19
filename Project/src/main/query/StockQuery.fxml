@@ -17,12 +17,12 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TableView layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <TableView fx:id="StockTable" layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                <columns>
-                  <TableColumn maxWidth="-1.0" minWidth="516.0" prefWidth="516.0" resizable="false" text="Nome" />
-                  <TableColumn maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" resizable="false" text="Marcas" />
-                  <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantidade" />
-                  <TableColumn minWidth="200.0" prefWidth="200.0" text="Cod. Barra" />
+                  <TableColumn fx:id="Name" maxWidth="-1.0" minWidth="516.0" prefWidth="516.0" resizable="false" text="Nome" />
+                  <TableColumn fx:id="Brand" maxWidth="-1.0" minWidth="400.0" prefWidth="400.0" resizable="false" text="Marcas" />
+                  <TableColumn fx:id="Quantity" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Quantidade" />
+                  <TableColumn fx:id="BarCode" minWidth="200.0" prefWidth="200.0" text="Cod. Barra" />
                </columns>
             </TableView>
             <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Detalhes" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
