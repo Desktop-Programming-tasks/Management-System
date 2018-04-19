@@ -92,6 +92,16 @@ public class SupplierRegisterController implements Initializable {
         GUIController.getInstance().backToPrevious();
     }
     
+    @FXML
+    private void createNewBrand() {
+        GUIController.getInstance().showModalRegisterBrand();
+    }
+    
+    @FXML
+    private void addBrand() {
+        GUIController.getInstance().showModalAddBrand();
+    }
+    
     public void setEdit(){
         nameTextField.setText("Placeholder name 1");
         telTextField.setText("(43)98756-5498");

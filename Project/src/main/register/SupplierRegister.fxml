@@ -61,17 +61,17 @@
                 <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="470.0" resizable="false" text="Marcas" />
               </columns>
             </TableView>
-            <Button layoutX="746.0" layoutY="460.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Adicionar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="320.0">
+            <Button layoutX="746.0" layoutY="460.0" mnemonicParsing="false" onAction="#addBrand" prefHeight="35.0" prefWidth="150.0" text="Adicionar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="320.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="906.0" layoutY="460.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Remover marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="160.0">
+            <Button layoutX="906.0" layoutY="460.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Remover marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="0.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="916.0" layoutY="567.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Cadastrar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="0.0">
+            <Button layoutX="916.0" layoutY="567.0" mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="150.0" text="Cadastrar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="160.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
