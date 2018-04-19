@@ -99,6 +99,11 @@ public class IndexController implements Initializable {
     }
     
     @FXML
+    private void showModalRegisterBrand() {
+        GUIController.getInstance().showModalRegisterBrand();
+    }
+    
+    @FXML
     private void showModalService() {
         GUIController.getInstance().showModalService();
     }

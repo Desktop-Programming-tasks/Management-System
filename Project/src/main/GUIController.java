@@ -50,6 +50,7 @@ public class GUIController {
     private Parent modalAddService;
     private Parent modalAddProduct;
     private Parent modalRegisterService;
+    private Parent modalRegisterBrand;
     private Parent modalUpdateService;
     
     private Scene nowScene;
@@ -326,6 +327,20 @@ public class GUIController {
             modalService = loader.load();
             //ServiceController controller = (ServiceController) loader.getController();
             modalScene = new Scene(modalService);
+            modalStage.setScene(modalScene);
+            
+            modalStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showModalRegisterBrand() {
+   try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
+            modalRegisterBrand = loader.load();
+            //ServiceController controller = (ServiceController) loader.getController();
+            modalScene = new Scene(modalRegisterBrand);
             modalStage.setScene(modalScene);
             
             modalStage.show();
