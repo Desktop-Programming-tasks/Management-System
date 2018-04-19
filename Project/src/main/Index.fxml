@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -31,16 +33,22 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MenuButton alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Cadastrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Registrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Funcionário" />
                       <MenuItem mnemonicParsing="false" text="Produto" />
                         <MenuItem mnemonicParsing="false" text="Serviço" />
                         <MenuItem mnemonicParsing="false" text="Cliente" />
                     </items>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS_SQUARE" opacity="0.5" size="4em" />
+                     </graphic>
                   </MenuButton>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <MenuButton alignment="CENTER" contentDisplay="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
+                  <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="CUBES" opacity="0.5" size="6EM" />
+                     </graphic></Button>
+                  <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Transações" />
                       <MenuItem mnemonicParsing="false" text="Vendas" />
@@ -50,6 +58,9 @@
                         <MenuItem mnemonicParsing="false" text="Clientes" />
                         <MenuItem mnemonicParsing="false" text="Marcas" />
                     </items>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="6em" />
+                     </graphic>
                   </MenuButton>
                   <GridPane hgap="20.0" GridPane.columnSpan="3" GridPane.rowSpan="2">
                     <columnConstraints>
@@ -60,15 +71,25 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="VENDA">
+                        <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="VENDA" textAlignment="RIGHT">
                            <font>
                               <Font size="30.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="level-1" />
+                              <String fx:value="index-button" />
+                           </styleClass>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="MONEY" opacity="0.5" size="12em" />
+                           </graphic>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
+                        <Button contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
                            <font>
                               <Font size="30.0" />
                            </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="SHOPPING_CART" opacity="0.5" size="12em" />
+                           </graphic>
                         </Button>
                      </children>
                   </GridPane>
