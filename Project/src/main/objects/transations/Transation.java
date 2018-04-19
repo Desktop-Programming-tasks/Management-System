@@ -10,7 +10,7 @@ package main.objects.transations;
  * @author gabriel
  */
 public abstract class Transation {
-    private float Valor;
+    private float price;
     private int id;
 
     public Transation(int id) {
@@ -25,12 +25,14 @@ public abstract class Transation {
         this.id = id;
     }
 
-    public float getValor() {
-        return Valor;
+    public float getPrice() {
+        return price;
     }
 
-    public void setValor(float Valor) {
-        this.Valor = Valor;
+    public void setPrice(float price) {
+        this.price = price;
     }
+
+
     
 }

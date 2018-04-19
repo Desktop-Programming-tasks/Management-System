@@ -18,8 +18,14 @@ public class Service extends Transation{
     private String status;
     private int codServ;
     private String assignedEmployee;
+    private String name;
 
-    public Service(Date startDate, Date estimatedDate, Date finishDate, String status, int codServ, String assignedEmployee, int id) {
+    public Service(String name, int id) {
+        super(id);
+        this.name = name;
+    }
+    
+    public Service(Date startDate, Date estimatedDate, Date finishDate, String status, int codServ, String assignedEmployee, String name, int id) {
         super(id);
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
@@ -27,7 +33,9 @@ public class Service extends Transation{
         this.status = status;
         this.codServ = codServ;
         this.assignedEmployee = assignedEmployee;
+        this.name = name;
     }
+       
     
     
     public Date getStartDate() {
@@ -77,5 +85,14 @@ public class Service extends Transation{
     public void setAssignedEmployee(String assignedEmployee) {
         this.assignedEmployee = assignedEmployee;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     
 }
