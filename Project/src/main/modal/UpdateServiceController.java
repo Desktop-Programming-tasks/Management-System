@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import main.GUIController;
 import main.utils.Validate;
 
 /**
@@ -57,11 +58,7 @@ public class UpdateServiceController implements Initializable {
         localdate = endDate.getValue();
         Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
         
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
     
     public void setEdit() {

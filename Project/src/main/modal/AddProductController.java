@@ -45,11 +45,7 @@ public class AddProductController implements Initializable {
         if(Validate.validateEmpty("Quantidade",ProductQuantity.getText())){
             Validate.validateAddressNumber(ProductQuantity.getText());
         }
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
 
     @FXML

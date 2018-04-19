@@ -113,11 +113,7 @@ public class CustomerRegisterController implements Initializable {
             Validate.validateAddressNumber(numberTextField.getText());
         }
         
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
         
     }
     

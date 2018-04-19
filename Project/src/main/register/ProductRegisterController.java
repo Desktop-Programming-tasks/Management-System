@@ -83,11 +83,7 @@ public class ProductRegisterController implements Initializable {
         }
         Validate.emptyTable(TableBrands);
         
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
     
     public void setEdit(){
