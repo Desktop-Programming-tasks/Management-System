@@ -47,6 +47,7 @@ public class ServiceController implements Initializable {
         if(Validate.getErrorMessage().isEmpty()){
             Service serv = new Service(nameTextField.getText(),
                     Float.parseFloat(valueTextField.getText()));
+            System.out.println(serv);
         }
     }
     

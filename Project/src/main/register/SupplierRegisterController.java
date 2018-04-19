@@ -50,7 +50,7 @@ public class SupplierRegisterController implements Initializable {
     @FXML
     private Button actionBtn;
     @FXML
-    private TableView brandTable;
+    private TableView<Brand> brandTable;
     
     @FXML
     private TableColumn<Brand,String> Brands;
@@ -106,6 +106,7 @@ public class SupplierRegisterController implements Initializable {
             avaliableBrands.add(new Brand(1,"AMD"));
             Supplier supplier = new Supplier(avaliableBrands, nameTextField.getText(), address,
                     telephones, CNPJTextField.getText());
+            System.out.println(supplier);
         }
     }
  

@@ -58,6 +58,7 @@ public class AddServiceController implements Initializable {
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
         Service serv = new Service(beginDate.getValue(), endDate.getValue(),
                 Integer.parseInt(nameTextField.getText()));
+        System.out.println(serv);
     }
     
     @FXML

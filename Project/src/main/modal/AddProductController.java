@@ -50,6 +50,7 @@ public class AddProductController implements Initializable {
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
         Product product = new Product(ProductName.getText());
         Movimentation mov = new Movimentation(product, "dummy",Integer.parseInt(ProductQuantity.getText()));
+        System.out.println(mov);
     }
 
     @FXML

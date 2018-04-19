@@ -47,6 +47,7 @@ public class BrandController implements Initializable {
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
         if(Validate.getErrorMessage().isEmpty()){
             Brand brand = new Brand(nameTextField.getText());
+            System.out.println(brand);
         }
     }
     

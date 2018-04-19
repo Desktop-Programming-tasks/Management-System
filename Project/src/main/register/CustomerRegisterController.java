@@ -135,9 +135,11 @@ public class CustomerRegisterController implements Initializable {
 
                 LegalPerson lp = new LegalPerson(RGTextField.getText(),nameTextField.getText(),
                         address, telephones, CPFTextField.getText());
+                System.out.println(lp);
             }else{
                 JuridicalPerson jp = new JuridicalPerson(nameTextField.getText(), 
                         address, telephones, CNPJTextField.getText());
+                System.out.println(jp);
             }
         }
     }

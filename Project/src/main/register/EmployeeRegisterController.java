@@ -117,6 +117,7 @@ public class EmployeeRegisterController implements Initializable {
                     passwordFieldOficial.getText(),
                     RGTextField.getText(), 
                     nameTextField.getText(), address, telephones, CPFTextField.getText());
+            System.out.println(employee);
         }
     }
     

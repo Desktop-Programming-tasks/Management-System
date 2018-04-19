@@ -97,6 +97,7 @@ public class ProductRegisterController implements Initializable {
             Product product = new Product(barCodeTextField.getText(),brands,
                     Float.parseFloat(priceTextField.getText()),
             nameTextField.getText());
+            System.out.println(product);
         }
     }
     

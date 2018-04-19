@@ -64,6 +64,7 @@ public class UpdateServiceController implements Initializable {
         if(Validate.getErrorMessage().isEmpty()){
             Service serv= new Service(Integer.parseInt(textFieldServiceName.getText()));
             serv.setFinishDate(endDate.getValue());
+            System.out.println(serv);
         }
     }
     
