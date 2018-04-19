@@ -13,7 +13,6 @@
     -primary-color: #1976D2;
     -secondary-color: #0AD58D;
     -fx-grey: #b3b3b3;
-    -fx-highlight-color: -primary-color;
     
     /* Configurations */
     -fx-focus-color: transparent;
@@ -60,7 +59,7 @@
 .text-field:focused, 
 .text-area:focused {
     -fx-border-width: 0 0 2 0;
-    -fx-border-color: -fx-highlight-color;
+    -fx-border-color: -primary-color;
 }
 
 /* Button */
@@ -82,17 +81,20 @@
 
 /*Text area*/
 .text-area { 
-    -fx-padding: 8px 0 0px 0;
-    -text-area-background: transparent;
     -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
     -fx-background-radius: 0, 0, 0, 0;
-    -fx-background-color: transparent, transparent, transparent, transparent;
+
+    -fx-box-border: none;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
 }
 .text-area .content { 
-    -fx-background-color: transparent ;
+    -fx-background-color: transparent, white, transparent, white;
 }
 .text-area:focused .content{
-    -fx-background-color: transparent ;
+    -fx-background-color: transparent, white, transparent, white;
 }
 
 /* Radion Button */
@@ -126,7 +128,7 @@
 .choice-box {
     -fx-background-color: transparent;
     -fx-border-color: -swatch-grey;
-    -fx-border-width: 0 0 2 0;
+    -fx-border-width: 0 0 1 0;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
@@ -156,4 +158,136 @@
 /* MenuButton */
 .menu-button {
     -fx-text-fill: -primary-color;
+}
+
+/*table*/
+.table-view{
+    /* Constants used throughout the tableview. */
+    -fx-table-header-border-color: transparent;
+    -fx-table-cell-border-color: -fx-box-border; /* Horizontal Lines*/
+    -fx-background-color: transparent;
+}
+
+/* The column header row is made up of a number of column-header, one for each
+   TableColumn, and a 'filler' area that extends from the right-most column
+   to the edge of the tableview, or up to the 'column control' button. */
+.table-view .filler, .tree-table-view .filler, .table-view .column-header,
+	.tree-table-view .column-header {
+	-fx-size: 40;
+	-fx-border-style: none;
+	-fx-border-color: -swatch-grey;
+	-fx-border-width: 0 0 2 0;
+	-fx-background-color: transparent;
+}
+
+.table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
+	{
+	-fx-background-color: transparent;
+}
+
+.table-view .column-header .label, .table-view .filler .label,
+	.table-view .column-drag-header .label, .tree-table-view .column-header .label,
+	.tree-table-view .filler .label, .tree-table-view .column-drag-header .label
+	{
+	-fx-alignment: CENTER_LEFT;
+}
+
+.table-view .column-header-background, .tree-table-view .column-header-background
+	{
+	-fx-background-color: transparent;
+}
+
+.table-row-cell, .tree-table-row-cell {
+	-fx-cell-size: 40px;
+}
+
+.table-cell {
+	-fx-border-color: transparent; /* Vertical Lines*/
+	-fx-border-width: 1;
+}
+
+/*scroll bar*/
+.scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
+	{
+	-fx-background-color: -swatch-light-grey;
+	-fx-background-insets: 0.0;
+}
+
+.scroll-bar:vertical>.thumb, .scroll-bar:horizontal>.thumb {
+	-fx-background-color: -swatch-grey;
+	-fx-background-insets: 0.0;
+	-fx-background-radius: 4.0;
+}
+
+.scroll-bar>.increment-button, .scroll-bar>.decrement-button,
+	.scroll-bar:hover>.increment-button, .scroll-bar:hover>.decrement-button
+	{
+	-fx-background-color: transparent;
+}
+
+.scroll-bar>.increment-button>.increment-arrow, .scroll-bar>.decrement-button>.decrement-arrow
+	{
+	-fx-background-color: -swatch-dark-grey;
+}
+
+.scroll-bar>.track-background {
+	-fx-background-color: transparent;
+}
+
+/*date picker*/
+.date-picker .arrow-button{
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.date-picker .arrow-button .arrow{
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.date-picker:hover .arrow-button .arrow{
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.date-picker-popup > * > .day-cell:focused,
+.date-picker-popup > * > .today:focused {
+    -fx-background-color: -primary-color;
+    -fx-background-insets: 1, 2, 3;
+}
+
+.date-picker-popup > * > .day-cell:hover,
+.date-picker-popup > * > .selected,
+.date-picker-popup > * > .previous-month.selected,
+.date-picker-popup > * > .next-month.selected {
+    -fx-background: -primary-color;
+}
+
+.date-picker-popup .button {
+    -fx-background-color: -primary-color;
+}
+
+.date-picker-popup>.month-year-pane {
+    -fx-background-color: -primary-color;
+}
+
+.date-picker-popup>*>.spinner>.button>.left-arrow, .date-picker-popup>*>.spinner>.button>.right-arrow
+	{
+    -fx-background-color: white;
+}
+
+.date-picker-popup>*>.spinner {
+    -fx-border-width: 0;
+}
+
+.date-picker-popup>*>.spinner>.label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup>*>.day-name-cell, .date-picker-popup>*>.week-number-cell
+	{
+    -fx-font-weight: normal;
+    -fx-text-fill: -fx-grey;
+    -fx-font-size: 1em;
 }

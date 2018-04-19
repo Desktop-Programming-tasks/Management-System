@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -29,8 +30,14 @@
             <Button layoutX="977.0" layoutY="587.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="Registrar Compra / Venda" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <TextField layoutY="74.0" prefWidth="600.0" promptText="Cliente / Fornecedor *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
             <TextField layoutX="10.0" layoutY="110.0" prefWidth="600.0" promptText="Funcionário responsável *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="150.0" />
-            <Label layoutY="192.0" text="R$" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0" />
-            <Label layoutX="41.0" layoutY="192.0" text="0,000" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="200.0" />
+            <Label layoutX="520.0" layoutY="526.0" text="R$" AnchorPane.leftAnchor="520.0" AnchorPane.topAnchor="526.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
+            <Label layoutX="550.0" layoutY="526.0" text="0,000" AnchorPane.leftAnchor="550.0" AnchorPane.topAnchor="526.0">
+               <font>
+                  <Font size="20.0" />
+               </font></Label>
             <Label layoutX="716.0" layoutY="49.0" text="Registro de transações" AnchorPane.topAnchor="50.0">
                <font>
                   <Font size="25.0" />
@@ -51,6 +58,7 @@
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
+            <TextArea layoutX="2.0" layoutY="231.0" prefHeight="105.0" prefWidth="600.0" promptText="Descrição *" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0" />
          </children>
       </AnchorPane>
    </children>
