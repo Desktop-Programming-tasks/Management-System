@@ -20,8 +20,8 @@
                </font>
             </Label>
             <TextField fx:id="barCodeTextField" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Código de Barras *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <TextField fx:id="nameTextField" layoutX="716.0" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Nome do Produto *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <TableView fx:id="TableBrands" layoutX="307.0" layoutY="174.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="175.0">
+            <TextField fx:id="nameTextField" layoutX="716.0" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Nome do Produto *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="150.0" />
+            <TableView fx:id="TableBrands" layoutX="307.0" layoutY="174.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="200.0">
               <columns>
                 <TableColumn fx:id="Brands" maxWidth="1.7976931348623157E308" minWidth="600.0" prefWidth="600.0" resizable="false" text="Marcas" />
               </columns>
@@ -49,9 +49,15 @@
             <Group fx:id="quantityGroup" layoutX="1030.0" layoutY="150.0" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
                <children>
                   <TextField fx:id="quantityTextField" alignment="CENTER" layoutX="86.0" prefHeight="33.0" prefWidth="100.0" />
-                  <Label layoutY="17.0" text="Quantidade" />
+                  <Label layoutY="11.0" text="Quantidade" />
                </children>
             </Group>
+            <TextField fx:id="priceTextField" alignment="CENTER" layoutX="1038.0" layoutY="154.0" promptText="Preço *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <Label layoutX="1030.0" layoutY="104.0" text="R$" AnchorPane.rightAnchor="159.0" AnchorPane.topAnchor="104.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

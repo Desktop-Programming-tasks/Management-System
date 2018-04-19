@@ -25,7 +25,7 @@ public class Validate {
 
     private static final String TEL_NUMBER_PATTERN = "0?[0-9]{2}[0-9]?[0-9]{4}[0-9]{4}";
     private static final String NICKNAME_PATTERN = "[a-z][a-z0-9]*";
-    private static final String ADDRESS_NUMBER_PATTERN = "[0-9]*";
+    private static final String ADDRESS_NUMBER_PATTERN = "[0-9]*(.)?[0-9]*";
     private static final String CPF_PATTERN = "[0-9]{3}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{2}";
     private static final String RG_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{1}";
     private static final String CNPJ_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}||[0-9]{4}(-)[0-9]{2}";

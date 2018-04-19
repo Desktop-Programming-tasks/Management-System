@@ -43,6 +43,8 @@ public class ProductRegisterController implements Initializable {
     private Group quantityGroup;
     @FXML
     private TextField quantityTextField;
+    @FXML
+    private TextField priceTextField;
     
     @FXML
     private TableView<Brand> TableBrands;
@@ -81,6 +83,9 @@ public class ProductRegisterController implements Initializable {
         }
         if(Validate.validateEmpty("Nome", nameTextField.getText())){
             Validate.validateName(nameTextField.getText());
+        }
+        if(Validate.validateEmpty("Preço", priceTextField.getText())){
+            Validate.validateName(priceTextField.getText());
         }
         Validate.emptyTable(TableBrands);
         
