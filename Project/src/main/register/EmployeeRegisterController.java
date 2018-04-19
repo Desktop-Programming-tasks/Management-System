@@ -104,7 +104,7 @@ public class EmployeeRegisterController implements Initializable {
         }
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        if(!Validate.getErrorMessage().isEmpty()){
+        if(Validate.getErrorMessage().isEmpty()){
             Address address = new Address(streetTextField.getText(), 
                     Integer.parseInt(numberTextField.getText())
                     ,districtTextField.getText(), "Dummy", "Dummy");
