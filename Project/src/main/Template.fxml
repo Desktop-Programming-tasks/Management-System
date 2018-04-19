@@ -3,6 +3,9 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.TemplateController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="60.0">
          <children>
             <Label fx:id="mainActionScreenTitle" layoutY="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -58,5 +61,38 @@
                </styleClass></Button>
          </children>
       </AnchorPane>
+      <MenuBar layoutX="10.0" layoutY="8.0" maxHeight="-Infinity" prefHeight="30.0" prefWidth="1280.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Arquivo">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Fechar" />
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Registros">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showEmployeeRegister" text="Registrar Funcionario" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Registrar Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Registrar Fornecedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Registrar Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#showModalService" text="Registrar Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showModalRegisterBrand" text="Registrar Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Vendas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Compras" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Consultas">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showSupplierQuery" text="Consulta Fornecedores" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Vendas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Consulta Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Compras" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Pessoas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showServiceQuery" text="Consulta Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showStockQuery" text="Consulta Estoque" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
    </children>
 </AnchorPane>
