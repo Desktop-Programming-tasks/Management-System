@@ -9,6 +9,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import main.GUIController;
 
 /**
@@ -17,6 +22,24 @@ import main.GUIController;
  * @author noda
  */
 public class SupplierRegisterController implements Initializable {
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField CNPJTextField;
+    @FXML
+    private TextField telTextField;
+    @FXML
+    private TextField secTelTextField;
+    @FXML
+    private TextField streetTextField;
+    @FXML
+    private TextField numberTextField;
+    @FXML
+    private TextField districtTextField;
+    @FXML
+    private Label mainLabel;
+    @FXML
+    private Button actionBtn;
 
     /**
      * Initializes the controller class.
@@ -29,5 +52,16 @@ public class SupplierRegisterController implements Initializable {
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
+    }
+    
+    public void setEdit(){
+        nameTextField.setText("Placeholder name 1");
+        telTextField.setText("(43)98756-5498");
+        streetTextField.setText("Placeholder street");
+        numberTextField.setText("245");
+        districtTextField.setText("District 13");
+        
+        mainLabel.setText("Detalhes de Fornecedor");
+        actionBtn.setText("Salvar"); 
     }
 }

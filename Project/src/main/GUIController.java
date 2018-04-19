@@ -258,13 +258,16 @@ public class GUIController {
         }
     }
     
-    public void showSupplierRegister() {
+    public void showSupplierRegister(boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("register/SupplierRegister.fxml"));
             registerSupplier = loader.load();
             SupplierRegisterController controller = (SupplierRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerSupplier);
+            if(edit) {
+                controller.setEdit();
+            }
             executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
