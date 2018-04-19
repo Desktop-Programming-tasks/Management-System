@@ -86,6 +86,16 @@ public class ProductRegisterController implements Initializable {
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
     
+    @FXML
+    private void createNewBrand() {
+        GUIController.getInstance().showModalRegisterBrand();
+    }
+    
+    @FXML
+    private void addBrand() {
+        GUIController.getInstance().showModalAddBrand();
+    }
+    
     public void setEdit(){
         //change labels and load data from object
         actionBtn.setText("Salvar");

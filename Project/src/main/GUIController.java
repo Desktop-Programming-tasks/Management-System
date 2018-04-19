@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.modal.BrandController;
 import main.modal.UpdateServiceController;
 import main.query.BrandQueryController;
 import main.query.GenericTransactionQueryController;
@@ -345,16 +346,37 @@ public class GUIController {
     
     public void showModalRegisterBrand() {
         try {
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
-                 modalRegisterBrand = loader.load();
-                 //ServiceController controller = (ServiceController) loader.getController();
-                 modalScene = new Scene(modalRegisterBrand);
-                 modalStage.setScene(modalScene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
+            modalRegisterBrand = loader.load();
+            BrandController controller = (BrandController) loader.getController();
+            modalScene = new Scene(modalRegisterBrand);
+            modalStage.setScene(modalScene);
 
-                 modalStage.show();
-             } catch (IOException ex) {
-                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
-             }
+            controller.setAction("Registrar");
+            controller.setContent();
+            
+            modalStage.show();
+         } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
+    
+    public void showModalAddBrand() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Brand.fxml"));
+            modalRegisterBrand = loader.load();
+            BrandController controller = (BrandController) loader.getController();
+            modalScene = new Scene(modalRegisterBrand);
+            modalStage.setScene(modalScene);
+
+            controller.setAction("Adicionar");
+            controller.setContent();
+
+            modalStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
     
     public void showInformationAlert(String msg) {

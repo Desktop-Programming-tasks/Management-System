@@ -29,12 +29,12 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button layoutX="307.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Adicionar Marca" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="307.0">
+            <Button layoutX="307.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onAction="#addBrand" prefHeight="35.0" prefWidth="180.0" text="Adicionar Marca" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="307.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="517.0" layoutY="550.0" maxWidth="180.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" text="Cadastrar Nova Marca" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="517.0" AnchorPane.rightAnchor="519.0">
+            <Button layoutX="517.0" layoutY="550.0" maxWidth="180.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="180.0" text="Cadastrar Nova Marca" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="517.0" AnchorPane.rightAnchor="519.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
