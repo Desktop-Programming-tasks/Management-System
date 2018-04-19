@@ -35,7 +35,7 @@ public class GenericTransactionQueryController implements Initializable {
     @FXML
     private Button genericTransationQueryBtn;
     @FXML
-    private TableView MovimentationTable;
+    private TableView<Movimentation> MovimentationTable;
     @FXML
     private TableColumn<Movimentation,Integer> Code;
     @FXML

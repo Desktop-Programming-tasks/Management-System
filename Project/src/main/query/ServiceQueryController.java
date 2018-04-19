@@ -26,7 +26,7 @@ import main.GUIController;
  */
 public class ServiceQueryController implements Initializable {
     @FXML
-    TableView ServiceTable;
+    TableView<Service> ServiceTable;
     @FXML
     TableColumn<Service,Integer> Code;
     @FXML

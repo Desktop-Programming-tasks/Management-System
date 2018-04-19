@@ -34,7 +34,7 @@ public class PersonQueryController implements Initializable {
     @FXML 
     private Label personQueryTitle;
     @FXML
-    private TableView PersonTable;
+    private TableView<Person> PersonTable;
     @FXML
     private TableColumn<Person,String> Id;
     @FXML

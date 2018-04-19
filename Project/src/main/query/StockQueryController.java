@@ -26,7 +26,7 @@ import main.objects.transations.Product;
  */
 public class StockQueryController implements Initializable {
     @FXML
-    TableView StockTable;
+    TableView<Product> StockTable;
     @FXML
     TableColumn<Product,String> Name;
     @FXML

@@ -45,7 +45,7 @@ public class ProductRegisterController implements Initializable {
     private TextField quantityTextField;
     
     @FXML
-    private TableView TableBrands;
+    private TableView<Brand> TableBrands;
     
     @FXML
     private TableColumn<Brand,String> Brands;

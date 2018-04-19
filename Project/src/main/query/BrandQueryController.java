@@ -24,7 +24,7 @@ import main.objects.transations.Brand;
  */
 public class BrandQueryController implements Initializable {
     @FXML
-    TableView TableBrand;
+    TableView<Brand> TableBrand;
     @FXML
     TableColumn<Brand,String> Name;
     

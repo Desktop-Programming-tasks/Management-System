@@ -30,7 +30,7 @@ import main.objects.persons.Supplier;
 public class SupplierQueryController implements Initializable {
 
     @FXML
-    private TableView Suppliers;
+    private TableView<Supplier> Suppliers;
     @FXML
     private TableColumn<Supplier, String> Cnpj;
     @FXML

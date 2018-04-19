@@ -44,7 +44,7 @@ public class TemplateController implements Initializable {
     private TextField customerOrSupplier;
     
     @FXML
-    private TableView Transations;
+    private TableView<TableProxyTransation> Transations;
     @FXML
     private TableColumn<TableProxyTransation,String> Name;
     @FXML
