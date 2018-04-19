@@ -99,17 +99,15 @@ public class TemplateController implements Initializable {
     
     @FXML
     public void register(){
-        if(!customerOrSupplier.getText().isEmpty()){
-            if(Validate.validateCPF(customerOrSupplier.getText())){
-                //go
-                System.out.println("template::foi");
-            }else{
-                System.out.println(Validate.getErrorMessage());
-                System.out.println("template::erro cpf");
-            }
-        }else{
-            //Show error
-            System.out.println("template::vazio");
+        if(Validate.validateEmpty("Name", customerOrSupplier.getText())){
+            Validate.validateName(customerOrSupplier.getText());
+        }
+        Validate.emptyTable(Transations);
+        
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
         }
     }
     

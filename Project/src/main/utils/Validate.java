@@ -156,7 +156,7 @@ public class Validate {
         Matcher matcher = test.matcher(num);
         
         if(!matcher.matches()) {
-            errorMessage.append("Número de endereço inválido!\n");
+            errorMessage.append("Não é um número!\n");
             return(false);
         } else {
             return(true);
