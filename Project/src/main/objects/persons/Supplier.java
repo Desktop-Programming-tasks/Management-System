@@ -11,23 +11,49 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Supplier extends LegalPerson{
-    private ArrayList<Brand> avaliableBrands;
+public class Supplier extends LegalPerson {
 
-    public ArrayList<Brand> getAvaliableBrands() {
+    private AvaliableBrands avaliableBrands;
+
+    public AvaliableBrands getAvaliableBrands() {
         return avaliableBrands;
     }
 
-    public void setAvaliableBrands(ArrayList<Brand> avaliableBrands) {
+    public void setAvaliableBrands(AvaliableBrands avaliableBrands) {
         this.avaliableBrands = avaliableBrands;
     }
+    
 
     public Supplier(ArrayList<Brand> avaliableBrands, String name, Address address, ArrayList<String> telephones, String Id) {
         super(name, address, telephones, Id);
-        this.avaliableBrands = avaliableBrands;
+        this.avaliableBrands = new AvaliableBrands(avaliableBrands);
     }
 
+    private class AvaliableBrands {
 
-    
-    
+        private ArrayList<Brand> avaliableBrands;
+
+        public ArrayList<Brand> getAvaliableBrands() {
+            return avaliableBrands;
+        }
+
+        public void setAvaliableBrands(ArrayList<Brand> avaliableBrands) {
+            this.avaliableBrands = avaliableBrands;
+        }
+
+        public AvaliableBrands(ArrayList<Brand> avaliableBrands) {
+            this.avaliableBrands = avaliableBrands;
+        }
+
+        @Override
+        public String toString() {
+            String brands = "";
+            for (Brand avb : this.avaliableBrands) {
+                brands += avb.toString() + " | ";
+            }
+            return brands;
+        }
+
+    }
+
 }
