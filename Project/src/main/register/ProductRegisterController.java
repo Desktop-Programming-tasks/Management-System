@@ -6,6 +6,7 @@
 package main.register;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -90,8 +91,11 @@ public class ProductRegisterController implements Initializable {
         Validate.emptyTable(TableBrands);
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        ArrayList<Brand> brands = new ArrayList<>();
+        brands.add(new Brand(10,  "DUMMY"));
         if(Validate.getErrorMessage().isEmpty()){
-            Product product = new Product(barCodeTextField.getText(),new Brand(10,  "DUMMY"), 3,
+            Product product = new Product(barCodeTextField.getText(),brands,
+                    Float.parseFloat(priceTextField.getText()),
             nameTextField.getText());
         }
     }
