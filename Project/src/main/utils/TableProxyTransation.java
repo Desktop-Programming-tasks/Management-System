@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.objects.transations;
+package main.utils;
 
 /**
  *
  * @author gabriel
  */
-public abstract class Transation {
+public class TableProxyTransation {
+    private String name;
     private float price;
-    private int id;
-    
-    public Transation(int id) {
-        this.id = id;
+    private int quantity;
+
+    public String getName() {
+        return name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getPrice() {
@@ -31,5 +28,14 @@ public abstract class Transation {
 
     public void setPrice(float price) {
         this.price = price;
-    }    
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    
 }
