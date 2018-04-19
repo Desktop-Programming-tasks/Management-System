@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,13 +14,13 @@
    <children>
       <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Label layoutY="6.0" text="Registro de Produto" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="mainLabel" layoutY="6.0" text="Registro de Produto" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Código de Barras *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <TextField layoutX="716.0" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Nome do Produto *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <TextField fx:id="barCodeTextField" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Código de Barras *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <TextField fx:id="nameTextField" layoutX="716.0" layoutY="100.0" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Nome do Produto *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
             <TableView layoutX="307.0" layoutY="174.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="307.0" AnchorPane.rightAnchor="309.0" AnchorPane.topAnchor="175.0">
               <columns>
                 <TableColumn maxWidth="1.7976931348623157E308" minWidth="600.0" prefWidth="600.0" resizable="false" text="Marcas" />
@@ -44,7 +45,13 @@
                   <String fx:value="table-button" />
                </styleClass></Button>
             <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="actionBtn" layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Group fx:id="quantityGroup" layoutX="1030.0" layoutY="150.0" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+               <children>
+                  <TextField fx:id="quantityTextField" alignment="CENTER" layoutX="86.0" prefHeight="33.0" prefWidth="100.0" />
+                  <Label layoutY="17.0" text="Quantidade" />
+               </children>
+            </Group>
          </children>
       </AnchorPane>
    </children>

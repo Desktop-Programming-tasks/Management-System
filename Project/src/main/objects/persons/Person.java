@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Person {
+public abstract class Person {
     private String name;
     private Address address;
     private ArrayList<String> telephones;
@@ -46,4 +46,5 @@ public class Person {
         this.telephones = telephones;
     }
     
+    public abstract String getId();
 }

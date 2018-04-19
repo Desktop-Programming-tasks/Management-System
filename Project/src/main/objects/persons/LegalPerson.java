@@ -36,7 +36,9 @@ public class LegalPerson extends Person{
         this.CPF = CPF;
         this.RG = RG;
     }
-    
-    
+    @Override
+    public String getId() {
+        return CPF;
+    }   
     
 }
