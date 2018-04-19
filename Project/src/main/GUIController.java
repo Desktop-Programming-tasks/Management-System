@@ -73,10 +73,8 @@ public class GUIController {
     public void startApp(Stage stage) {
         mainStage = stage;
         modalStage = new Stage();
-        modalStage.setOnCloseRequest((event) -> {
-                modalStage = null;
-                modalStage = new Stage();
-        });
+        modalStage.initOwner(mainStage);
+        modalStage.initModality(Modality.APPLICATION_MODAL);
         
         try {
             indexParent = FXMLLoader.load(getClass().getResource("Index.fxml"));
@@ -263,8 +261,22 @@ public class GUIController {
             modalScene = new Scene(modalService);
             modalStage.setScene(modalScene);
             
-            modalStage.initOwner(mainStage);
-            modalStage.initModality(Modality.APPLICATION_MODAL);
+            
+            
+            modalStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showModalAddService(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/AddService.fxml"));
+            modalService = loader.load();
+            //ServiceController controller = (ServiceController) loader.getController();
+            modalScene = new Scene(modalService);
+            modalStage.setScene(modalScene);
+            
             
             modalStage.show();
         } catch (IOException ex) {
@@ -282,9 +294,6 @@ public class GUIController {
             
             controller.setEdit();
             
-            modalStage.initOwner(mainStage);
-            modalStage.initModality(Modality.APPLICATION_MODAL);
-            
             modalStage.show();
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -298,9 +307,6 @@ public class GUIController {
             //ServiceController controller = (ServiceController) loader.getController();
             modalScene = new Scene(modalService);
             modalStage.setScene(modalScene);
-            
-            modalStage.initOwner(mainStage);
-            modalStage.initModality(Modality.APPLICATION_MODAL);
             
             modalStage.show();
         } catch (IOException ex) {
