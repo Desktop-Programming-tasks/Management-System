@@ -77,7 +77,7 @@ public class IndexController implements Initializable {
     
     @FXML
     private void showCustomerRegister() {
-        GUIController.getInstance().showCustomerRegister(true);
+        GUIController.getInstance().showCustomerRegister(false);
     }
     
     @FXML
