@@ -72,7 +72,7 @@ public class IndexController implements Initializable {
     
     @FXML 
     private void showSupplierQuery() {
-        
+        GUIController.getInstance().showSupplierQuery();
     }
     
     @FXML

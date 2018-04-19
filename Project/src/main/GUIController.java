@@ -40,6 +40,7 @@ public class GUIController {
     private Parent queryPerson;
     private Parent queryBrand;
     private Parent queryStock;
+    private Parent querySupplier;
     private Parent registerCustomer;
     private Parent registerEmployee;
     private Parent registerService;
@@ -186,6 +187,21 @@ public class GUIController {
         }
     }
     
+    public void showSupplierQuery() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("query/SupplierQuery.fxml"));
+            querySupplier = loader.load();
+            //PersonQueryController controller = (PersonQueryController) loader.getController();
+            previousScene = nowScene;
+            nowScene = new Scene(querySupplier);
+            executionStack.push(nowScene);
+            mainStage.setScene(nowScene);
+            mainStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void showCustomerRegister(boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("register/CustomerRegister.fxml"));
@@ -194,7 +210,9 @@ public class GUIController {
             previousScene = nowScene;
             nowScene = new Scene(registerCustomer);
             executionStack.push(nowScene);
-            //if(edit) 
+            if(edit){
+                controller.setEdit();
+            } 
                 
             mainStage.setScene(nowScene);
             mainStage.show();
