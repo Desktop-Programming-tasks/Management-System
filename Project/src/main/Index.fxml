@@ -71,7 +71,7 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="VENDA" textAlignment="RIGHT">
+                        <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showMainAction" text="VENDA" textAlignment="RIGHT">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -83,7 +83,7 @@
                               <FontAwesomeIconView glyphName="MONEY" opacity="0.5" size="12em" />
                            </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
+                        <Button contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showMainAction" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
                            <font>
                               <Font size="30.0" />
                            </font>

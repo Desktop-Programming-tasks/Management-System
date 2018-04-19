@@ -7,6 +7,8 @@ package main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -22,6 +24,20 @@ public class IndexController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    @FXML
+    private void showMainAction(ActionEvent evt) {
+        String btnName = (evt.getSource()).toString();
+        String actionType;
+        
+        if(btnName.equals("VENDA")) {
+            actionType = "Venda";
+        } else {
+            actionType = "Compra";
+        }
+        
+        GUIController.getInstance().showMainActionScreen(actionType);
+    }
     
 }
