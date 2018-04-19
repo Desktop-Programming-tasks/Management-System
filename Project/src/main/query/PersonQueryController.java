@@ -53,7 +53,7 @@ public class PersonQueryController implements Initializable {
         Address address = new Address("32321", 0, "dsdas", "dsda", "dsadsa");
         ArrayList<String> telephones = new ArrayList<>();
         telephones.add("dsada");
-        LegalPerson lp= new LegalPerson("batata",address,telephones,"312321");
+        LegalPerson lp= new LegalPerson("32312312","batata",address,telephones,"312321");
         customers.add(lp);
         JuridicalPerson jp = new JuridicalPerson("batata2", address, telephones, "9031231212");
         customers.add(jp);

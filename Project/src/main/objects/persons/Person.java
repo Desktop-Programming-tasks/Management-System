@@ -50,12 +50,6 @@ public abstract class Person {
         this.telephones = telephones;
     }
 
-    public Person(String name, Address address, ArrayList<String> telephones) {
-        this.name = name;
-        this.address = address;
-        this.telephones = telephones;
-    }
-
     public String getId() {
         return Id;
     }
