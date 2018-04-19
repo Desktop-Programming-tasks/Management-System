@@ -68,7 +68,7 @@ public class IndexController implements Initializable {
     private void showPersonQuery(ActionEvent evt) {
         MenuItem itemName = (MenuItem) (evt.getSource());
         
-        GUIController.getInstance().showGenericTransationQuery(itemName.getText());
+        GUIController.getInstance().showPersonQuery(itemName.getText());
     }
     
     @FXML
