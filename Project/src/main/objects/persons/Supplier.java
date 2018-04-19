@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Supplier extends LegalPerson {
+public class Supplier extends JuridicalPerson {
 
     private AvaliableBrands avaliableBrands;
 

@@ -14,9 +14,11 @@ import java.util.ArrayList;
 public class LegalPerson extends Person{
     private String RG;
 
-    public LegalPerson(String name, Address address, ArrayList<String> telephones, String cpf) {
+    public LegalPerson(String RG, String name, Address address, ArrayList<String> telephones, String cpf) {
         super(name, address, telephones, cpf);
+        this.RG = RG;
     }
+
 
     public String getRG() {
         return RG;
