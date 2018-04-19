@@ -70,7 +70,7 @@ public class TemplateController implements Initializable {
     
     @FXML
     public void showModalAddService() {
-        
+        GUIController.getInstance().showModalAddService();
     }
     
     @FXML
