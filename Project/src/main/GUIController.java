@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.query.BrandQueryController;
 import main.query.GenericTransactionQueryController;
@@ -28,13 +29,13 @@ import main.register.SupplierRegisterController;
  */
 public class GUIController {
     private Stage mainStage;
+    private Stage modalStage;
     
     private Parent indexParent;
     private Parent actionParent;
     private Parent queryService;
     private Parent queryGenericTransaction;
-    private Parent queryCustomer;
-    private Parent queryEmployee;
+    private Parent queryPerson;
     private Parent queryBrand;
     private Parent queryStock;
     private Parent registerCustomer;
@@ -42,6 +43,7 @@ public class GUIController {
     private Parent registerService;
     private Parent registerSupplier;
     private Parent registerProduct;
+    private Parent modalService;
     private Parent modalAddService;
     private Parent modalAddProduct;
     private Parent modalRegisterService;
@@ -49,6 +51,7 @@ public class GUIController {
     
     private Scene nowScene;
     private Scene previousScene;
+    private Scene modalScene;
     
     
     private GUIController() {
@@ -65,6 +68,7 @@ public class GUIController {
     
     public void startApp(Stage stage) {
         mainStage = stage;
+        modalStage = new Stage();
         try {
             indexParent = FXMLLoader.load(getClass().getResource("Index.fxml"));
         } catch (IOException ex) {
@@ -153,10 +157,10 @@ public class GUIController {
     public void showPersonQuery(String personType) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("query/PersonQuery.fxml"));
-            queryGenericTransaction = loader.load();
+            queryPerson = loader.load();
             PersonQueryController controller = (PersonQueryController) loader.getController();
             previousScene = nowScene;
-            nowScene = new Scene(queryGenericTransaction);
+            nowScene = new Scene(queryPerson);
             controller.setPersonType(personType);
             controller.setInformation();
             mainStage.setScene(nowScene);
@@ -220,6 +224,24 @@ public class GUIController {
             nowScene = new Scene(registerSupplier);
             mainStage.setScene(nowScene);
             mainStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        /* MODALS */
+    public void showModalService() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Service.fxml"));
+            modalService = loader.load();
+            //ServiceController controller = (ServiceController) loader.getController();
+            modalScene = new Scene(modalService);
+            modalStage.setScene(modalScene);
+            
+            //modalStage.initOwner(mainStage);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            
+            modalStage.show();
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
