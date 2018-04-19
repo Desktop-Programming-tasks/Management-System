@@ -23,7 +23,7 @@
                   <TableColumn fx:id="Name" maxWidth="-1.0" minWidth="916.0" prefWidth="916.0" resizable="false" text="Nome" />
                </columns>
             </TableView>
-            <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Editar" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
+            <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#detailsPerson" prefHeight="35.0" prefWidth="150.0" text="Editar" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
@@ -35,8 +35,8 @@
                   <String fx:value="table-button" />
                </styleClass>
             </Button>
-            <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button layoutX="572.0" layoutY="521.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Novo" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="500.0">
+            <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutX="572.0" layoutY="521.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#createNew" prefHeight="35.0" prefWidth="150.0" text="Novo" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="500.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

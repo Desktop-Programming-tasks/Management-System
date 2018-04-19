@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.modal.UpdateServiceController;
 import main.query.BrandQueryController;
 import main.query.GenericTransactionQueryController;
 import main.query.PersonQueryController;
@@ -72,6 +73,11 @@ public class GUIController {
     public void startApp(Stage stage) {
         mainStage = stage;
         modalStage = new Stage();
+        modalStage.setOnCloseRequest((event) -> {
+                modalStage = null;
+                modalStage = new Stage();
+        });
+        
         try {
             indexParent = FXMLLoader.load(getClass().getResource("Index.fxml"));
         } catch (IOException ex) {
@@ -197,13 +203,16 @@ public class GUIController {
         }
     }
     
-    public void showEmployeeRegister() {
+    public void showEmployeeRegister(boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("register/EmployeeRegister.fxml"));
             registerEmployee = loader.load();
             EmployeeRegisterController controller = (EmployeeRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerEmployee);
+            if(edit){
+                controller.setEdit();
+            }
             executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
@@ -245,7 +254,7 @@ public class GUIController {
         }
     }
     
-        /* MODALS */
+    /* MODALS */
     public void showModalService() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/Service.fxml"));
@@ -254,7 +263,43 @@ public class GUIController {
             modalScene = new Scene(modalService);
             modalStage.setScene(modalScene);
             
-            //modalStage.initOwner(mainStage);
+            modalStage.initOwner(mainStage);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            
+            modalStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showModalUpdateService() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/UpdateService.fxml"));
+            modalService = loader.load();
+            UpdateServiceController controller = (UpdateServiceController) loader.getController();
+            modalScene = new Scene(modalService);
+            modalStage.setScene(modalScene);
+            
+            controller.setEdit();
+            
+            modalStage.initOwner(mainStage);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            
+            modalStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showModalAddProduct() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("modal/AddProduct.fxml"));
+            modalService = loader.load();
+            //ServiceController controller = (ServiceController) loader.getController();
+            modalScene = new Scene(modalService);
+            modalStage.setScene(modalScene);
+            
+            modalStage.initOwner(mainStage);
             modalStage.initModality(Modality.APPLICATION_MODAL);
             
             modalStage.show();
