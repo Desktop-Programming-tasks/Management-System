@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
 import main.objects.persons.Brand;
+import main.utils.Validate;
 
 /**
  * FXML Controller class
@@ -70,6 +71,23 @@ public class ProductRegisterController implements Initializable {
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
+    }
+    
+    @FXML
+    private void register(){
+        if(Validate.validateEmpty("Código de barras", barCodeTextField.getText())){
+            Validate.validateAddressNumber(barCodeTextField.getText());
+        }
+        if(Validate.validateEmpty("Nome", nameTextField.getText())){
+            Validate.validateName(nameTextField.getText());
+        }
+        Validate.emptyTable(TableBrands);
+        
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
+        }
     }
     
     public void setEdit(){
