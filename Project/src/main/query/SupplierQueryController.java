@@ -75,5 +75,15 @@ public class SupplierQueryController implements Initializable {
     private void back(ActionEvent event) {
         GUIController.getInstance().backToPrevious();
     }
+    
+    @FXML
+    private void createNew() {
+        GUIController.getInstance().showSupplierRegister(false);
+    }
+    
+    @FXML
+    private void editSupplier() {
+        GUIController.getInstance().showSupplierRegister(true);
+    }
 
 }
