@@ -37,7 +37,7 @@
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#showEmployeeRegister" text="Funcionário" />
                       <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Produto" />
-                        <MenuItem mnemonicParsing="false" text="Serviço" />
+                        <MenuItem mnemonicParsing="false" onAction="#showModalService" text="Serviço" />
                         <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Fornecedor" />
                         <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Cliente" />
                     </items>

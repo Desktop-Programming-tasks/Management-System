@@ -227,5 +227,5 @@ public class GUIController {
         previousScene = null;
         mainStage.setScene(nowScene);
         mainStage.show();
-    }
+    } 
 }
