@@ -5,8 +5,6 @@
  */
 package main.objects.transations;
 
-import main.objects.persons.Brand;
-
 /**
  *
  * @author gabriel

@@ -15,9 +15,9 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField layoutY="44.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome da marca *" styleClass="border-botton" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+            <TextField fx:id="nameTextField" layoutY="44.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome da marca *" styleClass="border-botton" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
             <Button mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button layoutX="474.0" layoutY="306.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button layoutX="474.0" layoutY="306.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

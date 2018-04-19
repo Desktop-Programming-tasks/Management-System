@@ -13,8 +13,14 @@ import java.util.ArrayList;
  */
 public class JuridicalPerson extends Person{
 
-    public JuridicalPerson(String name, Address address, ArrayList<String> telephones, String Id) {
-        super(name, address, telephones, Id);
+    public JuridicalPerson(String name, Address address, ArrayList<String> telephones, String cnpj) {
+        super(name, address, telephones, cnpj);
+    }
+    public String getCNPJ(){
+        return getId();
+    }
+    public void setCNPJ(String cnpj){
+        setId(cnpj);
     }
     
 }

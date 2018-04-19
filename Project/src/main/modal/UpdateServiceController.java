@@ -6,6 +6,7 @@
 package main.modal;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import main.utils.Validate;
 
 /**
  * FXML Controller class
@@ -26,15 +28,13 @@ public class UpdateServiceController implements Initializable {
     @FXML
     private TextField textFieldValue;
     @FXML
-    private TextArea textAreaServiceDescription;
-    @FXML
     private ComboBox comboBoxState;
     @FXML
     private ComboBox comboBoxEmployee;
     @FXML
-    private DatePicker datePickerInit;
+    private DatePicker beginDate;
     @FXML
-    private DatePicker datePickerEnd;
+    private DatePicker endDate;
     
     /**
      * Initializes the controller class.
@@ -42,12 +42,31 @@ public class UpdateServiceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        textFieldValue.setText("56.41");
+        textFieldValue.setDisable(true);
     }    
+    
+    @FXML
+    private void update(){
+        if(Validate.validateEmpty("Name", textFieldServiceName.getText())){
+            Validate.validateName(textFieldServiceName.getText());
+        }
+        LocalDate localdate = beginDate.getValue();
+        Validate.validateEmpty("Data de início",localdate==null?"":localdate.toString());
+        
+        localdate = endDate.getValue();
+        Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
+        
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
+        }
+    }
     
     public void setEdit() {
         //change labels and load data from object
         textFieldServiceName.setText("BATATA");
         textFieldValue.setText("1222200000.00");
-        textAreaServiceDescription.setText("Vou descrever essa música linda que tocou meu coração e pentrou no cu do kapriel aquele arrombado do caralho");
     }
 }
