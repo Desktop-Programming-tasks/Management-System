@@ -20,8 +20,8 @@
             <TableView layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
                <columns>
                   <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Código" />
-                  <TableColumn maxWidth="-1.0" minWidth="900.0" prefWidth="900.0" resizable="false" text="Descrição" />
-                  <TableColumn maxWidth="-1.0" minWidth="175.0" prefWidth="175.0" resizable="false" text="Valor" />
+                  <TableColumn maxWidth="-1.0" minWidth="1016.0" prefWidth="1016.0" resizable="false" text="Descrição" />
+                  <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor" />
                </columns>
             </TableView>
             <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Detalhes" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
