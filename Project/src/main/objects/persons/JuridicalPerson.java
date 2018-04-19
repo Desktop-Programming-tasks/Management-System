@@ -12,26 +12,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class JuridicalPerson extends Person{
-    private String CNPJ;
 
-    public String getCNPJ() {
-        return CNPJ;
+    public JuridicalPerson(String name, Address address, ArrayList<String> telephones, String Id) {
+        super(name, address, telephones, Id);
     }
-
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
-    }
-
-    public JuridicalPerson(String CNPJ, String name, Address address, ArrayList<String> telephones) {
-        super(name, address, telephones);
-        this.CNPJ = CNPJ;
-    }
-
-    @Override
-    public String getId() {
-        return CNPJ;
-    }
-
-
     
 }

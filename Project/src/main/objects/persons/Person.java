@@ -15,6 +15,16 @@ public abstract class Person {
     private String name;
     private Address address;
     private ArrayList<String> telephones;
+    private String Id;
+    
+
+    public Person(String name, Address address, ArrayList<String> telephones, String Id) {
+        this.name = name;
+        this.address = address;
+        this.telephones = telephones;
+        this.Id = Id;
+    }
+    
 
     public String getName() {
         return name;
@@ -45,6 +55,13 @@ public abstract class Person {
         this.address = address;
         this.telephones = telephones;
     }
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String Id) {
+        this.Id = Id;
+    }
     
-    public abstract String getId();
 }

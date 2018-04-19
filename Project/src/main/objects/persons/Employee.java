@@ -15,11 +15,12 @@ public class Employee extends LegalPerson{
     private String login;
     private String password;
 
-    public Employee(String login, String password, String CPF, String RG, String name, Address address, ArrayList<String> telephones) {
-        super(CPF, RG, name, address, telephones);
+    public Employee(String login, String password, String name, Address address, ArrayList<String> telephones, String Id) {
+        super(name, address, telephones, Id);
         this.login = login;
         this.password = password;
     }
+
 
     public String getLogin() {
         return login;
