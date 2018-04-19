@@ -16,9 +16,8 @@ public class Product {
     private float price;
     private String name;
 
-    public Product(String barCode, int quantityInStock, Brand brand, float price, String name) {
+    public Product(String barCode, Brand brand, float price, String name) {
         this.barCode = barCode;
-        this.quantityInStock = quantityInStock;
         this.brand = brand;
         this.price = price;
         this.name = name;
