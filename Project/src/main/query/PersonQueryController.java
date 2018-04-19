@@ -72,6 +72,16 @@ public class PersonQueryController implements Initializable {
     }
     
     @FXML
+    private void createNew(){
+        GUIController.getInstance().showEmployeeRegister(false);
+    }
+    
+    @FXML
+    private void detailsPerson(){
+        GUIController.getInstance().showEmployeeRegister(true);
+    }
+    
+    @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
     }

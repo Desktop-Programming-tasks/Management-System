@@ -197,13 +197,16 @@ public class GUIController {
         }
     }
     
-    public void showEmployeeRegister() {
+    public void showEmployeeRegister(boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("register/EmployeeRegister.fxml"));
             registerEmployee = loader.load();
             EmployeeRegisterController controller = (EmployeeRegisterController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(registerEmployee);
+            if(edit){
+                controller.setEdit();
+            }
             executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
