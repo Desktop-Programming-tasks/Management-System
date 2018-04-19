@@ -6,6 +6,7 @@
 package main.query;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -50,9 +51,13 @@ public class GenericTransactionQueryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         movs= FXCollections.observableArrayList();
+        ArrayList<Brand> brands = new ArrayList<>();
+        brands.add(new Brand(1,"Nvidia"));
+        ArrayList<Brand> brands2 = new ArrayList<>();
+        brands2.add(new Brand(2,"Asus"));
         
-        Product p1= new Product("111", new Brand(1,"Nvidia"), 3, "Placa de video");
-        Product p2= new Product("222", new Brand(2,"Asus"), 100, "Placa mãe");
+        Product p1= new Product("111",brands , 3, "Placa de video");
+        Product p2= new Product("222", brands2, 100, "Placa mãe");
         Movimentation m = new Movimentation(p1,"Compra",3,10);
         movs.add(m);
         

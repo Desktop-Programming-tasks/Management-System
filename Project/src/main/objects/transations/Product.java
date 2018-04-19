@@ -5,14 +5,41 @@
  */
 package main.objects.transations;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gabriel
  */
 public class Product {
+    private class Brands{
+        private ArrayList<Brand> brands;
+
+        public ArrayList<Brand> getBrands() {
+            return brands;
+        }
+
+        public void setBrands(ArrayList<Brand> brands) {
+            this.brands = brands;
+        }
+
+        public Brands(ArrayList<Brand> brands) {
+            this.brands = brands;
+        }
+
+        @Override
+        public String toString() {
+            String name="";
+            for(Brand brand : brands){
+               name+= brand.getName()+ " | ";
+            }
+            return name;
+        }
+        
+    }
     private String barCode;
     private int quantityInStock;
-    private Brand brand;
+    private Brands brands;
     private float price;
     private String name;
 
@@ -21,9 +48,9 @@ public class Product {
     }
 
     
-    public Product(String barCode, Brand brand, float price, String name) {
+    public Product(String barCode, ArrayList<Brand> brands, float price, String name) {
         this.barCode = barCode;
-        this.brand = brand;
+        this.brands = new Brands(brands);
         this.price = price;
         this.name = name;
     }
@@ -52,12 +79,12 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public Brand getBrand() {
-        return brand;
+    public Brands getBrand() {
+        return brands;
     }
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+    public void setBrand(Brands brand) {
+        this.brands = brand;
     }
 
     public float getPrice() {
