@@ -15,7 +15,7 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField fx:id="ProductName" layoutY="56.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome do produto *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+            <TextField fx:id="ProductName" layoutY="56.0" prefHeight="26.0" prefWidth="536.0" promptText="Código de Barras *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
             <Label layoutX="3.0" layoutY="107.0" text="R$" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="107.0">
                <font>
                   <Font size="16.0" />

@@ -43,8 +43,9 @@ public class ServiceController implements Initializable {
             Validate.validateAddressNumber(valueTextField.getText());
         }
         
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        if(Validate.getErrorMessage().isEmpty()){
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
             Service serv = new Service(nameTextField.getText(),
                     Float.parseFloat(valueTextField.getText()));
             System.out.println(serv);
