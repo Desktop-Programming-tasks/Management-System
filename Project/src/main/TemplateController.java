@@ -103,10 +103,11 @@ public class TemplateController implements Initializable {
     @FXML
     public void register(){
         if(!customerOrSupplier.getText().isEmpty()){
-            if(Validate.validaCPF(customerOrSupplier.getText())){
+            if(Validate.validateCPF(customerOrSupplier.getText())){
                 //go
                 System.out.println("template::foi");
             }else{
+                System.out.println(Validate.getErrorMessage());
                 System.out.println("template::erro cpf");
             }
         }else{

@@ -29,7 +29,7 @@ public class Validate {
     private static final String RG_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{1}";
     private static final String CNPJ_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}||[0-9]{4}(-)[0-9]{2}";
     
-    public String getErrorMessage() {
+    public static String getErrorMessage() {
         String msg = errorMessage.toString();
         errorMessage = new StringBuilder();
         return(msg);
