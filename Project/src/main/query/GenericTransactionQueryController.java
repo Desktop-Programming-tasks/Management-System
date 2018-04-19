@@ -51,8 +51,8 @@ public class GenericTransactionQueryController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         movs= FXCollections.observableArrayList();
         
-        Product p1= new Product("111", 3, new Brand(1,"Nvidia"), 3, "Placa de video");
-        Product p2= new Product("222", 5, new Brand(2,"Asus"), 100, "Placa mãe");
+        Product p1= new Product("111", new Brand(1,"Nvidia"), 3, "Placa de video");
+        Product p2= new Product("222", new Brand(2,"Asus"), 100, "Placa mãe");
         Movimentation m = new Movimentation(p1,"Compra",3,10);
         movs.add(m);
         

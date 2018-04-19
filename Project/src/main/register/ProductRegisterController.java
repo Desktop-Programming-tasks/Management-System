@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
 import main.objects.transations.Brand;
+import main.objects.transations.Product;
 import main.utils.Validate;
 
 /**
@@ -84,6 +85,10 @@ public class ProductRegisterController implements Initializable {
         Validate.emptyTable(TableBrands);
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        if(Validate.getErrorMessage().isEmpty()){
+            Product product = new Product(barCodeTextField.getText(),new Brand(10,  "DUMMY"), 3,
+            nameTextField.getText());
+        }
     }
     
     @FXML

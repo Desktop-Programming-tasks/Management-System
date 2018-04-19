@@ -6,6 +6,7 @@
 package main.register;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.persons.Address;
+import main.objects.persons.Supplier;
+import main.objects.transations.Brand;
 import main.utils.Validate;
 
 /**
@@ -67,6 +71,20 @@ public class SupplierRegisterController implements Initializable {
         }
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        if(Validate.getErrorMessage().isEmpty()){
+             Address address = new Address(streetTextField.getText(),
+                    Integer.parseInt(numberTextField.getText()), districtTextField.getText(),
+                    "dummy", "dummy");
+            ArrayList<String> telephones = new ArrayList<>();
+            telephones.add(telTextField.getText());
+            if (!secTelTextField.getText().isEmpty()) {
+                telephones.add(secTelTextField.getText());
+            }
+            ArrayList<Brand> avaliableBrands = new ArrayList<>();
+            avaliableBrands.add(new Brand(1,"AMD"));
+            Supplier supplier = new Supplier(avaliableBrands, nameTextField.getText(), address,
+                    telephones, CNPJTextField.getText());
+        }
     }
  
     @FXML

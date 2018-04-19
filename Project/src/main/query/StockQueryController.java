@@ -45,9 +45,9 @@ public class StockQueryController implements Initializable {
         // TODO
         products=FXCollections.observableArrayList();
         
-        Product p1= new Product("111", 3, new Brand(1,"Nvidia"), 3, "Placa de video");
+        Product p1= new Product("111",new Brand(1,"Nvidia"), 3, "Placa de video");
         products.add(p1);
-        Product p2= new Product("222", 5, new Brand(2,"Asus"), 100, "Placa mãe");
+        Product p2= new Product("222", new Brand(2,"Asus"), 100, "Placa mãe");
         products.add(p2);
         
         Name.setCellValueFactory(new PropertyValueFactory<>("name"));
