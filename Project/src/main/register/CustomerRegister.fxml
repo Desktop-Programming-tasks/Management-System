@@ -21,12 +21,12 @@
                </font>
             </Label>
             <TextField fx:id="nameTextField" layoutY="100.0" prefHeight="30.0" prefWidth="830.0" promptText="Nome do Cliente *" />
-            <RadioButton layoutX="53.0" layoutY="180.0" mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="190.0">
+            <RadioButton fx:id="Juridical" layoutX="53.0" layoutY="180.0" mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="190.0">
                <toggleGroup>
-                  <ToggleGroup fx:id="person" />
+                  <ToggleGroup fx:id="personGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="53.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="Pessoa Fisica" textAlignment="CENTER" toggleGroup="$person" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
+            <RadioButton fx:id="legal" layoutX="53.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="Pessoa Fisica" textAlignment="CENTER" toggleGroup="$personGroup" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
             <Group layoutX="275.0" layoutY="150.0">
                <children>
                   <Group fx:id="legalGroup">

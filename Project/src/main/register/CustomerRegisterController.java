@@ -7,11 +7,17 @@ package main.register;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import main.GUIController;
 import main.utils.Validate;
 
@@ -44,6 +50,10 @@ public class CustomerRegisterController implements Initializable {
     private Label mainLabel;
     @FXML
     private Button actionBtn;
+    @FXML
+    private ToggleGroup personGroup;
+    @FXML
+    private Group legalGroup;
     
     /**
      * Initializes the controller class.
@@ -51,6 +61,22 @@ public class CustomerRegisterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        personGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                RadioButton radio = (RadioButton) newValue.getToggleGroup().getSelectedToggle();
+                if(radio.getId().toString().equals("legal")){
+                    CNPJTextField.setVisible(false);
+                    legalGroup.setVisible(true);
+                }else{
+                    CNPJTextField.setVisible(true);
+                    legalGroup.setVisible(false);
+                }
+                
+            }
+            
+        });
+        
     }
     
     @FXML
@@ -63,11 +89,17 @@ public class CustomerRegisterController implements Initializable {
         if(Validate.validateEmpty("Nome", nameTextField.getText())){
             Validate.validateName(nameTextField.getText());
         }
-        if(Validate.validateEmpty("RG", RGTextField.getText())){
-            Validate.validateRG(RGTextField.getText());
-        }
-        if(Validate.validateEmpty("CPF", CPFTextField.getText())){
-            Validate.validateCPF(CPFTextField.getText());
+        if(((RadioButton)personGroup.getSelectedToggle()).getId().toString().equals("legal")){
+            if(Validate.validateEmpty("RG", RGTextField.getText())){
+                Validate.validateRG(RGTextField.getText());
+            }
+            if(Validate.validateEmpty("CPF", CPFTextField.getText())){
+                Validate.validateCPF(CPFTextField.getText());
+            }
+        }else{
+            if(Validate.validateEmpty("CNPJ", CNPJTextField.getText())){
+                Validate.validateCNPJ(CNPJTextField.getText());
+            }
         }
         if(Validate.validateEmpty("Telefone", telTextField.getText())){
             Validate.validateTelephone(telTextField.getText());
