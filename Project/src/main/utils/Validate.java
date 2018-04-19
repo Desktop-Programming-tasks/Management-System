@@ -7,6 +7,7 @@ package main.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.control.TableView;
 
 /**
  *
@@ -232,4 +233,22 @@ public class Validate {
 //        Matcher matcher = test.matcher(rg);
 //        return matcher.matches();
 //    }
+    
+    public static boolean passwordMatch(String pass1, String pass2){
+        if(pass1.equals(pass2)){
+            return true;
+        }else{
+            errorMessage.append("Senhas diferentes!\n");
+            return false;
+        }
+    }
+    
+    public static boolean emptyTable(TableView table){
+        if(table.getItems().isEmpty()){
+            errorMessage.append("Nenhum item adicionado!\n");
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
