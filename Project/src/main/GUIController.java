@@ -190,6 +190,9 @@ public class GUIController {
             PersonQueryController controller = (PersonQueryController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(queryPerson);
+            if(personType.contains("Consulta")){
+                personType=personType.replace("Consulta", "");
+            }         
             controller.setPersonType(personType);
             controller.setInformation();
             executionStack.push(nowScene);

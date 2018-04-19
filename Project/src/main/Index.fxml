@@ -125,9 +125,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Vendas" />
                 <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Consulta Marcas" />
                   <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Compras" />
-                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Pessoas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Clientes" />
                   <MenuItem mnemonicParsing="false" text="Consulta Serviços" />
                   <MenuItem mnemonicParsing="false" onAction="#showStockQuery" text="Consulta Estoque" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Funcionarios" />
               </items>
             </Menu>
         </menus>
