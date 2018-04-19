@@ -22,5 +22,10 @@ public class JuridicalPerson extends Person{
     public void setCNPJ(String cnpj){
         setId(cnpj);
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"JuridicalPerson{" + '}';
+    }
     
 }

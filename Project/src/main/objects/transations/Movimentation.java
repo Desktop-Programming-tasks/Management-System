@@ -54,6 +54,11 @@ public class Movimentation extends Transation{
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Movimentation{" + "product=" + product + ", operationType=" + operationType + ", quantity=" + quantity + '}';
+    }
     
     
 }

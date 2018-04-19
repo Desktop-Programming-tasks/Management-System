@@ -35,4 +35,11 @@ public abstract class Transation {
     protected void setPrice(float price) {
         this.price = price;
     }    
+
+    @Override
+    public String toString() {
+        return "Transation{" + "price=" + price + ", id=" + id + '}';
+    }
+    
+    
 }
