@@ -47,7 +47,7 @@ public class AddServiceController implements Initializable {
     @FXML
     private void addService(){
         if(Validate.validateEmpty("Name", nameTextField.getText())){
-            Validate.validateName(nameTextField.getText());
+            Validate.validateAddressNumber(nameTextField.getText());
         }
         LocalDate localdate = beginDate.getValue();
         Validate.validateEmpty("Data de início",localdate==null?"":localdate.toString());
@@ -55,10 +55,13 @@ public class AddServiceController implements Initializable {
         localdate = endDate.getValue();
         Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
         
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        Service serv = new Service(beginDate.getValue(), endDate.getValue(),
-                Integer.parseInt(nameTextField.getText()));
-        System.out.println(serv);
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
+            Service serv = new Service(beginDate.getValue(), endDate.getValue(),
+            Integer.parseInt(nameTextField.getText()));
+            System.out.println(serv);
+        }
     }
     
     @FXML

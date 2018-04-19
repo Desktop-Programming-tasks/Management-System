@@ -103,8 +103,9 @@ public class EmployeeRegisterController implements Initializable {
             Validate.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
         }
         
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        if(Validate.getErrorMessage().isEmpty()){
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
             Address address = new Address(streetTextField.getText(), 
                     Integer.parseInt(numberTextField.getText())
                     ,districtTextField.getText(), "Dummy", "Dummy");
