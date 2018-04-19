@@ -104,11 +104,11 @@ public class GUIController {
             TemplateController controller = (TemplateController) loader.getController();
             previousScene = nowScene;
             nowScene = new Scene(actionParent);
+            controller.setActionType(actionType);
+            controller.setInformation();
             if(edit){
                 controller.setEdit();
             }
-            controller.setActionType(actionType);
-            controller.setInformation();
             executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
@@ -166,7 +166,6 @@ public class GUIController {
 
     public void showStockQuery() {
         try {
-            System.out.println("Entrou");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("query/StockQuery.fxml"));
             queryStock = loader.load();
             StockQueryController controller = (StockQueryController) loader.getController();

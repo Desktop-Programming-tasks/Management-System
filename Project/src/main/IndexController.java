@@ -33,8 +33,6 @@ public class IndexController implements Initializable {
         Button btn = (Button)(evt.getSource());
         String actionType;
         
-        System.out.println(btn.getText());
-        
         if(btn.getText().equals("VENDA")) {
             actionType = "Venda";
         } else {
