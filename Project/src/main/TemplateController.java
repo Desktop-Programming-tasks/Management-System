@@ -67,4 +67,19 @@ public class TemplateController implements Initializable {
             System.out.println("template::vazio");
         }
     }
+    
+    @FXML
+    public void showModalAddService() {
+        
+    }
+    
+    @FXML
+    public void showModalAddProduct() {
+        
+    }
+    
+    @FXML
+    public void deleteEntry() {
+        
+    }
 }

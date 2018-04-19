@@ -14,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author noda
  */
-public class ProductController implements Initializable {
+public class AddProductController implements Initializable {
 
     /**
      * Initializes the controller class.

@@ -42,17 +42,17 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Button layoutX="1066.0" layoutY="521.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Deletar entrada" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
+            <Button layoutX="1066.0" layoutY="521.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="35.0" prefWidth="150.0" text="Deletar entrada" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="716.0" layoutY="521.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Adicionar produto" AnchorPane.bottomAnchor="100.0">
+            <Button layoutX="716.0" layoutY="521.0" mnemonicParsing="false" onAction="#showModalAddProduct" prefHeight="35.0" prefWidth="150.0" text="Adicionar produto" AnchorPane.bottomAnchor="100.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="891.0" layoutY="521.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Adicionar serviço" AnchorPane.bottomAnchor="100.0">
+            <Button layoutX="891.0" layoutY="521.0" mnemonicParsing="false" onAction="#showModalAddService" prefHeight="35.0" prefWidth="150.0" text="Adicionar serviço" AnchorPane.bottomAnchor="100.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
