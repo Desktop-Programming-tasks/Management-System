@@ -8,10 +8,13 @@ package main.register;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
@@ -54,14 +57,27 @@ public class EmployeeRegisterController implements Initializable {
     private Label mainLabel;
     @FXML
     private Button actionBtn;
-    
-    
+    @FXML
+    private ComboBox<String> City;
+    @FXML
+    private ComboBox<String> State;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        ObservableList<String> cities = FXCollections.observableArrayList();
+        ObservableList<String> states= FXCollections.observableArrayList();
+        cities.add("Cornélio Procópio");
+        cities.add("Londrina");
+        cities.add("São Paulo");
+        
+        states.add("Paraná");
+        states.add("São Paulo");
+        
+        City.setItems(cities);
+        State.setItems(states);
     }    
     
     @FXML
@@ -164,6 +180,10 @@ public class EmployeeRegisterController implements Initializable {
     private void showServiceQuery() {
         GUIController.getInstance().showServiceQuery();
     }
+    @FXML
+    private void showEmployeeRegister() {
+        GUIController.getInstance().showEmployeeRegister(false);
+    }
 
     @FXML
     private void showBrandQuery() {
@@ -191,12 +211,7 @@ public class EmployeeRegisterController implements Initializable {
     private void showCustomerRegister() {
         GUIController.getInstance().showCustomerRegister(false);
     }
-
-    @FXML
-    private void showEmployeeRegister() {
-        GUIController.getInstance().showEmployeeRegister(false);
-    }
-
+    
     @FXML
     private void showProductRegister() {
         GUIController.getInstance().showProductRegister(false);

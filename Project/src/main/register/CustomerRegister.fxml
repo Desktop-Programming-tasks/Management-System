@@ -63,8 +63,8 @@
                   <TextField fx:id="streetTextField" layoutY="41.0" prefHeight="30.0" prefWidth="684.0" promptText="Rua *" />
                   <TextField fx:id="districtTextField" layoutY="94.0" prefHeight="30.0" prefWidth="388.0" promptText="Bairro *" />
                   <TextField fx:id="numberTextField" layoutX="700.0" layoutY="41.0" prefHeight="30.0" prefWidth="130.0" promptText="Número *" />
-                  <ComboBox layoutX="413.0" layoutY="96.0" prefHeight="26.0" prefWidth="239.0" promptText="Cidade" />
-                  <ComboBox layoutX="673.0" layoutY="95.0" prefHeight="26.0" prefWidth="157.0" promptText="Estado" />
+                  <ComboBox fx:id="City" layoutX="413.0" layoutY="96.0" prefHeight="26.0" prefWidth="239.0" promptText="Cidade" />
+                  <ComboBox fx:id="State" layoutX="673.0" layoutY="95.0" prefHeight="26.0" prefWidth="157.0" promptText="Estado" />
                </children>
             </Group>
             <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />

@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
@@ -62,12 +65,28 @@ public class CustomerRegisterController implements Initializable {
     private Group legalGroup;
 
     private String personType = "legal";
-
+    
+    @FXML 
+    private ComboBox<String> City;
+    
+    @FXML
+    private ComboBox<String> State;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ObservableList<String> cities = FXCollections.observableArrayList();
+        ObservableList<String> states= FXCollections.observableArrayList();
+        cities.add("Cornélio Procópio");
+        cities.add("Londrina");
+        cities.add("São Paulo");
+        
+        states.add("Paraná");
+        states.add("São Paulo");
+        
+        City.setItems(cities);
+        State.setItems(states);
         // TODO
         personGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
@@ -128,7 +147,7 @@ public class CustomerRegisterController implements Initializable {
         if (errorMsg.isEmpty()) {
             Address address = new Address(streetTextField.getText(),
                     Integer.parseInt(numberTextField.getText()), districtTextField.getText(),
-                    "dummy", "dummy");
+                    City.getValue(),State.getValue());
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add(telTextField.getText());
             if (!secTelTextField.getText().isEmpty()) {
@@ -208,11 +227,6 @@ public class CustomerRegisterController implements Initializable {
     }
 
     @FXML
-    private void showCustomerRegister() {
-        GUIController.getInstance().showCustomerRegister(false);
-    }
-
-    @FXML
     private void showEmployeeRegister() {
         GUIController.getInstance().showEmployeeRegister(false);
     }
@@ -226,7 +240,12 @@ public class CustomerRegisterController implements Initializable {
     private void showSupplierRegister() {
         GUIController.getInstance().showSupplierRegister(false);
     }
-
+    
+    @FXML
+    private void showCustomerRegister() {
+        GUIController.getInstance().showCustomerRegister(false);
+    }
+    
     @FXML
     private void showModalRegisterBrand() {
         GUIController.getInstance().showModalRegisterBrand();

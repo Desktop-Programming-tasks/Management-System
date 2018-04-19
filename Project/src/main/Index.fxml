@@ -103,13 +103,13 @@
         <menus>
           <Menu mnemonicParsing="false" text="Arquivo">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#showAboutInformationAlert" text="Sobre" />
+                  <MenuItem mnemonicParsing="false" text="Sobre" />
               <MenuItem mnemonicParsing="false" text="Fechar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Registros">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#showEmployeeRegister" text="Registrar Funcionario" />
+                  <MenuItem mnemonicParsing="false" text="Registrar Funcionario" />
               <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Registrar Cliente" />
                   <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Registrar Fornecedor" />
                   <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Registrar Produto" />
@@ -126,7 +126,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Consulta Marcas" />
                   <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Compras" />
                   <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Pessoas" />
-                  <MenuItem mnemonicParsing="false" onAction="#showServiceQuery" text="Consulta Serviços" />
+                  <MenuItem mnemonicParsing="false" text="Consulta Serviços" />
                   <MenuItem mnemonicParsing="false" onAction="#showStockQuery" text="Consulta Estoque" />
               </items>
             </Menu>
