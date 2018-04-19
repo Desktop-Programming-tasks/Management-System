@@ -21,8 +21,7 @@ public class Service extends Transation{
     private String assignedEmployee;
     private String name;
 
-    public Service(String name, int id,float price) {
-        super(id);
+    public Service(String name, float price) {
         this.name = name;
         super.setPrice(price);
     }
