@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 
 /**
@@ -29,10 +30,12 @@ public class IndexController implements Initializable {
 
     @FXML
     private void showMainAction(ActionEvent evt) {
-        String btnName = (evt.getSource()).toString();
+        Button btn = (Button)(evt.getSource());
         String actionType;
         
-        if(btnName.equals("VENDA")) {
+        System.out.println(btn.getText());
+        
+        if(btn.getText().equals("VENDA")) {
             actionType = "Venda";
         } else {
             actionType = "Compra";
