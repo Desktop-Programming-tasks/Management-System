@@ -9,12 +9,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import main.GUIController;
+import main.utils.Validate;
 
 /**
  * FXML Controller class
@@ -48,6 +47,29 @@ public class SupplierRegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    @FXML 
+    public void register(){
+        if(Validate.validateEmpty("'Nome do Cliente'", nameTextField.getText())) {
+            Validate.validateName(nameTextField.getText());
+        }
+        if(Validate.validateEmpty("'CNPJ'", CNPJTextField.getText())) {
+            Validate.validateCNPJ(CNPJTextField.getText());
+        }
+        if(Validate.validateEmpty("'Telefone principal'", telTextField.getText())) {
+            Validate.validateTelephone(telTextField.getText());
+        }
+        Validate.validateEmpty("'Rua'", streetTextField.getText());
+        Validate.validateEmpty("'Bairro'", districtTextField.getText());
+        if(Validate.validateEmpty("'Número da casa'", numberTextField.getText())) {
+            Validate.validateAddressNumber(numberTextField.getText());   
+        }
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
+        }
+    }
  
     @FXML
     public void back() {
