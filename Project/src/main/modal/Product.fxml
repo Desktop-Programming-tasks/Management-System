@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="275.0" maxWidth="600.0" minHeight="275.0" minWidth="600.0" prefHeight="275.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.modal.ProductController">
+<AnchorPane id="AnchorPane" maxHeight="275.0" maxWidth="600.0" minHeight="275.0" minWidth="600.0" prefHeight="275.0" prefWidth="600.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.modal.ProductController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
@@ -16,11 +16,14 @@
                </font>
             </Label>
             <TextField layoutY="56.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome do produto *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-            <Label layoutY="108.0" text="R$" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="105.0" />
-            <TextField layoutX="25.0" layoutY="104.0" promptText="valor *" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
-            <TextField layoutX="365.0" layoutY="100.0" promptText="quantidade *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <Button layoutX="8.0" layoutY="309.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-            <Button layoutX="411.0" layoutY="311.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Label layoutY="110.0" text="R$" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="110.0">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField layoutX="25.0" layoutY="104.0" promptText="Valor *" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0" />
+            <TextField layoutX="365.0" layoutY="100.0" promptText="Quantidade *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+            <Button layoutX="8.0" layoutY="309.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutX="411.0" layoutY="311.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

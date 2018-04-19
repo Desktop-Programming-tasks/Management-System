@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="225.0" maxWidth="600.0" minHeight="225.0" minWidth="600.0" prefHeight="225.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.modal.BrandController">
+<AnchorPane id="AnchorPane" maxHeight="225.0" maxWidth="600.0" minHeight="225.0" minWidth="600.0" prefHeight="225.0" prefWidth="600.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.modal.BrandController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
@@ -15,7 +15,7 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField layoutY="44.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome da marca *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+            <TextField layoutY="44.0" prefHeight="26.0" prefWidth="536.0" promptText="Nome da marca *" styleClass="border-botton" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
             <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
             <Button layoutX="474.0" layoutY="306.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>

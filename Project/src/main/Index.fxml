@@ -31,7 +31,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <MenuButton alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cadastrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <MenuButton alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Cadastrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Funcionário" />
                       <MenuItem mnemonicParsing="false" text="Produto" />
@@ -39,8 +39,8 @@
                         <MenuItem mnemonicParsing="false" text="Cliente" />
                     </items>
                   </MenuButton>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <MenuButton alignment="CENTER" contentDisplay="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
+                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <MenuButton alignment="CENTER" contentDisplay="BOTTOM" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Transações" />
                       <MenuItem mnemonicParsing="false" text="Vendas" />
@@ -60,12 +60,12 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="VENDA">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="VENDA">
                            <font>
                               <Font size="30.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="COMPRA" GridPane.columnIndex="1">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
                            <font>
                               <Font size="30.0" />
                            </font>
