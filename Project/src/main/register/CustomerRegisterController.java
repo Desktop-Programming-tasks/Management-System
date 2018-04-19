@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.utils.Validate;
 
 /**
  * FXML Controller class
@@ -59,11 +60,33 @@ public class CustomerRegisterController implements Initializable {
     
     @FXML 
     public void register(){
+        if(Validate.validateEmpty("Nome", nameTextField.getText())){
+            Validate.validateName(nameTextField.getText());
+        }
+        if(Validate.validateEmpty("RG", RGTextField.getText())){
+            Validate.validateRG(RGTextField.getText());
+        }
+        if(Validate.validateEmpty("CPF", CPFTextField.getText())){
+            Validate.validateCPF(CPFTextField.getText());
+        }
+        if(Validate.validateEmpty("Telefone", telTextField.getText())){
+            Validate.validateTelephone(telTextField.getText());
+        }
+        if(!secTelTextField.getText().isEmpty()){
+            Validate.validateTelephone(secTelTextField.getText());
+        }
+        Validate.validateEmpty("Rua", streetTextField.getText());
+        Validate.validateEmpty("Bairro", districtTextField.getText());
+        if(Validate.validateEmpty("Número", numberTextField.getText())){
+            Validate.validateAddressNumber(numberTextField.getText());
+        }
         
-    }
-    
-    private String validate(){
-        return "";
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
+        }
+        
     }
     
     public void setEdit(){
