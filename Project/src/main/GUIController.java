@@ -80,6 +80,9 @@ public class GUIController {
         modalStage.initOwner(mainStage);
         modalStage.initModality(Modality.APPLICATION_MODAL);
         
+        mainStage.setMinWidth(1280);
+        mainStage.setMinHeight(720);
+        
         try {
             indexParent = FXMLLoader.load(getClass().getResource("Index.fxml"));
         } catch (IOException ex) {

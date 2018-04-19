@@ -51,9 +51,11 @@
    -fx-font-size: 17px;
    -fx-border-radius: 0;
    -fx-cursor:hand;
+   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4) , 5, 0, 0, 1);
  }
 
 .dialog-pane .button:hover{     
   -fx-background-insets: 0;
   -fx-background-radius: 0; 
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4) , 10, 0, 0, 3);
  }
