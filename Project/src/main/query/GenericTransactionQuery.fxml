@@ -27,12 +27,12 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <Button layoutX="608.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Detalhes" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
+            <Button layoutX="608.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="175.0" mnemonicParsing="false" onAction="#details" prefHeight="35.0" prefWidth="150.0" text="Detalhes" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button fx:id="genericTransationQueryBtn" layoutX="857.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Cancelar XXXX" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
+            <Button fx:id="genericTransationQueryBtn" layoutX="857.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="175.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Cancelar XXXX" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

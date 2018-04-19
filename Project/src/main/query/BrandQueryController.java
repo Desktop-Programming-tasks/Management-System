@@ -35,6 +35,7 @@ public class BrandQueryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         brands =FXCollections.observableArrayList();
+        
         Brand b= new Brand(1, "Nvidia");
         brands.add(b);
         Brand b1= new Brand(1, "AMD");

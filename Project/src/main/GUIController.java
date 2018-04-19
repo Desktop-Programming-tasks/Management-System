@@ -97,7 +97,7 @@ public class GUIController {
         mainStage.show();
     }
     
-    public void showMainActionScreen(String actionType) {
+    public void showMainActionScreen(String actionType,boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Template.fxml"));
             actionParent = loader.load();
@@ -106,6 +106,9 @@ public class GUIController {
             nowScene = new Scene(actionParent);
             controller.setActionType(actionType);
             controller.setInformation();
+            if(edit){
+                controller.setEdit();
+            }
             executionStack.push(nowScene);
             mainStage.setScene(nowScene);
             mainStage.show();
@@ -163,7 +166,6 @@ public class GUIController {
 
     public void showStockQuery() {
         try {
-            System.out.println("Entrou");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("query/StockQuery.fxml"));
             queryStock = loader.load();
             StockQueryController controller = (StockQueryController) loader.getController();
