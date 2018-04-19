@@ -210,7 +210,9 @@ public class GUIController {
             previousScene = nowScene;
             nowScene = new Scene(registerCustomer);
             executionStack.push(nowScene);
-            //if(edit) 
+            if(edit){
+                controller.setEdit();
+            } 
                 
             mainStage.setScene(nowScene);
             mainStage.show();
