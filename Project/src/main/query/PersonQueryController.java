@@ -73,12 +73,28 @@ public class PersonQueryController implements Initializable {
     
     @FXML
     private void createNew(){
-        GUIController.getInstance().showEmployeeRegister(false);
+        switch(personType) {
+            case "Funcionários":
+                GUIController.getInstance().showEmployeeRegister(false);
+                break;
+                
+            case "Clientes":
+                GUIController.getInstance().showCustomerRegister(false);
+                break;
+        }
     }
     
     @FXML
     private void detailsPerson(){
-        GUIController.getInstance().showEmployeeRegister(true);
+        switch(personType) {
+            case "Funcionários":
+                GUIController.getInstance().showEmployeeRegister(true);
+                break;
+                
+            case "Clientes":
+                GUIController.getInstance().showCustomerRegister(true);
+                break;
+        }
     }
     
     @FXML

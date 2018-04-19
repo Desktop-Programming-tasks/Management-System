@@ -186,7 +186,7 @@ public class GUIController {
         }
     }
     
-    public void showCustomerRegister() {
+    public void showCustomerRegister(boolean edit) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("register/CustomerRegister.fxml"));
             registerCustomer = loader.load();
@@ -194,6 +194,8 @@ public class GUIController {
             previousScene = nowScene;
             nowScene = new Scene(registerCustomer);
             executionStack.push(nowScene);
+            //if(edit) 
+                
             mainStage.setScene(nowScene);
             mainStage.show();
         } catch (IOException ex) {
