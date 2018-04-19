@@ -52,8 +52,8 @@
                   <TextField fx:id="streetTextField" layoutY="41.0" prefHeight="30.0" prefWidth="558.0" promptText="Rua *" />
                   <TextField fx:id="districtTextField" layoutY="94.0" prefHeight="30.0" prefWidth="300.0" promptText="Bairro *" />
                   <TextField fx:id="numberTextField" layoutX="590.0" layoutY="41.0" prefHeight="30.0" prefWidth="130.0" promptText="Número *" />
-                  <ComboBox layoutX="310.0" layoutY="95.0" prefHeight="26.0" prefWidth="239.0" promptText="Cidade" />
-                  <ComboBox layoutX="563.0" layoutY="95.0" prefHeight="26.0" prefWidth="157.0" promptText="Estado" />
+                  <ComboBox fx:id="City" layoutX="310.0" layoutY="95.0" prefHeight="26.0" prefWidth="239.0" promptText="Cidade" />
+                  <ComboBox fx:id="State" layoutX="563.0" layoutY="95.0" prefHeight="26.0" prefWidth="157.0" promptText="Estado" />
                </children>
             </Group>
             <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />

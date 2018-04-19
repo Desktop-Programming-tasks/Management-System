@@ -126,7 +126,7 @@ public class EmployeeRegisterController implements Initializable {
         if(errorMsg.isEmpty()){
             Address address = new Address(streetTextField.getText(), 
                     Integer.parseInt(numberTextField.getText())
-                    ,districtTextField.getText(), "Dummy", "Dummy");
+                    ,districtTextField.getText(), City.getValue(), State.getValue());
             ArrayList<String> telephones= new ArrayList<>();
             telephones.add(telTextField.getText());
             if(!secTelTextField.getText().isEmpty()){
