@@ -72,4 +72,9 @@ public class UpdateServiceController implements Initializable {
         textFieldServiceName.setText("BATATA");
         textFieldValue.setText("1222200000.00");
     }
+    
+    @FXML
+    public void closeModal() {
+        GUIController.getInstance().closeModal();
+    }
 }

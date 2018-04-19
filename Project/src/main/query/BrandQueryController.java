@@ -48,6 +48,11 @@ public class BrandQueryController implements Initializable {
     }    
     
     @FXML
+    private void createNewBrand() {
+        GUIController.getInstance().showModalRegisterBrand();
+    }
+    
+    @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
     }
