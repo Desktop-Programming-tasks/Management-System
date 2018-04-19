@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -8,41 +7,37 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="gf" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.register.CustomerRegisterController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Pane layoutX="193.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label text="Registro de Cliente">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField layoutY="100.0" prefHeight="30.0" prefWidth="830.0" promptText="Nome do Cliente *" />
+            <RadioButton layoutX="53.0" layoutY="180.0" mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="190.0">
+               <toggleGroup>
+                  <ToggleGroup fx:id="person" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="53.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="Pessoa Fisica" textAlignment="CENTER" toggleGroup="$person" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
+            <Group layoutX="275.0" layoutY="150.0">
                <children>
-                  <Label text="Registro de Cliente">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutY="100.0" prefHeight="30.0" prefWidth="830.0" promptText="Nome do Cliente *" />
-                  <ToggleButtonGroup layoutY="150.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="239.0">
-                     <toggles>
-                        <RadioButton mnemonicParsing="false" text="Pessoa Fisica" textAlignment="CENTER" />
-                        <RadioButton mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
-                     </toggles>
-                  </ToggleButtonGroup>
-                  <Group layoutX="275.0" layoutY="150.0">
+                  <Group>
                      <children>
-                        <Group>
-                           <children>
-                              <TextField layoutY="43.0" prefHeight="26.0" prefWidth="330.0" promptText="CPF *" />
-                              <TextField prefWidth="330.0" promptText="RG *" />
-                           </children>
-                        </Group>
-                        <TextField prefHeight="26.0" prefWidth="330.0" promptText="CNPJ *" visible="false" />
+                        <TextField layoutY="43.0" prefHeight="26.0" prefWidth="330.0" promptText="CPF *" />
+                        <TextField prefWidth="330.0" promptText="RG *" />
                      </children>
                   </Group>
+                  <TextField prefHeight="26.0" prefWidth="330.0" promptText="CNPJ *" visible="false" />
                </children>
-            </Pane>
+            </Group>
             <Separator layoutY="269.0" prefHeight="5.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="270.0" />
             <Group layoutY="300.0">
                <children>
@@ -69,7 +64,7 @@
                   <ComboBox layoutX="673.0" layoutY="95.0" prefHeight="26.0" prefWidth="157.0" promptText="Estado" />
                </children>
             </Group>
-            <Button layoutY="621.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
             <Button layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <Separator layoutX="10.0" layoutY="280.0" prefHeight="5.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="410.0" />
          </children>

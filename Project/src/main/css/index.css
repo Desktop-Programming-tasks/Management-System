@@ -209,7 +209,7 @@
 /*scroll bar*/
 .scroll-bar:vertical>.track-background, .scroll-bar:horizontal>.track-background
 	{
-	-fx-background-color: -swatch-light-grey;
+/*	-fx-background-color: -swatch-light-grey;*/
 	-fx-background-insets: 0.0;
 }
 

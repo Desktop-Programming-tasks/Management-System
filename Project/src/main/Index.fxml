@@ -35,16 +35,17 @@
                <children>
                   <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Registrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Funcionário" />
-                      <MenuItem mnemonicParsing="false" text="Produto" />
+                      <MenuItem mnemonicParsing="false" onAction="#showEmployeeRegister" text="Funcionário" />
+                      <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Produto" />
                         <MenuItem mnemonicParsing="false" text="Serviço" />
-                        <MenuItem mnemonicParsing="false" text="Cliente" />
+                        <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Fornecedor" />
+                        <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Cliente" />
                     </items>
                      <graphic>
                         <FontAwesomeIconView glyphName="PLUS_SQUARE" opacity="0.5" size="4em" />
                      </graphic>
                   </MenuButton>
-                  <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showStockQuery" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
                         <FontAwesomeIconView glyphName="CUBES" opacity="0.5" size="6EM" />
                      </graphic></Button>
@@ -53,10 +54,10 @@
                       <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Transações" />
                       <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Vendas" />
                         <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Compra" />
-                        <MenuItem mnemonicParsing="false" text="Serviços" />
-                        <MenuItem mnemonicParsing="false" text="Funcionários" />
-                        <MenuItem mnemonicParsing="false" text="Clientes" />
-                        <MenuItem mnemonicParsing="false" text="Marcas" />
+                        <MenuItem mnemonicParsing="false" onAction="#showServiceQuery" text="Serviços" />
+                        <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Funcionários" />
+                        <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Clientes" />
+                        <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Marcas" />
                     </items>
                      <graphic>
                         <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="6em" />
@@ -83,10 +84,7 @@
                               <FontAwesomeIconView glyphName="MONEY" opacity="0.5" size="12em" />
                            </graphic>
                         </Button>
-                        <Button contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showMainAction" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
+                        <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showMainAction" styleClass="level-1" text="COMPRA" GridPane.columnIndex="1">
                            <graphic>
                               <FontAwesomeIconView glyphName="SHOPPING_CART" opacity="0.5" size="12em" />
                            </graphic>

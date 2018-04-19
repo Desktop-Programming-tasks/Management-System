@@ -14,6 +14,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.objects.transations.Service;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import main.GUIController;
 
 /**
  * FXML Controller class
@@ -48,4 +51,8 @@ public class ServiceQueryController implements Initializable {
         ServiceTable.setItems(services);
     }    
     
+    @FXML
+    public void back() {
+        GUIController.getInstance().backToPrevious();
+    }
 }
