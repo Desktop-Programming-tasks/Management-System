@@ -33,17 +33,22 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        ProductPrice.setText("50.60");
+        ProductPrice.setDisable(true);
     }
 
     @FXML
     public void addProduct() {
-        if (!ProductName.getText().isEmpty() && !ProductPrice.getText().isEmpty()
-                && !ProductQuantity.getText().isEmpty()) {
-            try {
-                Integer.parseInt(ProductQuantity.getText());
-            } catch (Exception e) {
-                System.out.println("AddProduct::Erro");
-            }
+        if(Validate.validateEmpty("Name", ProductName.getText())){
+            Validate.validateName(ProductName.getText());
+        }
+        if(Validate.validateEmpty("Quantidade",ProductQuantity.getText())){
+            Validate.validateAddressNumber(ProductQuantity.getText());
+        }
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
         }
     }
 
