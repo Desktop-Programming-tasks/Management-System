@@ -119,5 +119,9 @@ public class IndexController implements Initializable {
         GUIController.getInstance().showModalService();
     }
 
+    @FXML
+    private void showAboutInformationAlert() {
+        GUIController.getInstance().showAboutInformationAlert();
+    }
 
 }

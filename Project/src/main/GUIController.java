@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.modal.BrandController;
@@ -381,6 +382,18 @@ public class GUIController {
        
     }
     
+    public void showInformationEraseAlert() {
+        Alert aboutInfo = new Alert(Alert.AlertType.CONFIRMATION);
+        
+        aboutInfo.setTitle("Operação de remoção");
+        aboutInfo.setHeaderText("Remoção bem sucedida!");
+        aboutInfo.setContentText("Operação de remoção concluída!");
+        
+        DialogPane diagPanel = aboutInfo.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        aboutInfo.showAndWait();
+    }
+    
     public void showInformationAlert(String msg) {
         Alert informationDiag;
         if(msg.isEmpty()) {
@@ -398,6 +411,19 @@ public class GUIController {
         diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
         informationDiag.showAndWait();
     }
+    
+    public void showAboutInformationAlert() {
+        Alert aboutInfo = new Alert(Alert.AlertType.INFORMATION);
+        
+        aboutInfo.setTitle("Sobre o Software");
+        aboutInfo.setHeaderText("Sistema de Gerênciamento para Lojas de Informática.");
+        aboutInfo.setContentText("Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
+        
+        DialogPane diagPanel = aboutInfo.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        aboutInfo.showAndWait();
+    }
+        
     
     public void closeModal() {
         modalStage.close();
