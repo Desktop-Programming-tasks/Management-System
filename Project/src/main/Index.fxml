@@ -50,9 +50,9 @@
                      </graphic></Button>
                   <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Transações" />
-                      <MenuItem mnemonicParsing="false" text="Vendas" />
-                        <MenuItem mnemonicParsing="false" text="Compra" />
+                      <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Transações" />
+                      <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Vendas" />
+                        <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Compra" />
                         <MenuItem mnemonicParsing="false" text="Serviços" />
                         <MenuItem mnemonicParsing="false" text="Funcionários" />
                         <MenuItem mnemonicParsing="false" text="Clientes" />

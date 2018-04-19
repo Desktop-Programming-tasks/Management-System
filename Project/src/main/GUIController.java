@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.query.GenericTransactionQueryController;
 
 /**
  *
@@ -22,10 +23,8 @@ public class GUIController {
     
     private Parent indexParent;
     private Parent actionParent;
-    private Parent queryPurchase;
-    private Parent querySell;
     private Parent queryService;
-    private Parent queryTransaction;
+    private Parent queryGenericTransaction;
     private Parent queryCustomer;
     private Parent queryEmployee;
     private Parent registerCustomer;
@@ -73,6 +72,22 @@ public class GUIController {
             previousScene = nowScene;
             nowScene = new Scene(actionParent);
             controller.setActionType(actionType);
+            controller.setInformation();
+            mainStage.setScene(nowScene);
+            mainStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showGenericTransationQuery(String transactionType) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("query/GenericTransactionQuery.fxml"));
+            queryGenericTransaction = loader.load();
+            GenericTransactionQueryController controller = (GenericTransactionQueryController) loader.getController();
+            previousScene = nowScene;
+            nowScene = new Scene(queryGenericTransaction);
+            controller.setTransactionType(transactionType);
             controller.setInformation();
             mainStage.setScene(nowScene);
             mainStage.show();

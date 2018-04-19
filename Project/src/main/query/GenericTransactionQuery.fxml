@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.query.PurchaseQueryController">
+<AnchorPane id="AnchorPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.query.GenericTransactionQueryController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
-            <Label layoutY="6.0" text="Consulta de Compras" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="genericTransactionQueryTitle" layoutY="6.0" text="Consulta de XXXXXX" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="25.0" />
                </font>
@@ -32,12 +32,12 @@
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutX="857.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Cancelar compra" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
+            <Button fx:id="genericTransationQueryBtn" layoutX="857.0" layoutY="553.0999755859375" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Cancelar XXXX" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />
                </styleClass></Button>
-            <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuItem;
 
 /**
  * FXML Controller class
@@ -38,6 +39,13 @@ public class IndexController implements Initializable {
         }
         
         GUIController.getInstance().showMainActionScreen(actionType);
+    }
+    
+    @FXML
+    private void showGenericTransaction(ActionEvent evt) {
+        MenuItem itemName = (MenuItem) (evt.getSource());
+        
+        GUIController.getInstance().showGenericTransationQuery(itemName.getText());
     }
     
 }
