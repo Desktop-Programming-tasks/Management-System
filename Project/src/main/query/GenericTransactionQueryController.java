@@ -18,7 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
-import main.objects.persons.Brand;
+import main.objects.transations.Brand;
 import main.objects.transations.Movimentation;
 import main.objects.transations.Product;
 

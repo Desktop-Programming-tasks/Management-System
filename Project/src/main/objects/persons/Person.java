@@ -56,11 +56,11 @@ public abstract class Person {
         this.telephones = telephones;
     }
 
-    public String getId() {
+    protected String getId() {
         return Id;
     }
 
-    public void setId(String Id) {
+    protected void setId(String Id) {
         this.Id = Id;
     }
     
