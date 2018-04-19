@@ -13,8 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -57,6 +57,11 @@ public class SupplierRegisterController implements Initializable {
     @FXML
     private TableColumn<Brand,String> Brands;
     
+    @FXML
+    private ComboBox<String> City;
+    @FXML
+    private ComboBox<String> State;
+    
     ObservableList<Brand> brands;
 
     /**
@@ -74,6 +79,18 @@ public class SupplierRegisterController implements Initializable {
         
         Brands.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandTable.setItems(brands);
+        ObservableList<String> cities = FXCollections.observableArrayList();
+        ObservableList<String> states= FXCollections.observableArrayList();
+        
+        cities.add("Cornélio Procópio");
+        cities.add("Londrina");
+        cities.add("São Paulo");
+        
+        states.add("Paraná");
+        states.add("São Paulo");
+        
+        City.setItems(cities);
+        State.setItems(states);
     }    
     
     @FXML 
@@ -99,7 +116,7 @@ public class SupplierRegisterController implements Initializable {
         if(errorMsg.isEmpty()){
              Address address = new Address(streetTextField.getText(),
                     Integer.parseInt(numberTextField.getText()), districtTextField.getText(),
-                    "dummy", "dummy");
+                    City.getValue(), State.getValue());
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add(telTextField.getText());
             if (!secTelTextField.getText().isEmpty()) {
