@@ -27,6 +27,11 @@ public class JuridicalPerson extends Person{
         this.CNPJ = CNPJ;
     }
 
+    @Override
+    public String getId() {
+        return CNPJ;
+    }
+
 
     
 }
