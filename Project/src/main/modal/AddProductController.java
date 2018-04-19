@@ -47,10 +47,14 @@ public class AddProductController implements Initializable {
         if(Validate.validateEmpty("Quantidade",ProductQuantity.getText())){
             Validate.validateAddressNumber(ProductQuantity.getText());
         }
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        Product product = new Product(ProductName.getText());
-        Movimentation mov = new Movimentation(product, "dummy",Integer.parseInt(ProductQuantity.getText()));
-        System.out.println(mov);
+        
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
+            Product product = new Product(ProductName.getText());
+            Movimentation mov = new Movimentation(product, "dummy",Integer.parseInt(ProductQuantity.getText()));
+            System.out.println(mov);
+        }
     }
 
     @FXML

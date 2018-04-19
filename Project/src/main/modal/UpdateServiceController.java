@@ -52,7 +52,7 @@ public class UpdateServiceController implements Initializable {
     @FXML
     private void update(){
         if(Validate.validateEmpty("Name", textFieldServiceName.getText())){
-            Validate.validateName(textFieldServiceName.getText());
+            Validate.validateAddressNumber(textFieldServiceName.getText());
         }
         LocalDate localdate = beginDate.getValue();
         Validate.validateEmpty("Data de início",localdate==null?"":localdate.toString());
@@ -60,8 +60,9 @@ public class UpdateServiceController implements Initializable {
         localdate = endDate.getValue();
         Validate.validateEmpty("Data de fim",localdate==null?"":localdate.toString());
         
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
-        if(Validate.getErrorMessage().isEmpty()){
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
             Service serv= new Service(Integer.parseInt(textFieldServiceName.getText()));
             serv.setFinishDate(endDate.getValue());
             System.out.println(serv);
@@ -70,8 +71,10 @@ public class UpdateServiceController implements Initializable {
     
     public void setEdit() {
         //change labels and load data from object
-        textFieldServiceName.setText("BATATA");
+        textFieldServiceName.setText("01324");
         textFieldValue.setText("1222200000.00");
+        beginDate.setValue(LocalDate.now());
+        endDate.setValue(LocalDate.now());
     }
     
     @FXML

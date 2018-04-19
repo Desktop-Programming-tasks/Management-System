@@ -111,7 +111,11 @@ public class TemplateController implements Initializable {
         }
         Validate.emptyTable(Transations);
         
-        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        String errorMsg = Validate.getErrorMessage();
+        GUIController.getInstance().showInformationAlert(errorMsg);
+        if(errorMsg.isEmpty()){
+            
+        }
     }
     
     public void setEdit(){
