@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.transations.Service;
 import main.utils.Validate;
 
 /**
@@ -43,6 +44,10 @@ public class ServiceController implements Initializable {
         }
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        if(Validate.getErrorMessage().isEmpty()){
+            Service serv = new Service(nameTextField.getText(),
+                    Float.parseFloat(valueTextField.getText()));
+        }
     }
     
     @FXML

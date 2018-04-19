@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.GUIController;
+import main.objects.transations.Brand;
 import main.utils.Validate;
 
 /**
@@ -44,6 +45,9 @@ public class BrandController implements Initializable {
         }
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
+        if(Validate.getErrorMessage().isEmpty()){
+            Brand brand = new Brand(nameTextField.getText());
+        }
     }
     
     public void setAction(String action) {
