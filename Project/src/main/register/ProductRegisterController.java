@@ -118,6 +118,9 @@ public class ProductRegisterController implements Initializable {
         actionBtn.setText("Salvar");
         mainLabel.setText("Detalhes do Produto");
         
+        priceTextField.setDisable(true);
+        priceTextField.setText("96.50");
+        
         quantityGroup.setVisible(true);
         quantityTextField.setText("99");
         
