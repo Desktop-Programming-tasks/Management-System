@@ -90,4 +90,9 @@ public class IndexController implements Initializable {
     private void showSupplierRegister() {
         GUIController.getInstance().showSupplierRegister();
     }
+    
+    @FXML
+    private void showModalService() {
+        GUIController.getInstance().showModalService();
+    }
 }
