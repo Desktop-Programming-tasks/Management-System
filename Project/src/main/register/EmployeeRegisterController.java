@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.GUIController;
 
@@ -30,9 +31,9 @@ public class EmployeeRegisterController implements Initializable {
     @FXML
     private TextField userTextField;
     @FXML
-    private TextField passTextField;
+    private PasswordField passwordFieldOficial;
     @FXML
-    private TextField confirmPassTextField;
+    private PasswordField passwordFieldConfirm;
     @FXML
     private TextField telTextField;
     @FXML
@@ -67,8 +68,8 @@ public class EmployeeRegisterController implements Initializable {
         RGTextField.setText("12.654.156-8");
         CPFTextField.setText("132.165.458-45");
         userTextField.setText("Placeholder username 1");
-        passTextField.setText("placeholder 1");
-        confirmPassTextField.setText("placeholder 1");
+        passwordFieldOficial.setText("placeholder 1");
+        passwordFieldConfirm.setText("placeholder 1");
         telTextField.setText("(43)98756-5498");
         streetTextField.setText("Placeholder street");
         numberTextField.setText("245");
@@ -76,5 +77,10 @@ public class EmployeeRegisterController implements Initializable {
         
         mainLabel.setText("Detalhe de Funcionário");
         actionBtn.setText("Salvar");
+    }
+    
+    private boolean validateFields() {
+        
+        return(true);
     }
 }

@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
  */
 public class Validate {
 
+    private static StringBuilder errorMessage = new StringBuilder();
+    
     private static final int NAME_MAX_LENGTH = 50;
     private static final int NICK_MIN_LENGTH = 4;
     private static final int NICK_MAX_LENGTH = 25;
@@ -26,85 +28,208 @@ public class Validate {
     private static final String CPF_PATTERN = "[0-9]{3}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{2}";
     private static final String RG_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{1}";
     private static final String CNPJ_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}||[0-9]{4}(-)[0-9]{2}";
-
-    public static boolean validaNum(String num) {
+    
+    public String getErrorMessage() {
+        String msg = errorMessage.toString();
+        errorMessage = new StringBuilder();
+        return(msg);
+    }
+    
+    
+    public static boolean validateEmpty(String fieldName, String content) {
+        if(content.isEmpty()) {
+            errorMessage.append(fieldName).append(" não pode ser vazio!\n");
+            return(false);
+        } else {
+            return(true);
+        }
+    }
+    
+    public static boolean validateTelephone(String num) {
         String pattern = TEL_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if (num.isEmpty()) {
-            return (false);
-        } else if (!matcher.matches()) {
-            return (false);
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Formato de telefone inválido!\n");
+            return(false);
         } else {
-            return (true);
+            return(true);
         }
     }
+    
+//    public static boolean validaNum(String num) {
+//        String pattern = TEL_NUMBER_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(num);
+//        if (num.isEmpty()) {
+//            return (false);
+//        } else if (!matcher.matches()) {
+//            return (false);
+//        } else {
+//            return (true);
+//        }
+//    }
 
-    public static boolean validaNome(String nome) {
-        if (nome.isEmpty()) {
-            return (false);
-        } else if (nome.length() > NAME_MAX_LENGTH) {
-            return (false);
+    
+    public static boolean validateName(String name) {
+        if(name.length() > NAME_MAX_LENGTH) {
+            errorMessage.append("Nome muito grande!\n");
+            return(false);
         } else {
-            return (true);
+            return(true);
         }
     }
+    
+//    public static boolean validaNome(String nome) {
+//        if (nome.isEmpty()) {
+//            return (false);
+//        } else if (nome.length() > NAME_MAX_LENGTH) {
+//            return (false);
+//        } else {
+//            return (true);
+//        }
+//    }
 
-    public static boolean validaNick(String nick) {
+    public static boolean validateNick(String nick) {
         String pattern = NICKNAME_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(nick);
-        if (nick.isEmpty()) {
-            return (false);
-        } else if (!matcher.matches()) {
-            return (false);
-        } else if (nick.length() < NICK_MIN_LENGTH) {
-            return (false);
-        } else if (nick.length() > NICK_MAX_LENGTH) {
-            return (false);
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Formato de nickname inválido!\n");
+            return(false);
+        } else if(nick.length() < NICK_MIN_LENGTH) {
+            errorMessage.append("Nickname muito curto!\n");
+            return(false);
+        } else if(nick.length() > NICK_MAX_LENGTH) {
+            errorMessage.append("Nickname muito longo!\n");
+            return(false);
         } else {
-            return (true);
+            return(true);
         }
     }
+    
+//    public static boolean validaNick(String nick) {
+//        String pattern = NICKNAME_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(nick);
+//        if (nick.isEmpty()) {
+//            return (false);
+//        } else if (!matcher.matches()) {
+//            return (false);
+//        } else if (nick.length() < NICK_MIN_LENGTH) {
+//            return (false);
+//        } else if (nick.length() > NICK_MAX_LENGTH) {
+//            return (false);
+//        } else {
+//            return (true);
+//        }
+//    }
 
-    public static boolean validaPassword(String password) {
-        if (password.isEmpty()) {
-            return false;
-        }
+    public static boolean validatePassword(String password) {
         if (password.length() > PASSWORD_MAX_LENGTH) {
-            return false;
+            errorMessage.append("Senha muito longa!\n");
+            return(false);
+        } else if(password.length() < PASSWORD_MIN_LENGTH) {
+            errorMessage.append("Senha muito curta!\n");
+            return(false);
+        } else {
+            return(true);
         }
-        return password.length() > PASSWORD_MIN_LENGTH;
     }
+    
+//    public static boolean validaPassword(String password) {
+//        if (password.isEmpty()) {
+//            return false;
+//        }
+//        if (password.length() > PASSWORD_MAX_LENGTH) {
+//            return false;
+//        }
+//        return password.length() > PASSWORD_MIN_LENGTH;
+//    }
 
-    public static boolean validaNumAddress(String num) {
+    public static boolean validateAddressNumber(String num) {
         String pattern = ADDRESS_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if (num.isEmpty()) {
-            return false;
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Número de endereço inválido!\n");
+            return(false);
+        } else {
+            return(true);
         }
-        return matcher.matches();
     }
+    
+    
+//    public static boolean validaNumAddress(String num) {
+//        String pattern = ADDRESS_NUMBER_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(num);
+//        if (num.isEmpty()) {
+//            return false;
+//        }
+//        return matcher.matches();
+//    }
 
-    public static boolean validaCPF(String cpf) {
+    public static boolean validateCPF(String cpf) {
         String pattern = CPF_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(cpf);
-        return matcher.matches();
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Número de CPF inválido!\n");
+            return(false);
+        } else {
+            return(true);
+        }
     }
-
-    public static boolean validaCNPJ(String cnpj) {
+    
+    public static boolean validateCNPJ(String cnpj) {
         String pattern = CNPJ_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(cnpj);
-        return matcher.matches();
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Número de CNPJ inválido!\n");
+            return(false);
+        } else {
+            return(true);
+        }
     }
     
-    public static boolean validaRG(String rg) {
+    public static boolean validateRG(String rg) {
         String pattern = RG_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(rg);
-        return matcher.matches();
+        
+        if(!matcher.matches()) {
+            errorMessage.append("Número de RG inválido!\n");
+            return(false);
+        } else {
+            return(true);
+        }
     }
+    
+//    public static boolean validaCPF(String cpf) {
+//        String pattern = CPF_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(cpf);
+//        return matcher.matches();
+//    }
+//
+//    public static boolean validaCNPJ(String cnpj) {
+//        String pattern = CNPJ_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(cnpj);
+//        return matcher.matches();
+//    }
+//    
+//    public static boolean validaRG(String rg) {
+//        String pattern = RG_PATTERN;
+//        Pattern test = Pattern.compile(pattern);
+//        Matcher matcher = test.matcher(rg);
+//        return matcher.matches();
+//    }
 }
