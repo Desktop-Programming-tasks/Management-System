@@ -156,7 +156,7 @@
 }
 
 /* MenuButton */
-.menu-button {
+.menu-button .label{
     -fx-text-fill: -primary-color;
 }
 
