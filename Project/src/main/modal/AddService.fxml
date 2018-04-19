@@ -4,14 +4,13 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" centerShape="false" maxHeight="425.0" maxWidth="600.0" minHeight="425.0" minWidth="600.0" prefHeight="425.0" prefWidth="600.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.modal.AddServiceController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
+      <AnchorPane prefHeight="200.0" prefWidth="536.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="32.0">
          <children>
             <Label styleClass="text-test-meu" text="Adicionar serviço" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -38,7 +37,6 @@
                </font>
             </Label>
             <TextField layoutX="381.0" layoutY="218.0" promptText="Valor *" styleClass="border-botton" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="230.0" />
-            <TextArea layoutY="100.0" prefHeight="105.0" prefWidth="200.0" promptText="Descrição *" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
          </children>
       </AnchorPane>
    </children>

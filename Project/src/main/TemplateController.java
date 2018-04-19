@@ -6,13 +6,21 @@
 package main;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import main.objects.transations.Transation;
+import main.utils.TableProxyTransation;
 import main.utils.Validate;
 
 /**
@@ -27,15 +35,54 @@ public class TemplateController implements Initializable {
     @FXML
     private Label mainActionScreenTitle;
     @FXML
-    private TextField customerOrSupplier;
+    private Label FinalPrice;
     @FXML
-    private TextArea description;
+    private TextField customerOrSupplier;
     
+    @FXML
+    private TableView Transations;
+    @FXML
+    private TableColumn<TableProxyTransation,String> Name;
+    @FXML
+    private TableColumn<TableProxyTransation,Float> Price;
+    @FXML
+    private TableColumn<TableProxyTransation,Integer> Quantity;
+    
+    ObservableList<TableProxyTransation> transations;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        transations= FXCollections.observableArrayList();
+        TableProxyTransation tbt = new TableProxyTransation();
+        tbt.setName("Item 1");
+        tbt.setPrice(200);
+        tbt.setQuantity(3);
+        transations.add(tbt);
+        
+        TableProxyTransation tbt2 = new TableProxyTransation();
+        tbt2.setName("Item 2");
+        tbt2.setPrice(250);
+        tbt2.setQuantity(1);
+        transations.add(tbt2);
+        
+        TableProxyTransation tbt3 = new TableProxyTransation();
+        tbt3.setName("Item 3");
+        tbt3.setPrice(1230);
+        tbt3.setQuantity(1);
+        transations.add(tbt3);
+        
+        Name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        Quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        Transations.setItems(transations);
+        float totalvalue=0;
+        for(TableProxyTransation tbtaux: transations){
+            totalvalue+=tbtaux.getPrice();
+        }
+        FinalPrice.setText(Float.toString(totalvalue));
+        
         setInformation();
     }    
     
@@ -55,7 +102,7 @@ public class TemplateController implements Initializable {
     
     @FXML
     public void register(){
-        if(!customerOrSupplier.getText().isEmpty() && !description.getText().isEmpty()){
+        if(!customerOrSupplier.getText().isEmpty()){
             if(Validate.validaCPF(customerOrSupplier.getText())){
                 //go
                 System.out.println("template::foi");
