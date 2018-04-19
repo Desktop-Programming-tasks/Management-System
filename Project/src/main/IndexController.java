@@ -83,7 +83,7 @@ public class IndexController implements Initializable {
     
     @FXML
     private void showProductRegister() {
-        GUIController.getInstance().showProductRegister();
+        GUIController.getInstance().showProductRegister(false);
     }
     
     @FXML

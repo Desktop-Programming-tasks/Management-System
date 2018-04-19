@@ -62,4 +62,8 @@ public class StockQueryController implements Initializable {
         GUIController.getInstance().backToPrevious();
     }
     
+    @FXML
+    private void detailsProduct(){
+        GUIController.getInstance().showProductRegister(true);
+    }
 }
