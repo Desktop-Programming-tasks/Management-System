@@ -37,11 +37,7 @@ public class BrandController implements Initializable {
             Validate.validateName(nameTextField.getText());
         }
         
-        String errorMsg = Validate.getErrorMessage();
-        System.out.println(errorMsg);
-        if(errorMsg.isEmpty()){
-            System.out.println("foi");
-        }
+        GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
     }
     
     @FXML
