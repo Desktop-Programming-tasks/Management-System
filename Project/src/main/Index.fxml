@@ -99,7 +99,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <MenuBar layoutY="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <MenuBar layoutY="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="Arquivo">
             <items>
@@ -109,14 +109,27 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Registros">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Registrar Funcionario" />
-              <MenuItem mnemonicParsing="false" text="Registrar Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Registrar Fornecedor" />
-                  <MenuItem mnemonicParsing="false" text="Registrar Produto" />
-                  <MenuItem mnemonicParsing="false" text="Registrar Serviços" />
-                  <MenuItem mnemonicParsing="false" text="Registrar Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showEmployeeRegister" text="Registrar Funcionario" />
+              <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Registrar Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Registrar Fornecedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Registrar Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#showModalService" text="Registrar Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showModalRegisterBrand" text="Registrar Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Vendas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Compras" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Consultas">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showSupplierQuery" text="Consulta Fornecedores" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Vendas" />
+                <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Consulta Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Compras" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Pessoas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showServiceQuery" text="Consulta Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showStockQuery" text="Consulta Estoque" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
