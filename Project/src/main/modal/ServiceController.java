@@ -9,7 +9,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import main.GUIController;
+import main.utils.Validate;
 
 /**
  * FXML Controller class
@@ -18,6 +20,11 @@ import main.GUIController;
  */
 public class ServiceController implements Initializable {
 
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField valueTextField;
+    
     /**
      * Initializes the controller class.
      */
@@ -25,6 +32,22 @@ public class ServiceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    @FXML
+    private void register(){
+        if(Validate.validateEmpty("Name", nameTextField.getText())){
+            Validate.validateName(nameTextField.getText());
+        }
+        if(Validate.validateEmpty("Valor",valueTextField.getText())){
+            Validate.validateAddressNumber(valueTextField.getText());
+        }
+        
+        String errorMsg = Validate.getErrorMessage();
+        System.out.println(errorMsg);
+        if(errorMsg.isEmpty()){
+            System.out.println("foi");
+        }
+    }
     
     @FXML
     public void back() {
