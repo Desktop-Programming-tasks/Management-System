@@ -68,6 +68,11 @@ public class Register {
     public void setTransations(ArrayList<Transation> transations) {
         this.transations = transations;
     }
+
+    @Override
+    public String toString() {
+        return "Register{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + '}';
+    }
     
     
 }

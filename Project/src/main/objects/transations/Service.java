@@ -104,6 +104,11 @@ public class Service extends Transation{
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return super.toString()+"Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", codServ=" + codServ + ", assignedEmployee=" + assignedEmployee + ", name=" + name + '}';
+    }
     
     
 }

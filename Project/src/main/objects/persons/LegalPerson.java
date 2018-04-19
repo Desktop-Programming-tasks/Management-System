@@ -34,5 +34,10 @@ public class LegalPerson extends Person{
     public void setCPF(String cpf){
         setId(cpf);
     }
-    
+
+    @Override
+    public String toString() {
+        
+        return super.toString()+"LegalPerson{" + "RG=" + RG + '}';
+    }
 }

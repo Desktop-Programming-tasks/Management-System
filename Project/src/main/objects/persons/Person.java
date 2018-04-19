@@ -57,5 +57,12 @@ public abstract class Person {
     public void setId(String Id) {
         this.Id = Id;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + Id + '}';
+    }
+    
+    
     
 }
