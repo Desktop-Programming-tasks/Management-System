@@ -8,12 +8,17 @@ package main.register;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
 import main.objects.persons.Address;
 import main.objects.persons.Supplier;
@@ -44,6 +49,13 @@ public class SupplierRegisterController implements Initializable {
     private Label mainLabel;
     @FXML
     private Button actionBtn;
+    @FXML
+    private TableView brandTable;
+    
+    @FXML
+    private TableColumn<Brand,String> Brands;
+    
+    ObservableList<Brand> brands;
 
     /**
      * Initializes the controller class.
@@ -51,6 +63,15 @@ public class SupplierRegisterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        brands= FXCollections.observableArrayList();
+        brands.add(new Brand(1,"Nvidia"));
+        brands.add(new Brand(2,"AMD"));
+        brands.add(new Brand(3,"Intel"));
+        brands.add(new Brand(4,"Corsair"));
+        brands.add(new Brand(5,"XFX"));
+        
+        Brands.setCellValueFactory(new PropertyValueFactory<>("name"));
+        brandTable.setItems(brands);
     }    
     
     @FXML 
@@ -69,6 +90,7 @@ public class SupplierRegisterController implements Initializable {
         if(Validate.validateEmpty("'Número da casa'", numberTextField.getText())) {
             Validate.validateAddressNumber(numberTextField.getText());   
         }
+        Validate.emptyTable(brandTable);
         
         GUIController.getInstance().showInformationAlert(Validate.getErrorMessage());
         if(Validate.getErrorMessage().isEmpty()){
