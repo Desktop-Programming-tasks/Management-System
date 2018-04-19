@@ -13,16 +13,18 @@ import java.util.regex.Pattern;
  * @author gabriel
  */
 public class Validate {
-    private static final int  NAME_MAX_LENGTH = 50;
-    private static final int  NICK_MIN_LENGTH = 4;
-    private static final int  NICK_MAX_LENGTH = 25;
-    private static final int  PASSWORD_MIN_LENGTH = 6;
-    private static final int  PASSWORD_MAX_LENGTH = 15;
-    
-    private static final String TEL_NUMBER_PATTERN= "0?[0-9]{2}[0-9]?[0-9]{4}[0-9]{4}";
-    private static final String NICKNAME_PATTERN= "[a-z][a-z0-9]*";
-    private static final String ADDRESS_NUMBER_PATTERN= "[0-9]*";
-    
+
+    private static final int NAME_MAX_LENGTH = 50;
+    private static final int NICK_MIN_LENGTH = 4;
+    private static final int NICK_MAX_LENGTH = 25;
+    private static final int PASSWORD_MIN_LENGTH = 6;
+    private static final int PASSWORD_MAX_LENGTH = 15;
+
+    private static final String TEL_NUMBER_PATTERN = "0?[0-9]{2}[0-9]?[0-9]{4}[0-9]{4}";
+    private static final String NICKNAME_PATTERN = "[a-z][a-z0-9]*";
+    private static final String ADDRESS_NUMBER_PATTERN = "[0-9]*";
+    private static final String CPF_PATTERN = "[0-9]{3}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{2}";
+
     public static boolean validaNum(String num) {
         String pattern = TEL_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
@@ -62,12 +64,12 @@ public class Validate {
             return (true);
         }
     }
-    
-    public static boolean validaPassword(String password){
-        if(password.isEmpty()){
+
+    public static boolean validaPassword(String password) {
+        if (password.isEmpty()) {
             return false;
         }
-        if(password.length()>PASSWORD_MAX_LENGTH){
+        if (password.length() > PASSWORD_MAX_LENGTH) {
             return false;
         }
         return password.length() > PASSWORD_MIN_LENGTH;
@@ -77,11 +79,21 @@ public class Validate {
         String pattern = ADDRESS_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if(num.isEmpty()){
+        if (num.isEmpty()) {
             return false;
         }
         return matcher.matches();
     }
-    
+
+    public static boolean validaCPF(String cpf) {
+        String pattern = CPF_PATTERN;
+        Pattern test = Pattern.compile(pattern);
+        Matcher matcher = test.matcher(cpf);
+        return matcher.matches();
+    }
+
+    public static boolean validaCNPJ(String cnpj) {
+        return true;
+    }
 
 }
