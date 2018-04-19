@@ -6,14 +6,21 @@
 package main.register;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import main.GUIController;
+import main.objects.persons.Brand;
 
 /**
  * FXML Controller class
@@ -34,12 +41,30 @@ public class ProductRegisterController implements Initializable {
     private Group quantityGroup;
     @FXML
     private TextField quantityTextField;
+    
+    @FXML
+    private TableView TableBrands;
+    
+    @FXML
+    private TableColumn<Brand,String> Brands;
+    
+    ObservableList<Brand> brands;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        brands= FXCollections.observableArrayList();
+        brands.add(new Brand(1,"Nvidia"));
+        brands.add(new Brand(2,"AMD"));
+        brands.add(new Brand(3,"Intel"));
+        brands.add(new Brand(4,"Corsair"));
+        brands.add(new Brand(5,"XFX"));
+        
+        Brands.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableBrands.setItems(brands);
+        
     }    
     
     @FXML

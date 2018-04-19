@@ -40,6 +40,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#showModalService" text="Serviço" />
                         <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Fornecedor" />
                         <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Cliente" />
+                        <MenuItem mnemonicParsing="false" onAction="#showModalRegisterBrand" text="Marcas" />
                     </items>
                      <graphic>
                         <FontAwesomeIconView glyphName="PLUS_SQUARE" opacity="0.5" size="4em" />

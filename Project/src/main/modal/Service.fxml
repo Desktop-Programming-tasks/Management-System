@@ -20,7 +20,7 @@
                   <Font size="20.0" />
                </font></Label>
             <TextField layoutX="31.0" layoutY="96.0" promptText="Valor *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-            <Button layoutX="-1.0" layoutY="309.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutX="-1.0" layoutY="309.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Cancelar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
             <Button layoutX="474.0" layoutY="306.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <TextField prefHeight="26.0" prefWidth="536.0" promptText="Nome do serviço *" styleClass="border-botton" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
          </children>
