@@ -43,18 +43,15 @@ public class ServiceQueryController implements Initializable {
         // TODO
         services=FXCollections.observableArrayList();
         //Dummies
-        Service s1 = new Service("Limpeza de cu", 1);
+        Service s1 = new Service("Limpeza de CPU", 1,120);
         s1.setCodServ(1);
-        s1.setPrice(300);
         services.add(s1);
         
-        Service s2= new Service("Troca de esner", 2);
+        Service s2= new Service("Troca de Peças", 2,200);
         s2.setCodServ(666);
-        s2.setPrice(500);
         services.add(s2);
         
-        Service s3 = new Service("Boquete com anal giratório", 3);
-        s3.setPrice(400);
+        Service s3 = new Service("Formatação", 3,80);
         s3.setCodServ(24);
         services.add(s3);
         //Dummies end

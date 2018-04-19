@@ -54,11 +54,9 @@ public class GenericTransactionQueryController implements Initializable {
         Product p1= new Product("111", 3, new Brand(1,"Nvidia"), 3, "Placa de video");
         Product p2= new Product("222", 5, new Brand(2,"Asus"), 100, "Placa mãe");
         Movimentation m = new Movimentation(p1,"Compra",3,10);
-        m.setPrice(100);
         movs.add(m);
         
         Movimentation m2= new Movimentation(p2, "Venda", 5, 12);
-        m2.setPrice(500);
         movs.add(m2);
         
         Code.setCellValueFactory(new PropertyValueFactory<>("id"));
