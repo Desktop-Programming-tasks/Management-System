@@ -22,13 +22,13 @@ import javafx.scene.control.TableView;
  *
  * @author ecaanchesjr
  */
-public class GenericTransactionQueryController implements Initializable {
+public class GenericTransactionController implements Initializable {
 
     public static Parent call(TransactionQueryType type) throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(GenericTransactionQueryController.class.getClassLoader().getResource("desktoproject/View/Query/GenericTransactionQuery.fxml"));
+        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource("desktoproject/View/Query/GenericTransactionQuery.fxml"));
         Parent p = loader.load();
-        GenericTransactionQueryController controller = loader.getController();
+        GenericTransactionController controller = loader.getController();
         controller.setType(type);
         controller.setUpComponents();
         return p;

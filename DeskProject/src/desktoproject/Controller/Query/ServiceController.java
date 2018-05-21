@@ -20,11 +20,11 @@ import javafx.scene.Parent;
  *
  * @author noda
  */
-public class ServiceQueryController implements Initializable {
+public class ServiceController implements Initializable {
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ServiceQueryController.class.getClassLoader().getResource("desktoproject/View/Query/ServiceQueryController.fxml"));        
+        loader.setLocation(ServiceController.class.getClassLoader().getResource("desktoproject/View/Query/ServiceQueryController.fxml"));        
         return loader.load();
     }
     

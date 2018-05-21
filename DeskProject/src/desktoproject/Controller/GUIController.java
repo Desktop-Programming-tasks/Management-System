@@ -15,15 +15,15 @@ import desktoproject.Controller.Modal.AddServiceController;
 import desktoproject.Controller.Modal.NewBrandController;
 import desktoproject.Controller.Modal.NewServiceController;
 import desktoproject.Controller.Modal.UpdateServiceController;
-import desktoproject.Controller.Query.BrandQueryController;
-import desktoproject.Controller.Query.GenericTransactionQueryController;
-import desktoproject.Controller.Query.PersonQueryController;
-import desktoproject.Controller.Query.ServiceQueryController;
-import desktoproject.Controller.Query.StockQueryController;
-import desktoproject.Controller.Query.SupplierQueryController;
-import desktoproject.Controller.Register.CustomerRegisterController;
-import desktoproject.Controller.Register.EmployeeRegisterController;
-import desktoproject.Controller.Register.ProductRegisterController;
+import desktoproject.Controller.Query.BrandController;
+import desktoproject.Controller.Query.GenericTransactionController;
+import desktoproject.Controller.Query.PersonController;
+import desktoproject.Controller.Query.ServiceController;
+import desktoproject.Controller.Query.StockController;
+import desktoproject.Controller.Query.SupplierController;
+import desktoproject.Controller.Panels.CustomerController;
+import desktoproject.Controller.Panels.EmployeeController;
+import desktoproject.Controller.Panels.ProductController;
 import java.io.IOException;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -138,55 +138,55 @@ public class GUIController {
                     break;
                 }
                 case QUERY_TRANSACTION_BUY: {
-                    setDynamicChild(GenericTransactionQueryController.call(TransactionQueryType.BUY));
+                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.BUY));
                     break;
                 }
                 case QUERY_TRANSACTION_SALE: {
-                    setDynamicChild(GenericTransactionQueryController.call(TransactionQueryType.SALE));
+                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.SALE));
                     break;
                 }
                 case QUERY_TRANSACTION_ALL: {
-                    setDynamicChild(GenericTransactionQueryController.call(TransactionQueryType.ALL));
+                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.ALL));
                     break;
                 }
                 case QUERY_BRAND: {
-                    setDynamicChild(BrandQueryController.call());
+                    setDynamicChild(BrandController.call());
                     break;
                 }
                 case QUERY_PERSON_CUSTOMER: {
-                    setDynamicChild(PersonQueryController.call(PersonQueryType.CUSTOMER));
+                    setDynamicChild(PersonController.call(PersonQueryType.CUSTOMER));
                     break;
                 }
                 case QUERY_PERSON_EMPLOYEE: {
-                    setDynamicChild(PersonQueryController.call(PersonQueryType.CUSTOMER));
+                    setDynamicChild(PersonController.call(PersonQueryType.CUSTOMER));
                     break;
                 }
                 case QUERY_SERVICE: {
-                    setDynamicChild(ServiceQueryController.call());
+                    setDynamicChild(ServiceController.call());
                     break;
                 }
                 case QUERY_STOCK: {
-                    setDynamicChild(StockQueryController.call());
+                    setDynamicChild(StockController.call());
                     break;
                 }
                 case QUERY_SUPPLIER: {
-                    setDynamicChild(SupplierQueryController.call());
+                    setDynamicChild(SupplierController.call());
                     break;
                 }
-                case REGISTER_CUSTOMER: {
-                    setDynamicChild(CustomerRegisterController.call());
+                case CUSTOMER_CREATE: {
+                    setDynamicChild(CustomerController.call());
                     break;
                 }
-                case REGISTER_EMPLOYEE: {
-                    setDynamicChild(EmployeeRegisterController.call());
+                case EMPLOYEE_CREATE: {
+                    setDynamicChild(EmployeeController.call());
                     break;
                 }
-                case REGISTER_PRODUCT: {
-                    setDynamicChild(ProductRegisterController.call());
+                case PRODUCT_CREATE: {
+                    setDynamicChild(ProductController.call());
                     break;
                 }
-                case REGISTER_SUPPLIER: {
-                    setDynamicChild(SupplierQueryController.call());
+                case SUPPLIER_CREATE: {
+                    setDynamicChild(SupplierController.call());
                     break;
                 }
             }

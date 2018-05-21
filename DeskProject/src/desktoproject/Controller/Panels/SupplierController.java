@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Controller.Register;
+package desktoproject.Controller.Panels;
 
-import desktoproject.Controller.Query.ServiceQueryController;
+import desktoproject.Controller.Query.ServiceController;
 import desktoproject.Model.Classes.Transactions.Brand;
 import java.io.IOException;
 import java.net.URL;
@@ -27,11 +27,11 @@ import javafx.scene.control.TextField;
  *
  * @author noda
  */
-public class SupplierRegisterController implements Initializable {
+public class SupplierController implements Initializable {
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierRegisterController.class.getClassLoader().getResource("desktoproject/View/Register/SupplierRegister.fxml"));        
+        loader.setLocation(SupplierController.class.getClassLoader().getResource("desktoproject/View/Register/SupplierRegister.fxml"));        
         return loader.load();
     }
     

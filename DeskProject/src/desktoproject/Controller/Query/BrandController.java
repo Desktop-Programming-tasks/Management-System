@@ -21,11 +21,11 @@ import javafx.scene.control.TableView;
  *
  * @author noda
  */
-public class BrandQueryController implements Initializable {
+public class BrandController implements Initializable {
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandQueryController.class.getClassLoader().getResource("desktoproject/View/Query/BrandQuery.fxml"));
+        loader.setLocation(BrandController.class.getClassLoader().getResource("desktoproject/View/Query/BrandQuery.fxml"));
         return loader.load();
     }
     
