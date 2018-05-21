@@ -20,10 +20,11 @@ import desktoproject.Controller.Query.GenericTransactionController;
 import desktoproject.Controller.Query.PersonController;
 import desktoproject.Controller.Query.ServiceController;
 import desktoproject.Controller.Query.StockController;
-import desktoproject.Controller.Query.SupplierController;
 import desktoproject.Controller.Panels.CustomerController;
 import desktoproject.Controller.Panels.EmployeeController;
 import desktoproject.Controller.Panels.ProductController;
+import desktoproject.Controller.Panels.SupplierController;
+import desktoproject.Controller.Query.QuerySupplierController;
 import java.io.IOException;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -170,23 +171,39 @@ public class GUIController {
                     break;
                 }
                 case QUERY_SUPPLIER: {
-                    setDynamicChild(SupplierController.call());
+                    setDynamicChild(QuerySupplierController.call());
                     break;
                 }
                 case CUSTOMER_CREATE: {
                     setDynamicChild(CustomerController.call());
                     break;
                 }
+                case CUSTOMER_DISPLAY: {
+                    setDynamicChild(CustomerController.call(obj));
+                    break;
+                }
                 case EMPLOYEE_CREATE: {
                     setDynamicChild(EmployeeController.call());
+                    break;
+                }
+                case EMPLOYEE_DISPLAY: {
+                    setDynamicChild(EmployeeController.call(obj));
                     break;
                 }
                 case PRODUCT_CREATE: {
                     setDynamicChild(ProductController.call());
                     break;
                 }
+                case PRODUCT_DISPLAY: {
+                    setDynamicChild(ProductController.call(obj));
+                    break;
+                }
                 case SUPPLIER_CREATE: {
                     setDynamicChild(SupplierController.call());
+                    break;
+                }
+                case SUPPLIER_DISPLAY: {
+                    setDynamicChild(SupplierController.call(obj));
                     break;
                 }
             }

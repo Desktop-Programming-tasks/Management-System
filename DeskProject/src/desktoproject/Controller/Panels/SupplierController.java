@@ -5,12 +5,10 @@
  */
 package desktoproject.Controller.Panels;
 
-import desktoproject.Controller.Query.ServiceController;
-import desktoproject.Model.Classes.Transactions.Brand;
+import desktoproject.Model.Classes.Persons.Supplier;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +33,32 @@ public class SupplierController implements Initializable {
         return loader.load();
     }
     
+    public static Parent call(Object supplier) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/SupplierRegister.fxml"));        
+        Parent p = loader.load();
+        
+        SupplierController controller = loader.getController();
+        controller.setSupplier((Supplier) supplier);
+        controller.setEdit(true);
+        controller.setUpComponents();
+         
+        return p;
+    }
+    
+    private Supplier supplier;
+    private boolean edit;
+    
+    private void setUpComponents() {
+        if(edit) {
+            mainBtn.setText("Alterar");
+            mainLabel.setText("Editar Fornecedor");
+        } else {
+            mainBtn.setText("Cadastrar");
+            mainLabel.setText("Cadastrar Fornecedor");
+        }
+    }
+    
     @FXML
     private TextField nameTextField;
     @FXML
@@ -52,7 +76,7 @@ public class SupplierController implements Initializable {
     @FXML
     private Label mainLabel;
     @FXML
-    private Button actionBtn;
+    private Button mainBtn;
     @FXML
     private TableView brandTable;
     
@@ -91,4 +115,14 @@ public class SupplierController implements Initializable {
     private void addBrand() {
         
     }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
+    }
+    
+    
 }

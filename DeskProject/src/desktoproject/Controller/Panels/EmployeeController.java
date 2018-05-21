@@ -5,7 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
-import desktoproject.Controller.Query.ServiceController;
+import desktoproject.Model.Classes.Persons.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,6 +30,32 @@ public class EmployeeController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/EmployeeRegister.fxml"));        
         return loader.load();
+    }
+    
+    public static Parent call(Object employee) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/EmployeeRegister.fxml"));        
+        Parent p = loader.load();
+        
+        EmployeeController controller = loader.getController();
+        controller.setEmployee((Employee) employee);
+        controller.setEdit(true);
+        controller.setUpComponents();
+        
+        return p;
+    }
+    
+    private Employee employee;
+    private boolean edit;
+    
+    private void setUpComponents() {
+        if(edit) {
+            mainBtn.setText("Alterar");
+            mainLabel.setText("Editar Funcionário");
+        } else {
+            mainBtn.setText("Cadastrar");
+            mainLabel.setText("Cadastrar Funcionário");
+        }
     }
     
     @FXML
@@ -57,7 +83,7 @@ public class EmployeeController implements Initializable {
     @FXML
     private Label mainLabel;
     @FXML
-    private Button actionBtn;
+    private Button mainBtn;
     @FXML
     private ComboBox<String> City;
     @FXML
@@ -78,5 +104,13 @@ public class EmployeeController implements Initializable {
     @FXML
     private void register(){
         
+    }
+    
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public void setEdit(boolean edit) {
+        this.edit = edit;
     }
 }
