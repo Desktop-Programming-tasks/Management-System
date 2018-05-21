@@ -29,7 +29,10 @@ public class EmployeeController implements Initializable {
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/EmployeeRegister.fxml"));        
-        return loader.load();
+        Parent p = loader.load();
+        EmployeeController controller = loader.getController();
+        controller.setUpComponents();
+        return p;
     }
     
     public static Parent call(Object employee) throws IOException {

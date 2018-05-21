@@ -5,7 +5,6 @@
  */
 package desktoproject.Controller.Panels;
 
-import desktoproject.Model.Classes.Persons.JuridicalPerson;
 import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Person;
 import java.io.IOException;
@@ -33,7 +32,10 @@ public class CustomerController implements Initializable {
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Register/CustomerRegister.fxml"));
-        return loader.load();
+        Parent p = loader.load();
+        CustomerController controller = loader.getController();
+        controller.setUpComponents();
+        return p;
     }
 
     public static Parent call(Object person) throws IOException {

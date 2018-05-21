@@ -6,9 +6,12 @@
 package desktoproject.Controller.Panels;
 
 import desktoproject.Model.Classes.Persons.Supplier;
+import desktoproject.Model.Classes.Transactions.Brand;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -29,13 +33,16 @@ public class SupplierController implements Initializable {
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierController.class.getClassLoader().getResource("desktoproject/View/Register/SupplierRegister.fxml"));        
-        return loader.load();
+        loader.setLocation(SupplierController.class.getClassLoader().getResource("desktoproject/View/Panels/Supplier.fxml"));        
+        Parent p = loader.load();
+        SupplierController controller = loader.getController();
+        controller.setUpComponents();
+        return p;
     }
     
     public static Parent call(Object supplier) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/SupplierRegister.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Supplier.fxml"));        
         Parent p = loader.load();
         
         SupplierController controller = loader.getController();
@@ -48,15 +55,32 @@ public class SupplierController implements Initializable {
     
     private Supplier supplier;
     private boolean edit;
+    private ArrayList<Brand> brands;
     
     private void setUpComponents() {
         if(edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Fornecedor");
+            brands = supplier.getAvaliableBrands();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Fornecedor");
+            brands = new ArrayList<>();
         }
+        fillScreen();
+    }
+    
+    private void fillScreen() {
+        nameTextField.setText(supplier.getName());
+        CNPJTextField.setText(supplier.getCNPJ());
+        telTextField.setText(supplier.getTelephones().get(0));
+        if(supplier.getTelephones().get(1) != null) {
+            secTelTextField.setText(supplier.getTelephones().get(1));
+        }
+        streetTextField.setText(supplier.getAddress().getStreet());
+        numberTextField.setText(String.valueOf(supplier.getAddress().getNumber()));
+        districtTextField.setText(supplier.getAddress().getBlock());
+        populateTable();
     }
     
     @FXML
@@ -78,10 +102,10 @@ public class SupplierController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
-    private TableView brandTable;
+    private TableView BrandsTable;
     
     @FXML
-    private TableColumn Brands;
+    private TableColumn BrandsColumn;
     
     @FXML
     private ComboBox<String> City;
@@ -93,8 +117,12 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
     }    
+    
+    private void populateTable() {
+        BrandsTable.setItems(FXCollections.observableArrayList(brands));
+    }
     
     @FXML 
     public void register(){

@@ -54,9 +54,9 @@
       <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
       <Button fx:id="mainBtn" layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="MAIN BTN" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Separator layoutX="10.0" layoutY="180.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="330.0" />
-      <TableView fx:id="brandTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="BrandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columns>
-          <TableColumn fx:id="Brands" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="470.0" resizable="false" text="Marcas" />
+          <TableColumn fx:id="BrandsColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="470.0" resizable="false" text="Marcas" />
         </columns>
       </TableView>
       <Button layoutX="746.0" layoutY="460.0" mnemonicParsing="false" onAction="#addBrand" prefHeight="35.0" prefWidth="150.0" text="Adicionar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="320.0">

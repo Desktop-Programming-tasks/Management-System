@@ -5,27 +5,16 @@
  */
 package desktoproject.Controller;
 
-import desktoproject.Controller.Enums.ModalType;
-import desktoproject.Controller.Enums.PersonQueryType;
-import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Controller.Enums.TransactionQueryType;
-import desktoproject.Controller.Enums.TransactionType;
-import desktoproject.Controller.Modal.AddProductController;
-import desktoproject.Controller.Modal.AddServiceController;
-import desktoproject.Controller.Modal.NewBrandController;
-import desktoproject.Controller.Modal.NewServiceController;
-import desktoproject.Controller.Modal.UpdateServiceController;
-import desktoproject.Controller.Query.BrandController;
-import desktoproject.Controller.Query.GenericTransactionController;
-import desktoproject.Controller.Query.PersonController;
-import desktoproject.Controller.Query.ServiceController;
-import desktoproject.Controller.Query.StockController;
-import desktoproject.Controller.Panels.CustomerController;
-import desktoproject.Controller.Panels.EmployeeController;
-import desktoproject.Controller.Panels.ProductController;
-import desktoproject.Controller.Panels.SupplierController;
-import desktoproject.Controller.Query.QuerySupplierController;
+import desktoproject.Controller.Enums.*;
+import desktoproject.Controller.Modal.*;
+import desktoproject.Controller.Query.*;
+import desktoproject.Controller.Panels.*;
+import desktoproject.Model.Classes.Persons.Address;
+import desktoproject.Model.Classes.Persons.Supplier;
+import desktoproject.Model.Classes.Transactions.Brand;
+import desktoproject.Model.Classes.Transactions.Product;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,6 +81,7 @@ public class GUIController {
             System.out.println("Error starting app: " + ex.getMessage());
         }
         setUpModalStage();
+        testScreen();
     }
 
     private void setUpModalStage() {
@@ -224,7 +214,11 @@ public class GUIController {
                     break;
                 }
                 case BRAND_NEW:{
-                    setUpModal(NewBrandController.call());
+                    setUpModal(BrandModalController.call());
+                    break;
+                }
+                case BRAND_UPDATE: {
+                    setUpModal(BrandModalController.call(obj));
                     break;
                 }
                 case SERVICE_ADD:{
@@ -301,5 +295,24 @@ public class GUIController {
         nowScene = executionStack.peek();
         mainStage.setScene(nowScene);
         mainStage.show();
+    }
+    
+    public void testScreen() {
+        Brand testBrand = new Brand("Batata");
+        Brand testBrand2 = new Brand("Batata1");
+        ArrayList<Brand> brands = new ArrayList<>();
+        brands.add(testBrand); brands.add(testBrand2);
+        Product testProduct = new Product("123456789", brands, 1100, "Escova de Dente");
+        Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
+        ArrayList<String> telephones = new ArrayList<>();
+        telephones.add("9955999599");
+        telephones.add("6845465465465");
+        //JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
+        Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
+        
+        //callModal(ModalType.BRAND_UPDATE, testBrand);
+        //callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
+        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
+        
     }
 }
