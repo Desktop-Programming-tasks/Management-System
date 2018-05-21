@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="690.0" prefWidth="1280.0" stylesheets="@css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.LoginController">
+   <children>
+      <TextField fx:id="userTextField" layoutX="425.0" layoutY="305.0" prefHeight="33.0" prefWidth="430.0" promptText="Usuário" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="305.0" />
+      <Label layoutX="470.0" layoutY="179.0" text="Login no sistema">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginBtn" layoutX="581.0" layoutY="457.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="119.0" styleClass="level-1" text="Login" AnchorPane.leftAnchor="580.0" AnchorPane.rightAnchor="580.0" AnchorPane.topAnchor="460.0" />
+      <PasswordField fx:id="passTextField" layoutX="426.0" layoutY="371.0" prefHeight="33.0" prefWidth="430.0" promptText="Senha" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="370.0" />
+   </children>
+</AnchorPane>

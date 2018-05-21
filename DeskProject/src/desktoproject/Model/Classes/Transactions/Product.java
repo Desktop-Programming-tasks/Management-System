@@ -12,45 +12,19 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class Product {
-    private class Brands{
-        private ArrayList<Brand> brands;
-
-        public ArrayList<Brand> getBrands() {
-            return brands;
-        }
-
-        public void setBrands(ArrayList<Brand> brands) {
-            this.brands = brands;
-        }
-
-        public Brands(ArrayList<Brand> brands) {
-            this.brands = brands;
-        }
-
-        @Override
-        public String toString() {
-            String name="";
-            for(Brand brand : brands){
-               name+= brand.getName()+ " | ";
-            }
-            return name;
-        }
-        
-    }
     private String barCode;
     private int quantityInStock;
-    private Brands brands;
+    private ArrayList<Brand> brands;
     private float price;
     private String name;
 
     public Product(String barCode) {
         this.barCode = barCode;
     }
-
     
     public Product(String barCode, ArrayList<Brand> brands, float price, String name) {
         this.barCode = barCode;
-        this.brands = new Brands(brands);
+        this.brands = brands;
         this.price = price;
         this.name = name;
     }
@@ -79,12 +53,12 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public Brands getBrand() {
+    public ArrayList<Brand> getBrands() {
         return brands;
     }
 
-    public void setBrand(Brands brand) {
-        this.brands = brand;
+    public void setBrands(ArrayList<Brand> brands) {
+        this.brands = brands;
     }
 
     public float getPrice() {
@@ -99,6 +73,4 @@ public class Product {
     public String toString() {
         return getName();
     }
-    
-    
 }

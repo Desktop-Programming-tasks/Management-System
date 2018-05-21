@@ -73,6 +73,4 @@ public class Register {
     public String toString() {
         return "Register{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + '}';
     }
-    
-    
 }

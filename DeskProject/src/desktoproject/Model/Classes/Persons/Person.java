@@ -17,14 +17,12 @@ public abstract class Person {
     private ArrayList<String> telephones;
     private String Id;
     
-
     public Person(String name, Address address, ArrayList<String> telephones, String Id) {
         this.name = name;
         this.address = address;
         this.telephones = telephones;
         this.Id = Id;
     }
-    
 
     public String getName() {
         return name;

@@ -21,9 +21,6 @@ public class Employee extends LegalPerson{
         this.password = password;
     }
 
-
-
-
     public String getLogin() {
         return login;
     }
