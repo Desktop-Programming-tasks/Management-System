@@ -27,11 +27,11 @@ import main.utils.TableProxyTransation;
  * @author noda
  */
 public class TransactionController implements Initializable {
-
+    private static final String transactionPath = "desktoproject/View/Transaction.fxml";
     //call to create a new transaction
     public static Parent call(TransactionType type) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TransactionController.class.getClassLoader().getResource("desktoproject/View/Transaction.fxml"));
+        loader.setLocation(TransactionController.class.getClassLoader().getResource(transactionPath));
         Parent p = loader.load();
         TransactionController controller = loader.getController();
         controller.setTransactionType(type);
@@ -43,7 +43,7 @@ public class TransactionController implements Initializable {
     //call to display information about an existing transaction
     public static Parent call(TransactionType type, Object obj) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TransactionController.class.getClassLoader().getResource("desktoproject/View/Transaction.fxml"));
+        loader.setLocation(TransactionController.class.getClassLoader().getResource(transactionPath));
         Parent p = loader.load();
         TransactionController controller = loader.getController();
         controller.setTransactionType(type);
@@ -72,15 +72,13 @@ public class TransactionController implements Initializable {
     private TextField customerOrSupplier;
 
     @FXML
-    private TableView<TableProxyTransation> Transations;
+    private TableView Transations;
     @FXML
-    private TableColumn<TableProxyTransation, String> Name;
+    private TableColumn Name;
     @FXML
-    private TableColumn<TableProxyTransation, Float> Price;
+    private TableColumn Price;
     @FXML
-    private TableColumn<TableProxyTransation, Integer> Quantity;
-
-    ObservableList<TableProxyTransation> transations;
+    private TableColumn Quantity;
 
     /**
      * Initializes the controller class.

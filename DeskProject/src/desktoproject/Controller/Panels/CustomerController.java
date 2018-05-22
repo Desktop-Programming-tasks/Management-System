@@ -30,9 +30,11 @@ import javafx.scene.control.ToggleGroup;
  */
 public class CustomerController implements Initializable {
 
+    private static final String panelCustomerPath = "desktoproject/View/Panels/Customer.fxml";
+    
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Panels/Customer.fxml"));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
         Parent p = loader.load();
         CustomerController controller = loader.getController();
         controller.setUpComponents();
@@ -41,14 +43,12 @@ public class CustomerController implements Initializable {
 
     public static Parent call(Object person) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Panels/Customer.fxml"));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
         Parent p = loader.load();
-
         CustomerController controller = loader.getController();
         controller.setPerson((Person) person);
         controller.setEdit(true);
         controller.setUpComponents();
-
         return p;
     }
 

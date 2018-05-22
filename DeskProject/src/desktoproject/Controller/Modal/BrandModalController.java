@@ -24,9 +24,11 @@ import javafx.scene.control.TextField;
  */
 public class BrandModalController implements Initializable {
     
+    private static final String brandModalPath = "desktoproject/View/Modal/BrandModal.fxml";
+    
     public static Parent call() throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BrandModalController.class.getClassLoader().getResource("desktoproject/View/Modal/BrandModal.fxml"));
+            loader.setLocation(BrandModalController.class.getClassLoader().getResource(brandModalPath));
             Parent p = loader.load();
             BrandModalController controller = loader.getController();
             controller.setUpComponents();
@@ -35,7 +37,7 @@ public class BrandModalController implements Initializable {
     
     public static Parent call(Object brand) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandModalController.class.getClassLoader().getResource("desktoproject/View/Modal/BrandModal.fxml"));
+        loader.setLocation(BrandModalController.class.getClassLoader().getResource(brandModalPath));
         
         Parent p = loader.load();
         BrandModalController controller = loader.getController();

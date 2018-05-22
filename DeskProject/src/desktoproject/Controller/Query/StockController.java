@@ -22,9 +22,11 @@ import javafx.scene.control.TableView;
  */
 public class StockController implements Initializable {
     
+    private static final String stockControllerPath = "desktoproject/View/Query/StockQueryController.fxml";
+    
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(StockController.class.getClassLoader().getResource("desktoproject/View/Query/StockQueryController.fxml"));        
+        loader.setLocation(StockController.class.getClassLoader().getResource(stockControllerPath));        
         return loader.load();
     }
     

@@ -21,9 +21,11 @@ import javafx.scene.control.TextField;
  */
 public class NewServiceController implements Initializable {
 
+    private static final String newServicePath = "desktoproject/View/Modal/NewService.fxml";
+    
     public static Parent call() throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(NewServiceController.class.getClassLoader().getResource("desktoproject/View/Modal/NewService.fxml"));
+            loader.setLocation(NewServiceController.class.getClassLoader().getResource(newServicePath));
             return loader.load();
     }
     
