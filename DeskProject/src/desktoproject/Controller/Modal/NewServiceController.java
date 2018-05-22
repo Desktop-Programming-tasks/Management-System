@@ -7,6 +7,7 @@ package desktoproject.Controller.Modal;
 
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Transactions.Service;
+import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class NewServiceController implements Initializable {
     @FXML
     private void register(){
         if(validate()){
-            Service service = new Service(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+            ServiceType service = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
             System.out.println(service.toString());
         }
     }

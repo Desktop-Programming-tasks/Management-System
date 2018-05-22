@@ -12,12 +12,13 @@ package desktoproject.Model.Classes.Transactions;
 public class ServiceType {
     private int id;
     private String name;
+    private float price;
 
-    public ServiceType(int id, String name) {
-        this.id = id;
+    public ServiceType(String name, float price) {
         this.name = name;
+        this.price = price;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -32,6 +33,14 @@ public class ServiceType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
     
     
