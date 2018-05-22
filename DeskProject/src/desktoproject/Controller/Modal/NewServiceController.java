@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Modal;
 
+import desktoproject.Utils.Misc;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,6 +41,7 @@ public class NewServiceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Misc.setOnlyNumbers(valueTextField);
     }    
     
     @FXML

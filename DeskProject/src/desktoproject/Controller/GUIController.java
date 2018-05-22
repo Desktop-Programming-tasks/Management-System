@@ -69,6 +69,7 @@ public class GUIController {
         mainStage.setMinHeight(720);
         callLogin();
         setUpModalStage();
+        callModal(ModalType.SERVICE_NEW);
     }
 
     private void setUpModalStage() {
