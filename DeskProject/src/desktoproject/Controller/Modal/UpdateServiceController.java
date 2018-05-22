@@ -24,9 +24,11 @@ import javafx.scene.control.TextField;
  */
 public class UpdateServiceController implements Initializable {
     
+    private static final String updateServicePath = "desktoproject/View/Modal/UpdateService.fxml";
+    
     public static Parent call(Object obj) throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(UpdateServiceController.class.getClassLoader().getResource("desktoproject/View/Modal/UpdateService.fxml"));
+            loader.setLocation(UpdateServiceController.class.getClassLoader().getResource(updateServicePath));
             Parent p = loader.load();
             UpdateServiceController controller = loader.load();
             controller.setService((Service) obj);
@@ -35,10 +37,6 @@ public class UpdateServiceController implements Initializable {
     
     private Service service;
 
-    public void setService(Service service) {
-        this.service = service;
-    }
-    
     @FXML
     private TextField textFieldServiceName;
     @FXML
@@ -69,5 +67,9 @@ public class UpdateServiceController implements Initializable {
     @FXML
     public void closeModal() {
         
+    }
+    
+    private void setService(Service service) {
+        this.service = service;
     }
 }

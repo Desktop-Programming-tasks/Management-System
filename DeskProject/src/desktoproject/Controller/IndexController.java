@@ -20,10 +20,10 @@ import javafx.scene.Parent;
  * @author ecaanchesjr
  */
 public class IndexController implements Initializable {
-
+    private static final String indexPath = "desktoproject/View/Index.fxml";
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(IndexController.class.getClassLoader().getResource("desktoproject/View/Index.fxml"));
+        loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
         return loader.load();
     }
 

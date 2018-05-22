@@ -22,9 +22,11 @@ import javafx.scene.Parent;
  */
 public class ServiceController implements Initializable {
     
+    private static final String serviceControllerPath = "desktoproject/View/Query/ServiceQueryController.fxml";
+    
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ServiceController.class.getClassLoader().getResource("desktoproject/View/Query/ServiceQueryController.fxml"));        
+        loader.setLocation(ServiceController.class.getClassLoader().getResource(serviceControllerPath));        
         return loader.load();
     }
     

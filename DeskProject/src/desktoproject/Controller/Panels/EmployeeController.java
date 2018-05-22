@@ -26,9 +26,11 @@ import javafx.scene.control.TextField;
  */
 public class EmployeeController implements Initializable {
     
+    private static final String panelEmployeePath = "desktoproject/View/Panels/Employee.fxml";
+    
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Employee.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
         Parent p = loader.load();
         EmployeeController controller = loader.getController();
         controller.setUpComponents();
@@ -37,7 +39,7 @@ public class EmployeeController implements Initializable {
     
     public static Parent call(Object employee) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Employee.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));        
         Parent p = loader.load();
         
         EmployeeController controller = loader.getController();

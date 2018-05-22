@@ -24,9 +24,11 @@ import javafx.scene.control.TableView;
  */
 public class GenericTransactionController implements Initializable {
 
+    private static final String genericTransactionPath = "desktoproject/View/Query/GenericTransactionQuery.fxml";
+    
     public static Parent call(TransactionQueryType type) throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource("desktoproject/View/Query/GenericTransactionQuery.fxml"));
+        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource(genericTransactionPath));
         Parent p = loader.load();
         GenericTransactionController controller = loader.getController();
         controller.setType(type);

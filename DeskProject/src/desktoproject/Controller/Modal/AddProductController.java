@@ -20,12 +20,12 @@ import javafx.scene.control.TextField;
  * @author noda
  */
 public class AddProductController implements Initializable {
-
+    
+    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
+    
     public static Parent call() throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AddProductController.class.getClassLoader().getResource("desktoproject/View/Modal/AddProduct.fxml"));
-//            Parent p = loader.load();
-//            AddProductController controller = loader.getController();
+            loader.setLocation(AddProductController.class.getClassLoader().getResource(addProductPath));
             return loader.load();
     }
     

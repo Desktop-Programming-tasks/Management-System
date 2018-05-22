@@ -31,9 +31,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class SupplierController implements Initializable {
     
+    private static final String panelSupplierPath = "desktoproject/View/Panels/Supplier.fxml";
+    
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierController.class.getClassLoader().getResource("desktoproject/View/Panels/Supplier.fxml"));        
+        loader.setLocation(SupplierController.class.getClassLoader().getResource(panelSupplierPath));        
         Parent p = loader.load();
         SupplierController controller = loader.getController();
         controller.setUpComponents();
@@ -42,7 +44,7 @@ public class SupplierController implements Initializable {
     
     public static Parent call(Object supplier) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Supplier.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelSupplierPath));        
         Parent p = loader.load();
         
         SupplierController controller = loader.getController();
