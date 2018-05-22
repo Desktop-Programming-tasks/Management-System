@@ -73,7 +73,8 @@ public class GUIController {
         mainStage.setMinHeight(720);
         callLogin();
         setUpModalStage();
-        callModal(ModalType.SERVICE_NEW);
+        callScreen(ScreenType.EMPLOYEE_CREATE);
+//        testScreen();
     }
 
     private void setUpModalStage() {
@@ -338,8 +339,8 @@ public class GUIController {
         LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
         Employee employee = new Employee("login test", "password", "87854", "employee of the month", address, telephones, "498431");
         
-        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
-//        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
+//        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
+        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
         //callModal(ModalType.BRAND_UPDATE, testBrand);
         //callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);

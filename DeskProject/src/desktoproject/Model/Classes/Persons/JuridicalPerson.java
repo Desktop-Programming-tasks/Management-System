@@ -28,4 +28,5 @@ public class JuridicalPerson extends Person{
         return super.toString()+"JuridicalPerson{" + '}';
     }
     
+    
 }

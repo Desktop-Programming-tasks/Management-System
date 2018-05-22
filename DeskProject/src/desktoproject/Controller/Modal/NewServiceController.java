@@ -50,20 +50,27 @@ public class NewServiceController implements Initializable {
     
     @FXML
     private void register(){
+        if(validate()){
+            Service service = new Service(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+            System.out.println(service.toString());
+        }
+    }
+    
+    @FXML
+    private void back() {
+        
+    }
+    
+    private boolean validate(){
         Validate valObj = new Validate();
         valObj.validateName(nameTextField.getText());
         valObj.validateEmpty("Valor",valueTextField.getText());
         
         if(valObj.getErrorMessage().isEmpty()){
-            Service service = new Service(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
-            System.out.println(service.toString());
+            return true;
         }else{
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
+            return false;
         }
-    }
-    
-    @FXML
-    public void back() {
-        
     }
 }

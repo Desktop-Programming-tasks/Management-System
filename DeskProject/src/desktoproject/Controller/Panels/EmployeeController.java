@@ -5,14 +5,19 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Controller.GUIController;
+import desktoproject.Model.Classes.Persons.Address;
 import desktoproject.Model.Classes.Persons.Employee;
+import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -124,8 +129,21 @@ public class EmployeeController implements Initializable {
     }
     
     @FXML
-    private void register(){
+    private void mainAction(){
+        if(edit){
         
+        }else{
+            if(validate()){
+                Address address = new Address(streetTextField.getText(), Integer.parseInt(numberTextField.getText()),districtTextField.getText(), "cidade batata", "estado batata");
+                ArrayList<String> telephones = new ArrayList<>();
+                telephones.add(telTextField.getText());
+                if(!secTelTextField.getText().isEmpty()){
+                    telephones.add(secTelTextField.getText());
+                }
+                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), RGTextField.getText(), nameTextField.getText(), address, telephones,CPFTextField.getText());
+                System.out.println(newEmployee.toString());
+            }
+        }
     }
     
     public void setEmployee(Employee employee) {
@@ -134,5 +152,39 @@ public class EmployeeController implements Initializable {
 
     public void setEdit(boolean edit) {
         this.edit = edit;
+    }
+    
+    private boolean validate() {
+        Validate valObj = new Validate();
+        
+        valObj.validateName(nameTextField.getText());
+        
+            valObj.validateRG(RGTextField.getText());
+            valObj.validateCPF(CPFTextField.getText());
+        
+        
+        valObj.validateTelephone(telTextField.getText());
+        if(!secTelTextField.getText().isEmpty()){
+            valObj.validateTelephone(secTelTextField.getText());
+        }
+        
+        valObj.validateAddressNumber(numberTextField.getText());
+        valObj.validateStreet(streetTextField.getText());
+        valObj.validateDistrict(districtTextField.getText());
+        valObj.validateCity();
+        valObj.validateState();
+        
+        valObj.validateNick(userTextField.getText());
+
+        if(valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())){
+            valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
+        }
+        
+        if (valObj.getErrorMessage().isEmpty()) {
+            return true;
+        } else {
+            GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
+            return false;
+        }
     }
 }

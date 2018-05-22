@@ -37,7 +37,6 @@ public class LegalPerson extends Person{
 
     @Override
     public String toString() {
-        
         return super.toString()+"LegalPerson{" + "RG=" + RG + '}';
     }
 }
