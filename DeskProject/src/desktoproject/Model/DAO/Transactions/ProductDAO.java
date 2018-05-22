@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Model.DAO.Persons.Transactions;
+package desktoproject.Model.DAO.Transactions;
 
 import desktoproject.Model.Classes.Transactions.Product;
 import java.util.ArrayList;
