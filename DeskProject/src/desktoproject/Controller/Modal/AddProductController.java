@@ -5,7 +5,6 @@
  */
 package desktoproject.Controller.Modal;
 
-import desktoproject.Model.Classes.Transactions.Product;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-import main.utils.Validate;
 
 /**
  * FXML Controller class

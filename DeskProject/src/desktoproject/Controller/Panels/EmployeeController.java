@@ -28,7 +28,7 @@ public class EmployeeController implements Initializable {
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/EmployeeRegister.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Employee.fxml"));        
         Parent p = loader.load();
         EmployeeController controller = loader.getController();
         controller.setUpComponents();
@@ -37,7 +37,7 @@ public class EmployeeController implements Initializable {
     
     public static Parent call(Object employee) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Register/EmployeeRegister.fxml"));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource("desktoproject/View/Panels/Employee.fxml"));        
         Parent p = loader.load();
         
         EmployeeController controller = loader.getController();
@@ -55,10 +55,27 @@ public class EmployeeController implements Initializable {
         if(edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Funcionário");
+            fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Funcionário");
         }
+    }
+    
+    private void fillScreen(){
+        nameTextField.setText(employee.getName());
+        RGTextField.setText(employee.getRG());
+        CPFTextField.setText(employee.getCPF());
+        telTextField.setText(employee.getTelephones().get(0));
+        if(employee.getTelephones().size()>1){
+            secTelTextField.setText(employee.getTelephones().get(1));
+        }
+        streetTextField.setText(employee.getAddress().getStreet());
+        numberTextField.setText(String.valueOf(employee.getAddress().getNumber()));
+        districtTextField.setText(employee.getAddress().getBlock());
+        
+        userTextField.setText(employee.getLogin());
+        //dont set the password, only detect changes in password if anything new is writen in the password and confirm password fields
     }
     
     @FXML

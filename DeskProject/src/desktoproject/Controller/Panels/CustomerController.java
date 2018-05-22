@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Model.Classes.Persons.JuridicalPerson;
 import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Person;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class CustomerController implements Initializable {
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Register/CustomerRegister.fxml"));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Panels/Customer.fxml"));
         Parent p = loader.load();
         CustomerController controller = loader.getController();
         controller.setUpComponents();
@@ -40,7 +41,7 @@ public class CustomerController implements Initializable {
 
     public static Parent call(Object person) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Register/CustomerRegister.fxml"));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource("desktoproject/View/Panels/Customer.fxml"));
         Parent p = loader.load();
 
         CustomerController controller = loader.getController();
@@ -61,12 +62,31 @@ public class CustomerController implements Initializable {
             mainBtn.setText("Alterar");
 
             toggleFields(isLegalPerson = (person instanceof LegalPerson));
+            fillScreen();
         } else {
             mainLabel.setText("Cadastrar Cliente");
             mainBtn.setText("Cadastrar");
         }
     }
 
+    private void fillScreen() {
+        nameTextField.setText(person.getName());
+        telTextField.setText(person.getTelephones().get(0));
+        if(person.getTelephones().size()>1){
+            secTelTextField.setText(person.getTelephones().get(1));
+        }
+        streetTextField.setText(person.getAddress().getStreet());
+        numberTextField.setText(String.valueOf(person.getAddress().getNumber()));
+        districtTextField.setText(person.getAddress().getBlock());
+        
+        if(isLegalPerson){
+            RGTextField.setText(((LegalPerson) person).getRG());
+            CPFTextField.setText(((LegalPerson) person).getCPF());
+        }else{
+            CNPJTextField.setText(((JuridicalPerson ) person).getCNPJ());
+        }
+    }
+    
     @FXML
     private TextField nameTextField;
     @FXML
@@ -131,8 +151,8 @@ public class CustomerController implements Initializable {
     }
 
     private void toggleFields(boolean legal) {
-        legalGroup.setDisable(!legal);
-        CNPJTextField.setDisable(legal);
+        legalGroup.setVisible(legal);
+        CNPJTextField.setVisible(!legal);
         legalPersonRadio.setSelected(legal);
         juridicalPersonRadio.setSelected(!legal);
     }

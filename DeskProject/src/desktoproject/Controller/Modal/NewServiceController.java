@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-import main.utils.Validate;
 
 /**
  * FXML Controller class

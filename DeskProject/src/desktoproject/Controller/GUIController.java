@@ -10,6 +10,9 @@ import desktoproject.Controller.Modal.*;
 import desktoproject.Controller.Query.*;
 import desktoproject.Controller.Panels.*;
 import desktoproject.Model.Classes.Persons.Address;
+import desktoproject.Model.Classes.Persons.Employee;
+import desktoproject.Model.Classes.Persons.JuridicalPerson;
+import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Model.Classes.Transactions.Product;
@@ -306,13 +309,18 @@ public class GUIController {
         Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
         ArrayList<String> telephones = new ArrayList<>();
         telephones.add("9955999599");
-        telephones.add("6845465465465");
-        //JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
-        Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
+//        telephones.add("6845465465465");
         
+        JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
+        Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
+        LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
+        Employee employee = new Employee("login test", "password", "87854", "employee of the month", address, telephones, "498431");
+        
+        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
+//        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
+//        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
         //callModal(ModalType.BRAND_UPDATE, testBrand);
         //callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
-        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
-        
+//        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
     }
 }
