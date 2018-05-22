@@ -16,35 +16,8 @@ public class Service extends Transaction{
     private LocalDate estimatedDate;
     private LocalDate finishDate;
     private String status;
-    private int codServ;
     private String assignedEmployee;
-    private String name;
-    
-    public Service(String name, float price) {
-        this.name = name;
-        super.setPrice(price);
-    }
-    
-    public Service(LocalDate startDate, LocalDate estimatedDate, LocalDate finishDate, String status, int codServ, String assignedEmployee, String name, int id) {
-        super(id);
-        this.startDate = startDate;
-        this.estimatedDate = estimatedDate;
-        this.finishDate = finishDate;
-        this.status = status;
-        this.codServ = codServ;
-        this.assignedEmployee = assignedEmployee;
-        this.name = name;
-    }
-
-    public Service(LocalDate startDate, LocalDate estimatedDate, int codServ) {
-        this.startDate = startDate;
-        this.estimatedDate = estimatedDate;
-        this.codServ = codServ;
-    }
-
-    public Service(int codServ) {
-        this.codServ = codServ;
-    }
+    private ServiceType serviceType;
     
     public LocalDate getStartDate() {
         return startDate;
@@ -78,14 +51,6 @@ public class Service extends Transaction{
         this.status = status;
     }
 
-    public int getCodServ() {
-        return codServ;
-    }
-
-    public void setCodServ(int codServ) {
-        this.codServ = codServ;
-    }
-
     public String getAssignedEmployee() {
         return assignedEmployee;
     }
@@ -94,17 +59,17 @@ public class Service extends Transaction{
         this.assignedEmployee = assignedEmployee;
     }
 
-    public String getName() {
-        return name;
+    public ServiceType getServiceType() {
+        return serviceType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
     }
-
+    
     @Override
     public String toString() {
-        return super.toString()+"Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", codServ=" + codServ + ", assignedEmployee=" + assignedEmployee + ", name=" + name + '}';
+        return super.toString()+"Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", codServ=" + serviceType.getId()+ ", assignedEmployee=" + assignedEmployee + ", name=" + serviceType.getName() + '}';
     }
     
     
