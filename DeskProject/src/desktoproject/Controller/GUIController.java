@@ -19,15 +19,17 @@ import desktoproject.Model.Classes.Transactions.Product;
 import desktoproject.Utils.ControllerInfo;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,6 +39,8 @@ import javafx.stage.Stage;
  */
 public class GUIController {
 
+    private final String cssPath = "desktoproject/View/css/alert.css";
+    
     private Stage mainStage;
     private Stage modalStage;
 
@@ -70,6 +74,7 @@ public class GUIController {
         callLogin();
         setUpModalStage();
         callModal(ModalType.SERVICE_NEW);
+        showEraseConfirmationAlert("batata");
     }
 
     private void setUpModalStage() {
@@ -258,37 +263,44 @@ public class GUIController {
         modalStage.show();
     }
 
-    public void showInformationEraseAlert() {
-        Alert aboutInfo = new Alert(Alert.AlertType.CONFIRMATION);
+    public boolean showEraseConfirmationAlert(String msg) {
+        Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDelete.setTitle("Confirme a operação.");
+        confirmDelete.setHeaderText("Deseja realmente deletar "+msg+"?");
+        confirmDelete.setContentText(" ");
+        
+        DialogPane diagPanel = confirmDelete.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+        
+        return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
+    }
+    
+    public void showEraseAlert() {
+        Alert aboutInfo = new Alert(Alert.AlertType.INFORMATION);
 
         aboutInfo.setTitle("Operação de remoção");
         aboutInfo.setHeaderText("Remoção bem sucedida!");
         aboutInfo.setContentText("Operação de remoção concluída!");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
         aboutInfo.showAndWait();
     }
 
-    public void showInformationAlert(String msg) {
+    public void showAlert(Alert.AlertType type, String title, String header, String content){
         Alert informationDiag;
-        if (msg.isEmpty()) {
-            informationDiag = new Alert(Alert.AlertType.CONFIRMATION);
-            informationDiag.setTitle("Operação bem sucedida");
-            informationDiag.setHeaderText("Confirmação de operação!");
-            informationDiag.setContentText("Operação realizada com sucesso!");
-        } else {
-            informationDiag = new Alert(Alert.AlertType.ERROR);
-            informationDiag.setTitle("Operação falhou");
-            informationDiag.setHeaderText("Falha de operação");
-            informationDiag.setContentText(msg);
-        }
+        
+        informationDiag = new Alert(type);
+        informationDiag.setTitle(title);
+        informationDiag.setHeaderText(header);
+        informationDiag.setContentText(content);
+        
         DialogPane diagPanel = informationDiag.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
         informationDiag.showAndWait();
     }
 
-    public void showAboutInformationAlert() {
+    public void showAboutAlert() {
         Alert aboutInfo = new Alert(Alert.AlertType.INFORMATION);
 
         aboutInfo.setTitle("Sobre o Software");
@@ -296,10 +308,10 @@ public class GUIController {
         aboutInfo.setContentText("Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource("css/alert.css").toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
         aboutInfo.showAndWait();
     }
-
+    
     public void closeModal() {
         modalStage.close();
     }
