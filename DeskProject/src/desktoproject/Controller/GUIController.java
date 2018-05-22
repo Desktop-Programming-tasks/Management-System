@@ -16,6 +16,7 @@ import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Model.Classes.Transactions.Product;
+import desktoproject.Utils.ControllerInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -46,7 +47,8 @@ public class GUIController {
 
     private Stack<Scene> executionStack;
 
-    AnchorPane dynamic;
+    private AnchorPane dynamic;
+    private boolean isMenu;
 
     private GUIController() {
         executionStack = new Stack<>();
@@ -62,29 +64,11 @@ public class GUIController {
     }
 
     public void startApp(Stage stage) {
-        try {
-            mainStage = stage;
-            mainStage.setMinWidth(1280);
-            mainStage.setMinHeight(720);
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("desktoproject/View/Menu.fxml"));
-            indexParent = loader.load();
-            MenuController controller = loader.getController();
-            this.dynamic = controller.getDynamic();
-
-            callScreen(ScreenType.INDEX);
-
-            nowScene = new Scene(indexParent);
-            executionStack.push(nowScene);
-            mainStage.setScene(nowScene);
-            mainStage.show();
-            
-        } catch (IOException ex) {
-            System.out.println("Error starting app: " + ex.getMessage());
-        }
+        mainStage = stage;
+        mainStage.setMinWidth(1280);
+        mainStage.setMinHeight(720);
+        callLogin();
         setUpModalStage();
-        testScreen();
     }
 
     private void setUpModalStage() {
@@ -102,6 +86,26 @@ public class GUIController {
         this.dynamic.getChildren().add(p);
     }
     
+    public void callLogin(){
+        try {
+            mainStage.setScene(new Scene(LoginController.call()));
+            mainStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void setMenuScreen(){
+        try {
+            ControllerInfo info = MenuController.call();
+            this.dynamic = ((MenuController)info.getController()).getDynamic();
+            mainStage.setScene(new Scene(info.getParent()));
+            mainStage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     //if no object is passed the callScreen is called with null
     //this method is used to call screens that don't need to display information of an already created object
     public void callScreen(ScreenType type){
@@ -109,6 +113,9 @@ public class GUIController {
     }
 
     public void callScreen(ScreenType type, Object obj) {
+        if(!isMenu){
+            setMenuScreen();
+        }
         try {
             switch (type) {
                 case INDEX: {

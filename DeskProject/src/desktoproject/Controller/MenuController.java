@@ -5,14 +5,16 @@
  */
 package desktoproject.Controller;
 
+import desktoproject.Utils.ControllerInfo;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -21,8 +23,18 @@ import javafx.scene.layout.Pane;
  */
 public class MenuController implements Initializable {
 
+    private static final String path = "desktoproject/View/Menu.fxml";
+    
+    public static ControllerInfo call() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(LoginController.class.getClassLoader().getResource(path));
+        Parent p = loader.load();
+        MenuController controller = loader.getController();
+        return new ControllerInfo(p, controller);
+    }
+    
     @FXML
-    AnchorPane dynamic;
+    private AnchorPane dynamic;
     
     /**
      * Initializes the controller class.
