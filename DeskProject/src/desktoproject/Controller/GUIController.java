@@ -90,6 +90,8 @@ public class GUIController {
         try {
             mainStage.setScene(new Scene(LoginController.call()));
             mainStage.show();
+            isMenu = false;
+            this.dynamic = null;
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,6 +103,7 @@ public class GUIController {
             this.dynamic = ((MenuController)info.getController()).getDynamic();
             mainStage.setScene(new Scene(info.getParent()));
             mainStage.show();
+            isMenu = true;
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
