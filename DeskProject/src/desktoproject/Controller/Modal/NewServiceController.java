@@ -5,7 +5,10 @@
  */
 package desktoproject.Controller.Modal;
 
+import desktoproject.Controller.GUIController;
+import desktoproject.Model.Classes.Transactions.Service;
 import desktoproject.Utils.Misc;
+import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 /**
@@ -46,7 +50,16 @@ public class NewServiceController implements Initializable {
     
     @FXML
     private void register(){
+        Validate valObj = new Validate();
+        valObj.validateName(nameTextField.getText());
+        valObj.validateEmpty("Valor",valueTextField.getText());
         
+        if(valObj.getErrorMessage().isEmpty()){
+            Service service = new Service(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+            System.out.println(service.toString());
+        }else{
+            GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
+        }
     }
     
     @FXML

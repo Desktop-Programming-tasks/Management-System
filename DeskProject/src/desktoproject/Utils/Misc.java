@@ -23,4 +23,8 @@ public abstract class Misc {
 
         t.setTextFormatter(formatter);
     }
+    
+    public static String changeToDot(String num){
+        return num.replace(",",".");
+    }
 }

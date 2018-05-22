@@ -74,7 +74,6 @@ public class GUIController {
         callLogin();
         setUpModalStage();
         callModal(ModalType.SERVICE_NEW);
-        showEraseConfirmationAlert("batata");
     }
 
     private void setUpModalStage() {
@@ -283,7 +282,7 @@ public class GUIController {
         aboutInfo.setContentText("Operação de remoção concluída!");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
         aboutInfo.showAndWait();
     }
 
@@ -296,7 +295,7 @@ public class GUIController {
         informationDiag.setContentText(content);
         
         DialogPane diagPanel = informationDiag.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
         informationDiag.showAndWait();
     }
 
@@ -308,7 +307,7 @@ public class GUIController {
         aboutInfo.setContentText("Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
         aboutInfo.showAndWait();
     }
     

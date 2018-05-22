@@ -55,6 +55,7 @@ public class Validate {
     }
     
     public void validateName(String name) {
+        validateEmpty("Nome", name);
         if(name.length() > NAME_MAX_LENGTH) {
             errorMessage+=("Nome muito grande!\n");
         }
