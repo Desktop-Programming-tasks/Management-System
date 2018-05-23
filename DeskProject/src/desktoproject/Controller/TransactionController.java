@@ -6,9 +6,11 @@
 package desktoproject.Controller;
 
 import desktoproject.Controller.Enums.TransactionType;
+import desktoproject.Model.Classes.Transactions.Record;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import main.utils.TableProxyTransation;
 
 /**
@@ -54,6 +57,7 @@ public class TransactionController implements Initializable {
 
     private TransactionType type;
     private boolean edit;
+    private Record register;
 
     @FXML
     private Button primaryBtn;
@@ -85,16 +89,14 @@ public class TransactionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        //BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        
     }
 
-    private void setTransactionType(TransactionType type) {
-        this.type = type;
+    private void populateTable() {
+        //BrandsTable.setItems(FXCollections.observableArrayList(brands));
     }
-
-    private void setEdit(boolean edit) {
-        this.edit = edit;
-    }
+    
 
     private void setComponents() {
         switch (type) {
@@ -111,32 +113,51 @@ public class TransactionController implements Initializable {
         }
         if (edit) {
             primaryBtn.setDisable(true);
+            fillScreen();
         }
     }
+    
+    private void fillScreen() {
+        FinalPrice.setText(register.getTotalprice());
+        customerOrSupplier.setText(register.getCustomer().getName());
+    
+        
+    }
 
     @FXML
-    public void back() {
+    private void back() {
 
     }
 
     @FXML
-    public void register() {
+    private void register() {
 
     }
 
     @FXML
-    public void showModalAddService() {
+    private void showModalAddService() {
 
     }
 
     @FXML
-    public void showModalAddProduct() {
+    private void showModalAddProduct() {
 
     }
 
     @FXML
-    public void deleteEntry() {
+    private void deleteEntry() {
 
     }
 
+    private void setRegister(Record register) {
+        this.register = register;
+    }
+
+    private void setTransactionType(TransactionType type) {
+        this.type = type;
+    }
+
+    private void setEdit(boolean edit) {
+        this.edit = edit;
+    }
 }

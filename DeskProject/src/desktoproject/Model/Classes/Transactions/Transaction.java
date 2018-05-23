@@ -11,21 +11,23 @@ package desktoproject.Model.Classes.Transactions;
  */
 public abstract class Transaction {
     private float price;
-    private int id;
+    private String name;
+    private int quantity;
 
-    public Transaction() {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
-    public Transaction(int id) {
-        this.id = id;
+    public Transaction() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Transaction(float price, String name) {
+        this.price = price;
+        this.name = name;
     }
 
     public float getPrice() {
@@ -36,10 +38,16 @@ public abstract class Transaction {
         this.price = price;
     }    
 
-    @Override
-    public String toString() {
-        return "Transation{" + "price=" + price + ", id=" + id + '}';
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
-    
+    @Override
+    public String toString() {
+        return "Transaction{" + "price=" + price + ", name=" + name + '}';
+    }
 }

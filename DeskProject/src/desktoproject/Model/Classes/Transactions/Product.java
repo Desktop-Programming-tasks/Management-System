@@ -5,36 +5,23 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author gabriel
  */
-public class Product {
+public class Product extends Transaction{
     private String barCode;
     private int quantityInStock;
-    private ArrayList<Brand> brands;
-    private float price;
-    private String name;
+    private Brand brand;
 
     public Product(String barCode) {
         this.barCode = barCode;
     }
     
-    public Product(String barCode, ArrayList<Brand> brands, float price, String name) {
+    public Product(String barCode, Brand brand, float price, String name) {
+        super(price,name);
         this.barCode = barCode;
-        this.brands = brands;
-        this.price = price;
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.brand = brand;
     }
 
     public String getBarCode() {
@@ -53,24 +40,16 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public ArrayList<Brand> getBrands() {
-        return brands;
+    public Brand getBrand() {
+        return brand;
     }
 
-    public void setBrands(ArrayList<Brand> brands) {
-        this.brands = brands;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 
     @Override
     public String toString() {
-        return getName();
+        return "Product{" + "barCode=" + barCode + ", quantityInStock=" + quantityInStock + ", brand=" + brand + '}';
     }
 }

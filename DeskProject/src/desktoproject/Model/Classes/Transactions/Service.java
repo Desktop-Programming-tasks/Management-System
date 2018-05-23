@@ -5,6 +5,7 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import desktoproject.Model.Enums.ServiceStatus;
 import java.time.LocalDate;
 
 /**
@@ -15,9 +16,18 @@ public class Service extends Transaction{
     private LocalDate startDate;
     private LocalDate estimatedDate;
     private LocalDate finishDate;
-    private String status;
+    private ServiceStatus status;
     private String assignedEmployee;
     private ServiceType serviceType;
+
+    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, String assignedEmployee, ServiceType serviceType) {
+        super(serviceType.getPrice(), serviceType.getName());
+        this.startDate = startDate;
+        this.estimatedDate = estimatedDate;
+        this.status = status;
+        this.assignedEmployee = assignedEmployee;
+        this.serviceType = serviceType;
+    }
     
     public LocalDate getStartDate() {
         return startDate;
@@ -43,11 +53,11 @@ public class Service extends Transaction{
         this.finishDate = finishDate;
     }
 
-    public String getStatus() {
+    public ServiceStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ServiceStatus status) {
         this.status = status;
     }
 
@@ -66,11 +76,4 @@ public class Service extends Transaction{
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString()+"Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", codServ=" + serviceType.getId()+ ", assignedEmployee=" + assignedEmployee + ", name=" + serviceType.getName() + '}';
-    }
-    
-    
 }

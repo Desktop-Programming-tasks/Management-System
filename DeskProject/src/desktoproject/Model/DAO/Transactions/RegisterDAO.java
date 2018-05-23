@@ -5,7 +5,7 @@
  */
 package desktoproject.Model.DAO.Transactions;
 
-import desktoproject.Model.Classes.Transactions.Register;
+import desktoproject.Model.Classes.Transactions.Record;
 import desktoproject.Model.Classes.Transactions.Transaction;
 
 /**
@@ -14,14 +14,14 @@ import desktoproject.Model.Classes.Transactions.Transaction;
  */
 public abstract class RegisterDAO {
 
-    public abstract void insertRegister(Register register);
+    public abstract void insertRegister(Record register);
 
-    public void createRegisterAndCommitTransations(Register register, TransactionDAO td) {
+    public void createRegisterAndCommitTransations(Record register, TransactionDAO td) {
         for (Transaction el : register.getTransations()) {
             td.insertTransaction(el);
         }
         insertRegister(register);
     }
 
-    public abstract Register getRegister(String id);
+    public abstract Record getRegister(String id);
 }

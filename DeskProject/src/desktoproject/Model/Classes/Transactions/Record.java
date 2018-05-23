@@ -5,7 +5,9 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import desktoproject.Model.Classes.Persons.Employee;
 import desktoproject.Model.Classes.Persons.Person;
+import desktoproject.Model.Enums.RecordType;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,14 +15,25 @@ import java.util.Date;
  *
  * @author gabriel
  */
-public class Register {
+public class Record {
     private int id;
-    private String assignedEmployee;
+    private Employee assignedEmployee;
     private Date registerDate;
     private float totalprice;
     private Person customer;
     private ArrayList<Transaction> transations;
+    private RecordType type;
 
+    public Record(int id, Employee assignedEmployee, Date registerDate, float totalprice, Person customer, ArrayList<Transaction> transations, RecordType type) {
+        this.id = id;
+        this.assignedEmployee = assignedEmployee;
+        this.registerDate = registerDate;
+        this.totalprice = totalprice;
+        this.customer = customer;
+        this.transations = transations;
+        this.type = type;
+    }
+    
     public int getId() {
         return id;
     }
@@ -29,11 +42,11 @@ public class Register {
         this.id = id;
     }
 
-    public String getAssignedEmployee() {
+    public Employee getAssignedEmployee() {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(String assignedEmployee) {
+    public void setAssignedEmployee(Employee assignedEmployee) {
         this.assignedEmployee = assignedEmployee;
     }
 
@@ -71,6 +84,6 @@ public class Register {
 
     @Override
     public String toString() {
-        return "Register{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + '}';
+        return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + ", type=" + type + '}';
     }
 }
