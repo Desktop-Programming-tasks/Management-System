@@ -88,6 +88,8 @@ public class ProductController implements Initializable {
     @FXML 
     private Label mainLabel;
     @FXML
+    private Label brandLabel;
+    @FXML
     private TextField barCodeTextField;
     @FXML
     private TextField nameTextField;
@@ -129,11 +131,6 @@ public class ProductController implements Initializable {
     
     @FXML
     private void createNewBrand() {
-        
-    }
-    
-    @FXML
-    private void addBrand() {
         
     }
     
