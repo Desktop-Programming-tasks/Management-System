@@ -16,7 +16,7 @@ import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Model.Classes.Transactions.Product;
-import desktoproject.Utils.ControllerInfo;
+import desktoproject.Utils.Pairs.ControllerInfo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;

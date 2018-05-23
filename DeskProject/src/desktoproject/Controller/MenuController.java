@@ -5,7 +5,7 @@
  */
 package desktoproject.Controller;
 
-import desktoproject.Utils.ControllerInfo;
+import desktoproject.Utils.Pairs.ControllerInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
