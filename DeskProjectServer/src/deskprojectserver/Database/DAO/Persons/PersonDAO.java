@@ -5,9 +5,11 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
+import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
+import deskprojectserver.Classes.Persons.Supplier;
 import java.util.ArrayList;
 
 /**
@@ -39,22 +41,26 @@ public abstract class PersonDAO {
     public void insertPerson(Person p) throws Exception {
         basicInsertPerson(p);
         if (p instanceof LegalPerson) {
-            LegalPerson lp = (LegalPerson) p;
-            legalPersonDAO.insertLegalPerson(lp);
+            legalPersonDAO.insertLegalPerson((LegalPerson) p);
+            if (p instanceof Employee) {
+                employeeDAO.insertEmployee((Employee) p);
+            }
         } else if (p instanceof JuridicalPerson) {
-            JuridicalPerson jp = (JuridicalPerson) p;
-            juridicalDAO.insertJuridicalPerson(jp);
+            juridicalDAO.insertJuridicalPerson((JuridicalPerson) p);
+            if (p instanceof Supplier) {
+                supplierDAO.insertSupplier((Supplier) p);
+            }
         }
         //addressDAO.insertAddress(p, p.getAddress());
     }
 
-    public abstract void basicInsertPerson(Person p) throws Exception;
+    protected abstract void basicInsertPerson(Person p) throws Exception;
 
-    public abstract void basicUpdatePerson(Person p) throws Exception;
+    protected abstract void basicUpdatePerson(Person p) throws Exception;
 
-    public abstract void basicRemovePerson(Person p) throws Exception;
+    protected abstract void basicRemovePerson(Person p) throws Exception;
 
-    public abstract Person getPerson(String id) throws Exception;
+    protected abstract Person getPerson(String id) throws Exception;
 
     public abstract ArrayList<Person> getAllPersons() throws Exception;
 

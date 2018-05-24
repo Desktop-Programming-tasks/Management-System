@@ -23,6 +23,7 @@ public class MySqlPersonDAO extends PersonDAO{
         
         super.setLegalPersonDAO(new MySqlLegalPersonDAO());
         super.setJuridicalDAO(new MySqlJuridicaPersonDAO());
+        super.setEmployeeDAO(new MySqlEmployeeDAO());
     }
 
     @Override

@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class EmployeeDAO {
-    public abstract void insertEmployee(Employee employee);
-    public abstract void updateEmployee(Employee employee);
-    public abstract void removeEmployee(Employee employee);
-    public abstract Employee getEmployee(String id);
-    public abstract ArrayList<Employee> getAllEmployees();
+    public abstract void insertEmployee(Employee employee) throws Exception;
+    public abstract void updateEmployee(Employee employee) throws Exception;
+    public abstract void removeEmployee(Employee employee) throws Exception;
+    public abstract Employee getEmployee(String id) throws Exception;
+    public abstract ArrayList<Employee> getAllEmployees() throws Exception;
 }
