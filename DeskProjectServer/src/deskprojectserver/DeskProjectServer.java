@@ -9,6 +9,8 @@ import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
+import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import java.util.ArrayList;
 
@@ -27,17 +29,17 @@ public class DeskProjectServer {
             ArrayList al = new ArrayList();
             al.add("500-5555");
             al.add("500-5555");
-            Address address = new Address("Tomar no cu", 20, "Cu do mundo","Acrelândia", "Acre");
-            
-            MySqlPersonDAO p = new MySqlPersonDAO();
-            LegalPerson lp = new LegalPerson("10", "Gabriel", address, al, "222-3133");
-            JuridicalPerson jp = new JuridicalPerson("Gabriel Empresa",
-                    address, al, "53-44414");
-            Employee emp = new Employee("batata", "1234", 1, 
-                    "10 10 ", "Gabriel funcionario", address, al, "000 111 22122");
-            //p.insertPerson(emp);
-            p.insertPerson(jp);
-            p.insertPerson(lp);
+            Address address = new Address("Tomar no cu", 20, "Cu do mundo", "Acrelândia", "Acre");
+//            LegalPerson lp = new LegalPerson("10", "Gabriel", address, al, "222-3133");
+//            JuridicalPerson jp = new JuridicalPerson("Gabriel Empresa",
+//                    address, al, "53-44414");
+//            Employee emp = new Employee("batata", "1234", 1, 
+//                    "10 10 ", "Gabriel funcionario", address, al, "000 111 22122");
+//            //p.insertPerson(emp);
+//            p.insertPerson(jp);
+//            p.insertPerson(lp);
+            Supplier sup = new Supplier(al, "Gabriel", address, al, "5554-222");
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
         } catch (Exception e) {
             e.printStackTrace();
         }

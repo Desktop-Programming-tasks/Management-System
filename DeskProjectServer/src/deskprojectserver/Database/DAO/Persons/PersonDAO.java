@@ -31,13 +31,6 @@ public abstract class PersonDAO {
         this.juridicalDAO = juridicalDAO;
         this.supplierDAO = supplierDAO;
     }
-
-    public PersonDAO() {
-        setDAOs();
-    }
-
-    public abstract void setDAOs();
-
     public void insertPerson(Person p) throws Exception {
         basicInsertPerson(p);
         if (p instanceof LegalPerson) {

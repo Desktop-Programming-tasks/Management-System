@@ -18,14 +18,13 @@ public class MySqlPersonDAO extends PersonDAO{
     private final static String INSERT_SQL="INSERT INTO `Person`(`idPerson`, "
             + "`namePerson`, `tel1Person`, `tel2Person`)"
             + " VALUES (?,?,?,?)";
-    @Override
-    public void setDAOs() {
-        
-        super.setLegalPersonDAO(new MySqlLegalPersonDAO());
-        super.setJuridicalDAO(new MySqlJuridicaPersonDAO());
-        super.setEmployeeDAO(new MySqlEmployeeDAO());
-        super.setAddressDAO(new MySqlAddressDAO());
+
+    public MySqlPersonDAO() {
+        super(new MySqlAddressDAO(), new MySqlEmployeeDAO(), 
+                new MySqlLegalPersonDAO(), new MySqlJuridicaPersonDAO(),
+                new MySqlSupplierDAO());
     }
+    
 
     @Override
     public void basicInsertPerson(Person p) throws Exception {
