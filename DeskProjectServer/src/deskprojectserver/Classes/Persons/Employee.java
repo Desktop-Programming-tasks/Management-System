@@ -5,6 +5,7 @@
  */
 package deskprojectserver.Classes.Persons;
 
+import deskprojectserver.Enums.EmployeeType;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,13 +16,13 @@ import java.util.ArrayList;
 public class Employee extends LegalPerson implements Serializable {
     private String login;
     private String password;
-    private int EmployeeType;
+    private EmployeeType type;
 
-    public Employee(String login, String password, int EmployeeType, String RG, String name, Address address, ArrayList<String> telephones, String cpf) {
+    public Employee(String login, String password, EmployeeType type, String RG, String name, Address address, ArrayList<String> telephones, String cpf) {
         super(RG, name, address, telephones, cpf);
         this.login = login;
         this.password = password;
-        this.EmployeeType = EmployeeType;
+        this.type = type;
     }
     
     public String getLogin() {
@@ -45,12 +46,12 @@ public class Employee extends LegalPerson implements Serializable {
         return super.toString()+"Employee{" + "login=" + login + ", password=" + password + '}';
     }
 
-    public int getEmployeeType() {
-        return EmployeeType;
+    public EmployeeType getEmployeeType() {
+        return type;
     }
 
-    public void setEmployeeType(int EmployeeType) {
-        this.EmployeeType = EmployeeType;
+    public void setEmployeeType(EmployeeType type) {
+        this.type = type;
     }
     
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author ecsanchesjr
  */
-public enum EmployeeTypes implements Serializable {
+public enum EmployeeType implements Serializable {
     MANAGER,
     COMMOM
 }

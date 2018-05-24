@@ -7,6 +7,7 @@ package deskprojectserver.RMI;
 
 import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Employee;
+import deskprojectserver.Enums.EmployeeType;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -27,7 +28,7 @@ public class RMIClientTest {
         telephones.add("888898954");
         Address address = new Address("Rua das rosas", 100, "batata", "Abadiânia", "Goiás");
         //Employee emp = new Employee("test", "", 1, "43434343434", "batatao", address, telephones, "889898898435");
-        Employee emp = new Employee("123", "", 1, "123112", "batata", address, telephones, "732812783744");
+        Employee emp = new Employee("123", "", EmployeeType.MANAGER, "123112", "batata", address, telephones, "732812783744");
         
         //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
         try {
