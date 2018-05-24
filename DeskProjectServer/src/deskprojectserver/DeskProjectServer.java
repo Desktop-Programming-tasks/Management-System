@@ -5,7 +5,11 @@
  */
 package deskprojectserver;
 
+import deskprojectserver.Classes.Persons.JuridicalPerson;
+import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Database.Database;
+import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +23,16 @@ public class DeskProjectServer {
     public static void main(String[] args) {
         // TODO code application logic here
         try{
-            Database.getInstance();
+            ArrayList al = new ArrayList();
+            al.add("500-5555");
+            al.add("500-5555");
+            LegalPerson lp = new LegalPerson("10"   , "Gabriel", null, al, "222-333");
+            MySqlPersonDAO  p= new MySqlPersonDAO();
+            //p.insertPerson(lp);
+            JuridicalPerson jp= new  JuridicalPerson("Gabriel Empresa",
+                    null, al, "53-4444");
+            p.insertPerson(jp);
+            
         }
         catch(Exception e){
             e.printStackTrace();
