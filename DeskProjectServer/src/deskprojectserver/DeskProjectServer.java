@@ -5,6 +5,8 @@
  */
 package deskprojectserver;
 
+import deskprojectserver.Database.Database;
+
 /**
  *
  * @author gabriel
@@ -16,6 +18,12 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        try{
+            Database.getInstance();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
 }

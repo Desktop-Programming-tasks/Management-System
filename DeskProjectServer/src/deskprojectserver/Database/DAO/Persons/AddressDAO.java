@@ -14,9 +14,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class AddressDAO {
-    public abstract void insertAddress(Address address);
-    public abstract void removeAddress(Address address);
-    public abstract void updateAddress(Address address);
+    public abstract void insertAddress(Person person,Address address);
+    public abstract void removeAddress(Person person,Address address);
+    public abstract void updateAddress(Person person,Address address);
     public abstract Address getAddress(Person person);
     public abstract ArrayList<Address> getAllAddresses();  
 }
