@@ -31,6 +31,7 @@ public class Database {
             statement.setObject(i++, o);
         }
         statement.executeUpdate();
+        statement.close();
     }
 
     public QueryResult query(String sql, Object... params) throws SQLException {
