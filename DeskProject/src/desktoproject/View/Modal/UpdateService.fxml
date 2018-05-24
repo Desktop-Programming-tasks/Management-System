@@ -18,7 +18,7 @@
                </font>
             </Label>
             <TextField fx:id="textFieldServiceName" prefHeight="26.0" prefWidth="536.0" promptText="Código do serviço *" styleClass="border-botton" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-            <Button layoutX="8.0" layoutY="235.0" mnemonicParsing="false" onAction="#closeModal" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            <Button layoutX="8.0" layoutY="235.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
             <Button layoutX="330.0" layoutY="280.0" mnemonicParsing="false" onAction="#update" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Adicionar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <ComboBox fx:id="comboBoxEmployee" layoutX="381.0" layoutY="264.0" prefHeight="32.0" prefWidth="155.0" promptText="Funcionário *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="270.0" />
             <Label layoutY="236.0" text="Início" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="236.0">

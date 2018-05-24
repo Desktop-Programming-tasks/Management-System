@@ -64,12 +64,12 @@ public class SupplierController implements Initializable {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Fornecedor");
             brands = supplier.getAvaliableBrands();
+            fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Fornecedor");
             brands = new ArrayList<>();
         }
-        fillScreen();
     }
     
     private void fillScreen() {

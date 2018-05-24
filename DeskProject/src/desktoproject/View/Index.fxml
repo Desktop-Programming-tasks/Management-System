@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.IndexController">
    <children>
       <Label alignment="CENTER" layoutX="75.0" text="Express Sys" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -35,32 +34,32 @@
          <children>
             <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Registrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
               <items>
-                <MenuItem mnemonicParsing="false" text="Funcionário" />
-                <MenuItem mnemonicParsing="false" text="Produto" />
-                  <MenuItem mnemonicParsing="false" text="Serviço" />
-                  <MenuItem mnemonicParsing="false" text="Fornecedor" />
-                  <MenuItem mnemonicParsing="false" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" text="Marcas" />
+                <MenuItem mnemonicParsing="false" onAction="#showCreateEmployee" text="Funcionário" />
+                <MenuItem mnemonicParsing="false" onAction="#showCreateProduct" text="Produto" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Serviço" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateSupplier" text="Fornecedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Marcas" />
               </items>
                <graphic>
                   <FontAwesomeIconView glyphName="PLUS_SQUARE" opacity="0.5" size="4em" />
                </graphic>
             </MenuButton>
-            <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showQueryProduct" styleClass="level-1" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <graphic>
                   <FontAwesomeIconView glyphName="CUBES" opacity="0.5" size="6EM" />
                </graphic>
             </Button>
             <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="level-1" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
               <items>
-                <MenuItem mnemonicParsing="false" text="Transações" />
-                <MenuItem mnemonicParsing="false" text="Vendas" />
-                  <MenuItem mnemonicParsing="false" text="Compra" />
-                  <MenuItem mnemonicParsing="false" text="Serviços" />
-                  <MenuItem mnemonicParsing="false" text="Funcionários" />
-                  <MenuItem mnemonicParsing="false" text="Clientes" />
-                  <MenuItem mnemonicParsing="false" text="Fornecedores" />
-                  <MenuItem mnemonicParsing="false" text="Marcas" />
+                <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Transações" />
+                <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Vendas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryBuy" text="Compra" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Funcionários" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryClient" text="Clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Fornecedores" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryBrand" text="Marcas" />
               </items>
                <graphic>
                   <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" size="6em" />
@@ -91,6 +90,9 @@
                      <graphic>
                         <FontAwesomeIconView glyphName="SHOPPING_CART" opacity="0.5" size="12em" />
                      </graphic>
+                     <font>
+                        <Font size="30.0" />
+                     </font>
                   </Button>
                </children>
             </GridPane>

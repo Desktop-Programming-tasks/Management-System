@@ -23,7 +23,7 @@ import javafx.scene.control.TableView;
  */
 public class QuerySupplierController implements Initializable {
 
-    private static final String querySupplierPath = "desktoproject/View/Query/SupplierQueryController.fxml";
+    private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();

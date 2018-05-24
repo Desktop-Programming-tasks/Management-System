@@ -83,7 +83,7 @@ public class GUIController {
         callLogin();
         setUpModalStage();
 //        callScreen(ScreenType.EMPLOYEE_CREATE);
-        testScreen();
+//        testScreen();
     }
 
     private void setUpModalStage() {
@@ -177,7 +177,7 @@ public class GUIController {
                     break;
                 }
                 case QUERY_PERSON_EMPLOYEE: {
-                    setDynamicChild(PersonController.call(PersonQueryType.CUSTOMER));
+                    setDynamicChild(PersonController.call(PersonQueryType.EMPLOYEE));
                     break;
                 }
                 case QUERY_SERVICE: {
