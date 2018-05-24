@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class JuridicalPersonDAO {
-    public abstract void insertJuridicalPerson(JuridicalPerson jp);
-    public abstract void updateJuridicalPerson(JuridicalPerson jp);
-    public abstract void removeJuridcalPerson(JuridicalPerson jp);
-    public abstract JuridicalPerson getJuridicalPerson(String id);
-    public abstract ArrayList<JuridicalPerson> getAllJuridicalPersons();
+    public abstract void insertJuridicalPerson(JuridicalPerson jp) throws Exception;
+    public abstract void updateJuridicalPerson(JuridicalPerson jp) throws Exception;
+    public abstract void removeJuridcalPerson(JuridicalPerson jp) throws Exception;
+    public abstract JuridicalPerson getJuridicalPerson(String id) throws Exception;
+    public abstract ArrayList<JuridicalPerson> getAllJuridicalPersons() throws Exception;
 }
