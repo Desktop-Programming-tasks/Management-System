@@ -57,10 +57,12 @@ public class ServiceSingleController implements Initializable {
         if(edit){
             mainLabel.setText("Atualizar Serviço");
             primaryBtn.setText("Atualizar");
+            comboBoxState.setVisible(true);
             fillScreen();
         }else{
             mainLabel.setText("Adicionar Serviço");
             primaryBtn.setText("Adicionar");
+            comboBoxState.setVisible(false);
         }
     }
 
