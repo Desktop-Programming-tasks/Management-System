@@ -6,16 +6,21 @@
 package deskprojectserver.mysql;
 
 import deskprojectserver.Database.Configs;
+import deskprojectserver.Database.Database;
+import java.sql.SQLException;
 
 /**
  *
  * @author gabriel
  */
-public class MySqlConfigsHolder {
+public class MySqlHandler {
+
+    private static MySqlHandler INSTANCE;
+    private final Database db;
     private final Configs configs;
-    
-    private MySqlConfigsHolder() {
-        configs=new Configs();
+
+    private MySqlHandler() throws SQLException, ClassNotFoundException {
+        configs = new Configs();
         configs.setTYPE("mysql");
         configs.setHOST("localhost");
         configs.setUSER("root");
@@ -23,18 +28,18 @@ public class MySqlConfigsHolder {
         configs.setPORT("3306");
         configs.setBASE("mydb");
         configs.setDRIV("com.mysql.jdbc.Driver");
-        
+        db = Database.getInstance(configs);
     }
-    public Configs getMysqlConfigs(){
-        return configs;
-    }
-    
-    public static MySqlConfigsHolder getInstance() {
-        return MySqlConfigsHolderHolder.INSTANCE;
-    }
-    
-    private static class MySqlConfigsHolderHolder {
 
-        private static final MySqlConfigsHolder INSTANCE = new MySqlConfigsHolder();
+    public static MySqlHandler getInstance() throws SQLException, ClassNotFoundException {
+        if (INSTANCE == null) {
+            INSTANCE = new MySqlHandler();
+        }
+        return INSTANCE;
     }
+
+    public Database getDb() {
+        return db;
+    }
+
 }

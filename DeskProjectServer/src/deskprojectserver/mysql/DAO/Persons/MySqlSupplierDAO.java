@@ -5,9 +5,8 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
-import deskprojectserver.Classes.Persons.JuridicalPerson;
-import deskprojectserver.Database.DAO.Persons.JuridicalPersonDAO;
-import deskprojectserver.Database.Database;
+import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.Database.DAO.Persons.SupplierDAO;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,30 +15,32 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO{
-    private static final String INSERT_SQL = "INSERT INTO `JuridicalPerson`(`Person_idPerson`) VALUES (?)";
+public class MySqlSupplierDAO extends SupplierDAO{
+    private static final String INSERT_SQL="INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
+            + "VALUES (?)";
+    
     @Override
-    public void insertJuridicalPerson(JuridicalPerson jp) throws SQLException, ClassNotFoundException {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, jp.getCNPJ());
+    public void insertSupplier(Supplier supplier) throws SQLException, ClassNotFoundException {
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL,supplier.getId());
     }
 
     @Override
-    public void updateJuridicalPerson(JuridicalPerson jp) {
+    public void updateSupplier(Supplier supplier) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void removeJuridcalPerson(JuridicalPerson jp) {
+    public void removeSupplier(Supplier supplier) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public JuridicalPerson getJuridicalPerson(String id) {
+    public Supplier getSupplier(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<JuridicalPerson> getAllJuridicalPersons() {
+    public ArrayList<Supplier> getAllSuppliers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

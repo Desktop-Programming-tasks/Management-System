@@ -5,6 +5,7 @@
  */
 package deskprojectserver;
 
+import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
@@ -26,13 +27,15 @@ public class DeskProjectServer {
             ArrayList al = new ArrayList();
             al.add("500-5555");
             al.add("500-5555");
+            Address address = new Address("Tomar no cu", 20, "Cu do mundo","Acrelândia", "Acre");
+            
             MySqlPersonDAO p = new MySqlPersonDAO();
-            LegalPerson lp = new LegalPerson("10", "Gabriel", null, al, "222-3133");
+            LegalPerson lp = new LegalPerson("10", "Gabriel", address, al, "222-3133");
             JuridicalPerson jp = new JuridicalPerson("Gabriel Empresa",
-                    null, al, "53-44414");
+                    address, al, "53-44414");
             Employee emp = new Employee("batata", "1234", 1, 
-                    "10 10 ", "Gabriel funcionario", null, al, "000 111 22122");
-            p.insertPerson(emp);
+                    "10 10 ", "Gabriel funcionario", address, al, "000 111 22122");
+            //p.insertPerson(emp);
             p.insertPerson(jp);
             p.insertPerson(lp);
         } catch (Exception e) {

@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class SupplierDAO {
-    public abstract void insertSupplier(Supplier supplier);
-    public abstract void updateSupplier(Supplier supplier);
-    public abstract void removeSupplier(Supplier supplier);
-    public abstract Supplier getSupplier(String id);
-    public abstract ArrayList<Supplier> getAllSuppliers();
+    public abstract void insertSupplier(Supplier supplier) throws Exception;
+    public abstract void updateSupplier(Supplier supplier) throws Exception;
+    public abstract void removeSupplier(Supplier supplier) throws Exception;
+    public abstract Supplier getSupplier(String id) throws Exception;
+    public abstract ArrayList<Supplier> getAllSuppliers() throws Exception;
 }

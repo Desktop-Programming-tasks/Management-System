@@ -5,51 +5,47 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Database.DAO.Persons.PersonDAO;
+import deskprojectserver.Database.DAO.Persons.AddressDAO;
+import deskprojectserver.Database.Database;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class MySqlPersonDAO extends PersonDAO{
-    private final static String INSERT_SQL="INSERT INTO `Person`(`idPerson`, "
-            + "`namePerson`, `tel1Person`, `tel2Person`)"
-            + " VALUES (?,?,?,?)";
+public class MySqlAddressDAO extends AddressDAO{
+    private static final String INSERT_SQL =
+            "INSERT INTO `Address`(`Person_idPerson`, `streetAddress`, `numberAddress`, `districtAddress`, "
+            + "`City_nameCity`, `City_State_nameState`) "
+            + "VALUES (?,?,?,?,?,?)";
     @Override
-    public void setDAOs() {
-        
-        super.setLegalPersonDAO(new MySqlLegalPersonDAO());
-        super.setJuridicalDAO(new MySqlJuridicaPersonDAO());
-        super.setEmployeeDAO(new MySqlEmployeeDAO());
-        super.setAddressDAO(new MySqlAddressDAO());
+    public void insertAddress(Person person) throws SQLException, ClassNotFoundException {
+        Address ads = person.getAddress();
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getId(),
+                ads.getStreet(), ads.getNumber(),ads.getBlock(),ads.getCity(),ads.getState());
     }
 
     @Override
-    public void basicInsertPerson(Person p) throws Exception {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(),p.getName(),
-                p.getTelephones().get(0),p.getTelephones().get(1));
-    }
-
-    @Override
-    public void basicUpdatePerson(Person p) throws Exception {
+    public void removeAddress(Person person) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void basicRemovePerson(Person p) throws Exception {
+    public void updateAddress(Person person) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Person getPerson(String id) throws Exception {
+    public Address getAddress(Person person) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Person> getAllPersons() throws Exception {
+    public ArrayList<Address> getAllAddresses() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
