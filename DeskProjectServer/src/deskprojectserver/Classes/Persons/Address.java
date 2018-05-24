@@ -5,11 +5,13 @@
  */
 package deskprojectserver.Classes.Persons;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel
  */
-public class Address {
+public class Address implements Serializable {
     private String street;
     private int number;
     private String block;

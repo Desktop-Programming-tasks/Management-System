@@ -5,11 +5,13 @@
  */
 package deskprojectserver.Enums;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ecsanchesjr
  */
-public enum EmployeeTypes {
+public enum EmployeeTypes implements Serializable {
     MANAGER,
     COMMOM
 }
