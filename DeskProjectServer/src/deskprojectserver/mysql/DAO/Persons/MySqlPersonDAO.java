@@ -8,6 +8,7 @@ package deskprojectserver.mysql.DAO.Persons;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Database.Database;
+import deskprojectserver.mysql.MySqlHandler;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +30,7 @@ public class MySqlPersonDAO extends PersonDAO{
 
     @Override
     public void basicInsertPerson(Person p) throws Exception {
-        Database.getInstance().execute(INSERT_SQL, p.getId(),p.getName(),
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(),p.getName(),
                 p.getTelephones().get(0),p.getTelephones().get(1));
     }
 

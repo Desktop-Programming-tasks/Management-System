@@ -9,6 +9,7 @@ import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.AddressDAO;
 import deskprojectserver.Database.Database;
+import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class MySqlAddressDAO extends AddressDAO{
     @Override
     public void insertAddress(Person person) throws SQLException, ClassNotFoundException {
         Address ads = person.getAddress();
-        Database.getInstance().execute(INSERT_SQL, person.getId(),
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getId(),
                 ads.getStreet(), ads.getNumber(),ads.getBlock(),ads.getCity(),ads.getState());
     }
 

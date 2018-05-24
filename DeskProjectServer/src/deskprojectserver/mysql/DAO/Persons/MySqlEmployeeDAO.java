@@ -8,6 +8,7 @@ package deskprojectserver.mysql.DAO.Persons;
 import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
 import deskprojectserver.Database.Database;
+import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO{
             + "VALUES (?,?,?,?)";
     @Override
     public void insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
-        Database.getInstance().execute(INSERT_SQL, 
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, 
                 employee.getCPF(),employee.getLogin(),employee.getPassword(),
                 employee.getEmployeeType());
     }
