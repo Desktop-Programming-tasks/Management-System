@@ -22,7 +22,7 @@ import javafx.scene.Parent;
  */
 public class ServiceController implements Initializable {
     
-    private static final String serviceControllerPath = "desktoproject/View/Query/ServiceQueryController.fxml";
+    private static final String serviceControllerPath = "desktoproject/View/Query/Service.fxml";
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();

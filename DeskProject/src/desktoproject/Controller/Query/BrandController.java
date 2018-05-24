@@ -23,7 +23,7 @@ import javafx.scene.control.TableView;
  */
 public class BrandController implements Initializable {
     
-    private static final String brandControllerPath = "desktoproject/View/Query/BrandQuery.fxml";
+    private static final String brandControllerPath = "desktoproject/View/Query/Brand.fxml";
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
