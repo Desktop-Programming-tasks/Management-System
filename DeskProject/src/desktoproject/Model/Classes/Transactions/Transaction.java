@@ -10,6 +10,7 @@ package desktoproject.Model.Classes.Transactions;
  * @author gabriel
  */
 public abstract class Transaction {
+
     private float price;
     private String name;
     private int quantity;
@@ -21,7 +22,7 @@ public abstract class Transaction {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public Transaction() {
     }
 
@@ -36,7 +37,7 @@ public abstract class Transaction {
 
     protected void setPrice(float price) {
         this.price = price;
-    }    
+    }
 
     public int getQuantity() {
         return quantity;
@@ -45,7 +46,7 @@ public abstract class Transaction {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
     @Override
     public String toString() {
         return "Transaction{" + "price=" + price + ", name=" + name + '}';

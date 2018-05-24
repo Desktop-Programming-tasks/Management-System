@@ -9,7 +9,8 @@ package desktoproject.Model.Classes.Transactions;
  *
  * @author gabriel
  */
-public class Product extends Transaction{
+public class Product extends Transaction {
+
     private String barCode;
     private int quantityInStock;
     private Brand brand;
@@ -17,9 +18,9 @@ public class Product extends Transaction{
     public Product(String barCode) {
         this.barCode = barCode;
     }
-    
+
     public Product(String barCode, Brand brand, float price, String name) {
-        super(price,name);
+        super(price, name);
         this.barCode = barCode;
         this.brand = brand;
     }

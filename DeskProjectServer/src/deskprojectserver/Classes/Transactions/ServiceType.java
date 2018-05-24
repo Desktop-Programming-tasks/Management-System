@@ -10,6 +10,7 @@ package deskprojectserver.Classes.Transactions;
  * @author gabriel
  */
 public class ServiceType {
+
     private String name;
     private float price;
 
@@ -33,7 +34,5 @@ public class ServiceType {
     public void setPrice(float price) {
         this.price = price;
     }
-    
-    
-    
+
 }

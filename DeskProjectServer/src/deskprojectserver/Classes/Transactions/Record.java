@@ -16,6 +16,7 @@ import java.util.Date;
  * @author gabriel
  */
 public class Record {
+
     private int id;
     private Employee assignedEmployee;
     private Date registerDate;
@@ -33,7 +34,7 @@ public class Record {
         this.transations = transations;
         this.type = type;
     }
-    
+
     public int getId() {
         return id;
     }

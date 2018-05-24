@@ -10,6 +10,7 @@ package deskprojectserver.Classes.Transactions;
  * @author gabriel
  */
 public class Brand {
+
     private int id;
     private String name;
 
@@ -21,7 +22,7 @@ public class Brand {
     public Brand(String name) {
         this.name = name;
     }
-    
+
     public int getId() {
         return id;
     }
