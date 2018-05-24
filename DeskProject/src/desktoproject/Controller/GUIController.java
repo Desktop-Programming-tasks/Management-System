@@ -23,10 +23,10 @@ import desktoproject.Model.Classes.Transactions.Transaction;
 import desktoproject.Model.Enums.RecordType;
 import desktoproject.Model.Enums.ServiceStatus;
 import desktoproject.Utils.Pairs.ControllerInfo;
+import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Stack;
@@ -38,7 +38,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -48,17 +47,12 @@ import javafx.stage.Stage;
  */
 public class GUIController {
 
-    private final String cssPath = "desktoproject/View/css/alert.css";
+    private final String cssAlertPath = "desktoproject/View/css/alert.css";
     
     private Stage mainStage;
     private Stage modalStage;
 
-    private Parent indexParent;
-
-    private Scene nowScene;
-    private Scene previousScene;
-
-    private Stack<Scene> executionStack;
+    private Stack<ScreenObject> executionStack;
 
     private AnchorPane dynamic;
     private boolean isMenu;
@@ -72,7 +66,6 @@ public class GUIController {
     }
 
     private static class GUIControllerHolder {
-
         private static final GUIController INSTANCE = new GUIController();
     }
 
@@ -131,6 +124,7 @@ public class GUIController {
     }
 
     public void callScreen(ScreenType type, Object obj) {
+        executionStack.push(new ScreenObject(type, obj));
         if(!isMenu){
             setMenuScreen();
         }
@@ -279,7 +273,7 @@ public class GUIController {
         confirmDelete.setContentText(" ");
         
         DialogPane diagPanel = confirmDelete.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         
         return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
     }
@@ -292,7 +286,7 @@ public class GUIController {
         aboutInfo.setContentText("Operação de remoção concluída!");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         aboutInfo.showAndWait();
     }
 
@@ -305,7 +299,7 @@ public class GUIController {
         informationDiag.setContentText(content);
         
         DialogPane diagPanel = informationDiag.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         informationDiag.showAndWait();
     }
 
@@ -317,19 +311,18 @@ public class GUIController {
         aboutInfo.setContentText("Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
 
         DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toExternalForm());
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         aboutInfo.showAndWait();
     }
     
     public void closeModal() {
         modalStage.close();
     }
-
+    
     public void backToPrevious() {
         executionStack.pop();
-        nowScene = executionStack.peek();
-        mainStage.setScene(nowScene);
-        mainStage.show();
+        ScreenObject obj = executionStack.peek();
+        callScreen(obj.getScreen(),obj.getObj());
     }
     
     public void testScreen() {
