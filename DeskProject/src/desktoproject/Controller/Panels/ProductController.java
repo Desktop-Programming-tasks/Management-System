@@ -58,20 +58,18 @@ public class ProductController implements Initializable {
     
     private Product product;
     private boolean edit;
-    private ArrayList<Brand> brands;
+    private Brand brand;
     
     private void setUpComponents() {
         if(edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Produto");
-            System.out.println("IUASHUDAHIFUDHFIUHAUF");
-            System.out.println(product.getBrands());
-            brands = product.getBrands();
+            brand = product.getBrand();
             fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Produto");
-            brands = new ArrayList<>();
+            brand = null;
         }
         
         populateTable();
@@ -115,8 +113,9 @@ public class ProductController implements Initializable {
     }
 
     private void populateTable() {
-        System.out.println(brands);
-        BrandsTable.setItems(FXCollections.observableArrayList(brands));
+        //alterar para pegar as brands do banco
+//        System.out.println(brands);
+//        BrandsTable.setItems(FXCollections.observableArrayList(brands));
     }
     
     @FXML

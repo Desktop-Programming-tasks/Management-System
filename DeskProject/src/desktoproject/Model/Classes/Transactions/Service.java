@@ -5,6 +5,7 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import desktoproject.Model.Classes.Persons.Employee;
 import desktoproject.Model.Enums.ServiceStatus;
 import java.time.LocalDate;
 
@@ -17,10 +18,10 @@ public class Service extends Transaction{
     private LocalDate estimatedDate;
     private LocalDate finishDate;
     private ServiceStatus status;
-    private String assignedEmployee;
+    private Employee assignedEmployee;
     private ServiceType serviceType;
 
-    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, String assignedEmployee, ServiceType serviceType) {
+    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
@@ -61,11 +62,11 @@ public class Service extends Transaction{
         this.status = status;
     }
 
-    public String getAssignedEmployee() {
+    public Employee getAssignedEmployee() {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(String assignedEmployee) {
+    public void setAssignedEmployee(Employee assignedEmployee) {
         this.assignedEmployee = assignedEmployee;
     }
 

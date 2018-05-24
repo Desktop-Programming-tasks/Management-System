@@ -7,8 +7,10 @@ package desktoproject.Controller;
 
 import desktoproject.Controller.Enums.TransactionType;
 import desktoproject.Model.Classes.Transactions.Record;
+import desktoproject.Model.Classes.Transactions.Transaction;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,6 +51,7 @@ public class TransactionController implements Initializable {
         loader.setLocation(TransactionController.class.getClassLoader().getResource(transactionPath));
         Parent p = loader.load();
         TransactionController controller = loader.getController();
+        controller.setRecord((Record) obj);
         controller.setTransactionType(type);
         controller.setEdit(true);
         controller.setComponents();
@@ -57,7 +60,8 @@ public class TransactionController implements Initializable {
 
     private TransactionType type;
     private boolean edit;
-    private Record register;
+    private Record record;
+    private ArrayList<Transaction> transactions;
 
     @FXML
     private Button primaryBtn;
@@ -76,52 +80,64 @@ public class TransactionController implements Initializable {
     private TextField customerOrSupplier;
 
     @FXML
-    private TableView Transations;
+    private TableView transactionsTable;
     @FXML
-    private TableColumn Name;
+    private TableColumn nameColumn;
     @FXML
-    private TableColumn Price;
+    private TableColumn priceColumn;
     @FXML
-    private TableColumn Quantity;
+    private TableColumn quantityColumn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        
+        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory("price"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory("quantity"));
     }
 
     private void populateTable() {
-        //BrandsTable.setItems(FXCollections.observableArrayList(brands));
+        transactionsTable.setItems(FXCollections.observableArrayList(transactions));
     }
     
 
     private void setComponents() {
+        String mainLabelString = "",primaryBtnString = "Finalizar ";
+        
+        if (edit) {
+            mainLabelString += "Consultar ";
+            primaryBtn.setVisible(false);
+            this.transactions = record.getTransations();
+            fillScreen();
+        }else{
+            primaryBtn.setVisible(true);
+            this.transactions = new ArrayList<>();
+        }
+        
         switch (type) {
             case BUY: {
-                mainActionScreenTitle.setText("Compra");
-                primaryBtn.setText("Finalizar compra");
+                mainLabelString += "Compra ";
+                primaryBtnString += "Compra ";
                 break;
             }
             case SALE: {
-                mainActionScreenTitle.setText("Venda");
-                primaryBtn.setText("Finalizar venda");
+                mainLabelString += "Venda ";
+                primaryBtnString += "Venda ";
                 break;
             }
         }
-        if (edit) {
-            primaryBtn.setDisable(true);
-            fillScreen();
-        }
+        
+        mainActionScreenTitle.setText(mainLabelString);
+        primaryBtn.setText(primaryBtnString);
     }
     
     private void fillScreen() {
-        FinalPrice.setText(register.getTotalprice());
-        customerOrSupplier.setText(register.getCustomer().getName());
-    
+        FinalPrice.setText(String.valueOf(record.getTotalprice()));
+        customerOrSupplier.setText(record.getCustomer().getName());
         
+        populateTable();
     }
 
     @FXML
@@ -149,8 +165,8 @@ public class TransactionController implements Initializable {
 
     }
 
-    private void setRegister(Record register) {
-        this.register = register;
+    private void setRecord(Record record) {
+        this.record = record;
     }
 
     private void setTransactionType(TransactionType type) {

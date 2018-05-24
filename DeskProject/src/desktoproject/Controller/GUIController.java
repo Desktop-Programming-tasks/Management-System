@@ -16,9 +16,18 @@ import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Model.Classes.Transactions.Product;
+import desktoproject.Model.Classes.Transactions.Record;
+import desktoproject.Model.Classes.Transactions.Service;
+import desktoproject.Model.Classes.Transactions.ServiceType;
+import desktoproject.Model.Classes.Transactions.Transaction;
+import desktoproject.Model.Enums.RecordType;
+import desktoproject.Model.Enums.ServiceStatus;
 import desktoproject.Utils.Pairs.ControllerInfo;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -73,8 +82,8 @@ public class GUIController {
         mainStage.setMinHeight(720);
         callLogin();
         setUpModalStage();
-        callScreen(ScreenType.EMPLOYEE_CREATE);
-//        testScreen();
+//        callScreen(ScreenType.EMPLOYEE_CREATE);
+        testScreen();
     }
 
     private void setUpModalStage() {
@@ -328,19 +337,27 @@ public class GUIController {
         Brand testBrand2 = new Brand("Batata1");
         ArrayList<Brand> brands = new ArrayList<>();
         brands.add(testBrand); brands.add(testBrand2);
-        Product testProduct = new Product("123456789", brands, 1100, "Escova de Dente");
+        Product testProduct = new Product("123456789", testBrand, 1100, "Escova de Dente");
         Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
         ArrayList<String> telephones = new ArrayList<>();
         telephones.add("9955999599");
-//        telephones.add("6845465465465");
-        
+        telephones.add("6845465465465");
+
         JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
         Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
         LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
         Employee employee = new Employee("login test", "password", "87854", "employee of the month", address, telephones, "498431");
+        Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
+        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        transactions.add(testProduct);
+        transactions.add(service);
         
+        Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
+        
+//        callScreen(ScreenType.TRANSACTION_BUY_DISPLAY,record);
+        callScreen(ScreenType.TRANSACTION_BUY_CREATE);
 //        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
-        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
+//        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
         //callModal(ModalType.BRAND_UPDATE, testBrand);
         //callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);

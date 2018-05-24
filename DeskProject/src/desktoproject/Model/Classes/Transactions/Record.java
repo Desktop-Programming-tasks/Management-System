@@ -21,7 +21,7 @@ public class Record {
     private Date registerDate;
     private float totalprice;
     private Person customer;
-    private ArrayList<Transaction> transations;
+    private ArrayList<Transaction> transactions;
     private RecordType type;
 
     public Record(int id, Employee assignedEmployee, Date registerDate, float totalprice, Person customer, ArrayList<Transaction> transations, RecordType type) {
@@ -30,7 +30,7 @@ public class Record {
         this.registerDate = registerDate;
         this.totalprice = totalprice;
         this.customer = customer;
-        this.transations = transations;
+        this.transactions = transations;
         this.type = type;
     }
     
@@ -75,15 +75,15 @@ public class Record {
     }
 
     public ArrayList<Transaction> getTransations() {
-        return transations;
+        return transactions;
     }
 
     public void setTransations(ArrayList<Transaction> transations) {
-        this.transations = transations;
+        this.transactions = transations;
     }
 
     @Override
     public String toString() {
-        return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + ", type=" + type + '}';
+        return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transactions + ", type=" + type + '}';
     }
 }
