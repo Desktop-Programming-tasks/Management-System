@@ -6,7 +6,6 @@
 package deskprojectserver.Database;
 
 import deskprojectserver.Utils.QueryResult;
-import deskprojectserver.mysql.MySqlConfigsHolder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,8 +19,8 @@ import java.sql.Statement;
  */
 public class Database {
 
-    private Configs config= MySqlConfigsHolder.getInstance().getMysqlConfigs();
-    
+    private Configs config;
+
     private static Connection connection;
 
     public void execute(String sql, Object... params) throws SQLException {
@@ -49,12 +48,17 @@ public class Database {
         ResultSet rs = statement.executeQuery(sql);
         return new QueryResult(rs, statement);
     }
-    public void disconnect() throws SQLException{
+
+    public void disconnect() throws SQLException {
         connection.close();
     }
 
     ////////////////////////////////////////
-    private Database() throws SQLException, ClassNotFoundException {
+    private Database(Configs config) throws ClassNotFoundException, SQLException {
+        setConfig(config);
+    }
+
+    private void startConnect() throws ClassNotFoundException, SQLException {
         String url = "jdbc:";
         url += config.getTYPE() + "://";
         url += config.getHOST() + ":";
@@ -64,11 +68,11 @@ public class Database {
         connection = DriverManager.getConnection(url, config.getUSER(), config.getPASS());
     }
 
-    public static Database getInstance() throws SQLException, ClassNotFoundException {
+    public static Database getInstance(Configs config) throws SQLException, ClassNotFoundException {
         if (INSTANCE == null || connection == null) {
-            INSTANCE = new Database();
+            INSTANCE = new Database(config);
         } else if (connection.isClosed()) {
-            INSTANCE = new Database();
+            INSTANCE = new Database(config);
         }
         return INSTANCE;
     }
@@ -81,8 +85,9 @@ public class Database {
         return config;
     }
 
-    public void setConfig(Configs config) {
+    public void setConfig(Configs config) throws ClassNotFoundException, SQLException {
         this.config = config;
+        startConnect();
     }
     ///////////////////////////////////////
 }

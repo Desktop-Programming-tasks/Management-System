@@ -8,6 +8,7 @@ package deskprojectserver.mysql.DAO.Persons;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Database.Database;
+import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO{
                         + "VALUES (?,?)";
     @Override
     public void insertLegalPerson(LegalPerson lp) throws SQLException, ClassNotFoundException{
-        Database.getInstance().execute(INSERT_SQL,lp.getRG(),lp.getCPF());
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL,lp.getRG(),lp.getCPF());
     }
 
     @Override
