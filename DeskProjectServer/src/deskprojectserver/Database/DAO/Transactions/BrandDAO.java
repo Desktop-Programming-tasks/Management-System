@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Model.DAO.Transactions;
+package deskprojectserver.Database.DAO.Transactions;
 
-import desktoproject.Model.Classes.Transactions.Brand;
+import deskprojectserver.Classes.Transactions.Brand;
 import java.util.ArrayList;
 
 /**

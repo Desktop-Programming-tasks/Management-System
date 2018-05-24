@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Model.Database;
+package deskprojectserver.Database;
 
-import desktoproject.Utils.Pairs.QueryResult;
+import deskprojectserver.Utils.QueryResult;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

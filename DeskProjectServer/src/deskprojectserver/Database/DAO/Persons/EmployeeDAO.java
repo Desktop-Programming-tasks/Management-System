@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Model.DAO.Persons;
+package deskprojectserver.Database.DAO.Persons;
 
-import desktoproject.Model.Classes.Persons.Employee;
+import deskprojectserver.Classes.Persons.Employee;
 import java.util.ArrayList;
 
 /**
