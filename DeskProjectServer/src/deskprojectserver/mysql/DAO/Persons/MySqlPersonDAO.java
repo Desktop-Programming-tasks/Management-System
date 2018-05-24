@@ -7,7 +7,6 @@ package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
-import deskprojectserver.Database.Database;
 import deskprojectserver.mysql.MySqlHandler;
 import java.util.ArrayList;
 
