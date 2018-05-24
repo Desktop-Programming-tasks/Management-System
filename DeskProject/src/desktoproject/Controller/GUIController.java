@@ -76,7 +76,7 @@ public class GUIController {
         callLogin();
         setUpModalStage();
 //        callScreen(ScreenType.EMPLOYEE_CREATE);
-//        testScreen();
+        testScreen();
     }
 
     private void setUpModalStage() {
@@ -244,7 +244,7 @@ public class GUIController {
                     break;
                 }
                 case SERVICE_ADD:{
-                    setUpModal(AddServiceController.call());
+                    setUpModal(ServiceSingleController.call());
                     break;
                 }
                 case SERVICE_NEW:{
@@ -252,7 +252,7 @@ public class GUIController {
                     break;
                 }
                 case SERVICE_UPDATE:{
-                    setUpModal(UpdateServiceController.call(obj));
+                    setUpModal(ServiceSingleController.call(obj));
                     break;
                 }
             }
@@ -347,8 +347,10 @@ public class GUIController {
         
         Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
         
+        callModal(ModalType.SERVICE_ADD);
+//        callModal(ModalType.SERVICE_UPDATE,service);
 //        callScreen(ScreenType.TRANSACTION_BUY_DISPLAY,record);
-        callScreen(ScreenType.TRANSACTION_BUY_CREATE);
+//        callScreen(ScreenType.TRANSACTION_BUY_CREATE);
 //        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
