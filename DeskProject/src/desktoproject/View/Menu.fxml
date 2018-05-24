@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.MenuController">
@@ -14,34 +15,53 @@
         <menus>
           <Menu mnemonicParsing="false" text="Arquivo">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Sobre" />
+               <MenuItem mnemonicParsing="false" onAction="#showIndex" text="Principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Sobre" />
+               <MenuItem mnemonicParsing="false" text="Sair" />
               <MenuItem mnemonicParsing="false" text="Fechar" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Registros">
-            <items>
-                  <MenuItem mnemonicParsing="false" text="Registrar Funcionario" />
-              <MenuItem mnemonicParsing="false" onAction="#showCustomerRegister" text="Registrar Cliente" />
-                  <MenuItem mnemonicParsing="false" onAction="#showSupplierRegister" text="Registrar Fornecedor" />
-                  <MenuItem mnemonicParsing="false" onAction="#showProductRegister" text="Registrar Produto" />
-                  <MenuItem mnemonicParsing="false" onAction="#showModalService" text="Registrar Serviços" />
-                  <MenuItem mnemonicParsing="false" onAction="#showModalRegisterBrand" text="Registrar Marcas" />
-                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Vendas" />
-                  <MenuItem mnemonicParsing="false" onAction="#showMainActionM" text="Registro de Compras" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Consultas">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#showSupplierQuery" text="Consulta Fornecedores" />
-                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Vendas" />
-                <MenuItem mnemonicParsing="false" onAction="#showBrandQuery" text="Consulta Marcas" />
-                  <MenuItem mnemonicParsing="false" onAction="#showGenericTransaction" text="Consulta Compras" />
-                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Clientes" />
-                  <MenuItem mnemonicParsing="false" text="Consulta Serviços" />
-                  <MenuItem mnemonicParsing="false" onAction="#showStockQuery" text="Consulta Estoque" />
-                  <MenuItem mnemonicParsing="false" onAction="#showPersonQuery" text="Consulta Funcionarios" />
-              </items>
-            </Menu>
+         <Menu mnemonicParsing="false" text="Transações">
+           <items>
+             <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Consultar" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" onAction="#showCreateSell" text="Nova Venda" />
+               <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Consultar Venda" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" onAction="#showCreateBuy" text="Nova Compra" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryBuy" text="Consultar Compra" />
+           </items>
+         </Menu>
+         <Menu mnemonicParsing="false" text="Pessoas">
+           <items>
+             <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Novo Cliente" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryClient" text="Consultar Cliente" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" onAction="#showCreateSupplier" text="Novo Fornecedor" />
+               <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Consultar Fornecedor" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" onAction="#showCreateEmployee" text="Novo Empregado" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Consultar Empregado" />
+           </items>
+         </Menu>
+         <Menu mnemonicParsing="false" text="Servicos">
+           <items>
+             <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Novo" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Consultar" />
+           </items>
+         </Menu>
+         <Menu mnemonicParsing="false" text="Produtos">
+           <items>
+             <MenuItem mnemonicParsing="false" onAction="#showCreateProduct" text="Novo" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryProduct" text="Consultar Estoque" />
+           </items>
+         </Menu>
+         <Menu mnemonicParsing="false" text="Marcas">
+           <items>
+             <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Nova" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryBrand" text="Consultar" />
+           </items>
+         </Menu>
         </menus>
       </MenuBar>
    <AnchorPane fx:id="dynamic" layoutY="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />

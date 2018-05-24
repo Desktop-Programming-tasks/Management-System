@@ -24,15 +24,16 @@ import javafx.scene.control.TableView;
  */
 public class PersonController implements Initializable {
     
-    private static final String personControllerPath = "desktoproject/View/Query/PersonQuery.fxml";
+    private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
     
     public static Parent call(PersonQueryType type) throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(PersonController.class.getClassLoader().getResource(personControllerPath));
+        Parent p = loader.load();
         PersonController controller = loader.getController();
         controller.setType(type);
         controller.setUpComponents();
-        return loader.load();
+        return p;
     }
     
     private PersonQueryType type;
