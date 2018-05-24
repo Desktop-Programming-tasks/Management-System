@@ -51,7 +51,7 @@ public abstract class PersonDAO {
                 supplierDAO.insertSupplier((Supplier) p);
             }
         }
-        //addressDAO.insertAddress(p, p.getAddress());
+        addressDAO.insertAddress(p);
     }
 
     protected abstract void basicInsertPerson(Person p) throws Exception;
