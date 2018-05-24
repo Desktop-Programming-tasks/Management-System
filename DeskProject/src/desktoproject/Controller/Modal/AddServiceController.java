@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Modal;
 
+import desktoproject.Controller.GUIController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +57,6 @@ public class AddServiceController implements Initializable {
     
     @FXML
     public void back() {
-        
+        GUIController.getInstance().closeModal();
     }
 }

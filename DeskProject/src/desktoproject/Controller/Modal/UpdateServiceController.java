@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Modal;
 
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Transactions.Service;
 import java.io.IOException;
 import java.net.URL;
@@ -65,8 +66,8 @@ public class UpdateServiceController implements Initializable {
     }
     
     @FXML
-    public void closeModal() {
-        
+    public void back() {
+        GUIController.getInstance().closeModal();
     }
     
     private void setService(Service service) {

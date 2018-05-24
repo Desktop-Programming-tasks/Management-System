@@ -59,7 +59,7 @@ public class NewServiceController implements Initializable {
     
     @FXML
     private void back() {
-        
+        GUIController.getInstance().closeModal();
     }
     
     private boolean validate(){

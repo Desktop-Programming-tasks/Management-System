@@ -99,7 +99,7 @@ public class BrandModalController implements Initializable {
 
     @FXML
     private void back() {
-
+        GUIController.getInstance().closeModal();
     }
 
     private void setBrand(Brand brand) {
