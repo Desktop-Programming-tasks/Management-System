@@ -6,6 +6,7 @@
 package deskprojectserver.Database;
 
 import deskprojectserver.Utils.QueryResult;
+import deskprojectserver.mysql.MySqlConfigsHolder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,8 +20,9 @@ import java.sql.Statement;
  */
 public class Database {
 
-    private Configs config;
-    private final Connection connection;
+    private Configs config= MySqlConfigsHolder.getInstance().getMysqlConfigs();
+    
+    private static Connection connection;
 
     public void execute(String sql, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -61,7 +63,7 @@ public class Database {
         connection = DriverManager.getConnection(url, config.getUSER(), config.getPASS());
     }
 
-    public Database getInstance() throws SQLException, ClassNotFoundException {
+    public static Database getInstance() throws SQLException, ClassNotFoundException {
         if (INSTANCE == null || connection == null) {
             INSTANCE = new Database();
         } else if (connection.isClosed()) {
@@ -70,7 +72,7 @@ public class Database {
         return INSTANCE;
     }
 
-    private Database INSTANCE;
+    private static Database INSTANCE;
 
     ///////////////////////////////////////
     ///////////////////////////////////////
