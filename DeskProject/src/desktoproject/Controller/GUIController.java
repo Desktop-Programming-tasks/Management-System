@@ -76,7 +76,7 @@ public class GUIController {
         callLogin();
         setUpModalStage();
 //        callScreen(ScreenType.EMPLOYEE_CREATE);
-        testScreen();
+        //testScreen();
     }
 
     private void setUpModalStage() {
