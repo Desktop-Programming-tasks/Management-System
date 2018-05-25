@@ -38,6 +38,10 @@ public class Validate {
         return errorMessage;
     }
     
+    public void appendErrorMessage(String error){
+        this.errorMessage += error;
+    }
+    
     public boolean validateEmpty(String fieldName, String content) {
         if(content.isEmpty()) {
             errorMessage+=(fieldName)+(" não pode ser vazio!\n");

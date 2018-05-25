@@ -10,12 +10,12 @@ import desktoproject.Model.Classes.Persons.Address;
 import desktoproject.Model.Classes.Persons.JuridicalPerson;
 import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Person;
+import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,11 +23,11 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -43,6 +43,10 @@ public class CustomerController implements Initializable {
         loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
         Parent p = loader.load();
         CustomerController controller = loader.getController();
+        controller.setEdit(false);
+        controller.setAddressComponentObj(AddressComponentController.call());
+        controller.setTelephoneComponent(TelephoneComponentController.call());
+        controller.setAnchors(p);
         controller.setUpComponents();
         return p;
     }
@@ -53,16 +57,32 @@ public class CustomerController implements Initializable {
         Parent p = loader.load();
         CustomerController controller = loader.getController();
         controller.setPerson((Person) person);
+        controller.setAddressComponentObj(AddressComponentController.call(controller.getPerson().getAddress()));
+        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getPerson().getTelephones()));
+        controller.setAnchors(p);
         controller.setEdit(true);
         controller.setUpComponents();
         return p;
     }
 
+    private void setAnchors(Parent p){
+        AnchorPane.setTopAnchor(p,0.0);
+        AnchorPane.setLeftAnchor(p,0.0);
+        AnchorPane.setBottomAnchor(p,0.0);
+        AnchorPane.setRightAnchor(p,0.0);
+    }
+    
     private Person person;
     private boolean isLegalPerson;
     private boolean edit;
+    private ScreenObject addressComponent;
+    private ScreenObject telephoneComponent;
 
     private void setUpComponents() {
+        addressPane.getChildren().clear();
+        addressPane.getChildren().add(addressComponent.getParent());
+        telephonePane.getChildren().clear();
+        telephonePane.getChildren().add(telephoneComponent.getParent());
         if (edit) {
             mainLabel.setText("Editar Cliente");
             mainBtn.setText("Alterar");
@@ -81,13 +101,6 @@ public class CustomerController implements Initializable {
 
     private void fillScreen() {
         nameTextField.setText(person.getName());
-        telTextField.setText(person.getTelephones().get(0));
-        if(person.getTelephones().size()>1){
-            secTelTextField.setText(person.getTelephones().get(1));
-        }
-        streetTextField.setText(person.getAddress().getStreet());
-        numberTextField.setText(String.valueOf(person.getAddress().getNumber()));
-        districtTextField.setText(person.getAddress().getBlock());
         
         if(isLegalPerson){
             RGTextField.setText(((LegalPerson) person).getRG());
@@ -106,16 +119,6 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField CNPJTextField;
     @FXML
-    private TextField telTextField;
-    @FXML
-    private TextField secTelTextField;
-    @FXML
-    private TextField streetTextField;
-    @FXML
-    private TextField numberTextField;
-    @FXML
-    private TextField districtTextField;
-    @FXML
     private Label mainLabel;
     @FXML
     private Button mainBtn;
@@ -127,13 +130,12 @@ public class CustomerController implements Initializable {
     private RadioButton legalPersonRadio;
     @FXML
     private RadioButton juridicalPersonRadio;
-
     @FXML
-    private ComboBox<String> City;
-
+    private AnchorPane addressPane;
     @FXML
-    private ComboBox<String> State;
-
+    private AnchorPane telephonePane;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -148,21 +150,17 @@ public class CustomerController implements Initializable {
 
     @FXML
     public void back() {
-
+        GUIController.getInstance().backToPrevious();
     }
 
     @FXML
     public void mainAction() {
         if(edit){
-        
+            
         }else{
             if(validate()){
-                Address address = new Address(streetTextField.getText(), Integer.parseInt(numberTextField.getText()),districtTextField.getText(),"estado batata", "cidade batata");
-                ArrayList<String> telephones = new ArrayList<>();
-                telephones.add(telTextField.getText());
-                if(!secTelTextField.getText().isEmpty()){
-                    telephones.add(secTelTextField.getText());
-                }
+                Address address = ((AddressComponentController)addressComponent.getController()).getAddress();
+                ArrayList<String> telephones = ((TelephoneComponentController)telephoneComponent.getController()).getTelephones();
                 if(isLegalPerson){
                     LegalPerson legalPerson = new LegalPerson(RGTextField.getText(), nameTextField.getText(), address, telephones,CPFTextField.getText());
                     System.out.println(legalPerson.toString()); 
@@ -178,6 +176,10 @@ public class CustomerController implements Initializable {
         this.person = person;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     public void setEdit(boolean edit) {
         this.edit = edit;
     }
@@ -185,8 +187,15 @@ public class CustomerController implements Initializable {
     public void setIsLegalPerson(boolean isLegalPerson) {
         this.isLegalPerson = isLegalPerson;
     }
-    
 
+    public void setAddressComponentObj(ScreenObject addressComponentObj) {
+        this.addressComponent = addressComponentObj;
+    }
+
+    public void setTelephoneComponent(ScreenObject telephoneComponent) {
+        this.telephoneComponent = telephoneComponent;
+    }
+    
     private void toggleFields() {
         legalGroup.setVisible(isLegalPerson);
         CNPJTextField.setVisible(!isLegalPerson);
@@ -211,16 +220,9 @@ public class CustomerController implements Initializable {
             valObj.validateCNPJ(CNPJTextField.getText());
         }
         
-        valObj.validateTelephone(telTextField.getText());
-        if(!secTelTextField.getText().isEmpty()){
-            valObj.validateTelephone(secTelTextField.getText());
-        }
+        valObj.appendErrorMessage(((TelephoneComponentController)telephoneComponent.getController()).validateFields());
         
-        valObj.validateAddressNumber(numberTextField.getText());
-        valObj.validateStreet(streetTextField.getText());
-        valObj.validateDistrict(districtTextField.getText());
-        valObj.validateCity();
-        valObj.validateState();
+        valObj.appendErrorMessage(((AddressComponentController)addressComponent.getController()).validateFields());
         
         if (valObj.getErrorMessage().isEmpty()) {
             return true;

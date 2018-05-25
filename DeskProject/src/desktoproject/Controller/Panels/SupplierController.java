@@ -5,13 +5,14 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
+import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -30,37 +32,56 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author noda
  */
 public class SupplierController implements Initializable {
-    
+
     private static final String panelSupplierPath = "desktoproject/View/Panels/Supplier.fxml";
-    
-    public static Parent call() throws IOException{
+
+    public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierController.class.getClassLoader().getResource(panelSupplierPath));        
+        loader.setLocation(SupplierController.class.getClassLoader().getResource(panelSupplierPath));
         Parent p = loader.load();
         SupplierController controller = loader.getController();
+        controller.setAddressComponentObj(AddressComponentController.call());
+        controller.setTelephoneComponent(TelephoneComponentController.call());
+        controller.setAnchors(p);
+        controller.setEdit(false);
         controller.setUpComponents();
         return p;
     }
-    
+
     public static Parent call(Object supplier) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelSupplierPath));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelSupplierPath));
         Parent p = loader.load();
-        
+
         SupplierController controller = loader.getController();
         controller.setSupplier((Supplier) supplier);
+        controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
+        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
+        controller.setAnchors(p);
         controller.setEdit(true);
         controller.setUpComponents();
-         
         return p;
     }
-    
+
+    private void setAnchors(Parent p) {
+        AnchorPane.setTopAnchor(p, 0.0);
+        AnchorPane.setLeftAnchor(p, 0.0);
+        AnchorPane.setBottomAnchor(p, 0.0);
+        AnchorPane.setRightAnchor(p, 0.0);
+    }
+
     private Supplier supplier;
     private boolean edit;
     private ArrayList<Brand> brands;
-    
+    private ScreenObject addressComponentObj;
+    private ScreenObject telephoneComponent;
+
     private void setUpComponents() {
-        if(edit) {
+        addressPane.getChildren().clear();
+        addressPane.getChildren().add(addressComponentObj.getParent());
+        telephonePane.getChildren().clear();
+        telephonePane.getChildren().add(telephoneComponent.getParent());
+        if (edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Fornecedor");
             
@@ -71,20 +92,16 @@ public class SupplierController implements Initializable {
             brands = new ArrayList<>();
         }
     }
-    
+
     private void fillScreen() {
         nameTextField.setText(supplier.getName());
         CNPJTextField.setText(supplier.getCNPJ());
         telTextField.setText(supplier.getTelephones().get(0));
-        if(supplier.getTelephones().get(1) != null) {
+        if (supplier.getTelephones().get(1) != null) {
             secTelTextField.setText(supplier.getTelephones().get(1));
         }
-        streetTextField.setText(supplier.getAddress().getStreet());
-        numberTextField.setText(String.valueOf(supplier.getAddress().getNumber()));
-        districtTextField.setText(supplier.getAddress().getBlock());
-        populateTable();
     }
-    
+
     @FXML
     private TextField nameTextField;
     @FXML
@@ -94,25 +111,17 @@ public class SupplierController implements Initializable {
     @FXML
     private TextField secTelTextField;
     @FXML
-    private TextField streetTextField;
-    @FXML
-    private TextField numberTextField;
-    @FXML
-    private TextField districtTextField;
-    @FXML
     private Label mainLabel;
     @FXML
     private Button mainBtn;
     @FXML
     private TableView<Brand> BrandsTable;
-    
     @FXML
-    private TableColumn<Brand,String> BrandsColumn;
-    
+    private AnchorPane addressPane;
     @FXML
-    private ComboBox<String> City;
+    private TableColumn<Brand, String> BrandsColumn;
     @FXML
-    private ComboBox<String> State;
+    private AnchorPane telephonePane;
 
     /**
      * Initializes the controller class.
@@ -120,30 +129,45 @@ public class SupplierController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         BrandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    }    
-    
+    }
+
     //return all brands from database
     private void populateTable() {
         //BrandsTable.setItems(FXCollections.observableArrayList(brands));
     }
-    
-    @FXML 
-    public void register(){
-        
-    }
- 
+
     @FXML
-    public void back() {
-        
+    private void register() {
+
     }
 
-    public void setSupplier(Supplier supplier) {
+    @FXML
+    private void back() {
+        GUIController.getInstance().backToPrevious();
+    }
+    
+    @FXML
+    private void createNewBrand(){
+    
+    }
+
+    private void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
+    
+    private Supplier getSupplier() {
+        return supplier;
     }
     
+    private void setEdit(boolean edit) {
+        this.edit = edit;
+    }
+
+    private void setAddressComponentObj(ScreenObject addressComponentObj) {
+        this.addressComponentObj = addressComponentObj;
+    }
     
+    public void setTelephoneComponent(ScreenObject telephoneComponent) {
+        this.telephoneComponent = telephoneComponent;
+    }
 }

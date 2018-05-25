@@ -5,34 +5,34 @@
  */
 package desktoproject.Utils.Pairs;
 
-import desktoproject.Controller.Enums.ScreenType;
+import javafx.scene.Parent;
 
 /**
  *
  * @author noda
  */
 public class ScreenObject {
-    private ScreenType screen;
-    private Object obj;
+    private Parent parent;
+    private Object controller;
 
-    public ScreenObject(ScreenType screen, Object obj) {
-        this.screen = screen;
-        this.obj = obj;
+    public ScreenObject(Parent parent, Object controller) {
+        this.parent = parent;
+        this.controller = controller;
     }
 
-    public ScreenType getScreen() {
-        return screen;
+    public Parent getParent() {
+        return parent;
     }
 
-    public void setScreen(ScreenType screen) {
-        this.screen = screen;
+    public void setParent(Parent parent) {
+        this.parent = parent;
     }
 
-    public Object getObj() {
-        return obj;
+    public Object getController() {
+        return controller;
     }
 
-    public void setObj(Object obj) {
-        this.obj = obj;
+    public void setController(Object controller) {
+        this.controller = controller;
     }
 }

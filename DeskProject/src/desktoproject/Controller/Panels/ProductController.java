@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Model.Classes.Transactions.Product;
 import java.io.IOException;
@@ -120,7 +121,7 @@ public class ProductController implements Initializable {
     
     @FXML
     public void back() {
-        
+        GUIController.getInstance().backToPrevious();
     }
     
     @FXML

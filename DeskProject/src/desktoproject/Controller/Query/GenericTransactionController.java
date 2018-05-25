@@ -6,6 +6,7 @@
 package desktoproject.Controller.Query;
 
 import desktoproject.Controller.Enums.TransactionQueryType;
+import desktoproject.Controller.GUIController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -99,6 +100,6 @@ public class GenericTransactionController implements Initializable {
 
     @FXML
     public void back() {
-        
+        GUIController.getInstance().backToPrevious();
     }
 }

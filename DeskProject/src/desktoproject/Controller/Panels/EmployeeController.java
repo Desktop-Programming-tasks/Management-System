@@ -8,6 +8,7 @@ package desktoproject.Controller.Panels;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Persons.Address;
 import desktoproject.Model.Classes.Persons.Employee;
+import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -30,36 +32,55 @@ import javafx.scene.control.TextField;
  * @author ecaanchesjr
  */
 public class EmployeeController implements Initializable {
-    
+
     private static final String panelEmployeePath = "desktoproject/View/Panels/Employee.fxml";
-    
-    public static Parent call() throws IOException{
+
+    public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
         Parent p = loader.load();
         EmployeeController controller = loader.getController();
+        controller.setAddressComponentObj(AddressComponentController.call());
+        controller.setTelephoneComponent(TelephoneComponentController.call());
+        controller.setAnchors(p);
         controller.setUpComponents();
         return p;
     }
-    
+
     public static Parent call(Object employee) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));        
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
         Parent p = loader.load();
-        
+
         EmployeeController controller = loader.getController();
+        controller.setAnchors(p);
         controller.setEmployee((Employee) employee);
+        controller.setAddressComponentObj(AddressComponentController.call(controller.getEmployee().getAddress()));
+        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getEmployee().getTelephones()));
+        controller.setAnchors(p);
         controller.setEdit(true);
         controller.setUpComponents();
-        
         return p;
     }
-    
+
+    private void setAnchors(Parent p) {
+        AnchorPane.setTopAnchor(p, 0.0);
+        AnchorPane.setLeftAnchor(p, 0.0);
+        AnchorPane.setBottomAnchor(p, 0.0);
+        AnchorPane.setRightAnchor(p, 0.0);
+    }
+
     private Employee employee;
     private boolean edit;
-    
+    private ScreenObject addressComponentObj;
+    private ScreenObject telephoneComponent;
+
     private void setUpComponents() {
-        if(edit) {
+        addressPane.getChildren().clear();
+        addressPane.getChildren().add(addressComponentObj.getParent());
+        telephonePane.getChildren().clear();
+        telephonePane.getChildren().add(telephoneComponent.getParent());
+        if (edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Funcionário");
             fillScreen();
@@ -68,23 +89,16 @@ public class EmployeeController implements Initializable {
             mainLabel.setText("Cadastrar Funcionário");
         }
     }
-    
-    private void fillScreen(){
+
+    private void fillScreen() {
         nameTextField.setText(employee.getName());
         RGTextField.setText(employee.getRG());
         CPFTextField.setText(employee.getCPF());
-        telTextField.setText(employee.getTelephones().get(0));
-        if(employee.getTelephones().size()>1){
-            secTelTextField.setText(employee.getTelephones().get(1));
-        }
-        streetTextField.setText(employee.getAddress().getStreet());
-        numberTextField.setText(String.valueOf(employee.getAddress().getNumber()));
-        districtTextField.setText(employee.getAddress().getBlock());
-        
+
         userTextField.setText(employee.getLogin());
         //dont set the password, only detect changes in password if anything new is writen in the password and confirm password fields
     }
-    
+
     @FXML
     private TextField nameTextField;
     @FXML
@@ -98,88 +112,79 @@ public class EmployeeController implements Initializable {
     @FXML
     private PasswordField passwordFieldConfirm;
     @FXML
-    private TextField telTextField;
-    @FXML
-    private TextField secTelTextField;
-    @FXML
-    private TextField streetTextField;
-    @FXML
-    private TextField numberTextField;
-    @FXML
-    private TextField districtTextField;
-    @FXML
     private Label mainLabel;
     @FXML
     private Button mainBtn;
     @FXML
-    private ComboBox<String> City;
+    private AnchorPane addressPane;
     @FXML
-    private ComboBox<String> State;
+    private AnchorPane telephonePane;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+
+    }
+
     @FXML
     public void back() {
-        
+        GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
-    private void mainAction(){
-        if(edit){
-        
-        }else{
-            if(validate()){
-                Address address = new Address(streetTextField.getText(), Integer.parseInt(numberTextField.getText()),districtTextField.getText(), "cidade batata", "estado batata");
-                ArrayList<String> telephones = new ArrayList<>();
-                telephones.add(telTextField.getText());
-                if(!secTelTextField.getText().isEmpty()){
-                    telephones.add(secTelTextField.getText());
-                }
-                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), RGTextField.getText(), nameTextField.getText(), address, telephones,CPFTextField.getText());
+    private void mainAction() {
+        if (edit) {
+
+        } else {
+            if (validate()) {
+                Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
+                ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
+                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
                 System.out.println(newEmployee.toString());
             }
         }
     }
-    
+
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 
     public void setEdit(boolean edit) {
         this.edit = edit;
     }
-    
+
+    public void setAddressComponentObj(ScreenObject addressComponentObj) {
+        this.addressComponentObj = addressComponentObj;
+    }
+
+    public void setTelephoneComponent(ScreenObject telephoneComponent) {
+        this.telephoneComponent = telephoneComponent;
+    }
+
     private boolean validate() {
         Validate valObj = new Validate();
-        
+
         valObj.validateName(nameTextField.getText());
-        
-            valObj.validateRG(RGTextField.getText());
-            valObj.validateCPF(CPFTextField.getText());
-        
-        
-        valObj.validateTelephone(telTextField.getText());
-        if(!secTelTextField.getText().isEmpty()){
-            valObj.validateTelephone(secTelTextField.getText());
-        }
-        
-        valObj.validateAddressNumber(numberTextField.getText());
-        valObj.validateStreet(streetTextField.getText());
-        valObj.validateDistrict(districtTextField.getText());
-        valObj.validateCity();
-        valObj.validateState();
-        
+
+        valObj.validateRG(RGTextField.getText());
+        valObj.validateCPF(CPFTextField.getText());
+
+        valObj.appendErrorMessage(((TelephoneComponentController) telephoneComponent.getController()).validateFields());
+
+        valObj.appendErrorMessage(((AddressComponentController) addressComponentObj.getController()).validateFields());
+
         valObj.validateNick(userTextField.getText());
 
-        if(valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())){
+        if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
             valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
         }
-        
+
         if (valObj.getErrorMessage().isEmpty()) {
             return true;
         } else {
