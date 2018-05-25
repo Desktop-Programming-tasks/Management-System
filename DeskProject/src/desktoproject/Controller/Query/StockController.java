@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -31,15 +32,17 @@ public class StockController implements Initializable {
     }
     
     @FXML
-    TableView StockTable;
+    private TableView StockTable;
     @FXML
-    TableColumn Name;
+    private TableColumn nameColumn;
     @FXML
-    TableColumn Brand;
+    private TableColumn brandColumn;
     @FXML
-    TableColumn Quantity;
+    private TableColumn quantityColumn;
     @FXML
-    TableColumn BarCode;
+    private TableColumn codeColumn;
+    @FXML
+    private TextField searchTextField;
     
     /**
      * Initializes the controller class.

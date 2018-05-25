@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.LoginController">
    <children>
       <TextField fx:id="userTextField" layoutX="425.0" layoutY="305.0" prefHeight="33.0" prefWidth="430.0" promptText="Usuário" AnchorPane.leftAnchor="425.0" AnchorPane.rightAnchor="425.0" AnchorPane.topAnchor="305.0" />
-      <Label layoutX="470.0" layoutY="179.0" text="Login no sistema">
+      <Label alignment="CENTER" layoutX="470.0" layoutY="179.0" text="Login no sistema" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0">
          <font>
             <Font size="40.0" />
          </font>

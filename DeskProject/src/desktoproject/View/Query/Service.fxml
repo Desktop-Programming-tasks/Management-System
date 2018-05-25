@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -17,9 +18,9 @@
       </Label>
       <TableView fx:id="ServiceTable" layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="Code" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Código" />
-            <TableColumn fx:id="Description" maxWidth="-1.0" minWidth="1016.0" prefWidth="1016.0" resizable="false" text="Descrição" />
-            <TableColumn fx:id="Price" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor" />
+            <TableColumn fx:id="codeColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Código" />
+            <TableColumn fx:id="nameColumn" maxWidth="-1.0" minWidth="1016.0" prefWidth="1016.0" resizable="false" text="Nome" />
+            <TableColumn fx:id="priceColumn" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Valor" />
          </columns>
       </TableView>
       <Button layoutX="817.0" layoutY="550.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onAction="#showModalUpdateService" prefHeight="35.0" prefWidth="150.0" text="Atualizar serviço" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="250.0">
@@ -35,5 +36,6 @@
          </styleClass>
       </Button>
       <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <TextField fx:id="searchTextField" prefWidth="200.0" promptText="Pesquisar nome" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
    </children>
 </AnchorPane>

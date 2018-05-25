@@ -9,7 +9,7 @@ package desktoproject.Model.Enums;
  *
  * @author ecsanchesjr
  */
-public enum EmployeeTypes {
+public enum EmployeeType {
     MANAGER,
     COMMOM
 }

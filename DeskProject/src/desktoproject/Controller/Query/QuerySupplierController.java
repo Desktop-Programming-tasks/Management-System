@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -39,6 +40,8 @@ public class QuerySupplierController implements Initializable {
     private TableColumn Name;
     @FXML
     private TableColumn Brands;
+    @FXML
+    private TextField searchTextField;
 
     /**
      * Initializes the controller class.

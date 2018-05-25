@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -31,13 +32,15 @@ public class ServiceController implements Initializable {
     }
     
     @FXML
-    TableView ServiceTable;
+    private TableView ServiceTable;
     @FXML
-    TableColumn Code;
+    private TableColumn codeColumn;
     @FXML
-    TableColumn Description;
+    private TableColumn nameColumn;
     @FXML
-    TableColumn Price;
+    private TableColumn priceColumn;
+    @FXML
+    private TextField searchTextField;
     
     
     /**

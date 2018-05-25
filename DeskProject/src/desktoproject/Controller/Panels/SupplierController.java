@@ -63,7 +63,7 @@ public class SupplierController implements Initializable {
         if(edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Fornecedor");
-            brands = supplier.getAvaliableBrands();
+            
             fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
@@ -122,8 +122,9 @@ public class SupplierController implements Initializable {
         BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
     }    
     
+    //return all brands from database
     private void populateTable() {
-        BrandsTable.setItems(FXCollections.observableArrayList(brands));
+        //BrandsTable.setItems(FXCollections.observableArrayList(brands));
     }
     
     @FXML 
@@ -133,16 +134,6 @@ public class SupplierController implements Initializable {
  
     @FXML
     public void back() {
-        
-    }
-    
-    @FXML
-    private void createNewBrand() {
-        
-    }
-    
-    @FXML
-    private void addBrand() {
         
     }
 

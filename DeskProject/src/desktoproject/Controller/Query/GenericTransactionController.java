@@ -14,9 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
@@ -46,17 +48,14 @@ public class GenericTransactionController implements Initializable {
         switch(type){
             case ALL:{
                 mainLabel.setText("Consulta de Transações");
-                mainBtn.setText("Cancelar Transação");
                 break;
             }
             case BUY:{
                 mainLabel.setText("Consulta de Compras");
-                mainBtn.setText("Cancelar Compra");
                 break;
             }
             case SALE:{
                 mainLabel.setText("Consulta de Vendas");
-                mainBtn.setText("Cancelar Venda");
                 break;
             }
         }
@@ -65,15 +64,22 @@ public class GenericTransactionController implements Initializable {
     @FXML
     private Label mainLabel;
     @FXML
-    private Button mainBtn;
+    private TableView transactionTable;
     @FXML
-    private TableView MovimentationTable;
+    private TableColumn typeColumn;
     @FXML
-    private TableColumn Code;
+    private TableColumn codeColumn;
     @FXML
-    private TableColumn Description;
+    private TableColumn dateColumn;
     @FXML
-    private TableColumn Price;
+    private TableColumn nameColumn;
+    @FXML
+    private TableColumn priceColumn;
+    @FXML
+    private ComboBox typeComboBox;
+    @FXML
+    private TextField searchTextField;
+    
     /**
      * Initializes the controller class.
      */

@@ -5,6 +5,7 @@
  */
 package desktoproject.Model.Classes.Persons;
 
+import desktoproject.Model.Enums.EmployeeType;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class Employee extends LegalPerson{
     private String login;
     private String password;
+    private EmployeeType type;
 
     public Employee(String login, String password, String RG, String name, Address address, ArrayList<String> telephones, String cpf) {
         super(RG, name, address, telephones, cpf);
@@ -39,7 +41,6 @@ public class Employee extends LegalPerson{
 
     @Override
     public String toString() {
-        return super.toString()+"Employee{" + "login=" + login + ", password=" + password + '}';
+        return "Employee{" + "login=" + login + ", password=" + password + ", type=" + type + '}';
     }
-    
 }

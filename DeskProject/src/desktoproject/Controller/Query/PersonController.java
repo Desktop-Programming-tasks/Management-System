@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -65,6 +66,8 @@ public class PersonController implements Initializable {
     private TableColumn personDocColumn;
     @FXML
     private TableColumn personNameColumn;
+    @FXML
+    private TextField searchTextField;
 
     /**
      * Initializes the controller class.
