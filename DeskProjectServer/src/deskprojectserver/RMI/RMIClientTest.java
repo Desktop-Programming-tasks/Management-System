@@ -31,7 +31,6 @@ public class RMIClientTest {
         telephones.add("888898989");
         telephones.add("888898954");
         Address address = new Address("Rua das rosas", 100, "batata", "Abadiânia", "Goiás");
-        //Employee emp = new Employee("test", "", 1, "43434343434", "batatao", address, telephones, "889898898435");
         Employee emp = new Employee("123", "", EmployeeType.MANAGER, "123112", "batata", address, telephones, "employee");
         Supplier sup = new Supplier(new ArrayList<>(), "Batata Supplier", address, telephones, "supplier");
         JuridicalPerson jurP = new JuridicalPerson("Batata jurídico", address, telephones, "juridicalPerson");
