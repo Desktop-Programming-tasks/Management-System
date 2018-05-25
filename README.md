@@ -4,7 +4,7 @@ This project aims to provide the basic functionalites to manage a computer store
  
  - POssivelmente mostrar coisas do cliente no venda e compra.
 
-# tirar alto increment
+# tirar auto increment
 
 ## funcionalidades
 
