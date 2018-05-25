@@ -10,6 +10,7 @@ import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.Enums.EmployeeType;
 import java.util.ArrayList;
 
 /**
@@ -46,8 +47,26 @@ public abstract class PersonDAO {
         }
         addressDAO.insertAddress(p);
     }
-    public Person getPerson(){
-        Person p = null;
+    public Person getPerson(String id) throws Exception{
+        Person p=basicGetPerson(id);
+        p.setAddress(addressDAO.getAddress(p));
+        
+        LegalPerson lp = legalPersonDAO.getLegalPerson(id);
+        if(lp!=null){
+            Employee emp = employeeDAO.getEmployee(id);
+            if(emp!=null){
+                return new Employee(emp.getLogin(),
+                        emp.getPassword(),emp.getEmployeeType(),lp.getRG(), p.getName(),
+                        p.getAddress(), p.getTelephones(), p.getId());
+            }
+            return new LegalPerson(lp.getRG(), p.getName(), p.getAddress(),p.getTelephones(),
+                    p.getId());
+        }
+        JuridicalPerson jp = juridicalDAO.getJuridicalPerson(id);
+        if(jp != null){
+            return new JuridicalPerson(p.getName(),p.getAddress(), p.getTelephones(), p.getId());
+        
+        }
         return p;
     }
 
@@ -60,25 +79,4 @@ public abstract class PersonDAO {
     protected abstract Person basicGetPerson(String id) throws Exception;
 
     public abstract ArrayList<Person> getAllPersons() throws Exception;
-
-    public void setAddressDAO(AddressDAO addressDAO) {
-        this.addressDAO = addressDAO;
-    }
-
-    public void setEmployeeDAO(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
-    }
-
-    public void setLegalPersonDAO(LegalPersonDAO legalPersonDAO) {
-        this.legalPersonDAO = legalPersonDAO;
-    }
-
-    public void setJuridicalDAO(JuridicalPersonDAO juridicalDAO) {
-        this.juridicalDAO = juridicalDAO;
-    }
-
-    public void setSupplierDAO(SupplierDAO supplierDAO) {
-        this.supplierDAO = supplierDAO;
-    }
-
 }

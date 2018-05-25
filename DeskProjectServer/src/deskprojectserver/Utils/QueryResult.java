@@ -6,6 +6,7 @@
 package deskprojectserver.Utils;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -19,6 +20,10 @@ public class QueryResult {
     public QueryResult(ResultSet rs, Statement st) {
         this.rs = rs;
         this.st = st;
+    }
+    public void closeAll() throws SQLException{
+        rs.close();
+        st.close();
     }
     public ResultSet getRs() {
         return rs;

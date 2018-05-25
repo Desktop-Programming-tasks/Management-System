@@ -8,8 +8,9 @@ package deskprojectserver.mysql.DAO.Persons;
 import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.AddressDAO;
-import deskprojectserver.Database.Database;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,10 +19,20 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class MySqlAddressDAO extends AddressDAO{
+    private static final String STREET="streetAddress";
+    private static final String NUMBER="numberAddress";
+    private static final String DISTRICT = "districtAddress";
+    private static final String CITY="City_nameCity";
+    private static final String STATE="City_State_nameState";
+    
     private static final String INSERT_SQL =
             "INSERT INTO `Address`(`Person_idPerson`, `streetAddress`, `numberAddress`, `districtAddress`, "
             + "`City_nameCity`, `City_State_nameState`) "
             + "VALUES (?,?,?,?,?,?)";
+    private static final String GET_ONE_SQL=
+            "SELECT `Person_idPerson`, `streetAddress`, `numberAddress`, "
+            + "`districtAddress`, `City_nameCity`, `City_State_nameState` "
+            + "FROM `Address` WHERE Person_idPerson=?";
     @Override
     public void insertAddress(Person person) throws SQLException, ClassNotFoundException {
         Address ads = person.getAddress();
@@ -40,8 +51,21 @@ public class MySqlAddressDAO extends AddressDAO{
     }
 
     @Override
-    public Address getAddress(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Address getAddress(Person person) throws SQLException, ClassNotFoundException {
+        QueryResult qr=MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getId());
+        ResultSet rs = qr.getRs();
+        Address address=null;
+        while(rs.next()){
+            address= new Address(
+                    rs.getString(STREET), rs.getInt(NUMBER), rs.getString(DISTRICT),
+                    rs.getString(CITY),rs.getString(STATE));
+        }
+        if(address==null){
+            return null;
+        }
+        rs.close();
+        qr.getSt().close();
+        return address;
     }
 
     @Override
