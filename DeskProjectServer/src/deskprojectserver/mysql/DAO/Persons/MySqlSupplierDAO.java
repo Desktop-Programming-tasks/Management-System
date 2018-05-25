@@ -7,6 +7,7 @@ package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.Supplier;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
 public class MySqlSupplierDAO extends SupplierDAO{
     private static final String INSERT_SQL="INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
             + "VALUES (?)";
-    
+    private static final String GET_ONE_SQL=
+            "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier` "
+            + "WHERE JuridicalPerson_Person_idPerson=?";
     @Override
     public void insertSupplier(Supplier supplier) throws SQLException, ClassNotFoundException {
         MySqlHandler.getInstance().getDb().execute(INSERT_SQL,supplier.getId());
@@ -35,8 +38,13 @@ public class MySqlSupplierDAO extends SupplierDAO{
     }
 
     @Override
-    public Supplier getSupplier(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Supplier getSupplier(String id) throws SQLException, ClassNotFoundException {
+        Supplier sup= null;
+        QueryResult qr=MySqlHandler.getInstance().getDb().query(GET_ONE_SQL,id);
+        while(qr.getRs().next()){
+            sup = new Supplier(null, null, null, null, null);
+        }
+        return sup;
     }
 
     @Override

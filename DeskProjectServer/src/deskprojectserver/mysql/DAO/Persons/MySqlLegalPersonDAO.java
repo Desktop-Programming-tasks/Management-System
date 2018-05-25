@@ -9,7 +9,6 @@ import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -43,18 +42,14 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
 
     @Override
     public LegalPerson getLegalPerson(String id) throws SQLException, ClassNotFoundException {
-        LegalPerson lp = new LegalPerson("", "", null, null, id);
+        LegalPerson lp=null;
         QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-        ResultSet rs = qr.getRs();
-        while (rs.next()) {
-            lp.setRG(rs.getString(RG));
+        while (qr.getRs().next()) {
+            lp = new LegalPerson(
+                    qr.getRs().getString(RG), null, null, null, null);
         }
-        rs.close();
-        qr.getSt().close();
-        if (!lp.getRG().equals("")) {
-            return lp;
-        }
-        return null;
+        qr.closeAll();
+        return lp;
     }
 
     @Override

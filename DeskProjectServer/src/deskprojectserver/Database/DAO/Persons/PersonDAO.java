@@ -64,8 +64,11 @@ public abstract class PersonDAO {
         }
         JuridicalPerson jp = juridicalDAO.getJuridicalPerson(id);
         if(jp != null){
+            Supplier supplier = supplierDAO.getSupplier(id);
+            if(supplier!=null){ 
+                return new Supplier(supplier.getAvaliableBrands(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+            }
             return new JuridicalPerson(p.getName(),p.getAddress(), p.getTelephones(), p.getId());
-        
         }
         return p;
     }

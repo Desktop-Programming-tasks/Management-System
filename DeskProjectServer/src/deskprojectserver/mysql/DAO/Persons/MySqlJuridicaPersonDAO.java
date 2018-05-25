@@ -7,7 +7,6 @@ package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Database.DAO.Persons.JuridicalPersonDAO;
-import deskprojectserver.Database.Database;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO{
-    private static final String ID= "Person_idPerson";
     private static final String INSERT_SQL = "INSERT INTO `JuridicalPerson`(`Person_idPerson`) VALUES (?)";
     private static final String GET_ONE_SQL="SELECT `Person_idPerson` "
             + "FROM `JuridicalPerson` WHERE Person_idPerson=?";
@@ -44,6 +42,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO{
         while(qr.getRs().next()){
             jp = new JuridicalPerson(null, null, null, null);
         }
+        qr.closeAll();
         return jp;
     }
 

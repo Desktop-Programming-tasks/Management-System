@@ -6,7 +6,6 @@
 package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
@@ -62,18 +61,17 @@ public class MySqlPersonDAO extends PersonDAO {
     public Person basicGetPerson(String id) throws Exception {
         Person p = new Person(null, null, null, id) {
         };
-
         QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
-        ResultSet rs = qr.getRs();
         ArrayList<String> tels = new ArrayList<>();
-        while (rs.next()) {
-            p.setName(rs.getString(NAME));
+        while (qr.getRs().next()) {
+            p.setName(qr.getRs().getString(NAME));
             p.setId(id);
-            tels.add(rs.getString(TEL_1));
-            tels.add(rs.getString(TEL_2));
+            tels.add(qr.getRs().getString(TEL_1));
+            tels.add(qr.getRs().getString(TEL_2));
             p.setTelephones(tels);
         }
-        if(p.getName()==null){
+        qr.closeAll(); 
+       if(p.getName()==null){
             return null;
         }
         return p;

@@ -10,7 +10,6 @@ import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.AddressDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,18 +52,13 @@ public class MySqlAddressDAO extends AddressDAO{
     @Override
     public Address getAddress(Person person) throws SQLException, ClassNotFoundException {
         QueryResult qr=MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getId());
-        ResultSet rs = qr.getRs();
         Address address=null;
-        while(rs.next()){
+        while(qr.getRs().next()){
             address= new Address(
-                    rs.getString(STREET), rs.getInt(NUMBER), rs.getString(DISTRICT),
-                    rs.getString(CITY),rs.getString(STATE));
+                    qr.getRs().getString(STREET), qr.getRs().getInt(NUMBER), qr.getRs().getString(DISTRICT),
+                    qr.getRs().getString(CITY),qr.getRs().getString(STATE));
         }
-        if(address==null){
-            return null;
-        }
-        rs.close();
-        qr.getSt().close();
+        qr.closeAll();
         return address;
     }
 
