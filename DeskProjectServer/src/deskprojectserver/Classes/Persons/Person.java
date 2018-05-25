@@ -13,11 +13,12 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class Person implements Serializable {
+
     private String name;
     private Address address;
     private ArrayList<String> telephones;
     private String Id;
-    
+
     public Person(String name, Address address, ArrayList<String> telephones, String Id) {
         this.name = name;
         this.address = address;
@@ -61,7 +62,5 @@ public abstract class Person implements Serializable {
     public String toString() {
         return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + Id + '}';
     }
-    
-    
-    
+
 }

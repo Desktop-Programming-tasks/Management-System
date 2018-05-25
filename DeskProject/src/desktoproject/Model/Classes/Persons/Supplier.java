@@ -31,6 +31,6 @@ public class Supplier extends JuridicalPerson {
 
     @Override
     public String toString() {
-        return super.toString()+"Supplier{" + "avaliableBrands=" + avaliableBrands + '}';
+        return super.toString() + "Supplier{" + "avaliableBrands=" + avaliableBrands + '}';
     }
 }

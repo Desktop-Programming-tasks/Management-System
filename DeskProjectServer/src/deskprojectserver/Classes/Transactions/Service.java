@@ -12,7 +12,8 @@ import java.time.LocalDate;
  *
  * @author gabriel
  */
-public class Service extends Transaction{
+public class Service extends Transaction {
+
     private LocalDate startDate;
     private LocalDate estimatedDate;
     private LocalDate finishDate;
@@ -28,7 +29,7 @@ public class Service extends Transaction{
         this.assignedEmployee = assignedEmployee;
         this.serviceType = serviceType;
     }
-    
+
     public LocalDate getStartDate() {
         return startDate;
     }
