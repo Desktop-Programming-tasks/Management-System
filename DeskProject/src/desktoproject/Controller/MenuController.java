@@ -7,7 +7,7 @@ package desktoproject.Controller;
 
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Utils.Pairs.ControllerInfo;
+import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,12 +27,12 @@ public class MenuController implements Initializable {
 
     private static final String path = "desktoproject/View/Menu.fxml";
     
-    public static ControllerInfo call() throws IOException{
+    public static ScreenObject call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(LoginController.class.getClassLoader().getResource(path));
         Parent p = loader.load();
         MenuController controller = loader.getController();
-        return new ControllerInfo(p, controller);
+        return new ScreenObject(p, controller);
     }
     
     @FXML

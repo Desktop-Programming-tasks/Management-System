@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="100.0" prefWidth="830.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Panels.TelephoneComponentController">
+   <children>
+      <Label layoutX="10.0732421875" layoutY="10.0" text="Telefone" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="telTextField" layoutX="10.0" layoutY="60.0" prefHeight="30.0" prefWidth="350.0" promptText="Telefone Principal *" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <TextField fx:id="secTelTextField" layoutX="490.0732421875" layoutY="60.0" prefHeight="30.0" prefWidth="350.0" promptText="Telefone Secundário (Opcional)" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="50.0" />
+   </children>
+</AnchorPane>

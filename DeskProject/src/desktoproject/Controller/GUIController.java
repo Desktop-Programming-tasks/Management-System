@@ -22,7 +22,7 @@ import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Model.Classes.Transactions.Transaction;
 import desktoproject.Model.Enums.RecordType;
 import desktoproject.Model.Enums.ServiceStatus;
-import desktoproject.Utils.Pairs.ControllerInfo;
+import desktoproject.Utils.Pairs.ScreenCall;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -52,7 +52,7 @@ public class GUIController {
     private Stage mainStage;
     private Stage modalStage;
 
-    private Stack<ScreenObject> executionStack;
+    private Stack<ScreenCall> executionStack;
 
     private AnchorPane dynamic;
     private boolean isMenu;
@@ -75,8 +75,8 @@ public class GUIController {
         mainStage.setMinHeight(720);
         callLogin();
         setUpModalStage();
-//        callScreen(ScreenType.EMPLOYEE_CREATE);
-        //testScreen();
+//        callScreen(ScreenType.CUSTOMER_CREATE);
+        testScreen();
 //        callModal(ModalType.SERVICE_NEW);
     }
 
@@ -108,7 +108,7 @@ public class GUIController {
     
     private void setMenuScreen(){
         try {
-            ControllerInfo info = MenuController.call();
+            ScreenObject info = MenuController.call();
             this.dynamic = ((MenuController)info.getController()).getDynamic();
             mainStage.setScene(new Scene(info.getParent()));
             mainStage.show();
@@ -125,7 +125,7 @@ public class GUIController {
     }
 
     public void callScreen(ScreenType type, Object obj) {
-        executionStack.push(new ScreenObject(type, obj));
+        executionStack.push(new ScreenCall(type, obj));
         if(!isMenu){
             setMenuScreen();
         }
@@ -322,7 +322,7 @@ public class GUIController {
     
     public void backToPrevious() {
         executionStack.pop();
-        ScreenObject obj = executionStack.peek();
+        ScreenCall obj = executionStack.peek();
         callScreen(obj.getScreen(),obj.getObj());
     }
     
@@ -348,15 +348,18 @@ public class GUIController {
         
         Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
         
-        callModal(ModalType.SERVICE_ADD);
+//        callModal(ModalType.SERVICE_ADD);
 //        callModal(ModalType.SERVICE_UPDATE,service);
 //        callScreen(ScreenType.TRANSACTION_BUY_DISPLAY,record);
 //        callScreen(ScreenType.TRANSACTION_BUY_CREATE);
+//        callScreen(ScreenType.EMPLOYEE_CREATE);
 //        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
+//        callScreen(ScreenType.CUSTOMER_CREATE);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
-        //callModal(ModalType.BRAND_UPDATE, testBrand);
-        //callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
+//        callModal(ModalType.BRAND_UPDATE, testBrand);
+//        callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
+        callScreen(ScreenType.SUPPLIER_CREATE);
 //        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
     }
 }
