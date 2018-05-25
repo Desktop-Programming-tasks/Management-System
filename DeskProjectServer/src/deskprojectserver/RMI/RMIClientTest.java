@@ -7,6 +7,10 @@ package deskprojectserver.RMI;
 
 import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Employee;
+import deskprojectserver.Classes.Persons.JuridicalPerson;
+import deskprojectserver.Classes.Persons.LegalPerson;
+import deskprojectserver.Classes.Persons.Person;
+import deskprojectserver.Classes.Persons.Supplier;
 import deskprojectserver.Enums.EmployeeType;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -28,14 +32,43 @@ public class RMIClientTest {
         telephones.add("888898954");
         Address address = new Address("Rua das rosas", 100, "batata", "Abadiânia", "Goiás");
         //Employee emp = new Employee("test", "", 1, "43434343434", "batatao", address, telephones, "889898898435");
-        Employee emp = new Employee("123", "", EmployeeType.MANAGER, "123112", "batata", address, telephones, "732812783744");
+        Employee emp = new Employee("123", "", EmployeeType.MANAGER, "123112", "batata", address, telephones, "employee");
+        Supplier sup = new Supplier(new ArrayList<>(), "Batata Supplier", address, telephones, "supplier");
+        JuridicalPerson jurP = new JuridicalPerson("Batata jurídico", address, telephones, "juridicalPerson");
+        LegalPerson legP = new LegalPerson("34124342","Batata legal", address, telephones, "legalPerson");
         
         //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
         try {
             Registry rmiRegistry = LocateRegistry.getRegistry("Localhost", 1099);
             ServerMethods rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
 
+            
+            System.out.println("Inserções");
+            System.out.println("Empregado");
             rmiChannel.insertPerson(emp);
+            System.out.println("Juridico");
+            rmiChannel.insertPerson(jurP);
+            System.out.println("Legal");
+            rmiChannel.insertPerson(legP);
+            System.out.println("Supplier");
+            rmiChannel.insertPerson(sup);
+
+            System.out.println("Gets");
+            System.out.println("Employee");
+            Person employee = rmiChannel.queryPerson("employee");
+            System.out.println(employee);
+            System.out.println("Juridical");
+            Person juridical = rmiChannel.queryPerson("juridicalPerson");
+            System.out.println(juridical);
+            System.out.println("Legal");
+            Person legal = rmiChannel.queryPerson("legalPerson");
+            System.out.println(legal);
+            
+            
+            //System.out.println("GetAll");
+            //ArrayList<Person> persons = rmiChannel.querryAllPersons();
+            //System.out.println(persons);
+            
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(RMIClientTest.class.getName()).log(Level.SEVERE, null, ex);
         }

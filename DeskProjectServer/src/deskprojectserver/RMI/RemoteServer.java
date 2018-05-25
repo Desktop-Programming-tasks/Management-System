@@ -5,22 +5,18 @@
  */
 package deskprojectserver.RMI;
 
-import deskprojectserver.Classes.Persons.Employee;
-import deskprojectserver.Classes.Persons.JuridicalPerson;
-import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Persons.Supplier;
 import deskprojectserver.Classes.Transactions.Brand;
 import deskprojectserver.Classes.Transactions.Product;
 import deskprojectserver.Classes.Transactions.Record;
 import deskprojectserver.Classes.Transactions.Service;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
-import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,25 +27,36 @@ import java.util.logging.Logger;
 public class RemoteServer implements ServerMethods {
 
     @Override
-    public Employee queryEmployee() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person queryPerson(String id) throws RemoteException {
+        Person p = null;
+        try {
+            p= DAOBuilder.getInstance().getPersonDAO().getPerson(id);    
+        } catch(Exception ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
     }
-
+    
     @Override
-    public JuridicalPerson queryJuridicalPerson() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Person> querryAllPersons() throws RemoteException {
+        ArrayList<Person> persons = null;
+        try {
+            persons = DAOBuilder.getInstance().getPersonDAO().getAllPersons();
+        } catch (Exception ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return persons;
     }
-
+    
     @Override
-    public LegalPerson queryLegalPerson() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertPerson(Person person) throws RemoteException {
+        try {
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
+        } catch (Exception ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-
-    @Override
-    public Supplier querySupplier() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public Brand queryBrand() throws RemoteException {
         System.out.println("Batata");
@@ -69,15 +76,6 @@ public class RemoteServer implements ServerMethods {
     @Override
     public Service queryService() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void insertPerson(Person person) throws RemoteException {
-        try {
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
-        } catch (Exception ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     @Override
