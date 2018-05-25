@@ -104,10 +104,10 @@ public class SupplierController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
-    private TableView BrandsTable;
+    private TableView<Brand> BrandsTable;
     
     @FXML
-    private TableColumn BrandsColumn;
+    private TableColumn<Brand,String> BrandsColumn;
     
     @FXML
     private ComboBox<String> City;
@@ -119,7 +119,7 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        BrandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }    
     
     //return all brands from database

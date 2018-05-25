@@ -80,22 +80,22 @@ public class TransactionController implements Initializable {
     private TextField customerOrSupplier;
 
     @FXML
-    private TableView transactionsTable;
+    private TableView<Transaction> transactionsTable;
     @FXML
-    private TableColumn nameColumn;
+    private TableColumn<Transaction,String> nameColumn;
     @FXML
-    private TableColumn priceColumn;
+    private TableColumn<Transaction,Float> priceColumn;
     @FXML
-    private TableColumn quantityColumn;
+    private TableColumn<Transaction,Integer> quantityColumn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory("price"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory("quantity"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     }
 
     private void populateTable() {

@@ -99,17 +99,17 @@ public class ProductController implements Initializable {
     private TextField priceTextField;
     
     @FXML
-    private TableView BrandsTable;
+    private TableView<Brand> brandsTable;
     
     @FXML
-    private TableColumn BrandsColumn;
+    private TableColumn<Brand,String> brandsColumn;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        BrandsColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        brandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
     private void populateTable() {
