@@ -35,7 +35,7 @@ public class Database {
 
     public QueryResult query(String sql, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
-        int i = 0;
+        int i = 1;
         for (Object o : params) {
             statement.setObject(i++, o);
         }

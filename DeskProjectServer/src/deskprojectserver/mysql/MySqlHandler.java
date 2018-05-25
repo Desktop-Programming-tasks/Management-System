@@ -26,7 +26,7 @@ public class MySqlHandler {
         configs.setUSER("root");
         configs.setPASS("");
         configs.setPORT("3306");
-        configs.setBASE("mydb");
+        configs.setBASE("desktop_db");
         configs.setDRIV("com.mysql.jdbc.Driver");
         db = Database.getInstance(configs);
     }

@@ -5,13 +5,14 @@
  */
 package deskprojectserver.Classes.Persons;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class JuridicalPerson extends Person{
+public class JuridicalPerson extends Person implements Serializable {
 
     public JuridicalPerson(String name, Address address, ArrayList<String> telephones, String cnpj) {
         super(name, address, telephones, cnpj);

@@ -7,8 +7,9 @@ package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
-import deskprojectserver.Database.Database;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,12 +17,18 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class MySqlLegalPersonDAO extends LegalPersonDAO{
-    private static final String INSERT_SQL="INSERT INTO `LegalPerson`(`rgLegalPerson`, `Person_idPerson`) "
-                        + "VALUES (?,?)";
+public class MySqlLegalPersonDAO extends LegalPersonDAO {
+
+    private static final String INSERT_SQL = "INSERT INTO `LegalPerson`(`rgLegalPerson`, `Person_idPerson`) "
+            + "VALUES (?,?)";
+    private static final String GET_ONE_SQL = "SELECT `rgLegalPerson`, `Person_idPerson` "
+            + "FROM `LegalPerson` WHERE Person_idPerson=?";
+    private static final String RG = "rgLegalPerson";
+    private static final String ID = "Person_idPerson";
+
     @Override
-    public void insertLegalPerson(LegalPerson lp) throws SQLException, ClassNotFoundException{
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL,lp.getRG(),lp.getCPF());
+    public void insertLegalPerson(LegalPerson lp) throws SQLException, ClassNotFoundException {
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, lp.getRG(), lp.getCPF());
     }
 
     @Override
@@ -35,13 +42,24 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO{
     }
 
     @Override
-    public LegalPerson getLegalPerson(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public LegalPerson getLegalPerson(String id) throws SQLException, ClassNotFoundException {
+        LegalPerson lp = new LegalPerson("", "", null, null, id);
+        QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+        ResultSet rs = qr.getRs();
+        while (rs.next()) {
+            lp.setRG(rs.getString(RG));
+        }
+        rs.close();
+        qr.getSt().close();
+        if (!lp.getRG().equals("")) {
+            return lp;
+        }
+        return null;
     }
 
     @Override
     public ArrayList<LegalPerson> getAllLegalPersons() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
