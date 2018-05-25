@@ -6,20 +6,26 @@
 package desktoproject.Controller.Panels;
 
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.Classes.Persons.Address;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Utils.Pairs.ScreenObject;
+import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -72,24 +78,23 @@ public class SupplierController implements Initializable {
 
     private Supplier supplier;
     private boolean edit;
-    private ArrayList<Brand> brands;
-    private ScreenObject addressComponentObj;
+    private ScreenObject addressComponent;
     private ScreenObject telephoneComponent;
 
     private void setUpComponents() {
         addressPane.getChildren().clear();
-        addressPane.getChildren().add(addressComponentObj.getParent());
+        addressPane.getChildren().add(addressComponent.getParent());
         telephonePane.getChildren().clear();
         telephonePane.getChildren().add(telephoneComponent.getParent());
+        populateTable();
         if (edit) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Fornecedor");
-            
+
             fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Fornecedor");
-            brands = new ArrayList<>();
         }
     }
 
@@ -129,45 +134,78 @@ public class SupplierController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         BrandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        BrandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     //return all brands from database
     private void populateTable() {
         //BrandsTable.setItems(FXCollections.observableArrayList(brands));
+//        ArrayList<Brand> brands2 = new ArrayList<>();
+//        brands2.add(new Brand("Brand 1"));
+//        brands2.add(new Brand("Brand 2"));
+//        brands2.add(new Brand("Brand 3"));
+//        brands2.add(new Brand("Brand 4"));
+//        brands2.add(new Brand("Brand 5"));
+//        brands2.add(new Brand("Brand 6"));
+//        BrandsTable.setItems(FXCollections.observableArrayList(brands2));
     }
 
     @FXML
-    private void register() {
-
+    private void mainAction() {
+        if(validate()){
+            Address address = ((AddressComponentController)addressComponent.getController()).getAddress();
+            ArrayList<String> telephone = ((TelephoneComponentController)telephoneComponent.getController()).getTelephones();
+            ArrayList<Brand> brands = new ArrayList<>(BrandsTable.getSelectionModel().getSelectedItems());
+            Supplier supplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
+            System.out.println(supplier.toString());
+        }
     }
 
     @FXML
     private void back() {
         GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
-    private void createNewBrand(){
-    
+    private void createNewBrand() {
+
     }
 
     private void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
-    
+
     private Supplier getSupplier() {
         return supplier;
     }
-    
+
     private void setEdit(boolean edit) {
         this.edit = edit;
     }
 
     private void setAddressComponentObj(ScreenObject addressComponentObj) {
-        this.addressComponentObj = addressComponentObj;
+        this.addressComponent = addressComponentObj;
     }
-    
-    public void setTelephoneComponent(ScreenObject telephoneComponent) {
+
+    private void setTelephoneComponent(ScreenObject telephoneComponent) {
         this.telephoneComponent = telephoneComponent;
+    }
+
+    private boolean validate() {
+        Validate valObj = new Validate();
+
+        valObj.validateName(nameTextField.getText());
+        valObj.validateCNPJ(CNPJTextField.getText());
+
+        valObj.appendErrorMessage(((TelephoneComponentController) telephoneComponent.getController()).validateFields());
+
+        valObj.appendErrorMessage(((AddressComponentController) addressComponent.getController()).validateFields());
+
+        if (valObj.getErrorMessage().isEmpty()) {
+            return true;
+        } else {
+            GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
+            return false;
+        }
     }
 }
