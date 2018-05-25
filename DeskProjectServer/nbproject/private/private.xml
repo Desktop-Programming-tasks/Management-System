@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/deskprojectserver/DeskProjectServer.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>33</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
 <<<<<<< HEAD
-            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/DeskProjectServer.java</file>
-            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/Classes/Persons/LegalPerson.java</file>
+        <group/>
 =======
-            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProjectServer/src/deskprojectserver/RMI/RemoteServer.java</file>
-            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProjectServer/src/deskprojectserver/RMI/RMIClientTest.java</file>
-            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProjectServer/src/deskprojectserver/mysql/DAO/Persons/MySqlPersonDAO.java</file>
-            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProjectServer/src/deskprojectserver/DeskProjectServer.java</file>
-            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProjectServer/src/deskprojectserver/RMI/ServerMethods.java</file>
->>>>>>> b47cd83134db4b592927c7968f77ff84f2eaad5c
+        <group>
+            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/mysql/DAO/Persons/MySqlEmployeeDAO.java</file>
         </group>
+>>>>>>> e07132fc56212fe5628ea8f4cd2d1df570dccf19
     </open-files>
 </project-private>
