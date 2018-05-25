@@ -10,6 +10,9 @@ import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.DuplicatedEntryException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Enums.EmployeeType;
 import java.util.ArrayList;
 
@@ -32,6 +35,7 @@ public abstract class PersonDAO {
         this.juridicalDAO = juridicalDAO;
         this.supplierDAO = supplierDAO;
     }
+
     public void insertPerson(Person p) throws Exception {
         basicInsertPerson(p);
         if (p instanceof LegalPerson) {
@@ -47,39 +51,49 @@ public abstract class PersonDAO {
         }
         addressDAO.insertAddress(p);
     }
-    public Person getPerson(String id) throws Exception{
-        Person p=basicGetPerson(id);
-        p.setAddress(addressDAO.getAddress(p));
-        
-        LegalPerson lp = legalPersonDAO.getLegalPerson(id);
-        if(lp!=null){
-            Employee emp = employeeDAO.getEmployee(id);
-            if(emp!=null){
+
+    public Person getPerson(String id) throws DatabaseErrorException,NoResultsException {
+        Person p;
+        try {
+            p = basicGetPerson(id);
+            p.setAddress(addressDAO.getAddress(p));
+        } catch (NoResultsException a) {
+            throw a;
+        }
+        try {
+            LegalPerson lp = legalPersonDAO.getLegalPerson(id);
+            try {
+                Employee emp = employeeDAO.getEmployee(id);
                 return new Employee(emp.getLogin(),
-                        emp.getPassword(),emp.getEmployeeType(),lp.getRG(), p.getName(),
+                        emp.getPassword(), emp.getEmployeeType(), lp.getRG(), p.getName(),
                         p.getAddress(), p.getTelephones(), p.getId());
+            } catch (NoResultsException b) {
+                return new LegalPerson(lp.getRG(), p.getName(), p.getAddress(), p.getTelephones(),
+                        p.getId());
             }
-            return new LegalPerson(lp.getRG(), p.getName(), p.getAddress(),p.getTelephones(),
-                    p.getId());
-        }
-        JuridicalPerson jp = juridicalDAO.getJuridicalPerson(id);
-        if(jp != null){
-            Supplier supplier = supplierDAO.getSupplier(id);
-            if(supplier!=null){ 
-                return new Supplier(supplier.getAvaliableBrands(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+        } catch (NoResultsException c) {
+            try {
+                juridicalDAO.getJuridicalPerson(id);
+                try {
+                    Supplier supplier = supplierDAO.getSupplier(id);
+                    return new Supplier(supplier.getAvaliableBrands(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+
+                } catch (NoResultsException d) {
+                    return new JuridicalPerson(p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+                }
+            } catch (NoResultsException f) {
+                throw f;
             }
-            return new JuridicalPerson(p.getName(),p.getAddress(), p.getTelephones(), p.getId());
         }
-        return p;
     }
 
-    protected abstract void basicInsertPerson(Person p) throws Exception;
+    protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
-    protected abstract void basicUpdatePerson(Person p) throws Exception;
+    protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
-    protected abstract void basicRemovePerson(Person p) throws Exception;
+    protected abstract void basicRemovePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
-    protected abstract Person basicGetPerson(String id) throws Exception;
+    protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
 
-    public abstract ArrayList<Person> getAllPersons() throws Exception;
+    public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 }

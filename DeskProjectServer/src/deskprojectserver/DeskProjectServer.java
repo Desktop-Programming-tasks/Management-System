@@ -10,6 +10,8 @@ import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import deskprojectserver.Enums.EmployeeType;
 import java.util.ArrayList;
@@ -25,7 +27,6 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
 
-        try {
             Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add("dasds");
@@ -34,15 +35,20 @@ public class DeskProjectServer {
 //            Employee emp = new Employee("teste", "123", EmployeeType.MANAGER, "15", 
 //                    "batata func", address, telephones, "1");
            Supplier lp = new Supplier(null, "batata", address, telephones, "4");
-           DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
+            //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
             //Juridical
+            try{
             Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4");
             System.out.println(p);
+            }
+            catch(DatabaseErrorException | NoResultsException e){
+                
+            }
+                
+            
 
             
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
 }

@@ -5,7 +5,11 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Classes.Persons.Person;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.DuplicatedEntryException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
@@ -37,30 +41,40 @@ public class MySqlPersonDAO extends PersonDAO {
     }
 
     @Override
-    public void basicInsertPerson(Person p) throws Exception {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(), p.getName(),
+    public void basicInsertPerson(Person p) throws DatabaseErrorException,DuplicatedEntryException {
+        try{
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(), p.getName(),
                 p.getTelephones().get(0), p.getTelephones().get(1));
+        }
+        catch(MySQLIntegrityConstraintViolationException e){
+            throw new DuplicatedEntryException();
+        }
+        catch(Exception e){
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
-    public void basicUpdatePerson(Person p) throws Exception {
+    public void basicUpdatePerson(Person p) throws DatabaseErrorException,NoResultsException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void basicRemovePerson(Person p) throws Exception {
+    public void basicRemovePerson(Person p) throws DatabaseErrorException,NoResultsException{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Person> getAllPersons() throws Exception {
+    public ArrayList<Person> getAllPersons() throws DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+   
     @Override
-    public Person basicGetPerson(String id) throws Exception {
+    public Person basicGetPerson(String id)  throws DatabaseErrorException,NoResultsException{
         Person p = new Person(null, null, null, id) {
         };
+        try{
         QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
         ArrayList<String> tels = new ArrayList<>();
         while (qr.getRs().next()) {
@@ -72,9 +86,13 @@ public class MySqlPersonDAO extends PersonDAO {
         }
         qr.closeAll(); 
        if(p.getName()==null){
-            return null;
+            throw new NoResultsException();
         }
         return p;
+        }
+        catch(Exception e){
+            throw new DatabaseErrorException();
+        }
     }
 
 }
