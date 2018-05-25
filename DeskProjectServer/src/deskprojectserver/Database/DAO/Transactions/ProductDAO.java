@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class ProductDAO {
-    public abstract void insertProduct(Product product);
-    public abstract void updateProduct(Product product);
-    public abstract void removeProduct(Product product);
-    public abstract Product getProduct(String id);
-    public abstract ArrayList<Product> getAllProducts();               
+    public abstract void insertProduct(Product product) throws Exception;
+    public abstract void updateProduct(Product product) throws Exception;
+    public abstract void removeProduct(Product product) throws Exception;
+    public abstract Product getProduct(String id) throws Exception;
+    public abstract ArrayList<Product> getAllProducts() throws Exception;               
 }

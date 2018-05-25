@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class BrandDAO {
-    public abstract void insertBrand(Brand brand);
-    public abstract void updateBrand(Brand brand);
-    public abstract void removeBrand(Brand brand);
-    public abstract Brand getBrand(String id);
-    public abstract ArrayList<Brand>  getAllBrands();    
+    public abstract void insertBrand(Brand brand) throws Exception;
+    public abstract void updateBrand(Brand brand) throws Exception;
+    public abstract void removeBrand(Brand brand) throws Exception;
+    public abstract Brand getBrand(String id) throws Exception;
+    public abstract ArrayList<Brand>  getAllBrands() throws Exception;    
 }
     
