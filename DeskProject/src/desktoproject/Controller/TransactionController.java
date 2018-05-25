@@ -33,6 +33,7 @@ import main.utils.TableProxyTransation;
  */
 public class TransactionController implements Initializable {
     private static final String transactionPath = "desktoproject/View/Transaction.fxml";
+    
     //call to create a new transaction
     public static Parent call(TransactionType type) throws IOException {
         FXMLLoader loader = new FXMLLoader();
