@@ -23,23 +23,24 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String PASSWORD = "passwordEmployee";
     private static final String EMP_TYPE = "EmployeeType_idEmployeeType";
 
-    private static final String INSERT_SQL = "INSERT INTO `Employee`(`Person_idPerson`, `loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`) "
+    private static final String INSERT_SQL = "INSERT INTO `Employee`(`loginEmployee`, "
+            + "`passwordEmployee`, `EmployeeType_idEmployeeType`, "
+            + "`LegalPerson_Person_idPerson`) "
             + "VALUES (?,?,?,?)";
-    private static final String GET_ONE_SQL
-            = "SELECT `Person_idPerson`, `loginEmployee`, `passwordEmployee`, "
-            + "`EmployeeType_idEmployeeType` FROM `Employee` WHERE "
-            + "Person_idPerson= ?";
+    private static final String GET_ONE_SQL="SELECT `loginEmployee`, `passwordEmployee`, "
+            + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
+            + "`Employee` WHERE LegalPerson_Person_idPerson=?";
 
     @Override
     public void insertEmployee(Employee employee) throws SQLException, ClassNotFoundException {
         if (employee.getEmployeeType() == EmployeeType.COMMOM) {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
-                    employee.getCPF(), employee.getLogin(), employee.getPassword(),
-                    2);
+                    employee.getLogin(), employee.getPassword(),
+                    2,employee.getCPF());
         } else if (employee.getEmployeeType() == EmployeeType.MANAGER) {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
-                    employee.getCPF(), employee.getLogin(), employee.getPassword(),
-                    1);
+                     employee.getLogin(), employee.getPassword(),
+                    1,employee.getCPF());
         }
 
     }

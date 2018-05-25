@@ -5,8 +5,14 @@
  */
 package deskprojectserver;
 
+import deskprojectserver.Classes.Persons.Address;
+import deskprojectserver.Classes.Persons.Employee;
+import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
+import deskprojectserver.Classes.Persons.Supplier;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
+import deskprojectserver.Enums.EmployeeType;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,18 +26,27 @@ public class DeskProjectServer {
     public static void main(String[] args) {
 
         try {
+            Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
+            ArrayList<String> telephones = new ArrayList<>();
+            telephones.add("dasds");
+            telephones.add("dsadas");
+//            LegalPerson lp = new LegalPerson("10","batata",address,telephones,"2");
+//            Employee emp = new Employee("teste", "123", EmployeeType.MANAGER, "15", 
+//                    "batata func", address, telephones, "1");
+           Supplier lp = new Supplier(null, "batata", address, telephones, "4");
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
             //Juridical
-            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("123");
+            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4");
             System.out.println(p);
             //Legal
-            p= DAOBuilder.getInstance().getPersonDAO().getPerson("5252");
-            System.out.println(p);
+            //p= DAOBuilder.getInstance().getPersonDAO().getPerson("2");
+            //System.out.println(p);
             //Employee
-            p= DAOBuilder.getInstance().getPersonDAO().getPerson("8521");
-            System.out.println(p);
+            //p= DAOBuilder.getInstance().getPersonDAO().getPerson("3");
+            //System.out.println(p);
             //Supplier
-            p=DAOBuilder.getInstance().getPersonDAO().getPerson("121");
-            System.out.println(p);
+            //p=DAOBuilder.getInstance().getPersonDAO().getPerson("4");
+            //System.out.println(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
