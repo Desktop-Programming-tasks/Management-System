@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Query;
 
+import desktoproject.Controller.GUIController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,8 +53,8 @@ public class QuerySupplierController implements Initializable {
     }
 
     @FXML
-    private void back(ActionEvent event) {
-        
+    private void back() {
+        GUIController.getInstance().backToPrevious();
     }
     
     @FXML

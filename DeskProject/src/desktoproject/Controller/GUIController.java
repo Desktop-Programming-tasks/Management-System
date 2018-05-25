@@ -76,7 +76,7 @@ public class GUIController {
         callLogin();
         setUpModalStage();
 //        callScreen(ScreenType.CUSTOMER_CREATE);
-        testScreen();
+//        testScreen();
 //        callModal(ModalType.SERVICE_NEW);
     }
 
@@ -123,9 +123,20 @@ public class GUIController {
     public void callScreen(ScreenType type){
         callScreen(type, null);
     }
+    
+    public void callScreen(ScreenType type, Object obj){
+        callScreen(type, obj,false);
+    }
 
-    public void callScreen(ScreenType type, Object obj) {
-        executionStack.push(new ScreenCall(type, obj));
+    public void callScreen(ScreenType type, Object obj, boolean back) {
+        if(!back){
+            executionStack.push(new ScreenCall(type, obj));
+        }
+        System.out.println("\nExecution stack");
+        for(ScreenCall sc : executionStack){
+            System.out.println("Screen: "+sc.getScreen().name());
+            System.out.println("Obj: "+sc.getObj());
+        }
         if(!isMenu){
             setMenuScreen();
         }
@@ -323,7 +334,7 @@ public class GUIController {
     public void backToPrevious() {
         executionStack.pop();
         ScreenCall obj = executionStack.peek();
-        callScreen(obj.getScreen(),obj.getObj());
+        callScreen(obj.getScreen(),obj.getObj(),true);
     }
     
     public void testScreen() {
@@ -359,7 +370,7 @@ public class GUIController {
 //        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
 //        callModal(ModalType.BRAND_UPDATE, testBrand);
 //        callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
-        callScreen(ScreenType.SUPPLIER_CREATE);
+//        callScreen(ScreenType.SUPPLIER_CREATE);
 //        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
     }
 }

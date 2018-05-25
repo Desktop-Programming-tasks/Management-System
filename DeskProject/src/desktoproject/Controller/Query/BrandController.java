@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Query;
 
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Transactions.Brand;
 import java.io.IOException;
 import java.net.URL;
@@ -52,6 +53,6 @@ public class BrandController implements Initializable {
     
     @FXML
     public void back() {
-        
+        GUIController.getInstance().backToPrevious();
     }
 }

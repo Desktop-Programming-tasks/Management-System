@@ -130,7 +130,7 @@ public class EmployeeController implements Initializable {
 
     @FXML
     public void back() {
-
+        GUIController.getInstance().backToPrevious();
     }
 
     @FXML

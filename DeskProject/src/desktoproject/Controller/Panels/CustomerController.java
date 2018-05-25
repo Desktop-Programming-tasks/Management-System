@@ -150,7 +150,7 @@ public class CustomerController implements Initializable {
 
     @FXML
     public void back() {
-
+        GUIController.getInstance().backToPrevious();
     }
 
     @FXML

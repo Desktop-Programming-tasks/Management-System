@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Persons.Supplier;
 import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Utils.Pairs.ScreenObject;
@@ -142,7 +143,7 @@ public class SupplierController implements Initializable {
 
     @FXML
     private void back() {
-
+        GUIController.getInstance().backToPrevious();
     }
     
     @FXML

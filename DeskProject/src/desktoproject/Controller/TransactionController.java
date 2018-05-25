@@ -142,7 +142,7 @@ public class TransactionController implements Initializable {
 
     @FXML
     private void back() {
-
+        GUIController.getInstance().backToPrevious();
     }
 
     @FXML
