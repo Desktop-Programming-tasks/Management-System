@@ -6,30 +6,41 @@
 package deskprojectserver.mysql.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.Person;
+import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class MySqlPersonDAO extends PersonDAO{
-    private final static String INSERT_SQL="INSERT INTO `Person`(`idPerson`, "
+public class MySqlPersonDAO extends PersonDAO {
+
+    protected final static String ID = "idPerson";
+    protected final static String NAME = "namePerson";
+    protected final static String TEL_1 = "tel1Person";
+    protected final static String TEL_2 = "tel2Person";
+
+    private final static String INSERT_SQL = "INSERT INTO `Person`(`idPerson`, "
             + "`namePerson`, `tel1Person`, `tel2Person`)"
             + " VALUES (?,?,?,?)";
+    private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
+            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "WHERE idPerson=?";
 
     public MySqlPersonDAO() {
-        super(new MySqlAddressDAO(), new MySqlEmployeeDAO(), 
+        super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
                 new MySqlLegalPersonDAO(), new MySqlJuridicaPersonDAO(),
                 new MySqlSupplierDAO());
     }
-    
 
     @Override
     public void basicInsertPerson(Person p) throws Exception {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(),p.getName(),
-                p.getTelephones().get(0),p.getTelephones().get(1));
+        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(), p.getName(),
+                p.getTelephones().get(0), p.getTelephones().get(1));
     }
 
     @Override
@@ -43,13 +54,29 @@ public class MySqlPersonDAO extends PersonDAO{
     }
 
     @Override
-    public Person getPerson(String id) throws Exception {
+    public ArrayList<Person> getAllPersons() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Person> getAllPersons() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Person basicGetPerson(String id) throws Exception {
+        Person p = new Person(null, null, null, id) {
+        };
+
+        QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+        ResultSet rs = qr.getRs();
+        ArrayList<String> tels = new ArrayList<>();
+        while (rs.next()) {
+            p.setName(rs.getString(NAME));
+            p.setId(id);
+            tels.add(rs.getString(TEL_1));
+            tels.add(rs.getString(TEL_2));
+            p.setTelephones(tels);
+        }
+        if(p.getName()==null){
+            return null;
+        }
+        return p;
     }
-    
+
 }

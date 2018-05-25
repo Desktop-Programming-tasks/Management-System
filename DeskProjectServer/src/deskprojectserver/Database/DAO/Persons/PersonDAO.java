@@ -46,6 +46,10 @@ public abstract class PersonDAO {
         }
         addressDAO.insertAddress(p);
     }
+    public Person getPerson(){
+        Person p = null;
+        return p;
+    }
 
     protected abstract void basicInsertPerson(Person p) throws Exception;
 
@@ -53,7 +57,7 @@ public abstract class PersonDAO {
 
     protected abstract void basicRemovePerson(Person p) throws Exception;
 
-    protected abstract Person getPerson(String id) throws Exception;
+    protected abstract Person basicGetPerson(String id) throws Exception;
 
     public abstract ArrayList<Person> getAllPersons() throws Exception;
 
