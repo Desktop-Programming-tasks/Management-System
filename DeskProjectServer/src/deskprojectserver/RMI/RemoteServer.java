@@ -25,13 +25,27 @@ import java.util.logging.Logger;
  * @author ecsanchesjr
  */
 public class RemoteServer implements ServerMethods {
+    
+    public static void main(String[] args) {
+        RemoteServer rmi = new RemoteServer();
+        
+        try {
+            ServerMethods rmiChannel = (ServerMethods) UnicastRemoteObject.exportObject(rmi, 0);
+            Registry rmiRegistry = LocateRegistry.createRegistry(1099);
+            rmiRegistry.bind("RMI_BD_Server", rmiChannel);
+            
+            System.out.println("Server ready to receive connections...");
+        } catch (RemoteException | AlreadyBoundException ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public Person queryPerson(String id) throws RemoteException {
         Person p = null;
         try {
-            p= DAOBuilder.getInstance().getPersonDAO().getPerson(id);    
-        } catch(Exception ex) {
+            p= DAOBuilder.getInstance().getPersonDAO().getPerson(id);
+        } catch (Exception ex) {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         return p;
@@ -56,25 +70,19 @@ public class RemoteServer implements ServerMethods {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    @Override
+    public void deletePerson(Person person) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public Brand queryBrand() throws RemoteException {
-        System.out.println("Batata");
-        return null;
-    }
-
-    @Override
-    public Product queryProduct() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Record queryRecord() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Service queryService() throws RemoteException {
+    public ArrayList<Brand> queryAllBrands() throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -84,27 +92,22 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertProduct(Product product) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void insertService(Service service) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void insertRecord(Record record) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deletePerson(Person person) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void deleteBrand(Brand brand) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Product queryProduct() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Product> queryAllProducts() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertProduct(Product product) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -114,7 +117,17 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void deleteService(Service service) throws RemoteException {
+    public Record queryRecord() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Record> queryAllRecords() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertRecord(Record record) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -122,19 +135,25 @@ public class RemoteServer implements ServerMethods {
     public void deleteRecord(Record record) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public static void main(String[] args) {
-        RemoteServer rmi = new RemoteServer();
-        
-        try {
-            ServerMethods rmiChannel = (ServerMethods) UnicastRemoteObject.exportObject(rmi, 0);
-            Registry rmiRegistry = LocateRegistry.createRegistry(1099);
-            rmiRegistry.bind("RMI_BD_Server", rmiChannel);
-            
-            System.out.println("Server ready to receive connections...");
-        } catch (RemoteException | AlreadyBoundException ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    @Override
+    public Service queryService() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<Service> querryAllServices() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertService(Service service) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void deleteService(Service service) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
