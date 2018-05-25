@@ -5,7 +5,11 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Classes.Persons.Supplier;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.DuplicatedEntryException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
@@ -16,15 +20,23 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class MySqlSupplierDAO extends SupplierDAO{
-    private static final String INSERT_SQL="INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
+public class MySqlSupplierDAO extends SupplierDAO {
+
+    private static final String INSERT_SQL = "INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
             + "VALUES (?)";
-    private static final String GET_ONE_SQL=
-            "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier` "
+    private static final String GET_ONE_SQL
+            = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier` "
             + "WHERE JuridicalPerson_Person_idPerson=?";
+
     @Override
-    public void insertSupplier(Supplier supplier) throws SQLException, ClassNotFoundException {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL,supplier.getId());
+    public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
+        try {
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, supplier.getId());
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            throw new DuplicatedEntryException();
+        } catch (Exception e) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
@@ -38,18 +50,25 @@ public class MySqlSupplierDAO extends SupplierDAO{
     }
 
     @Override
-    public Supplier getSupplier(String id) throws SQLException, ClassNotFoundException {
-        Supplier sup= null;
-        QueryResult qr=MySqlHandler.getInstance().getDb().query(GET_ONE_SQL,id);
-        while(qr.getRs().next()){
-            sup = new Supplier(null, null, null, null, null);
+    public Supplier getSupplier(String id) throws DatabaseErrorException, NoResultsException {
+        Supplier sup = null;
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            while (qr.getRs().next()) {
+                sup = new Supplier(null, null, null, null, null);
+            }
+            if(sup==null){
+                throw new NoResultsException();
+            }
+            return sup;
+        } catch (Exception e) {
+            throw new DatabaseErrorException();
         }
-        return sup;
     }
 
     @Override
     public ArrayList<Supplier> getAllSuppliers() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

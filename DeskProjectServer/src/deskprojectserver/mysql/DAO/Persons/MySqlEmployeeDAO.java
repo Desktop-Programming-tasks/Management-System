@@ -14,7 +14,6 @@ import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
 import deskprojectserver.Enums.EmployeeType;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**

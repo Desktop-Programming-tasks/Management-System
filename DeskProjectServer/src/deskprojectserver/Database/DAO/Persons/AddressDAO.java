@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public abstract class AddressDAO {
     public abstract void insertAddress(Person person) throws DatabaseErrorException;
     public abstract void removeAddress(Person person) throws DatabaseErrorException,NoResultsException;
-    public abstract void updateAddress(Person person) throws DatabaseErrorException;
+    public abstract void updateAddress(Person person) throws DatabaseErrorException,NoResultsException;
     public abstract Address getAddress(Person person) throws DatabaseErrorException,NoResultsException ;
     public abstract ArrayList<Address> getAllAddresses() throws DatabaseErrorException;  
 }

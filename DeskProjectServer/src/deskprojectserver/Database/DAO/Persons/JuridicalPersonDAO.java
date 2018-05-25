@@ -6,6 +6,9 @@
 package deskprojectserver.Database.DAO.Persons;
 
 import deskprojectserver.Classes.Persons.JuridicalPerson;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.DuplicatedEntryException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +16,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class JuridicalPersonDAO {
-    public abstract void insertJuridicalPerson(JuridicalPerson jp) throws Exception;
-    public abstract void updateJuridicalPerson(JuridicalPerson jp) throws Exception;
-    public abstract void removeJuridcalPerson(JuridicalPerson jp) throws Exception;
-    public abstract JuridicalPerson getJuridicalPerson(String id) throws Exception;
-    public abstract ArrayList<JuridicalPerson> getAllJuridicalPersons() throws Exception;
+    public abstract void insertJuridicalPerson(JuridicalPerson jp) throws DuplicatedEntryException,DatabaseErrorException;
+    public abstract void updateJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException,NoResultsException;
+    public abstract void removeJuridcalPerson(JuridicalPerson jp) throws DatabaseErrorException,NoResultsException;
+    public abstract JuridicalPerson getJuridicalPerson(String id) throws DatabaseErrorException, NoResultsException;
+    public abstract ArrayList<JuridicalPerson> getAllJuridicalPersons() throws DatabaseErrorException;
 }
