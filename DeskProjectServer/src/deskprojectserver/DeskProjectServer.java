@@ -34,7 +34,7 @@ public class DeskProjectServer {
 //            Employee emp = new Employee("teste", "123", EmployeeType.MANAGER, "15", 
 //                    "batata func", address, telephones, "1");
            Supplier lp = new Supplier(null, "batata", address, telephones, "4");
-           // DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
+           DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
             //Juridical
             Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4");
             System.out.println(p);

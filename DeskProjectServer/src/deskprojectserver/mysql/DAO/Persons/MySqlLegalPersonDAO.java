@@ -1,15 +1,18 @@
-/*
+/*Çp6
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Classes.Persons.LegalPerson;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
+import deskprojectserver.DBExceptions.DuplicatedEntryException;
+import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -26,8 +29,14 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
     private static final String ID = "Person_idPerson";
 
     @Override
-    public void insertLegalPerson(LegalPerson lp) throws SQLException, ClassNotFoundException {
-        MySqlHandler.getInstance().getDb().execute(INSERT_SQL, lp.getRG(), lp.getCPF());
+    public void insertLegalPerson(LegalPerson lp) throws DatabaseErrorException, DuplicatedEntryException {
+        try {
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, lp.getRG(), lp.getCPF());
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            throw new DuplicatedEntryException();
+        } catch (Exception e) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
@@ -41,14 +50,21 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
     }
 
     @Override
-    public LegalPerson getLegalPerson(String id) throws SQLException, ClassNotFoundException {
-        LegalPerson lp=null;
-        QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-        while (qr.getRs().next()) {
-            lp = new LegalPerson(
-                    qr.getRs().getString(RG), null, null, null, null);
+    public LegalPerson getLegalPerson(String id) throws NoResultsException, DatabaseErrorException {
+        LegalPerson lp = null;
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            while (qr.getRs().next()) {
+                lp = new LegalPerson(
+                        qr.getRs().getString(RG), null, null, null, null);
+                qr.closeAll();
+            }
+        } catch (Exception e) {
+            throw new DatabaseErrorException();
         }
-        qr.closeAll();
+        if (lp == null) {
+            throw new NoResultsException();
+        }
         return lp;
     }
 

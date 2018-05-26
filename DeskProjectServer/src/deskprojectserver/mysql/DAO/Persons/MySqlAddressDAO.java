@@ -8,7 +8,6 @@ package deskprojectserver.mysql.DAO.Persons;
 import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.AddressDAO;
 import deskprojectserver.Utils.QueryResult;
