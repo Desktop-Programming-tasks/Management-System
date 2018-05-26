@@ -6,9 +6,9 @@
 package deskprojectserver.Database.DAO.Persons;
 
 import Classes.Persons.LegalPerson;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
-import deskprojectserver.DBExceptions.NoResultsException;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
 /**

@@ -6,9 +6,9 @@
 package deskprojectserver.Database.DAO.Transactions;
 
 import Classes.Transactions.Brand;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
-import deskprojectserver.DBExceptions.NoResultsException;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +16,14 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class BrandDAO {
-    public abstract void insertBrand(Brand brand) throws DatabaseErrorException,DuplicatedEntryException;
-    public abstract void updateBrand(Brand brand) throws DatabaseErrorException,NoResultsException;
-    public abstract void removeBrand(Brand brand) throws DatabaseErrorException,NoResultsException;
-    public abstract Brand getBrand(String id) throws DatabaseErrorException,NoResultsException;
-    public abstract ArrayList<Brand>  getAllBrands() throws DatabaseErrorException;    
+
+    public abstract void insertBrand(Brand brand) throws DatabaseErrorException, DuplicatedEntryException;
+
+    public abstract void updateBrand(Brand brand) throws DatabaseErrorException, NoResultsException;
+
+    public abstract void removeBrand(Brand brand) throws DatabaseErrorException, NoResultsException;
+
+    public abstract Brand getBrand(String id) throws DatabaseErrorException, NoResultsException;
+
+    public abstract ArrayList<Brand> getAllBrands() throws DatabaseErrorException;
 }
-    

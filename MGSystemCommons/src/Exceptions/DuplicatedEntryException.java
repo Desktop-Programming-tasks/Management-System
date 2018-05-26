@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.DBExceptions;
+package Exceptions;
 
 /**
  *
  * @author ecsanchesjr
  */
-public class NoResultsException extends Exception {
+public class DuplicatedEntryException extends Exception {
 
-    public NoResultsException() {
-        super("No results to query");
+    public DuplicatedEntryException() {
+        super("Entry already registered in database");
     }
+    
 }

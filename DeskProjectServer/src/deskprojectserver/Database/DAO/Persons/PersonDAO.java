@@ -10,11 +10,10 @@ import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
-import deskprojectserver.DBExceptions.NoResultsException;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -22,11 +21,11 @@ import java.util.ArrayList;
  */
 public abstract class PersonDAO {
 
-    private AddressDAO addressDAO;
-    private EmployeeDAO employeeDAO;
-    private LegalPersonDAO legalPersonDAO;
-    private JuridicalPersonDAO juridicalDAO;
-    private SupplierDAO supplierDAO;
+    private final AddressDAO addressDAO;
+    private final EmployeeDAO employeeDAO;
+    private final LegalPersonDAO legalPersonDAO;
+    private final JuridicalPersonDAO juridicalDAO;
+    private final SupplierDAO supplierDAO;
 
     public PersonDAO(AddressDAO addressDAO, EmployeeDAO employeeDAO, LegalPersonDAO legalPersonDAO, JuridicalPersonDAO juridicalDAO, SupplierDAO supplierDAO) {
         this.addressDAO = addressDAO;
@@ -52,7 +51,7 @@ public abstract class PersonDAO {
         addressDAO.insertAddress(p);
     }
 
-    public Person getPerson(String id) throws DatabaseErrorException,NoResultsException {
+    public Person getPerson(String id) throws DatabaseErrorException, NoResultsException {
         Person p;
         try {
             p = basicGetPerson(id);
@@ -75,7 +74,6 @@ public abstract class PersonDAO {
                 try {
                     Supplier supplier = supplierDAO.getSupplier(id);
                     return new Supplier(supplier.getAvaliableBrands(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
-
                 } catch (NoResultsException d) {
                     return new JuridicalPerson(p.getName(), p.getAddress(), p.getTelephones(), p.getId());
                 }
