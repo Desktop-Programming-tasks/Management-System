@@ -5,11 +5,13 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel
  */
-public class Brand {
+public class Brand implements Serializable{
 
     private int id;
     private String name;

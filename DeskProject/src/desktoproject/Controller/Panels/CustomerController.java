@@ -10,12 +10,16 @@ import desktoproject.Model.Classes.Persons.Address;
 import desktoproject.Model.Classes.Persons.JuridicalPerson;
 import desktoproject.Model.Classes.Persons.LegalPerson;
 import desktoproject.Model.Classes.Persons.Person;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +41,7 @@ import javafx.scene.layout.AnchorPane;
 public class CustomerController implements Initializable {
 
     private static final String panelCustomerPath = "desktoproject/View/Panels/Customer.fxml";
-    
+
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
@@ -65,13 +69,13 @@ public class CustomerController implements Initializable {
         return p;
     }
 
-    private void setAnchors(Parent p){
-        AnchorPane.setTopAnchor(p,0.0);
-        AnchorPane.setLeftAnchor(p,0.0);
-        AnchorPane.setBottomAnchor(p,0.0);
-        AnchorPane.setRightAnchor(p,0.0);
+    private void setAnchors(Parent p) {
+        AnchorPane.setTopAnchor(p, 0.0);
+        AnchorPane.setLeftAnchor(p, 0.0);
+        AnchorPane.setBottomAnchor(p, 0.0);
+        AnchorPane.setRightAnchor(p, 0.0);
     }
-    
+
     private Person person;
     private boolean isLegalPerson;
     private boolean edit;
@@ -86,7 +90,7 @@ public class CustomerController implements Initializable {
         if (edit) {
             mainLabel.setText("Editar Cliente");
             mainBtn.setText("Alterar");
-            
+
             isLegalPerson = (person instanceof LegalPerson);
             toggleFields();
             setRadioButtons();
@@ -101,15 +105,15 @@ public class CustomerController implements Initializable {
 
     private void fillScreen() {
         nameTextField.setText(person.getName());
-        
-        if(isLegalPerson){
+
+        if (isLegalPerson) {
             RGTextField.setText(((LegalPerson) person).getRG());
             CPFTextField.setText(((LegalPerson) person).getCPF());
-        }else{
-            CNPJTextField.setText(((JuridicalPerson ) person).getCNPJ());
+        } else {
+            CNPJTextField.setText(((JuridicalPerson) person).getCNPJ());
         }
     }
-    
+
     @FXML
     private TextField nameTextField;
     @FXML
@@ -134,15 +138,14 @@ public class CustomerController implements Initializable {
     private AnchorPane addressPane;
     @FXML
     private AnchorPane telephonePane;
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         isLegalPerson = true;
-        personGroup.selectedToggleProperty().addListener((observable,oldValue,newValue) -> {
+        personGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             isLegalPerson = observable.getValue().equals(legalPersonRadio);
             toggleFields();
         });
@@ -155,21 +158,23 @@ public class CustomerController implements Initializable {
 
     @FXML
     public void mainAction() {
-        if(edit){
-            
-        }else{
-            if(validate()){
-                Address address = ((AddressComponentController)addressComponent.getController()).getAddress();
-                ArrayList<String> telephones = ((TelephoneComponentController)telephoneComponent.getController()).getTelephones();
-                if(isLegalPerson){
-                    LegalPerson legalPerson = new LegalPerson(RGTextField.getText(), nameTextField.getText(), address, telephones,CPFTextField.getText());
-                    System.out.println(legalPerson.toString()); 
-               }else{
-                    JuridicalPerson juridicalperson = new JuridicalPerson(nameTextField.getText(), address, telephones, CNPJTextField.getText());
-                    System.out.println(juridicalperson.toString());
-                }
+        if (validate()) {
+            Person newPerson;
+            Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
+            ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
+            if (isLegalPerson) {
+                person = new LegalPerson(RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+            } else {
+                person = new JuridicalPerson(nameTextField.getText(), address, telephones, CNPJTextField.getText());
+            }
+            try {
+                PersonDAO.insertPerson(person);
+                GUIController.getInstance().showAlert(Alert.AlertType.INFORMATION, "Infomação", "Cliente cadastrado", "");
+            } catch (RemoteException ex) {
+                //alert of connection error
             }
         }
+        
     }
 
     public void setPerson(Person person) {
@@ -195,35 +200,35 @@ public class CustomerController implements Initializable {
     public void setTelephoneComponent(ScreenObject telephoneComponent) {
         this.telephoneComponent = telephoneComponent;
     }
-    
+
     private void toggleFields() {
         legalGroup.setVisible(isLegalPerson);
         CNPJTextField.setVisible(!isLegalPerson);
     }
-    
-    private void setRadioButtons(){
-        if(isLegalPerson){
+
+    private void setRadioButtons() {
+        if (isLegalPerson) {
             legalPersonRadio.setSelected(true);
-        }else{
+        } else {
             juridicalPersonRadio.setSelected(true);
         }
     }
-    
+
     private boolean validate() {
         Validate valObj = new Validate();
-        
+
         valObj.validateName(nameTextField.getText());
-        if(isLegalPerson){
+        if (isLegalPerson) {
             valObj.validateRG(RGTextField.getText());
             valObj.validateCPF(CPFTextField.getText());
-        }else{
+        } else {
             valObj.validateCNPJ(CNPJTextField.getText());
         }
-        
-        valObj.appendErrorMessage(((TelephoneComponentController)telephoneComponent.getController()).validateFields());
-        
-        valObj.appendErrorMessage(((AddressComponentController)addressComponent.getController()).validateFields());
-        
+
+        valObj.appendErrorMessage(((TelephoneComponentController) telephoneComponent.getController()).validateFields());
+
+        valObj.appendErrorMessage(((AddressComponentController) addressComponent.getController()).validateFields());
+
         if (valObj.getErrorMessage().isEmpty()) {
             return true;
         } else {

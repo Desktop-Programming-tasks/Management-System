@@ -111,11 +111,11 @@ public class AddressComponentController implements Initializable {
     }
     
     public String getCity(){
-        return "cidade";
+        return "Abadiânia";
     }
     
     public String getState(){
-        return "estado";
+        return "Goiás";
     }
     
     public Address getAddress(){

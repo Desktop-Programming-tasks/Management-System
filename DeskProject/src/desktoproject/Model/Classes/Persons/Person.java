@@ -5,13 +5,14 @@
  */
 package desktoproject.Model.Classes.Persons;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public abstract class Person {
+public abstract class Person implements Serializable{
 
     private String name;
     private Address address;

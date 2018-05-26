@@ -5,11 +5,13 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel
  */
-public class Product extends Transaction {
+public class Product extends Transaction implements Serializable{
 
     private String barCode;
     private int quantityInStock;

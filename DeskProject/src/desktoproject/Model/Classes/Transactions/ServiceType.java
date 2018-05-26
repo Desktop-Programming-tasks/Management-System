@@ -5,11 +5,13 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel
  */
-public class ServiceType {
+public class ServiceType implements Serializable{
 
     private String name;
     private float price;

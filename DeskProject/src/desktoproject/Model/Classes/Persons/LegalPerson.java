@@ -5,13 +5,14 @@
  */
 package desktoproject.Model.Classes.Persons;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class LegalPerson extends Person {
+public class LegalPerson extends Person implements Serializable{
 
     private String RG;
 

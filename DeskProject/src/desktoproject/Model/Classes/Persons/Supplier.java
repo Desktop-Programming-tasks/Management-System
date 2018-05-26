@@ -6,13 +6,14 @@
 package desktoproject.Model.Classes.Persons;
 
 import desktoproject.Model.Classes.Transactions.Brand;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class Supplier extends JuridicalPerson {
+public class Supplier extends JuridicalPerson implements Serializable{
 
     private ArrayList<Brand> avaliableBrands;
 
