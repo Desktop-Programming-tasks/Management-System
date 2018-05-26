@@ -5,6 +5,8 @@
  */
 package desktoproject.Model.DAO.Persons;
 
+import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
 import desktoproject.Globals;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -14,11 +16,11 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public abstract class LocationsDAO {
-    public static ArrayList<String> getStates() throws RemoteException {
+    public static ArrayList<String> getStates() throws RemoteException, NoResultsException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryStates();
     }
     
-    public static ArrayList<String> getCities(String state) throws RemoteException {
+    public static ArrayList<String> getCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryCities(state);
     }
 }
