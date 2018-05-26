@@ -57,8 +57,8 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
             while (qr.getRs().next()) {
                 lp = new LegalPerson(
                         qr.getRs().getString(RG), null, null, null, null);
-                qr.closeAll();
             }
+            qr.closeAll();
         } catch (Exception e) {
             throw new DatabaseErrorException();
         }

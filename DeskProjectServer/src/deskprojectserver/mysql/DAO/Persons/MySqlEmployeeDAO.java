@@ -74,11 +74,10 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                         null, null, null, null, null);
             }
             qr.closeAll();
-            throw new NoResultsException();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw new DatabaseErrorException();
         }
+        throw new NoResultsException();
 
     }
 
