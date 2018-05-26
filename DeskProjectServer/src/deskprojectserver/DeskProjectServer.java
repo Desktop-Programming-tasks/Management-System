@@ -8,6 +8,7 @@ package deskprojectserver;
 import Classes.Persons.Address;
 import Classes.Persons.JuridicalPerson;
 import Classes.Persons.Person;
+import Classes.Transactions.Brand;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.util.ArrayList;
 
@@ -21,21 +22,9 @@ public class DeskProjectServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
-        ArrayList<String> telephones = new ArrayList<>();
-        telephones.add("dasds");
-        telephones.add("dsadas");
-//            LegalPerson lp = new LegalPerson("10","batata",address,telephones,"2");
-//            Employee emp = new Employee("teste", "123", EmployeeType.MANAGER, "15", 
-//                    "batata func", address, telephones, "1");
-        //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
-        //Juridical
-        JuridicalPerson jp = new JuridicalPerson("teste", address, telephones, "21");
         try {
-            //DAOBuilder.getInstance().getPersonDAO().insertPerson(jp);
-            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("21");
-            System.out.println(p);
+            Brand brand = DAOBuilder.getInstance().getbDAO().getBrand("8");
+            System.out.println(brand);
         } catch (Exception e) {
             e.printStackTrace();
         }
