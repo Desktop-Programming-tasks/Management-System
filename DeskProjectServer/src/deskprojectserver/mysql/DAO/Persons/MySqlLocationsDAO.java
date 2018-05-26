@@ -5,7 +5,7 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
-import deskprojectserver.DBExceptions.DatabaseErrorException;
+import Exceptions.DatabaseErrorException;
 import deskprojectserver.Database.DAO.Persons.LocationsDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;

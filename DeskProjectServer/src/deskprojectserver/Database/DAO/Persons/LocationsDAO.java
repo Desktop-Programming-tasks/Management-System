@@ -5,7 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
-import deskprojectserver.DBExceptions.DatabaseErrorException;
+import Exceptions.DatabaseErrorException;
 import java.util.ArrayList;
 
 /**

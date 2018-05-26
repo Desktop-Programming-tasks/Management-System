@@ -6,17 +6,15 @@
 package deskprojectserver.mysql.Commons;
 
 import Classes.Transactions.Brand;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
-import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

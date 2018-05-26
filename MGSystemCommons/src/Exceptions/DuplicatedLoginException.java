@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.DBExceptions;
+package Exceptions;
 
 /**
  *
  * @author gabriel
  */
-public class DatabaseErrorException extends Exception{
+public class DuplicatedLoginException extends Exception {
 
-    public DatabaseErrorException() {
-        super("Unknown database error");
+    public DuplicatedLoginException() {
+        super("Login already inserted!");
     }
-    
 }

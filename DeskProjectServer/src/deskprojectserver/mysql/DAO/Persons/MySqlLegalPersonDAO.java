@@ -6,10 +6,10 @@
 package deskprojectserver.mysql.DAO.Persons;
 
 import Classes.Persons.LegalPerson;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
-import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;

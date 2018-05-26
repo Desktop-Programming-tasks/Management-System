@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.DBExceptions;
+package Exceptions;
 
 /**
  *
- * @author ecsanchesjr
+ * @author gabriel
  */
-public class NoResultsException extends Exception {
+public class DatabaseErrorException extends Exception{
 
-    public NoResultsException() {
-        super("No results to query");
+    public DatabaseErrorException() {
+        super("Unknown database error");
     }
+    
 }
