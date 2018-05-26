@@ -12,6 +12,7 @@ import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
@@ -35,20 +36,41 @@ public abstract class PersonDAO {
         this.supplierDAO = supplierDAO;
     }
 
-    public void insertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException {
-        basicInsertPerson(p);
+    public void insertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException, DuplicatedLoginException, DuplicatedLoginException {
+        try {
+            basicInsertPerson(p);
+        } catch (DuplicatedEntryException e) {
+            throw e;
+        }
         if (p instanceof LegalPerson) {
-            legalPersonDAO.insertLegalPerson((LegalPerson) p);
+            try {
+                legalPersonDAO.insertLegalPerson((LegalPerson) p);
+            } catch (DuplicatedEntryException e) {
+                throw e;
+            }
             if (p instanceof Employee) {
-                employeeDAO.insertEmployee((Employee) p);
+                try {
+                    employeeDAO.insertEmployee((Employee) p);
+                } catch (DuplicatedEntryException e) {
+                    throw new DuplicatedLoginException();
+                }
             }
         } else if (p instanceof JuridicalPerson) {
-            juridicalDAO.insertJuridicalPerson((JuridicalPerson) p);
-            if (p instanceof Supplier) {
-                supplierDAO.insertSupplier((Supplier) p);
+            try {
+                juridicalDAO.insertJuridicalPerson((JuridicalPerson) p);
+                if (p instanceof Supplier) {
+                    supplierDAO.insertSupplier((Supplier) p);
+                }
+            } catch (DatabaseErrorException | DuplicatedEntryException e) {
+                throw e;
             }
         }
+        try{
         addressDAO.insertAddress(p);
+        }
+        catch(DatabaseErrorException e){
+            throw e;
+        }
     }
 
     public Person getPerson(String id) throws DatabaseErrorException, NoResultsException {
