@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Persons;
+package Classes.Persons;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public abstract class Person implements Serializable {
+public abstract class Person implements Serializable{
 
     private String name;
     private Address address;

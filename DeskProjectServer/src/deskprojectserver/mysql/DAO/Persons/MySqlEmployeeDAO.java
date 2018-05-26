@@ -5,16 +5,18 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import Classes.Enums.EmployeeType;
+import Classes.Persons.Employee;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.Classes.Persons.Employee;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
-import deskprojectserver.Enums.EmployeeType;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.util.ArrayList;
+
+
 
 /**
  *

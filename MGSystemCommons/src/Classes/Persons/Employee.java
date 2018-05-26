@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Persons;
+package Classes.Persons;
 
-import deskprojectserver.Enums.EmployeeType;
+import Classes.Enums.EmployeeType;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Employee extends LegalPerson implements Serializable {
+public class Employee extends LegalPerson implements Serializable{
     private String login;
     private String password;
     private EmployeeType type;
@@ -24,7 +24,7 @@ public class Employee extends LegalPerson implements Serializable {
         this.password = password;
         this.type = type;
     }
-    
+
     public String getLogin() {
         return login;
     }
@@ -40,18 +40,17 @@ public class Employee extends LegalPerson implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    @Override
-    public String toString() {
-        return super.toString()+"Employee{" + "login=" + login + ", password=" + password + '}';
-    }
 
     public EmployeeType getEmployeeType() {
         return type;
     }
 
-    public void setEmployeeType(EmployeeType type) {
+    public void setTEmployeeType(EmployeeType type) {
         this.type = type;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Employee{" + "login=" + login + ", password=" + password + ", type=" + type + '}';
+    }
 }

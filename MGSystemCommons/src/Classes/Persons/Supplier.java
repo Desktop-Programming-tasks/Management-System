@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Persons;
+package Classes.Persons;
 
-import deskprojectserver.Classes.Transactions.Brand;
+
+import Classes.Transactions.Brand;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class Supplier extends JuridicalPerson implements Serializable {
+public class Supplier extends JuridicalPerson implements Serializable{
 
     private ArrayList<Brand> avaliableBrands;
 

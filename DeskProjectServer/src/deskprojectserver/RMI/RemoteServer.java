@@ -5,11 +5,12 @@
  */
 package deskprojectserver.RMI;
 
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Transactions.Brand;
-import deskprojectserver.Classes.Transactions.Product;
-import deskprojectserver.Classes.Transactions.Record;
-import deskprojectserver.Classes.Transactions.Service;
+import Classes.Persons.Person;
+import Classes.Transactions.Brand;
+import Classes.Transactions.Product;
+import Classes.Transactions.Record;
+import Classes.Transactions.Service;
+import RMI.ServerMethods;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -19,6 +20,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 
 /**
  *

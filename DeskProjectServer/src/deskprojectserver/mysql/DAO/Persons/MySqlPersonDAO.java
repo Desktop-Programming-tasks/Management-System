@@ -5,16 +5,16 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import Classes.Persons.Person;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+
 
 /**
  *

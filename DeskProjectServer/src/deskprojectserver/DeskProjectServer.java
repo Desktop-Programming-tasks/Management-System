@@ -5,16 +5,10 @@
  */
 package deskprojectserver;
 
-import deskprojectserver.Classes.Persons.Address;
-import deskprojectserver.Classes.Persons.Employee;
-import deskprojectserver.Classes.Persons.JuridicalPerson;
-import deskprojectserver.Classes.Persons.LegalPerson;
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Persons.Supplier;
-import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.NoResultsException;
+import Classes.Persons.Address;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
-import deskprojectserver.Enums.EmployeeType;
 import java.util.ArrayList;
 
 /**

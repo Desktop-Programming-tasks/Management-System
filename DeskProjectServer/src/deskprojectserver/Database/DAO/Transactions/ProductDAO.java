@@ -5,7 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import deskprojectserver.Classes.Transactions.Product;
+import Classes.Transactions.Product;
 import java.util.ArrayList;
 
 /**

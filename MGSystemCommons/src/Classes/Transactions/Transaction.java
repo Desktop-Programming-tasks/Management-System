@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Transactions;
+package Classes.Transactions;
+
+import java.io.Serializable;
 
 /**
  *
  * @author gabriel
  */
-public abstract class Transaction {
+public abstract class Transaction implements Serializable{
 
     private float price;
     private String name;

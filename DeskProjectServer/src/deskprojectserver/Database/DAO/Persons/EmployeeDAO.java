@@ -5,7 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
-import deskprojectserver.Classes.Persons.Employee;
+import Classes.Persons.Employee;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;

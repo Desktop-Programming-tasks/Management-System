@@ -5,10 +5,9 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
-import deskprojectserver.Classes.Persons.Address;
-import deskprojectserver.Classes.Persons.Person;
+import Classes.Persons.Address;
+import Classes.Persons.Person;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
-import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import java.util.ArrayList;
 

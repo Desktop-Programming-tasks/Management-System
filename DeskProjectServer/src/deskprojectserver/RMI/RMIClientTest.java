@@ -5,13 +5,15 @@
  */
 package deskprojectserver.RMI;
 
-import deskprojectserver.Classes.Persons.Address;
-import deskprojectserver.Classes.Persons.Employee;
-import deskprojectserver.Classes.Persons.JuridicalPerson;
-import deskprojectserver.Classes.Persons.LegalPerson;
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Persons.Supplier;
-import deskprojectserver.Enums.EmployeeType;
+
+import Classes.Enums.EmployeeType;
+import Classes.Persons.Address;
+import Classes.Persons.Employee;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.LegalPerson;
+import Classes.Persons.Person;
+import Classes.Persons.Supplier;
+import RMI.ServerMethods;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

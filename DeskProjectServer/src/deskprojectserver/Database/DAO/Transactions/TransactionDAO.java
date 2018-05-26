@@ -5,8 +5,9 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import deskprojectserver.Classes.Transactions.Transaction;
+import Classes.Transactions.Transaction;
 import java.util.ArrayList;
+
 /**
  *
  * @author gabriel

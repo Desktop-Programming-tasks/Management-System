@@ -5,16 +5,16 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
-import deskprojectserver.Classes.Persons.Employee;
-import deskprojectserver.Classes.Persons.JuridicalPerson;
-import deskprojectserver.Classes.Persons.LegalPerson;
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Persons.Supplier;
+import Classes.Persons.Employee;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.LegalPerson;
+import Classes.Persons.Person;
+import Classes.Persons.Supplier;
 import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
-import deskprojectserver.Enums.EmployeeType;
 import java.util.ArrayList;
+
 
 /**
  *
@@ -64,9 +64,7 @@ public abstract class PersonDAO {
             LegalPerson lp = legalPersonDAO.getLegalPerson(id);
             try {
                 Employee emp = employeeDAO.getEmployee(id);
-                return new Employee(emp.getLogin(),
-                        emp.getPassword(), emp.getEmployeeType(), lp.getRG(), p.getName(),
-                        p.getAddress(), p.getTelephones(), p.getId());
+                return new Employee(emp.getLogin(), emp.getPassword(), emp.getEmployeeType(), lp.getRG(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
             } catch (NoResultsException b) {
                 return new LegalPerson(lp.getRG(), p.getName(), p.getAddress(), p.getTelephones(),
                         p.getId());

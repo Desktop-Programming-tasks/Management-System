@@ -5,9 +5,8 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import deskprojectserver.Classes.Transactions.Record;
-import deskprojectserver.Classes.Transactions.Transaction;
-
+import Classes.Transactions.Record;
+import Classes.Transactions.Transaction;
 
 /**
  *

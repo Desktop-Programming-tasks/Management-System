@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Enums;
-
-import java.io.Serializable;
+package Classes.Enums;
 
 /**
  *
  * @author ecsanchesjr
  */
-public enum EmployeeType implements Serializable {
+public enum EmployeeType {
     MANAGER,
     COMMOM
 }

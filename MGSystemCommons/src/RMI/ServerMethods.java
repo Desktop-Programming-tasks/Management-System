@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.RMI;
+package RMI;
 
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Classes.Transactions.Brand;
-import deskprojectserver.Classes.Transactions.Product;
-import deskprojectserver.Classes.Transactions.Record;
-import deskprojectserver.Classes.Transactions.Service;
+import Classes.Persons.Person;
+import Classes.Transactions.Brand;
+import Classes.Transactions.Product;
+import Classes.Transactions.Record;
+import Classes.Transactions.Service;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

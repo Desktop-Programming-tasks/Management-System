@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Persons;
+package Classes.Persons;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author gabriel
  */
-public class Address implements Serializable {
+public class Address implements Serializable{
     private String street;
     private int number;
     private String block;

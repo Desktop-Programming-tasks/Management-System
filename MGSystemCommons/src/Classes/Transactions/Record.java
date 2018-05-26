@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Transactions;
+package Classes.Transactions;
 
-import deskprojectserver.Classes.Persons.Employee;
-import deskprojectserver.Classes.Persons.Person;
-import deskprojectserver.Enums.RecordType;
+import Classes.Enums.RecordType;
+import Classes.Persons.Employee;
+import Classes.Persons.Person;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,14 +16,14 @@ import java.util.Date;
  *
  * @author gabriel
  */
-public class Record {
+public class Record implements Serializable{
 
     private int id;
     private Employee assignedEmployee;
     private Date registerDate;
     private float totalprice;
     private Person customer;
-    private ArrayList<Transaction> transations;
+    private ArrayList<Transaction> transactions;
     private RecordType type;
 
     public Record(int id, Employee assignedEmployee, Date registerDate, float totalprice, Person customer, ArrayList<Transaction> transations, RecordType type) {
@@ -31,7 +32,7 @@ public class Record {
         this.registerDate = registerDate;
         this.totalprice = totalprice;
         this.customer = customer;
-        this.transations = transations;
+        this.transactions = transations;
         this.type = type;
     }
 
@@ -76,15 +77,15 @@ public class Record {
     }
 
     public ArrayList<Transaction> getTransations() {
-        return transations;
+        return transactions;
     }
 
     public void setTransations(ArrayList<Transaction> transations) {
-        this.transations = transations;
+        this.transactions = transations;
     }
 
     @Override
     public String toString() {
-        return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transations + ", type=" + type + '}';
+        return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transactions + ", type=" + type + '}';
     }
 }

@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.Classes.Transactions;
+package Classes.Transactions;
 
-import deskprojectserver.Enums.ServiceStatus;
+import Classes.Enums.ServiceStatus;
+import Classes.Persons.Employee;
+import desktoproject.Model.Classes.Transactions.ServiceType;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author gabriel
  */
-public class Service extends Transaction {
+public class Service extends Transaction implements Serializable{
 
     private LocalDate startDate;
     private LocalDate estimatedDate;
     private LocalDate finishDate;
     private ServiceStatus status;
-    private String assignedEmployee;
+    private Employee assignedEmployee;
     private ServiceType serviceType;
 
-    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, String assignedEmployee, ServiceType serviceType) {
+    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
@@ -62,11 +65,11 @@ public class Service extends Transaction {
         this.status = status;
     }
 
-    public String getAssignedEmployee() {
+    public Employee getAssignedEmployee() {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(String assignedEmployee) {
+    public void setAssignedEmployee(Employee assignedEmployee) {
         this.assignedEmployee = assignedEmployee;
     }
 
