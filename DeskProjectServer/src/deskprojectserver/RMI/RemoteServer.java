@@ -58,7 +58,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
         DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
     }
 
@@ -78,7 +78,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -98,7 +98,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -118,7 +118,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -138,7 +138,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
