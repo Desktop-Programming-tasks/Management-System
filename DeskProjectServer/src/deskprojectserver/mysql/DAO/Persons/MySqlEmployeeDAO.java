@@ -17,8 +17,6 @@ import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
 /**
  *
  * @author gabriel
@@ -36,6 +34,8 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String GET_ONE_SQL = "SELECT `loginEmployee`, `passwordEmployee`, "
             + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
             + "`Employee` WHERE LegalPerson_Person_idPerson=?";
+    private static final String REMOVE_SQL = "DELETE FROM `Employee` "
+            + "WHERE LegalPerson_Person_idPerson=?";
 
     @Override
     public void insertEmployee(Employee employee) throws DatabaseErrorException, DuplicatedEntryException {
@@ -62,10 +62,15 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     }
 
     @Override
-    public void removeEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeEmployee(Employee employee) throws NoResultsException, DatabaseErrorException {
+        getEmployee(employee.getId());
+        try{
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, employee.getId());
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
     }
-
     @Override
     public Employee getEmployee(String id) throws DatabaseErrorException, NoResultsException {
         try {

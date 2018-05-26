@@ -36,7 +36,7 @@ public abstract class PersonDAO {
         this.supplierDAO = supplierDAO;
     }
 
-    public void insertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException, DuplicatedLoginException, DuplicatedLoginException {
+    public void insertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException, DuplicatedLoginException {
         try {
             basicInsertPerson(p);
         } catch (DuplicatedEntryException e) {
@@ -108,8 +108,6 @@ public abstract class PersonDAO {
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
-
-    protected abstract void basicRemovePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
     protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
 

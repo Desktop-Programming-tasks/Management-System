@@ -57,12 +57,7 @@ public class MySqlPersonDAO extends PersonDAO {
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void basicRemovePerson(Person p) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public ArrayList<Person> getAllPersons() throws DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
