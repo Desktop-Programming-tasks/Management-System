@@ -7,6 +7,7 @@ package deskprojectserver;
 
 import deskprojectserver.Classes.Persons.Address;
 import deskprojectserver.Classes.Persons.Employee;
+import deskprojectserver.Classes.Persons.JuridicalPerson;
 import deskprojectserver.Classes.Persons.LegalPerson;
 import deskprojectserver.Classes.Persons.Person;
 import deskprojectserver.Classes.Persons.Supplier;
@@ -27,27 +28,23 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
 
-            Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
-            ArrayList<String> telephones = new ArrayList<>();
-            telephones.add("dasds");
-            telephones.add("dsadas");
+        Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
+        ArrayList<String> telephones = new ArrayList<>();
+        telephones.add("dasds");
+        telephones.add("dsadas");
 //            LegalPerson lp = new LegalPerson("10","batata",address,telephones,"2");
 //            Employee emp = new Employee("teste", "123", EmployeeType.MANAGER, "15", 
 //                    "batata func", address, telephones, "1");
-           Supplier lp = new Supplier(null, "batata", address, telephones, "4");
-            //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
-            //Juridical
-            try{
-            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4123");
+        //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
+        //Juridical
+        JuridicalPerson jp = new JuridicalPerson("teste", address, telephones, "3");
+        try {
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(jp);
+            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("3");
             System.out.println(p);
-            }
-            catch(DatabaseErrorException | NoResultsException e){
-                e.printStackTrace();
-            }
-                
-            
-
-            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
