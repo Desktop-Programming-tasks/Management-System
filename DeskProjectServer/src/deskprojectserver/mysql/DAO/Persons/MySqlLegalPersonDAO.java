@@ -13,6 +13,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.LegalPersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -59,7 +60,7 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
                         qr.getRs().getString(RG), null, null, null, null);
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         if (lp == null) {

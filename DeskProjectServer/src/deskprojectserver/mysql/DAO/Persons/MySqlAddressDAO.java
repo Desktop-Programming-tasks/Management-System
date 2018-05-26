@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,6 +12,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.AddressDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -42,7 +43,7 @@ public class MySqlAddressDAO extends AddressDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getId(),
                     ads.getStreet(), ads.getNumber(), ads.getBlock(), ads.getCity(), ads.getState());
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
@@ -69,7 +70,7 @@ public class MySqlAddressDAO extends AddressDAO {
                         qr.getRs().getString(CITY), qr.getRs().getString(STATE));
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         if (address == null) {

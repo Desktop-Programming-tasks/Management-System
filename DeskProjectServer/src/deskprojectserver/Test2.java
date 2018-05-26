@@ -5,6 +5,7 @@
  */
 package deskprojectserver;
 
+import Classes.Transactions.Brand;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 
 /**
@@ -14,9 +15,7 @@ import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 public class Test2 {
     public static void main(String[] args) {
         try{
-            for(String el:DAOBuilder.getInstance().getlDAO().getCities("Minas Gerais")){
-                System.out.println(el);
-            }
+            DAOBuilder.getInstance().getbDAO().insertBrand(new Brand("TesteJAVA"));
         }
         catch(Exception e){
             e.printStackTrace();
