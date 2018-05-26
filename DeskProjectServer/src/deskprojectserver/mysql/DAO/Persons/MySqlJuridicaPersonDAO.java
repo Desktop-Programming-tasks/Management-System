@@ -48,20 +48,22 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
 
     @Override
     public JuridicalPerson getJuridicalPerson(String id) throws DatabaseErrorException, NoResultsException {
+        JuridicalPerson jp = null;
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-            JuridicalPerson jp = null;
+
             while (qr.getRs().next()) {
                 jp = new JuridicalPerson(null, null, null, null);
             }
             qr.closeAll();
-            if(jp==null){
-                throw new NoResultsException();
-            }
-            return jp;
         } catch (Exception e) {
             throw new DatabaseErrorException();
         }
+        if (jp == null) {
+            throw new NoResultsException();
+        }
+        return jp;
+
     }
 
     @Override

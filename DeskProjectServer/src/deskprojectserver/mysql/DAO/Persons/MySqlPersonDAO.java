@@ -41,26 +41,24 @@ public class MySqlPersonDAO extends PersonDAO {
     }
 
     @Override
-    public void basicInsertPerson(Person p) throws DatabaseErrorException,DuplicatedEntryException {
-        try{
+    public void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException {
+        try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(), p.getName(),
-                p.getTelephones().get(0), p.getTelephones().get(1));
-        }
-        catch(MySQLIntegrityConstraintViolationException e){
+                    p.getTelephones().get(0), p.getTelephones().get(1));
+        } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             throw new DatabaseErrorException();
         }
     }
 
     @Override
-    public void basicUpdatePerson(Person p) throws DatabaseErrorException,NoResultsException{
+    public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void basicRemovePerson(Person p) throws DatabaseErrorException,NoResultsException{
+    public void basicRemovePerson(Person p) throws DatabaseErrorException, NoResultsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -69,30 +67,29 @@ public class MySqlPersonDAO extends PersonDAO {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-   
     @Override
-    public Person basicGetPerson(String id)  throws DatabaseErrorException,NoResultsException{
+    public Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException {
         Person p = new Person(null, null, null, id) {
         };
-        try{
-        QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
-        ArrayList<String> tels = new ArrayList<>();
-        while (qr.getRs().next()) {
-            p.setName(qr.getRs().getString(NAME));
-            p.setId(id);
-            tels.add(qr.getRs().getString(TEL_1));
-            tels.add(qr.getRs().getString(TEL_2));
-            p.setTelephones(tels);
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+            ArrayList<String> tels = new ArrayList<>();
+            while (qr.getRs().next()) {
+                p.setName(qr.getRs().getString(NAME));
+                p.setId(id);
+                tels.add(qr.getRs().getString(TEL_1));
+                tels.add(qr.getRs().getString(TEL_2));
+                p.setTelephones(tels);
+            }
+            qr.closeAll();
+        } catch (Exception e) {
+            throw new DatabaseErrorException();
         }
-        qr.closeAll(); 
-       if(p.getName()==null){
+        if (p.getName() == null) {
             throw new NoResultsException();
         }
         return p;
-        }
-        catch(Exception e){
-            throw new DatabaseErrorException();
-        }
     }
 
 }
+

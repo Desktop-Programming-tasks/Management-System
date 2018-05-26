@@ -38,11 +38,11 @@ public class DeskProjectServer {
             //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
             //Juridical
             try{
-            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4");
+            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("4123");
             System.out.println(p);
             }
             catch(DatabaseErrorException | NoResultsException e){
-                
+                e.printStackTrace();
             }
                 
             

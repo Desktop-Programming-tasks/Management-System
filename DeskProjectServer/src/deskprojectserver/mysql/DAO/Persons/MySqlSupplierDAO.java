@@ -57,13 +57,15 @@ public class MySqlSupplierDAO extends SupplierDAO {
             while (qr.getRs().next()) {
                 sup = new Supplier(null, null, null, null, null);
             }
-            if(sup==null){
-                throw new NoResultsException();
-            }
-            return sup;
+            qr.closeAll();
         } catch (Exception e) {
             throw new DatabaseErrorException();
         }
+        if (sup == null) {
+            throw new NoResultsException();
+        }
+        return sup;
+
     }
 
     @Override

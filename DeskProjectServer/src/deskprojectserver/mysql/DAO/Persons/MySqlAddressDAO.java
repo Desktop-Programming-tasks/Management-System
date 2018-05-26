@@ -58,22 +58,24 @@ public class MySqlAddressDAO extends AddressDAO {
 
     @Override
     public Address getAddress(Person person) throws DatabaseErrorException, NoResultsException {
+        Address address = null;
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getId());
-            Address address = null;
+
             while (qr.getRs().next()) {
                 address = new Address(
                         qr.getRs().getString(STREET), qr.getRs().getInt(NUMBER), qr.getRs().getString(DISTRICT),
                         qr.getRs().getString(CITY), qr.getRs().getString(STATE));
             }
             qr.closeAll();
-            if (address == null) {
-                throw new NoResultsException();
-            }
-            return address;
         } catch (Exception e) {
             throw new DatabaseErrorException();
         }
+        if (address == null) {
+            throw new NoResultsException();
+        }
+        return address;
+
     }
 
     @Override
