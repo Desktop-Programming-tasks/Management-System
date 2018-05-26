@@ -44,4 +44,8 @@ public interface ServerMethods extends Remote {
     public ArrayList<Service> querryAllServices() throws RemoteException;
     public void insertService(Service service) throws RemoteException;
     public void deleteService(Service service) throws RemoteException;
+    
+    public ArrayList<String> queryStates() throws RemoteException;
+    public ArrayList<String> queryCities(String state) throws RemoteException;
+            
 }

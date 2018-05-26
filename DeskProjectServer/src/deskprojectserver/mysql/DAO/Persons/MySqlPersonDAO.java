@@ -48,7 +48,8 @@ public class MySqlPersonDAO extends PersonDAO {
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (Exception e) {
-            throw new DatabaseErrorException();
+            //throw new DatabaseErrorException();
+            System.out.println(e.getMessage());
         }
     }
 
