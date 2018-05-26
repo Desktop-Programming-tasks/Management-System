@@ -11,6 +11,9 @@ import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
 import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
+import Exceptions.NoResultsException;
 import RMI.ServerMethods;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.AlreadyBoundException;
@@ -45,141 +48,112 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public Person queryPerson(String id) throws RemoteException {
-        Person p = null;
-        try {
-            p= DAOBuilder.getInstance().getPersonDAO().getPerson(id);
-        } catch (Exception ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return p;
-    }
-    
-    @Override
-    public ArrayList<Person> querryAllPersons() throws RemoteException {
-        ArrayList<Person> persons = null;
-        try {
-            persons = DAOBuilder.getInstance().getPersonDAO().getAllPersons();
-        } catch (Exception ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return persons;
-    }
-    
-    @Override
-    public void insertPerson(Person person) throws RemoteException {
-        try {
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
-        } catch (Exception ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public Person queryPerson(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getPersonDAO().getPerson(id);
     }
 
     @Override
-    public void deletePerson(Person person) throws RemoteException {
+    public ArrayList<Person> querryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getPersonDAO().getAllPersons();
+    }
+
+    @Override
+    public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+        DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
+    }
+
+    @Override
+    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Brand queryBrand() throws RemoteException {
+    public Brand queryBrand() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Brand> queryAllBrands() throws RemoteException {
+    public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void insertBrand(Brand brand) throws RemoteException {
+    public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deleteBrand(Brand brand) throws RemoteException {
+    public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Product queryProduct() throws RemoteException {
+    public Product queryProduct() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Product> queryAllProducts() throws RemoteException {
+    public ArrayList<Product> queryAllProducts() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void insertProduct(Product product) throws RemoteException {
+    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deleteProduct(Product product) throws RemoteException {
+    public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Record queryRecord() throws RemoteException {
+    public Record queryRecord() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Record> queryAllRecords() throws RemoteException {
+    public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void insertRecord(Record record) throws RemoteException {
+    public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deleteRecord(Record record) throws RemoteException {
+    public void deleteRecord(Record record) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Service queryService() throws RemoteException {
+    public Service queryService() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Service> querryAllServices() throws RemoteException {
+    public ArrayList<Service> querryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void insertService(Service service) throws RemoteException {
+    public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void deleteService(Service service) throws RemoteException {
+    public void deleteService(Service service) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<String> queryStates() throws RemoteException {
-        ArrayList<String> states = null;
-        try {
-            states =  DAOBuilder.getInstance().getlDAO().getStates();
-        } catch (DatabaseErrorException ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return states;
+    public ArrayList<String> queryStates() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getlDAO().getStates();
     }
 
     @Override
-    public ArrayList<String> queryCities(String state) throws RemoteException {
-        ArrayList<String> cities = null;
-        try {
-            cities = DAOBuilder.getInstance().getlDAO().getCities(state); 
-        } catch (DatabaseErrorException ex) {
-            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return cities;
+    public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getlDAO().getCities(state);
     }
-    
 }

@@ -6,6 +6,10 @@
 package desktoproject.Model.DAO.Persons;
 
 import Classes.Persons.Person;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
+import Exceptions.NoResultsException;
 import desktoproject.Globals;
 import java.rmi.RemoteException;
 
@@ -14,11 +18,11 @@ import java.rmi.RemoteException;
  * @author ecsanchesjr
  */
 public abstract class PersonDAO {
-    public static void insertPerson(Person person) throws RemoteException {
+    public static void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
         Globals.getInstance().getChannel().insertPerson(person);
     }
     
-    public static Person queryPerson(String id) throws RemoteException {
+    public static Person queryPerson(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryPerson(id);
     }
 }

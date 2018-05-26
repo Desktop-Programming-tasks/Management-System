@@ -9,6 +9,10 @@ import Classes.Persons.Address;
 import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
+import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
@@ -18,6 +22,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -169,9 +175,17 @@ public class CustomerController implements Initializable {
             }
             try {
                 PersonDAO.insertPerson(person);
-                GUIController.getInstance().showAlert(Alert.AlertType.INFORMATION, "Infomação", "Cliente cadastrado", "");
+                GUIController.getInstance().showRegister("Clilente");
             } catch (RemoteException ex) {
                 //alert of connection error
+            } catch (DuplicatedEntryException ex) {
+                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DuplicatedLoginException ex) {
+                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoResultsException ex) {
+                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DatabaseErrorException ex) {
+                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
