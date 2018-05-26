@@ -14,6 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public interface ServerMethods extends Remote {
     public Person queryPerson(String id) throws RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Person> querryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
-    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException;
+    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed;
     
     public Brand queryBrand() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException;
