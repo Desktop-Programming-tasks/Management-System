@@ -125,12 +125,16 @@ public class Validate {
         }
     }
     
-    public void validateState(){
-        //TODO
+    public void validateState(String state){
+        if(state == null){
+            errorMessage+="Selecione um estado válido\n";
+        }
     }
     
-    public void validateCity(){
-        //TODO
+    public void validateCity(String city){
+        if(city == null){
+            errorMessage+="Selecione uma cidade válida\n";
+        }
     }
 
     public void validateCPF(String cpf) {

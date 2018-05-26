@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="160.0" prefWidth="830.0" stylesheets="@../css/index.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="desktoproject.Controller.Panels.AddressComponentController">
+<AnchorPane prefHeight="160.0" prefWidth="830.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Panels.AddressComponentController">
    <children>
       <Label text="Endereço" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -16,7 +16,7 @@
       <TextField fx:id="streetTextField" prefHeight="30.0" prefWidth="684.0" promptText="Rua *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="50.0" />
       <TextField fx:id="districtTextField" prefHeight="30.0" prefWidth="388.0" promptText="Bairro *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="100.0" />
       <TextField fx:id="numberTextField" layoutX="697.0" layoutY="59.0" prefHeight="30.0" prefWidth="130.0" promptText="Número *" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-      <ComboBox fx:id="City" layoutX="577.0" layoutY="109.0" prefHeight="30.0" prefWidth="240.0" promptText="Cidade" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
-      <ComboBox fx:id="State" layoutX="415.0" layoutY="102.0" prefHeight="30.0" prefWidth="160.0" promptText="Estado" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="100.0" />
+      <ComboBox fx:id="cityComboBox" layoutX="577.0" layoutY="109.0" prefHeight="30.0" prefWidth="240.0" promptText="--------" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <ComboBox fx:id="stateComboBox" layoutX="415.0" layoutY="102.0" onAction="#getCityList" prefHeight="30.0" prefWidth="160.0" AnchorPane.rightAnchor="245.0" AnchorPane.topAnchor="100.0" />
    </children>
 </AnchorPane>

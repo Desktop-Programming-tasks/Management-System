@@ -7,11 +7,17 @@ package desktoproject.Controller.Panels;
 
 
 import Classes.Persons.Address;
+import desktoproject.Model.DAO.Persons.LocationsDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -78,15 +84,43 @@ public class AddressComponentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            // TODO
+            ArrayList<String> states = LocationsDAO.getStates();
+            stateComboBox.setItems(FXCollections.observableArrayList(states));
+            if(!states.isEmpty()){
+                stateComboBox.setValue(states.get(0));
+                getCityList();
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    @FXML
+    private void getCityList(){
+        try {
+            ArrayList<String> cities = LocationsDAO.getCities(stateComboBox.getValue());
+            cityComboBox.setItems(FXCollections.observableArrayList(cities));
+            if(!cities.isEmpty()){
+                cityComboBox.setValue(cities.get(0));
+                cityComboBox.setDisable(false);
+            }else{
+                cityComboBox.setDisable(true);
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     private void setFields(String street, String number, String district, String city, String state){
         streetTextField.setText(street);
         numberTextField.setText(number);
         districtTextField.setText(district);
-        
-        //set comboBox value
+        cityComboBox.setValue(city);
+        stateComboBox.setValue(state);
     }
     
     public String validateFields(){
@@ -94,8 +128,8 @@ public class AddressComponentController implements Initializable {
         valObj.validateAddressNumber(numberTextField.getText());
         valObj.validateStreet(streetTextField.getText());
         valObj.validateDistrict(districtTextField.getText());
-        valObj.validateCity();
-        valObj.validateState();
+        valObj.validateCity(cityComboBox.getValue());
+        valObj.validateState(stateComboBox.getValue());
         return valObj.getErrorMessage();
     }
     
@@ -112,11 +146,11 @@ public class AddressComponentController implements Initializable {
     }
     
     public String getCity(){
-        return "Abadiânia";
+        return cityComboBox.getValue()==null?"":cityComboBox.getValue();
     }
     
     public String getState(){
-        return "Goiás";
+        return stateComboBox.getValue()==null?"":stateComboBox.getValue();
     }
     
     public Address getAddress(){

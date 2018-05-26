@@ -96,6 +96,8 @@ public class TelephoneComponentController implements Initializable {
         telephones.add(telTextField.getText());
         if(!secTelTextField.getText().isEmpty()){
             telephones.add(secTelTextField.getText());
+        }else{
+            telephones.add("");
         }
         return(telephones);
     }
