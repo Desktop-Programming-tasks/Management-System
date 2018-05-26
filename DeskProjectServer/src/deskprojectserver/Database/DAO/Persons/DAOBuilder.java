@@ -5,6 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
+import deskprojectserver.mysql.DAO.Persons.MySqlLocationsDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 
 /**
@@ -13,16 +14,21 @@ import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
  */
 public class DAOBuilder {
     private PersonDAO pDAO;
+    private LocationsDAO lDAO;
     
     private DAOBuilder() {
         pDAO= new MySqlPersonDAO();
+        lDAO= new MySqlLocationsDAO();
     }
 
     public PersonDAO getPersonDAO() {
         return pDAO;
     }
-    
-    
+
+    public LocationsDAO getlDAO() {
+        return lDAO;
+    }
+        
     public static DAOBuilder getInstance() {
         return DAOBuilderHolder.INSTANCE;
     }
