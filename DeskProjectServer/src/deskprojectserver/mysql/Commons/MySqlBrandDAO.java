@@ -5,7 +5,7 @@
  */
 package deskprojectserver.mysql.Commons;
 
-import deskprojectserver.Classes.Transactions.Brand;
+import Classes.Transactions.Brand;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import java.util.ArrayList;
 
