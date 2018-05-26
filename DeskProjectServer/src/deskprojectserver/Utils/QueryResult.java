@@ -14,8 +14,8 @@ import java.sql.Statement;
  * @author gabriel
  */
 public class QueryResult {
-    private ResultSet rs;
-    private Statement st;
+    private final ResultSet rs;
+    private final Statement st;
 
     public QueryResult(ResultSet rs, Statement st) {
         this.rs = rs;
@@ -25,21 +25,7 @@ public class QueryResult {
         rs.close();
         st.close();
     }
-    public ResultSet getRs() {
+    public ResultSet getResultSet() {
         return rs;
-    }
-
-    public Statement getSt() {
-        return st;
-    }
-
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    public void setSt(Statement st) {
-        this.st = st;
-    }
-    
-    
+    }  
 }

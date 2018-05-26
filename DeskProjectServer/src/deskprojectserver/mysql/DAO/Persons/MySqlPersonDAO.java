@@ -48,7 +48,7 @@ public class MySqlPersonDAO extends PersonDAO {
                     p.getTelephones().get(0), p.getTelephones().get(1));
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
@@ -75,11 +75,11 @@ public class MySqlPersonDAO extends PersonDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
             ArrayList<String> tels = new ArrayList<>();
-            while (qr.getRs().next()) {
-                p.setName(qr.getRs().getString(NAME));
+            while (qr.getResultSet().next()) {
+                p.setName(qr.getResultSet().getString(NAME));
                 p.setId(id);
-                tels.add(qr.getRs().getString(TEL_1));
-                tels.add(qr.getRs().getString(TEL_2));
+                tels.add(qr.getResultSet().getString(TEL_1));
+                tels.add(qr.getResultSet().getString(TEL_2));
                 p.setTelephones(tels);
             }
             qr.closeAll();

@@ -64,10 +64,10 @@ public class MySqlAddressDAO extends AddressDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getId());
 
-            while (qr.getRs().next()) {
+            while (qr.getResultSet().next()) {
                 address = new Address(
-                        qr.getRs().getString(STREET), qr.getRs().getInt(NUMBER), qr.getRs().getString(DISTRICT),
-                        qr.getRs().getString(CITY), qr.getRs().getString(STATE));
+                        qr.getResultSet().getString(STREET), qr.getResultSet().getInt(NUMBER), qr.getResultSet().getString(DISTRICT),
+                        qr.getResultSet().getString(CITY), qr.getResultSet().getString(STATE));
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {

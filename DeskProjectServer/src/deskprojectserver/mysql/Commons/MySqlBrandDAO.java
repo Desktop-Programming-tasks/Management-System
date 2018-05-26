@@ -11,6 +11,7 @@ import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,6 +59,16 @@ public class MySqlBrandDAO extends BrandDAO{
     @Override
     public ArrayList<Brand> getAllBrands() throws DatabaseErrorException {
         ArrayList<Brand> brands = new ArrayList<>();
+        try{
+            QueryResult qr=MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            while(qr.getResultSet().next()){
+                brands.add(new Brand(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME)));
+            }
+            qr.closeAll();
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
         return brands;
     }
     

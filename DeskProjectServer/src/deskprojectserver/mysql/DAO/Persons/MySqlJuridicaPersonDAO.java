@@ -54,7 +54,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
 
-            while (qr.getRs().next()) {
+            while (qr.getResultSet().next()) {
                 jp = new JuridicalPerson(null, null, null, null);
             }
             qr.closeAll();

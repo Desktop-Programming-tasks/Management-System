@@ -55,9 +55,9 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
         LegalPerson lp = null;
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-            while (qr.getRs().next()) {
+            while (qr.getResultSet().next()) {
                 lp = new LegalPerson(
-                        qr.getRs().getString(RG), null, null, null, null);
+                        qr.getResultSet().getString(RG), null, null, null, null);
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
