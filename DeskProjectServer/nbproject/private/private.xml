@@ -11,8 +11,12 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
+        <group/>
+=======
         <group>
             <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/mysql/DAO/Persons/MySqlLegalPersonDAO.java</file>
         </group>
+>>>>>>> e07132fc56212fe5628ea8f4cd2d1df570dccf19
     </open-files>
 </project-private>
