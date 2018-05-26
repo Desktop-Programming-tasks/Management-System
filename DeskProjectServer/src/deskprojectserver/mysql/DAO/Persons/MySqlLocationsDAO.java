@@ -29,8 +29,8 @@ public class MySqlLocationsDAO extends LocationsDAO {
         ArrayList<String> states = new ArrayList<>();
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_STATES);
-            while (qr.getRs().next()) {
-                states.add(qr.getRs().getString(STATE));
+            while (qr.getResultSet().next()) {
+                states.add(qr.getResultSet().getString(STATE));
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
@@ -44,9 +44,10 @@ public class MySqlLocationsDAO extends LocationsDAO {
         ArrayList<String> cities = new ArrayList<>();
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_CITIES, state);
-            while (qr.getRs().next()) {
-                cities.add(qr.getRs().getString(CITY));
+            while (qr.getResultSet().next()) {
+                cities.add(qr.getResultSet().getString(CITY));
             }
+            qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }

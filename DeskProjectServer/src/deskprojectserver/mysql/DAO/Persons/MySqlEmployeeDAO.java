@@ -70,10 +70,10 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     public Employee getEmployee(String id) throws DatabaseErrorException, NoResultsException {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-            while (qr.getRs().next()) {
-                return new Employee(qr.getRs().getString(LOGIN),
-                        qr.getRs().getString(PASSWORD),
-                        (qr.getRs().getInt(EMP_TYPE) == 1) ? EmployeeType.MANAGER : EmployeeType.COMMOM,
+            while (qr.getResultSet().next()) {
+                return new Employee(qr.getResultSet().getString(LOGIN),
+                        qr.getResultSet().getString(PASSWORD),
+                        (qr.getResultSet().getInt(EMP_TYPE) == 1) ? EmployeeType.MANAGER : EmployeeType.COMMOM,
                         null, null, null, null, null);
             }
             qr.closeAll();

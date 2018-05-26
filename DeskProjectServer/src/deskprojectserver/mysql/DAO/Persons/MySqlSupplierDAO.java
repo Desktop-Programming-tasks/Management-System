@@ -56,7 +56,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
         Supplier sup = null;
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
-            while (qr.getRs().next()) {
+            while (qr.getResultSet().next()) {
                 sup = new Supplier(null, null, null, null, null);
             }
             qr.closeAll();
