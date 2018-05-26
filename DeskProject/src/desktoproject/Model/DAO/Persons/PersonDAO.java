@@ -13,6 +13,7 @@ import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
 import desktoproject.Globals;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,10 @@ public abstract class PersonDAO {
     
     public static Person queryPerson(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryPerson(id);
+    }
+    
+    public static ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().querryAllPersons();
     }
     
     public static void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
