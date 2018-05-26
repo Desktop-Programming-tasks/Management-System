@@ -5,7 +5,8 @@
  */
 package desktoproject.Controller.Panels;
 
-import desktoproject.Model.Classes.Persons.Address;
+
+import Classes.Persons.Address;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;

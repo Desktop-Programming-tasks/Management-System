@@ -5,14 +5,12 @@
  */
 package desktoproject;
 
-import desktoproject.Model.Classes.Persons.Employee;
-import desktoproject.Model.ServerMethods;
+import Classes.Persons.Employee;
+import RMI.ServerMethods;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

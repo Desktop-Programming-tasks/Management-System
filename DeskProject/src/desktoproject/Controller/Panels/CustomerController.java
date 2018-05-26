@@ -5,11 +5,11 @@
  */
 package desktoproject.Controller.Panels;
 
+import Classes.Persons.Address;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.LegalPerson;
+import Classes.Persons.Person;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Persons.Address;
-import desktoproject.Model.Classes.Persons.JuridicalPerson;
-import desktoproject.Model.Classes.Persons.LegalPerson;
-import desktoproject.Model.Classes.Persons.Person;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
@@ -18,8 +18,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,6 +30,8 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+
+
 
 /**
  * FXML Controller class

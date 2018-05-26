@@ -6,6 +6,8 @@
 package desktoproject.Controller.Query;
 
 import desktoproject.Controller.Enums.PersonQueryType;
+import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
+import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
 import desktoproject.Controller.GUIController;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
+
 
 /**
  * FXML Controller class

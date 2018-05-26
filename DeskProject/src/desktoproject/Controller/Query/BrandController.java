@@ -5,8 +5,8 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Transactions.Brand;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Transactions.Brand;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
 /**
  * FXML Controller class
  *

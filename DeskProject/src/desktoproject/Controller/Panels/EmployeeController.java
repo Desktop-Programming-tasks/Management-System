@@ -5,9 +5,10 @@
  */
 package desktoproject.Controller.Panels;
 
+import Classes.Enums.EmployeeType;
+import Classes.Persons.Address;
+import Classes.Persons.Employee;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Persons.Address;
-import desktoproject.Model.Classes.Persons.Employee;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -20,7 +21,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -141,7 +141,7 @@ public class EmployeeController implements Initializable {
             if (validate()) {
                 Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
                 ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), EmployeeType.COMMOM, RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
                 System.out.println(newEmployee.toString());
             }
         }

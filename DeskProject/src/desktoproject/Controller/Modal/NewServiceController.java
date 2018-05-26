@@ -6,7 +6,6 @@
 package desktoproject.Controller.Modal;
 
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Transactions.Service;
 import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Validate;
@@ -19,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+
 
 /**
  * FXML Controller class

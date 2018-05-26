@@ -5,8 +5,8 @@
  */
 package desktoproject.Controller.Modal;
 
+import Classes.Transactions.Brand;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Transactions.Brand;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +19,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 
 /**
  * FXML Controller class
