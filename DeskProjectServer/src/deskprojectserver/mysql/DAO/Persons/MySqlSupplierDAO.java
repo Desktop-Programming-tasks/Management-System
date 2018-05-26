@@ -13,6 +13,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -35,7 +36,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, supplier.getId());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
@@ -59,7 +60,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
                 sup = new Supplier(null, null, null, null, null);
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         if (sup == null) {

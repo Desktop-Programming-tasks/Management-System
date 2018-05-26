@@ -12,6 +12,7 @@ import deskprojectserver.DBExceptions.DuplicatedEntryException;
 import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,9 @@ import java.util.ArrayList;
 public class MySqlBrandDAO extends BrandDAO{
     private static final String INSERT_SQL="INSERT INTO `Brand`(`nameBrand`) VALUES (?)";
     private static final String GET_ONE_SQL="SELECT `idBrand`, `nameBrand` "
-            + "FROM `Brand` WHERE nameBrand=?";
+            + "FROM `Brand` WHERE idBrand=?";
+    private static final String GET_ALL_SQL="SELECT `idBrand`, `nameBrand` "
+            + "FROM `Brand` WHERE 1";
     private static final String ID = "idBrand";
     private static final String NAME ="nameBrand";
     @Override
@@ -32,7 +35,7 @@ public class MySqlBrandDAO extends BrandDAO{
         catch(MySQLIntegrityConstraintViolationException e){
             throw new DuplicatedEntryException();
         }
-        catch(Exception e){
+        catch(ClassNotFoundException | SQLException e){
             throw new DatabaseErrorException();
         }
     }
@@ -54,7 +57,8 @@ public class MySqlBrandDAO extends BrandDAO{
 
     @Override
     public ArrayList<Brand> getAllBrands() throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Brand> brands = new ArrayList<>();
+        return brands;
     }
     
 }

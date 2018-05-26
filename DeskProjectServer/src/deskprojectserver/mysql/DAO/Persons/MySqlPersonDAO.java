@@ -13,6 +13,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -82,7 +83,7 @@ public class MySqlPersonDAO extends PersonDAO {
                 p.setTelephones(tels);
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         if (p.getName() == null) {

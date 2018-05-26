@@ -14,6 +14,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -50,7 +51,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             }
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
@@ -76,7 +77,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                         null, null, null, null, null);
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         throw new NoResultsException();

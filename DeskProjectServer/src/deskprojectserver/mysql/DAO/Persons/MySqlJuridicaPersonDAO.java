@@ -13,6 +13,7 @@ import deskprojectserver.DBExceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Persons.JuridicalPersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -32,7 +33,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, jp.getCNPJ());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
@@ -57,7 +58,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
                 jp = new JuridicalPerson(null, null, null, null);
             }
             qr.closeAll();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
         if (jp == null) {
