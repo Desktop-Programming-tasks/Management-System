@@ -169,7 +169,7 @@ public class CustomerController implements Initializable {
             }
             try {
                 PersonDAO.insertPerson(person);
-                GUIController.getInstance().showAlert(Alert.AlertType.INFORMATION, "Infomação", "Cliente cadastrado", "");
+                GUIController.getInstance().showRegister("Clilente");
             } catch (RemoteException ex) {
                 //alert of connection error
             }
