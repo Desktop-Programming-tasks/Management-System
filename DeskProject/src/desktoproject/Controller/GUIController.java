@@ -294,15 +294,27 @@ public class GUIController {
     }
     
     public void showRegister(String item){
-        showRegister(item,"");
+        showRegisterAlert(item,"");
     }
     
-    public void showRegister(String item,String error){
+    public void showRegisterAlert(String item,String error){
         Alert register = new Alert(error.isEmpty()?Alert.AlertType.INFORMATION:Alert.AlertType.ERROR);
         
         register.setTitle("Cadastro");
         register.setHeaderText("Cadastro de "+item+(error.isEmpty()?" bem sucedida":" não concluída"));
         register.setContentText(error);
+        
+        DialogPane diagPanel = register.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
+        register.showAndWait();
+    }
+    
+    public void showConnectionErrorAlert(){
+        Alert register = new Alert(Alert.AlertType.ERROR);
+        
+        register.setTitle("Erro de conexão");
+        register.setHeaderText("Erro na conexão com o servidor");
+        register.setContentText("");
         
         DialogPane diagPanel = register.getDialogPane();
         diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
