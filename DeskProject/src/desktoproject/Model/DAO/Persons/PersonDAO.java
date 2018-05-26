@@ -5,8 +5,8 @@
  */
 package desktoproject.Model.DAO.Persons;
 
+import Classes.Persons.Person;
 import desktoproject.Globals;
-import desktoproject.Model.Classes.Persons.Person;
 import java.rmi.RemoteException;
 
 /**

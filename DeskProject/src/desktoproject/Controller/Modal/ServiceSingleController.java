@@ -5,8 +5,8 @@
  */
 package desktoproject.Controller.Modal;
 
+import Classes.Transactions.Service;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Transactions.Service;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+
 
 /**
  * FXML Controller class

@@ -5,15 +5,17 @@
  */
 package desktoproject.Controller;
 
+
+import Classes.Transactions.Record;
+import Classes.Transactions.Transaction;
 import desktoproject.Controller.Enums.TransactionType;
-import desktoproject.Model.Classes.Transactions.Record;
-import desktoproject.Model.Classes.Transactions.Transaction;
+import static desktoproject.Controller.Enums.TransactionType.BUY;
+import static desktoproject.Controller.Enums.TransactionType.SALE;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

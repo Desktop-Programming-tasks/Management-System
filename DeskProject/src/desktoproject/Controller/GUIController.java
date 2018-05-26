@@ -5,23 +5,14 @@
  */
 package desktoproject.Controller;
 
+import Classes.Enums.*;
+import Classes.Persons.*;
+import Classes.Transactions.*;
 import desktoproject.Controller.Enums.*;
 import desktoproject.Controller.Modal.*;
-import desktoproject.Controller.Query.*;
 import desktoproject.Controller.Panels.*;
-import desktoproject.Model.Classes.Persons.Address;
-import desktoproject.Model.Classes.Persons.Employee;
-import desktoproject.Model.Classes.Persons.JuridicalPerson;
-import desktoproject.Model.Classes.Persons.LegalPerson;
-import desktoproject.Model.Classes.Persons.Supplier;
-import desktoproject.Model.Classes.Transactions.Brand;
-import desktoproject.Model.Classes.Transactions.Product;
-import desktoproject.Model.Classes.Transactions.Record;
-import desktoproject.Model.Classes.Transactions.Service;
+import desktoproject.Controller.Query.*;
 import desktoproject.Model.Classes.Transactions.ServiceType;
-import desktoproject.Model.Classes.Transactions.Transaction;
-import desktoproject.Model.Enums.RecordType;
-import desktoproject.Model.Enums.ServiceStatus;
 import desktoproject.Utils.Pairs.ScreenCall;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
@@ -351,7 +342,7 @@ public class GUIController {
         JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
         Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
         LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
-        Employee employee = new Employee("login test", "password", "87854", "employee of the month", address, telephones, "498431");
+        Employee employee = new Employee("login test", "password", EmployeeType.COMMOM, "87854", "employee of the month", address, telephones, "498431");
         Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         transactions.add(testProduct);
