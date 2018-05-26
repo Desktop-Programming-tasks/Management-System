@@ -5,6 +5,7 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import Classes.Persons.Address;
 import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
@@ -13,6 +14,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -33,8 +35,9 @@ public class MySqlPersonDAO extends PersonDAO {
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idPerson=?";
-    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
-            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
+//    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
+//            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
+    private final static String GET_ALL_ID = "SELECT `idPerson` FROM `Person` WHERE 1";
 
     public MySqlPersonDAO() {
         super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
@@ -64,22 +67,14 @@ public class MySqlPersonDAO extends PersonDAO {
         ArrayList<Person> persons = new ArrayList<>();
 
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_ID);
             while (qr.getResultSet().next()) {
-                ArrayList<String> telephones = new ArrayList<>();
-                telephones.add(qr.getResultSet().getString(TEL_1));
-                telephones.add(qr.getResultSet().getString(TEL_2));
-                Person p;
-                p = new Person(qr.getResultSet().getString(NAME),null,
-                telephones,qr.getResultSet().getString(ID)) {};
-                try{
-                    p.setAddress(super.getAddressDAO().getAddress(p));
-                }
-                catch(DatabaseErrorException | NoResultsException e){
+                try {
+                    persons.add(getPerson(qr.getResultSet().getString(ID)));
+                } catch (NoResultsException e) {
                     //
-                }
-                persons.add(p);
-            }
+                } 
+           }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
@@ -110,5 +105,4 @@ public class MySqlPersonDAO extends PersonDAO {
         }
         return p;
     }
-
 }

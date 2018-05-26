@@ -281,46 +281,6 @@ public class GUIController {
         return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
     }
     
-    public void showEraseAlert() {
-        Alert aboutInfo = new Alert(Alert.AlertType.INFORMATION);
-
-        aboutInfo.setTitle("Operação de remoção");
-        aboutInfo.setHeaderText("Remoção bem sucedida!");
-        aboutInfo.setContentText("Operação de remoção concluída!");
-
-        DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
-        aboutInfo.showAndWait();
-    }
-    
-    public void showRegister(String item){
-        showRegisterAlert(item,"");
-    }
-    
-    public void showRegisterAlert(String item,String error){
-        Alert register = new Alert(error.isEmpty()?Alert.AlertType.INFORMATION:Alert.AlertType.ERROR);
-        
-        register.setTitle("Cadastro");
-        register.setHeaderText("Cadastro de "+item+(error.isEmpty()?" bem sucedida":" não concluída"));
-        register.setContentText(error);
-        
-        DialogPane diagPanel = register.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
-        register.showAndWait();
-    }
-    
-    public void showConnectionErrorAlert(){
-        Alert register = new Alert(Alert.AlertType.ERROR);
-        
-        register.setTitle("Erro de conexão");
-        register.setHeaderText("Erro na conexão com o servidor");
-        register.setContentText("");
-        
-        DialogPane diagPanel = register.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
-        register.showAndWait();
-    }
-
     public void showAlert(Alert.AlertType type, String title, String header, String content){
         Alert informationDiag;
         
@@ -333,17 +293,32 @@ public class GUIController {
         diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         informationDiag.showAndWait();
     }
+    
+    public void showEraseAlert() {
+        showAlert(Alert.AlertType.INFORMATION, "Operação de remoção", "Remoção bem sucedida!", "Operação de remoção concluída!");
+    }
+    
+    public void showRegisterAlert(String item){
+        showRegisterAlert(item,"");
+    }
+    
+    public void showRegisterAlert(String item,String error){
+        showAlert(error.isEmpty()?Alert.AlertType.INFORMATION:Alert.AlertType.ERROR, "Cadastro", "Cadastro de "+item+(error.isEmpty()?" bem sucedida":" não concluída"), error);
+    }
+    
+    public void showConnectionErrorAlert(){
+        showAlert(Alert.AlertType.ERROR, "Erro de conexão", "Erro na conexão com o servidor", "");
+    }
 
-    public void showAboutAlert() {
-        Alert aboutInfo = new Alert(Alert.AlertType.INFORMATION);
-
-        aboutInfo.setTitle("Sobre o Software");
-        aboutInfo.setHeaderText("Sistema de Gerênciamento para Lojas de Informática.");
-        aboutInfo.setContentText("Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
-
-        DialogPane diagPanel = aboutInfo.getDialogPane();
-        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
-        aboutInfo.showAndWait();
+    public void showAboutAlert() { 
+        showAlert(Alert.AlertType.INFORMATION, "Sobre o Software", 
+                "Sistema de Gerênciamento para Lojas de Informática.", 
+                "Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
+    }
+    
+    public void showDupplicatedAlert(String personType,String idName){
+        showAlert(Alert.AlertType.ERROR, "Erro no cadastro", personType+" já cadastrado", idName+" já utilizado");
+//        showRegisterAlert(personType, idName+" já utilizado");
     }
     
     public void closeModal() {

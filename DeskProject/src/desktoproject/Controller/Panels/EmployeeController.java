@@ -8,13 +8,20 @@ package desktoproject.Controller.Panels;
 import Classes.Enums.EmployeeType;
 import Classes.Persons.Address;
 import Classes.Persons.Employee;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -135,14 +142,24 @@ public class EmployeeController implements Initializable {
 
     @FXML
     private void mainAction() {
-        if (edit) {
+        if (validate()) {
+            Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
+            ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
+            Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), EmployeeType.COMMOM, RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
 
-        } else {
-            if (validate()) {
-                Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
-                ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-                Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), EmployeeType.COMMOM, RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
-                System.out.println(newEmployee.toString());
+            try {
+                if (edit) {
+
+                } else {
+                    PersonDAO.insertPerson(newEmployee);
+                    GUIController.getInstance().showRegisterAlert("Funcionário");
+                }
+            } catch (RemoteException | DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (DuplicatedEntryException ex) {
+                GUIController.getInstance().showDupplicatedAlert("Funcionário", "CPF");
+            } catch (DuplicatedLoginException ex) {
+                GUIController.getInstance().showDupplicatedAlert("Funcionário", "Login");
             }
         }
     }

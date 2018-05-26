@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public abstract class PersonDAO {
-    public static void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+    public static void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
         Globals.getInstance().getChannel().insertPerson(person);
     }
     
