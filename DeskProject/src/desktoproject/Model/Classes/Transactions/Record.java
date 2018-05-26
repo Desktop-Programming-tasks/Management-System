@@ -8,6 +8,7 @@ package desktoproject.Model.Classes.Transactions;
 import desktoproject.Model.Classes.Persons.Employee;
 import desktoproject.Model.Classes.Persons.Person;
 import desktoproject.Model.Enums.RecordType;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,7 +16,7 @@ import java.util.Date;
  *
  * @author gabriel
  */
-public class Record {
+public class Record implements Serializable{
 
     private int id;
     private Employee assignedEmployee;

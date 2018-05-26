@@ -6,13 +6,14 @@
 package desktoproject.Model.Classes.Persons;
 
 import desktoproject.Model.Enums.EmployeeType;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author gabriel
  */
-public class Employee extends LegalPerson{
+public class Employee extends LegalPerson implements Serializable{
     private String login;
     private String password;
     private EmployeeType type;

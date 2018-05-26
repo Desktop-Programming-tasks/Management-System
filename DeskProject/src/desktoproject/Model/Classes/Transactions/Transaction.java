@@ -5,11 +5,13 @@
  */
 package desktoproject.Model.Classes.Transactions;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gabriel
  */
-public abstract class Transaction {
+public abstract class Transaction implements Serializable{
 
     private float price;
     private String name;

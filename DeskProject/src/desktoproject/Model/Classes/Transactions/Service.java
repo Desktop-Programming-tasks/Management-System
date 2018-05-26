@@ -7,13 +7,14 @@ package desktoproject.Model.Classes.Transactions;
 
 import desktoproject.Model.Classes.Persons.Employee;
 import desktoproject.Model.Enums.ServiceStatus;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  *
  * @author gabriel
  */
-public class Service extends Transaction {
+public class Service extends Transaction implements Serializable{
 
     private LocalDate startDate;
     private LocalDate estimatedDate;

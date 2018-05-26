@@ -22,6 +22,7 @@ public class Globals {
 
     private Employee employee;
     private ServerMethods rmiChannel;
+    private static Globals INSTANCE;
 
     public Employee getEmployee() {
         return employee;
@@ -37,19 +38,15 @@ public class Globals {
 
     private Globals() {
         try {
-            Registry rmiRegistry = LocateRegistry.getRegistry("Localhost", 1099);
+            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", 1099);
             this.rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
         } catch (NotBoundException | RemoteException ex) {
-            Logger.getLogger(Globals.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Globals.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("CAGOU A MERDA DO RMI "+ex.getMessage());
         }
     }
 
     public static Globals getInstance() {
-        return NewSingletonHolder.INSTANCE;
-    }
-
-    private static class NewSingletonHolder {
-
-        private static final Globals INSTANCE = new Globals();
+        return INSTANCE==null?INSTANCE= new Globals():INSTANCE;
     }
 }
