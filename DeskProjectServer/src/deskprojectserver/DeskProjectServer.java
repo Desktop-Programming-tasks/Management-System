@@ -31,10 +31,10 @@ public class DeskProjectServer {
 //                    "batata func", address, telephones, "1");
         //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
         //Juridical
-        JuridicalPerson jp = new JuridicalPerson("teste", address, telephones, "3");
+        JuridicalPerson jp = new JuridicalPerson("teste", address, telephones, "21");
         try {
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(jp);
-            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("3");
+            //DAOBuilder.getInstance().getPersonDAO().insertPerson(jp);
+            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("21");
             System.out.println(p);
         } catch (Exception e) {
             e.printStackTrace();
