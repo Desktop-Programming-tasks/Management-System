@@ -54,7 +54,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public ArrayList<Person> querryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+    public ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getAllPersons();
     }
 
