@@ -24,7 +24,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import main.utils.TableProxyTransation;
 
 /**
  * FXML Controller class
@@ -148,7 +147,7 @@ public class TransactionController implements Initializable {
 
     @FXML
     private void register() {
-
+        
     }
 
     @FXML
@@ -176,5 +175,10 @@ public class TransactionController implements Initializable {
 
     private void setEdit(boolean edit) {
         this.edit = edit;
+    }
+    
+    private boolean validate(){
+        customerOrSupplier.getText();
+        return true;
     }
 }
