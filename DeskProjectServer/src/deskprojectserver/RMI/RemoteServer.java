@@ -11,6 +11,7 @@ import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
 import RMI.ServerMethods;
+import deskprojectserver.DBExceptions.DatabaseErrorException;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
@@ -157,6 +158,28 @@ public class RemoteServer implements ServerMethods {
     @Override
     public void deleteService(Service service) throws RemoteException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> queryStates() throws RemoteException {
+        ArrayList<String> states = null;
+        try {
+            states =  DAOBuilder.getInstance().getlDAO().getStates();
+        } catch (DatabaseErrorException ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return states;
+    }
+
+    @Override
+    public ArrayList<String> queryCities(String state) throws RemoteException {
+        ArrayList<String> cities = null;
+        try {
+            cities = DAOBuilder.getInstance().getlDAO().getCities(state); 
+        } catch (DatabaseErrorException ex) {
+            Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cities;
     }
     
 }
