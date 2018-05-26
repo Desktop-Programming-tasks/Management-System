@@ -36,7 +36,7 @@ public abstract class PersonDAO {
         this.supplierDAO = supplierDAO;
     }
 
-    public void insertPerson(Person p) throws Exception {
+    public void insertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException {
         basicInsertPerson(p);
         if (p instanceof LegalPerson) {
             legalPersonDAO.insertLegalPerson((LegalPerson) p);
