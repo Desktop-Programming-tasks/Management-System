@@ -27,19 +27,22 @@ public class Test2 {
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add("dasds");
             telephones.add("dsadas");
-            
+
             Employee emp = new Employee("Teste", "1234", EmployeeType.MANAGER, "15",
                     "Gabriel", address, telephones, "251");
+            Employee emp2 = new Employee("Tes321312te", "1234", EmployeeType.MANAGER, "15",
+                    "Gabriel", address, telephones, "25112312");
             ArrayList<Brand> brands = new ArrayList<>();
             brands.add(new Brand("AMD"));
             //brands.add(new Brand("NVIDI1A"));
             //brands.add(new Brand("Intel12"));
             Supplier sup = new Supplier(brands, "Supplier", address, telephones, "12111");
-            
+
             JuridicalPerson jp = new JuridicalPerson("Teste Again", address, telephones, "25213");
-            
+
             LegalPerson lp = new LegalPerson("15", "batatao", address, telephones, "254");
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(emp2);
             //DAOBuilder.getInstance().getPersonDAO().removePerson(sup);
         } catch (Exception e) {
             e.printStackTrace();

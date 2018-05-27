@@ -15,6 +15,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import deskprojectserver.mysql.MySqlHandler;
 import java.util.ArrayList;
 
 /**
@@ -104,17 +105,32 @@ public abstract class PersonDAO {
             }
         }
     }
-    
+
     public void removePerson(Person p) throws DatabaseErrorException, NoResultsException, OperationNotAllowed {
         if (p instanceof Employee) {
             employeeDAO.removeEmployee((Employee) p);
-        }
-        else if(p instanceof Supplier){
+        } else if (p instanceof Supplier) {
             supplierDAO.removeSupplier((Supplier) p);
-        }
-        else{
+        } else {
             throw new OperationNotAllowed();
         }
+    }
+
+    public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
+        ArrayList<Employee> employees = employeeDAO.getAllEmployees();
+        try {
+            for (Employee emp : employees) {
+                LegalPerson lp = legalPersonDAO.getLegalPerson(emp.getId());
+                Person p = basicGetPerson(emp.getId());
+                emp.setName(p.getName());
+                emp.setAddress(p.getAddress());
+                emp.setTelephones(p.getTelephones());
+                emp.setRG(lp.getRG());
+            }
+        } catch (DatabaseErrorException | NoResultsException e) {
+            //
+        }
+        return employees;
     }
 
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
@@ -128,5 +144,5 @@ public abstract class PersonDAO {
     public AddressDAO getAddressDAO() {
         return addressDAO;
     }
-    
+
 }

@@ -20,7 +20,7 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for(Person p : DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
+            for(Person p : DAOBuilder.getInstance().getPersonDAO().getAllEmployees()){
                 System.out.println(p);
             }
         } catch (Exception e) {
