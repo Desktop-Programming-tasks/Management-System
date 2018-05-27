@@ -20,7 +20,7 @@ public abstract class ProductDAO {
 
     public abstract void insertProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, DuplicatedEntryException;
 
-    public abstract void updateProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, NoResultsException;
+    public abstract void updateProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, NoResultsException,DuplicatedEntryException;
 
     public abstract void removeProduct(Product product) throws DatabaseErrorException, NoResultsException;
 

@@ -45,10 +45,11 @@ public class DeskProjectServer {
 //            for(Person p: DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
 //                System.out.println(p);
 //            }
-            Product product = new Product("154153215415", new Brand("AMD"), 204, "Processador Ryzen");
-            product.setQuantityInStock(300);
+            Product product = new Product("1", new Brand("NVIDIA"), 2040, "Placa de vídeo");
+            product.setQuantityInStock(30);
             //DAOBuilder.getInstance().getProductDAO().insertProduct(product);
-            DAOBuilder.getInstance().getProductDAO().removeProduct(product);
+            //DAOBuilder.getInstance().getProductDAO().removeProduct(product);
+            DAOBuilder.getInstance().getProductDAO().updateProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
         }

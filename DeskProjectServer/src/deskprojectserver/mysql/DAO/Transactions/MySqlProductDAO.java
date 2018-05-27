@@ -42,6 +42,10 @@ public class MySqlProductDAO extends ProductDAO {
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE barCodeProduct=?";
     private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
+    private static final String UPDATE_SQL = "UPDATE `Product` "
+            + "SET `nameProduct`=?,"
+            + "`priceProduct`=?,`quantityProduct`=?,"
+            + "`Brand_nameBrand`=? WHERE barCodeProduct=?";
 
     @Override
     public void insertProduct(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
@@ -63,8 +67,25 @@ public class MySqlProductDAO extends ProductDAO {
     }
 
     @Override
-    public void updateProduct(Product product) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateProduct(Product product) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, UnavailableBrandException {
+        try {
+            getProduct(product.getBarCode());
+        } catch (NoResultsException e) {
+            throw e;
+        }
+        try {
+            BrandDAO brand = new MySqlBrandDAO();
+            brand.checkIfExists(product.getBrand());
+        } catch (NoResultsException e) {
+            throw new UnavailableBrandException();
+        }
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
+                    product.getName(), product.getPrice(), product.getQuantityInStock(),
+                    product.getBrand().getName(), product.getBarCode());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
