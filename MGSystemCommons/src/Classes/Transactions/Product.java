@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author gabriel
  */
-public class Product extends Transaction implements Serializable{
+public class Product extends Transaction implements Serializable {
 
     private String barCode;
     private int quantityInStock;
@@ -53,6 +53,6 @@ public class Product extends Transaction implements Serializable{
 
     @Override
     public String toString() {
-        return "Product{" + "barCode=" + barCode + ", quantityInStock=" + quantityInStock + ", brand=" + brand + '}';
+        return "Product{name=" + getName() + " barCode=" + barCode + ", quantityInStock=" + quantityInStock + ", brand=" + brand + '}';
     }
 }

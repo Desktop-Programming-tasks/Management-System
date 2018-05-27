@@ -45,9 +45,10 @@ public class Test2 {
             //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
             //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp2);
             //DAOBuilder.getInstance().getPersonDAO().removePerson(sup);
-            for(Product product: DAOBuilder.getInstance().getProductDAO().getAllProducts()){
-                System.out.println(product);
-            }
+            //for(Product product: DAOBuilder.getInstance().getProductDAO().getAllProducts()){
+            //  System.out.println(product);
+            //}
+            System.out.println(DAOBuilder.getInstance().getProductDAO().getProduct("3"));
         } catch (Exception e) {
             e.printStackTrace();
         }

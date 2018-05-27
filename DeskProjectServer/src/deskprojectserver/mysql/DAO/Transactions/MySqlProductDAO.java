@@ -38,6 +38,9 @@ public class MySqlProductDAO extends ProductDAO {
     private static final String GET_ALL_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE 1";
+    private static final String GET_ONE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "FROM `Product` WHERE barCodeProduct=?";
 
     @Override
     public void insertProduct(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
@@ -70,7 +73,24 @@ public class MySqlProductDAO extends ProductDAO {
 
     @Override
     public Product getProduct(String id) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Product product = null;
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            while (qr.getResultSet().next()) {
+                product = new Product(
+                        qr.getResultSet().getString(BAR_CODE),
+                        new Brand(qr.getResultSet().getString(BRAND_NAME)),
+                        qr.getResultSet().getFloat(PRICE),
+                        qr.getResultSet().getString(NAME));
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        if (product == null) {
+            throw new NoResultsException();
+        }
+        return product;
     }
 
     @Override
@@ -82,7 +102,7 @@ public class MySqlProductDAO extends ProductDAO {
                 Product product = new Product(
                         qr.getResultSet().getString(BAR_CODE),
                         new Brand(qr.getResultSet().getString(BRAND_NAME)),
-                        qr.getResultSet().getInt(PRICE), qr.getResultSet().getString(NAME));
+                        qr.getResultSet().getFloat(PRICE), qr.getResultSet().getString(NAME));
                 product.setQuantityInStock(qr.getResultSet().getInt(QUANTITY));
                 products.add(product);
             }
