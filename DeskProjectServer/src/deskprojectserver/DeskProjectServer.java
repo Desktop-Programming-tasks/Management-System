@@ -7,6 +7,9 @@ package deskprojectserver;
 
 import Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
+import deskprojectserver.Database.DAO.Persons.SupplierDAO;
+import deskprojectserver.mysql.DAO.Persons.MySqlSupplierDAO;
+import deskprojectserver.mysql.MySqlHandler;
 
 
 /**
@@ -20,9 +23,8 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for(Person p : DAOBuilder.getInstance().getPersonDAO().getAllEmployees()){
-                System.out.println(p);
-            }
+            System.out.println(DAOBuilder.getInstance().getPersonDAO().getPerson("211"));
+            System.out.println(DAOBuilder.getInstance().getPersonDAO().getPerson("211").getId());
         } catch (Exception e) {
             e.printStackTrace();
         }

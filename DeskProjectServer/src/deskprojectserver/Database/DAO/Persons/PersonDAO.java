@@ -133,6 +133,10 @@ public abstract class PersonDAO {
         return employees;
     }
 
+    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
+        ArrayList<Supplier> suppliers = supplierDAO.getAllSuppliers();
+        return suppliers;
+    }
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
