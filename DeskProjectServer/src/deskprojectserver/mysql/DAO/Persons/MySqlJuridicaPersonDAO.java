@@ -16,7 +16,6 @@ import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author gabriel
@@ -39,8 +38,8 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
     }
 
     @Override
-    public void updateJuridicalPerson(JuridicalPerson jp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException, NoResultsException {
+        getJuridicalPerson(jp.getId());
     }
 
     @Override
