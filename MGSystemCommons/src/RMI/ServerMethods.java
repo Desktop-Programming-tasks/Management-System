@@ -5,6 +5,7 @@
  */
 package RMI;
 
+import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
@@ -51,4 +52,6 @@ public interface ServerMethods extends Remote {
     public ArrayList<String> queryStates() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException;
             
+    public ArrayList<Person> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException;
+    public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException;
 }
