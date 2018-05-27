@@ -9,6 +9,7 @@ import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
@@ -104,7 +105,11 @@ public class PersonController implements Initializable {
     
     private void populateTable(){
         try {
-            personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+            if(type == PersonQueryType.CUSTOMER){
+                personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+            }else{
+                personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
+            }
         } catch (RemoteException|DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
@@ -124,7 +129,11 @@ public class PersonController implements Initializable {
         if(person==null){
             GUIController.getInstance().showSelectionErrorAlert();
         }else{
-            GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, person);
+            if(type == PersonQueryType.CUSTOMER){
+                GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, person);
+            }else{
+                GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, person);
+            }
         }
     }
     
@@ -135,7 +144,9 @@ public class PersonController implements Initializable {
             GUIController.getInstance().showSelectionErrorAlert();
         }else{
             try {
-                PersonDAO.deletePerson(person);
+                if(GUIController.getInstance().showEraseConfirmationAlert(person.getName())){
+                    PersonDAO.deletePerson(person);
+                }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {

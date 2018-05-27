@@ -5,17 +5,30 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Persons.Supplier;
+import Classes.Transactions.Brand;
+import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -33,13 +46,13 @@ public class QuerySupplierController implements Initializable {
     }
     
     @FXML
-    private TableView Suppliers;
+    private TableView<Supplier> suppliersTable;
     @FXML
-    private TableColumn Cnpj;
+    private TableColumn<Supplier,String> cnpjColumn;
     @FXML
-    private TableColumn Name;
+    private TableColumn<Supplier,String> nameColumn;
     @FXML
-    private TableColumn Brands;
+    private TableColumn<Supplier,String> brandsColumn;
     @FXML
     private TextField searchTextField;
 
@@ -48,7 +61,35 @@ public class QuerySupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("CNPJ"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        brandsColumn.setCellValueFactory(new PropertyValueFactory<>("brands"));
+        
+        populateTable();
+    }
+    
+    public void populateTable(){
+        try {
+            suppliersTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } catch (NoResultsException ex) {
+            //
+        }
+        
+    }
+    
+    private void setTableAction(){
+        suppliersTable.setRowFactory(tv -> {
+            TableRow<Supplier> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Supplier supplier = row.getItem();
+                    GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, supplier);
+                }
+            });
+            return row;
+        });
     }
 
     @FXML
