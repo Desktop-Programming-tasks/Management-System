@@ -12,6 +12,7 @@ import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
+import Classes.Transactions.Product;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.util.ArrayList;
 
@@ -41,9 +42,12 @@ public class Test2 {
             JuridicalPerson jp = new JuridicalPerson("Teste Again", address, telephones, "25213");
 
             LegalPerson lp = new LegalPerson("15", "batatao", address, telephones, "254");
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
-            DAOBuilder.getInstance().getPersonDAO().insertPerson(emp2);
+            //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
+            //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp2);
             //DAOBuilder.getInstance().getPersonDAO().removePerson(sup);
+            for(Product product: DAOBuilder.getInstance().getProductDAO().getAllProducts()){
+                System.out.println(product);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
