@@ -32,7 +32,7 @@ public class DeskProjectServer {
             ArrayList<Brand> brands = new ArrayList<>();
             //brands.add(new Brand("AMD"));
             brands.add(new Brand("NVIDIA"));
-            Address address = new Address("lslsl", 10, "whatever", "Acrelândia", "Acre");
+            Address address = new Address("Teste fuck", 1074, "whatever atualizado", "Acajutiba", "Bahia");
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add("43 3528 2515");
             telephones.add("45 3528 2524");
@@ -41,6 +41,9 @@ public class DeskProjectServer {
             Supplier sup = new Supplier(brands, "Fornecedor fuck", address, telephones, "2424");
             //DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
             DAOBuilder.getInstance().getPersonDAO().updatePerson(sup);
+            for(Person p: DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
+                System.out.println(p);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

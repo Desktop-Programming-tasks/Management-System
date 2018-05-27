@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,7 +14,6 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 
 /**
  *
@@ -36,13 +35,18 @@ public class MySqlAddressDAO extends AddressDAO {
             = "SELECT `Person_idPerson`, `streetAddress`, `numberAddress`, "
             + "`districtAddress`, `City_nameCity`, `City_State_nameState` "
             + "FROM `Address` WHERE Person_idPerson=?";
+    private static final String UPDATE_SQL
+            = "UPDATE `Address` SET `streetAddress`=?,"
+            + "`numberAddress`=?,`districtAddress`=?,"
+            + "`City_nameCity`=?,`City_State_nameState`=?"
+            + "WHERE Person_idPerson=?";
 
     @Override
     public void insertAddress(Person person) throws DatabaseErrorException {
         Address ads = person.getAddress();
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getId(),
-                    ads.getStreet(), ads.getNumber(), ads.getBlock(), ads.getCity(), ads.getState());
+                    ads.getStreet(), ads.getNumber(), ads.getDistrict(), ads.getCity(), ads.getState());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
@@ -54,8 +58,16 @@ public class MySqlAddressDAO extends AddressDAO {
     }
 
     @Override
-    public void updateAddress(Person person) throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateAddress(Person person) throws DatabaseErrorException, NoResultsException {
+        getAddress(person);
+        Address temp = person.getAddress();
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
+                    temp.getStreet(), temp.getNumber(), temp.getDistrict(), temp.getCity(),
+                    temp.getState(),person.getId());
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

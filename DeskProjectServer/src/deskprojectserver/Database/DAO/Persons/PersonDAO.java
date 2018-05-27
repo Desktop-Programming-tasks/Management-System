@@ -142,6 +142,7 @@ public abstract class PersonDAO {
 
     public void updatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         basicUpdatePerson(p);
+        addressDAO.updateAddress(p);
         if (p instanceof LegalPerson) {
             legalPersonDAO.updateLegalPerson((LegalPerson) p);
             if (p instanceof Employee) {
