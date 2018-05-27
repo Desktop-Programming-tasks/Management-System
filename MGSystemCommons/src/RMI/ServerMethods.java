@@ -29,7 +29,6 @@ public interface ServerMethods extends Remote {
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed;
     
-    public Brand queryBrand() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException;

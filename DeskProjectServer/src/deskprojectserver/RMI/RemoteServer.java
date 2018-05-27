@@ -69,11 +69,6 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public Brand queryBrand() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
