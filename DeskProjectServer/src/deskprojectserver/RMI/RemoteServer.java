@@ -7,6 +7,7 @@ package deskprojectserver.RMI;
 
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
+import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
@@ -155,9 +156,8 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public ArrayList<Person> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException();
-        //return DAOBuilder.getInstance().getBrandDAO().
+    public ArrayList<Supplier> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getPersonDAO().getAllSuppliers();
     }
 
     @Override
