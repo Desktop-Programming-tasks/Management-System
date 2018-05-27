@@ -13,6 +13,7 @@ import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
+import Classes.Transactions.Brand;
 import RMI.ServerMethods;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -44,31 +45,36 @@ public class RMIClientTest {
             ServerMethods rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
 
             
-            System.out.println("Inserções");
-            System.out.println("Empregado");
-            rmiChannel.insertPerson(emp);
-            System.out.println("Juridico");
-            rmiChannel.insertPerson(jurP);
-            System.out.println("Legal");
-            rmiChannel.insertPerson(legP);
-            System.out.println("Supplier");
-            rmiChannel.insertPerson(sup);
+//            System.out.println("Inserções");
+//            System.out.println("Empregado");
+//            rmiChannel.insertPerson(emp);
+//            System.out.println("Juridico");
+//            rmiChannel.insertPerson(jurP);
+//            System.out.println("Legal");
+//            rmiChannel.insertPerson(legP);
+//            System.out.println("Supplier");
+//            rmiChannel.insertPerson(sup);
 
-            System.out.println("Gets");
-            System.out.println("Employee");
-            Person employee = rmiChannel.queryPerson("employee");
-            System.out.println(employee);
-            System.out.println("Juridical");
-            Person juridical = rmiChannel.queryPerson("juridicalPerson");
-            System.out.println(juridical);
-            System.out.println("Legal");
-            Person legal = rmiChannel.queryPerson("legalPerson");
-            System.out.println(legal);
+//            System.out.println("Gets");
+//            System.out.println("Employee");
+//            Person employee = rmiChannel.queryPerson("employee");
+//            System.out.println(employee);
+//            System.out.println("Juridical");
+//            Person juridical = rmiChannel.queryPerson("juridicalPerson");
+//            System.out.println(juridical);
+//            System.out.println("Legal");
+//            Person legal = rmiChannel.queryPerson("legalPerson");
+//            System.out.println(legal);
             
-            
-            //System.out.println("GetAll");
-            //ArrayList<Person> persons = rmiChannel.queryAllPersons();
-            //System.out.println(persons);
+            System.out.println("GetAll");
+            ArrayList<Person> persons = rmiChannel.queryAllPersons();
+            persons.forEach(el -> System.out.println(el));
+            System.out.println("GetALlEmployees");
+            ArrayList<Employee> employees = rmiChannel.queryAllEmployees();
+            employees.forEach(el -> System.out.println(el));
+            System.out.println("GetAllSuppliers");
+            ArrayList<Supplier> suppliers = rmiChannel.queryAllSuppliers();
+            suppliers.forEach(el -> System.out.println(el));
             
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(RMIClientTest.class.getName()).log(Level.SEVERE, null, ex);
