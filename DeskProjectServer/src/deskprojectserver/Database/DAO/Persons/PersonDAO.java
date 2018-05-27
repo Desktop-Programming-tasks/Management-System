@@ -15,7 +15,6 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
-import deskprojectserver.mysql.MySqlHandler;
 import java.util.ArrayList;
 
 /**

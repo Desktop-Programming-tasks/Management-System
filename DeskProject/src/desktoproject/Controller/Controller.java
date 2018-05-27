@@ -9,6 +9,7 @@ import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -26,9 +27,14 @@ public abstract class Controller {
         loader.setLocation(Controller.class.getResource(path));
         Parent parent = loader.load();
         Controller controller = loader.getController();
-        controller.setUpComponents();
+        controller.setAnchors(parent);
         return new ScreenData(parent, controller);
     } 
     
-    public abstract void setUpComponents();
+    private void setAnchors(Parent p) {
+        AnchorPane.setTopAnchor(p, 0.0);
+        AnchorPane.setLeftAnchor(p, 0.0);
+        AnchorPane.setBottomAnchor(p, 0.0);
+        AnchorPane.setRightAnchor(p, 0.0);
+    }
 }
