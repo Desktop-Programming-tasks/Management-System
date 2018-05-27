@@ -45,9 +45,10 @@ public class DeskProjectServer {
 //            for(Person p: DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
 //                System.out.println(p);
 //            }
-            Product product = new Product("3", new Brand("AMD"), 204, "Processador Ryzen");
+            Product product = new Product("154153215415", new Brand("AMD"), 204, "Processador Ryzen");
             product.setQuantityInStock(300);
-            DAOBuilder.getInstance().getProductDAO().insertProduct(product);
+            //DAOBuilder.getInstance().getProductDAO().insertProduct(product);
+            DAOBuilder.getInstance().getProductDAO().removeProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -41,6 +41,7 @@ public class MySqlProductDAO extends ProductDAO {
     private static final String GET_ONE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE barCodeProduct=?";
+    private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
 
     @Override
     public void insertProduct(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
@@ -68,7 +69,12 @@ public class MySqlProductDAO extends ProductDAO {
 
     @Override
     public void removeProduct(Product product) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getProduct(product.getBarCode());
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, product.getBarCode());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override

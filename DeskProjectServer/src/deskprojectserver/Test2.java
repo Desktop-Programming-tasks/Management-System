@@ -48,7 +48,7 @@ public class Test2 {
             //for(Product product: DAOBuilder.getInstance().getProductDAO().getAllProducts()){
             //  System.out.println(product);
             //}
-            System.out.println(DAOBuilder.getInstance().getProductDAO().getProduct("3"));
+            //System.out.println(DAOBuilder.getInstance().getProductDAO().getProduct("3"));
         } catch (Exception e) {
             e.printStackTrace();
         }
