@@ -139,7 +139,7 @@ public abstract class PersonDAO {
         return suppliers;
     }
 
-    public void updatePerson(Person p) throws DatabaseErrorException, NoResultsException {
+    public void updatePerson(Person p) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
         basicUpdatePerson(p);
         addressDAO.updateAddress(p);
         if (p instanceof LegalPerson) {

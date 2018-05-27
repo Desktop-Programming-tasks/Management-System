@@ -8,6 +8,7 @@ package deskprojectserver.Database.DAO.Persons;
 import Classes.Persons.Employee;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public abstract class EmployeeDAO {
     public abstract void insertEmployee(Employee employee) throws DuplicatedEntryException,DatabaseErrorException;
-    public abstract void updateEmployee(Employee employee) throws DatabaseErrorException,NoResultsException;
+    public abstract void updateEmployee(Employee employee) throws DatabaseErrorException,NoResultsException, DuplicatedLoginException;
     public abstract void removeEmployee(Employee employee) throws DatabaseErrorException,NoResultsException ;
     public abstract Employee getEmployee(String id) throws DatabaseErrorException,NoResultsException ;
     public abstract ArrayList<Employee> getAllEmployees() throws DatabaseErrorException;
