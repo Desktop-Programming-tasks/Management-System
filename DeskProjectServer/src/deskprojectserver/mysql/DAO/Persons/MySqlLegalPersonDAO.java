@@ -26,6 +26,8 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
             + "VALUES (?,?)";
     private static final String GET_ONE_SQL = "SELECT `rgLegalPerson`, `Person_idPerson` "
             + "FROM `LegalPerson` WHERE Person_idPerson=?";
+    private static final String UPDATE_SQL = "UPDATE `LegalPerson` "
+            + "SET `rgLegalPerson`=? WHERE Person_idPerson=?";
     private static final String RG = "rgLegalPerson";
     private static final String ID = "Person_idPerson";
 
@@ -35,16 +37,22 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, lp.getRG(), lp.getCPF());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
 
     @Override
-    public void updateLegalPerson(LegalPerson lp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateLegalPerson(LegalPerson lp) throws NoResultsException, DatabaseErrorException {
+        getLegalPerson(lp.getId());
+        try{
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,lp.getRG(),lp.getId());
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
     }
-
+    
     @Override
     public void removeLegalPerson(LegalPerson lp) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
