@@ -70,17 +70,17 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return DAOBuilder.getInstance().getBrandDAO().getAllBrands();
     }
 
     @Override
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAOBuilder.getInstance().getBrandDAO().insertBrand(brand);
     }
 
     @Override
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAOBuilder.getInstance().getBrandDAO().removeBrand(brand);
     }
 
     @Override
