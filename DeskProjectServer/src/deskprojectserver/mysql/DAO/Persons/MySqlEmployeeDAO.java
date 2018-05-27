@@ -26,7 +26,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String LOGIN = "loginEmployee";
     private static final String PASSWORD = "passwordEmployee";
     private static final String EMP_TYPE = "EmployeeType_idEmployeeType";
-    private static final String ID="LegalPerson_Person_idPerson";
+    private static final String ID = "LegalPerson_Person_idPerson";
     private static final String INSERT_SQL = "INSERT INTO `Employee`(`loginEmployee`, "
             + "`passwordEmployee`, `EmployeeType_idEmployeeType`, "
             + "`LegalPerson_Person_idPerson`) "
@@ -39,6 +39,9 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             + "`Employee`";
     private static final String REMOVE_SQL = "DELETE FROM `Employee` "
             + "WHERE LegalPerson_Person_idPerson=?";
+    private static final String UPDATE_SQL = "UPDATE `Employee` "
+            + "SET `loginEmployee`=?,`passwordEmployee`=?"
+            + " WHERE LegalPerson_Person_idPerson=?";
 
     @Override
     public void insertEmployee(Employee employee) throws DatabaseErrorException, DuplicatedEntryException {
@@ -60,8 +63,14 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException {
+        getEmployee(employee.getId());
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
+                    employee.getLogin(), employee.getPassword(), employee.getId());
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
@@ -117,8 +126,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
-            //throw new DatabaseErrorException();
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
         return employees;
     }

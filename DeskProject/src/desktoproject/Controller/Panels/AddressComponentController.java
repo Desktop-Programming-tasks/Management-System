@@ -60,7 +60,7 @@ public class AddressComponentController implements Initializable {
     private Address address;
     
     private void fillScreen() {
-        setFields(address.getStreet(), String.valueOf(address.getNumber()), address.getBlock(), address.getCity(), address.getState());
+        setFields(address.getStreet(), String.valueOf(address.getNumber()), address.getDistrict(), address.getCity(), address.getState());
     }
     
     private void setAnchors(Parent p){
