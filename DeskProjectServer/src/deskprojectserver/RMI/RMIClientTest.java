@@ -15,6 +15,7 @@ import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import RMI.ServerMethods;
+import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -75,7 +76,12 @@ public class RMIClientTest {
             System.out.println("GetAllSuppliers");
             ArrayList<Supplier> suppliers = rmiChannel.queryAllSuppliers();
             suppliers.forEach(el -> System.out.println(el));
-            
+        
+            System.out.println("UPdate employee");
+            Employee empUp = new Employee("123567", "", EmployeeType.MANAGER, "123112", "batata atualizado", address, telephones, "employee");
+            DAOBuilder.getInstance().getPersonDAO().updatePerson(empUp);
+            ArrayList<Employee> employees2 = rmiChannel.queryAllEmployees();
+            employees2.forEach(el -> System.out.println(el));
         } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(RMIClientTest.class.getName()).log(Level.SEVERE, null, ex);
         }
