@@ -6,6 +6,7 @@
 package deskprojectserver.mysql.DAO.Persons;
 
 import Classes.Persons.Supplier;
+import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
@@ -16,21 +17,22 @@ import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-
 /**
  *
  * @author gabriel
  */
 public class MySqlSupplierDAO extends SupplierDAO {
-    
+
     private static final String INSERT_SQL = "INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
             + "VALUES (?)";
     private static final String GET_ONE_SQL
             = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier` "
             + "WHERE JuridicalPerson_Person_idPerson=?";
-    private static final String REMOVE_SQL="DELETE FROM `Supplier` "
+    private static final String REMOVE_SQL = "DELETE FROM `Supplier` "
             + "WHERE JuridicalPerson_Person_idPerson=?";
+    private static final String INSERT_SUPPLIER_BRAND_SQL = "INSERT INTO "
+            + "`Supplier_has_Brand`(`Supplier_JuridicalPerson_Person_idPerson`, "
+            + "`Brand_nameBrand`) VALUES (?,?)";
 
     @Override
     public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
@@ -40,6 +42,14 @@ public class MySqlSupplierDAO extends SupplierDAO {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
+        }
+        try {
+            for (Brand brand : supplier.getAvaliableBrands()) {
+                MySqlHandler.getInstance().getDb().
+                        execute(INSERT_SUPPLIER_BRAND_SQL,supplier.getId(),brand.getName());
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -51,10 +61,9 @@ public class MySqlSupplierDAO extends SupplierDAO {
     @Override
     public void removeSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException {
         getSupplier(supplier.getId());
-        try{
+        try {
             MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, supplier.getId());
-        }
-        catch(ClassNotFoundException | SQLException e){
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
