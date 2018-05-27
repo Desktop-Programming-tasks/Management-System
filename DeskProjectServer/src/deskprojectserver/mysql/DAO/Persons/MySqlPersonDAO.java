@@ -14,7 +14,6 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -39,6 +38,10 @@ public class MySqlPersonDAO extends PersonDAO {
 //            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
     private final static String GET_ALL_ID = "SELECT `idPerson` FROM `Person` WHERE 1";
 
+    private final static String UPDATE_SQL = "UPDATE `Person` SET"
+            + "`namePerson`=?,`tel1Person`=?,"
+            + "`tel2Person`=? WHERE idPerson=?";
+
     public MySqlPersonDAO() {
         super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
                 new MySqlLegalPersonDAO(), new MySqlJuridicaPersonDAO(),
@@ -59,7 +62,13 @@ public class MySqlPersonDAO extends PersonDAO {
 
     @Override
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+        MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getName(),
+                p.getTelephones().get(0),p.getTelephones().get(1),p.getId());
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
@@ -73,8 +82,8 @@ public class MySqlPersonDAO extends PersonDAO {
                     persons.add(getPerson(qr.getResultSet().getString(ID)));
                 } catch (NoResultsException e) {
                     //
-                } 
-           }
+                }
+            }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();

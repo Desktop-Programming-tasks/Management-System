@@ -43,11 +43,11 @@ public class Address implements Serializable{
         this.number = number;
     }
 
-    public String getBlock() {
+    public String getDistrict() {
         return block;
     }
 
-    public void setBlock(String block) {
+    public void setDistrict(String block) {
         this.block = block;
     }
 

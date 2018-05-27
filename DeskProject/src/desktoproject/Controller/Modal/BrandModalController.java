@@ -6,11 +6,17 @@
 package desktoproject.Controller.Modal;
 
 import Classes.Transactions.Brand;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,11 +34,11 @@ import javafx.scene.control.TextField;
  */
 public class BrandModalController implements Initializable {
 
-    private static final String brandModalPath = "desktoproject/View/Modal/BrandModal.fxml";
+    private static final String PATH = "desktoproject/View/Modal/BrandModal.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandModalController.class.getClassLoader().getResource(brandModalPath));
+        loader.setLocation(BrandModalController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         BrandModalController controller = loader.getController();
         controller.setUpComponents();
@@ -41,7 +47,7 @@ public class BrandModalController implements Initializable {
 
     public static Parent call(Object brand) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandModalController.class.getClassLoader().getResource(brandModalPath));
+        loader.setLocation(BrandModalController.class.getClassLoader().getResource(PATH));
 
         Parent p = loader.load();
         BrandModalController controller = loader.getController();
@@ -88,12 +94,21 @@ public class BrandModalController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            //alter the already created entry
+            Brand brand = new Brand(nameTextField.getText());
+            
             if (edit) {
 
-            } else {//create a new brand
-                Brand brand = new Brand(nameTextField.getText());
-                System.out.println(brand.toString());
+            } else {
+                try {
+                    BrandDAO.insertBrand(brand);
+                    GUIController.getInstance().showRegisterAlert("Marca");
+                    GUIController.getInstance().closeModal();
+                    
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    GUIController.getInstance().showConnectionErrorAlert();
+                } catch (DuplicatedEntryException ex) {
+                    GUIController.getInstance().showDupplicatedAlert("Marca", "nome");
+                }
             }
         }
     }

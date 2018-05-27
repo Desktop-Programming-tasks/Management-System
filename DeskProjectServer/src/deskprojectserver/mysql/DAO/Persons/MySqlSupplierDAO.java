@@ -23,6 +23,9 @@ import java.util.ArrayList;
  */
 public class MySqlSupplierDAO extends SupplierDAO {
 
+    private static final String BRAND = "Brand_nameBrand";
+    private static final String ID = "JuridicalPerson_Person_idPerson";
+
     private static final String INSERT_SQL = "INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
             + "VALUES (?)";
     private static final String GET_ONE_SQL
@@ -37,8 +40,8 @@ public class MySqlSupplierDAO extends SupplierDAO {
             + " FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
     private static final String GET_ALL_SQL = "SELECT `JuridicalPerson_Person_idPerson` "
             + "FROM `Supplier` WHERE 1";
-    private static final String BRAND = "Brand_nameBrand";
-    private static final String ID = "JuridicalPerson_Person_idPerson";
+    private static final String REMOVE_ONE_BRANDS_SQL = "DELETE "
+            + "FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
 
     @Override
     public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
@@ -55,13 +58,23 @@ public class MySqlSupplierDAO extends SupplierDAO {
                         execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
             }
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
     }
 
     @Override
-    public void updateSupplier(Supplier supplier) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException {
+        getSupplier(supplier.getId());
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_ONE_BRANDS_SQL, supplier.getId());
+            for (Brand brand : supplier.getAvaliableBrands()) {
+                MySqlHandler.getInstance().getDb().
+                        execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+
     }
 
     @Override
@@ -89,8 +102,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
                         getString(BRAND)));
             }
         } catch (ClassNotFoundException | SQLException e) {
-            //throw new DatabaseErrorException();
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
         if (sup == null) {
             throw new NoResultsException();
