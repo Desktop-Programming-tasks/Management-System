@@ -11,8 +11,11 @@ import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
+import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,11 +47,11 @@ import javafx.scene.layout.AnchorPane;
  */
 public class SupplierController implements Initializable {
 
-    private static final String panelSupplierPath = "desktoproject/View/Panels/Supplier.fxml";
+    private static final String PATH = "desktoproject/View/Panels/Supplier.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierController.class.getClassLoader().getResource(panelSupplierPath));
+        loader.setLocation(SupplierController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         SupplierController controller = loader.getController();
         controller.setAddressComponentObj(AddressComponentController.call());
@@ -60,7 +64,7 @@ public class SupplierController implements Initializable {
 
     public static Parent call(Object supplier) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelSupplierPath));
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
 
         SupplierController controller = loader.getController();
@@ -124,11 +128,11 @@ public class SupplierController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
-    private TableView<Brand> BrandsTable;
+    private TableView<Brand> brandsTable;
     @FXML
     private AnchorPane addressPane;
     @FXML
-    private TableColumn<Brand, String> BrandsColumn;
+    private TableColumn<Brand, String> nameColumn;
     @FXML
     private AnchorPane telephonePane;
 
@@ -137,21 +141,21 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        BrandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        BrandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        brandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        
+        populateTable();
     }
 
     //return all brands from database
     private void populateTable() {
-        //BrandsTable.setItems(FXCollections.observableArrayList(brands));
-//        ArrayList<Brand> brands2 = new ArrayList<>();
-//        brands2.add(new Brand("Brand 1"));
-//        brands2.add(new Brand("Brand 2"));
-//        brands2.add(new Brand("Brand 3"));
-//        brands2.add(new Brand("Brand 4"));
-//        brands2.add(new Brand("Brand 5"));
-//        brands2.add(new Brand("Brand 6"));
-//        BrandsTable.setItems(FXCollections.observableArrayList(brands2));
+        try {
+            brandsTable.setItems(FXCollections.observableArrayList(BrandDAO.queryAllBrands()));
+        } catch (RemoteException | DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } catch (NoResultsException ex) {
+            //
+        }
     }
 
     @FXML
@@ -159,7 +163,7 @@ public class SupplierController implements Initializable {
         if (validate()) {
             Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
             ArrayList<String> telephone = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-            ArrayList<Brand> brands = new ArrayList<>(BrandsTable.getSelectionModel().getSelectedItems());
+            ArrayList<Brand> brands = new ArrayList<>(brandsTable.getSelectionModel().getSelectedItems());
             Supplier supplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
 
             try {
@@ -187,7 +191,7 @@ public class SupplierController implements Initializable {
 
     @FXML
     private void createNewBrand() {
-
+        GUIController.getInstance().callModal(ModalType.BRAND_NEW);
     }
 
     private void setSupplier(Supplier supplier) {

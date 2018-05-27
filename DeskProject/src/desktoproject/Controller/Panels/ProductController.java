@@ -7,6 +7,7 @@ package desktoproject.Controller.Panels;
 
 import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import java.io.IOException;
 import java.net.URL;
@@ -131,7 +132,7 @@ public class ProductController implements Initializable {
     
     @FXML
     private void createNewBrand() {
-        
+        GUIController.getInstance().callModal(ModalType.BRAND_NEW);
     }
     
     public void setProduct(Product product) {

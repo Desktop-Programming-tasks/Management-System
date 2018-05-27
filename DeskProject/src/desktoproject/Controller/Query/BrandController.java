@@ -35,18 +35,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class BrandController implements Initializable {
 
-    private static final String brandControllerPath = "desktoproject/View/Query/Brand.fxml";
+    private static final String PATH = "desktoproject/View/Query/Brand.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandController.class.getClassLoader().getResource(brandControllerPath));
+        loader.setLocation(BrandController.class.getClassLoader().getResource(PATH));
         return loader.load();
     }
 
     @FXML
-    TableView<Brand> brandTable;
+    private TableView<Brand> brandTable;
     @FXML
-    TableColumn<Brand, String> nameColumn;
+    private TableColumn<Brand, String> nameColumn;
 
     /**
      * Initializes the controller class.
