@@ -9,6 +9,7 @@ import Classes.Enums.EmployeeType;
 import Classes.Persons.Employee;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
@@ -63,12 +64,15 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     }
 
     @Override
-    public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException {
+    public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
         getEmployee(employee.getId());
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     employee.getLogin(), employee.getPassword(), employee.getId());
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (MySQLIntegrityConstraintViolationException e){
+            throw new DuplicatedLoginException();
+        } 
+        catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
