@@ -42,6 +42,10 @@ public abstract class PersonDAO {
         return Globals.getInstance().getChannel().queryAllSuppliers();
     }
     
+    public static void updatePerson(Person person) throws RemoteException, DuplicatedLoginException, NoResultsException, DatabaseErrorException {
+        Globals.getInstance().getChannel().updatePerson(person);
+    }
+    
     public static void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
         Globals.getInstance().getChannel().deletePerson(person);
     }
