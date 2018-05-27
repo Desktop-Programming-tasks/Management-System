@@ -14,6 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import RMI.ServerMethods;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.AlreadyBoundException;
@@ -63,8 +64,8 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
+        DAOBuilder.getInstance().getPersonDAO().removePerson(person);
     }
 
     @Override
@@ -149,11 +150,11 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public ArrayList<String> queryStates() throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getlDAO().getStates();
+        return DAOBuilder.getInstance().getLocationsDAO().getStates();
     }
 
     @Override
     public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getlDAO().getCities(state);
+        return DAOBuilder.getInstance().getLocationsDAO().getCities(state);
     }
 }

@@ -5,12 +5,9 @@
  */
 package deskprojectserver;
 
-import Classes.Persons.Address;
-import Classes.Persons.JuridicalPerson;
 import Classes.Persons.Person;
-import Classes.Transactions.Brand;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
-import java.util.ArrayList;
+
 
 /**
  *
@@ -23,8 +20,9 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            Brand brand = DAOBuilder.getInstance().getbDAO().getBrand("8");
-            System.out.println(brand);
+            for(Person p : DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
+                System.out.println(p);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -29,11 +29,11 @@ public class DAOBuilder {
         return pDAO;
     }
 
-    public LocationsDAO getlDAO() {
+    public LocationsDAO getLocationsDAO() {
         return lDAO;
     }
 
-    public BrandDAO getbDAO() {
+    public BrandDAO getBrandDAO() {
         return bDAO;
     }
         
