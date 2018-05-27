@@ -153,6 +153,7 @@ public class EmployeeController implements Initializable {
                 } else {
                     PersonDAO.insertPerson(newEmployee);
                     GUIController.getInstance().showRegisterAlert("Funcionário");
+                    GUIController.getInstance().backToIndex();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();

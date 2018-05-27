@@ -8,9 +8,11 @@ package desktoproject.Controller.Query;
 import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
+import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -62,18 +66,22 @@ public class PersonController implements Initializable {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
+                deleteBtn.setVisible(false);
                 break;
             }
             case EMPLOYEE: {
                 mainLabel.setText("Consulta de Funcionários");
                 personDocColumn.setText("CPF");
+                deleteBtn.setVisible(true);
                 break;
             }
         }
     }
     
-    @FXML 
+    @FXML
     private Label mainLabel;
+    @FXML
+    private Button deleteBtn;
     @FXML
     private TableView<Person> personTable;
     @FXML
@@ -107,12 +115,35 @@ public class PersonController implements Initializable {
     
     @FXML
     private void createNew(){
-        
+        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
     }
     
     @FXML
     private void detailsPerson(){
-        
+        Person person = personTable.getSelectionModel().getSelectedItem();
+        if(person==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, person);
+        }
+    }
+    
+    @FXML
+    private void delete(){
+        Person person = personTable.getSelectionModel().getSelectedItem();
+        if(person==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            try {
+                PersonDAO.deletePerson(person);
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showDeleteError();
+            } catch (OperationNotAllowed ex) {
+                GUIController.getInstance().showOperationNotAllowed();
+            }
+        }
     }
     
     @FXML
