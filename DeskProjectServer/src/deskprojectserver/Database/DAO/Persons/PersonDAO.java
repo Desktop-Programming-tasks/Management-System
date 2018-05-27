@@ -124,4 +124,9 @@ public abstract class PersonDAO {
     protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
+
+    public AddressDAO getAddressDAO() {
+        return addressDAO;
+    }
+    
 }

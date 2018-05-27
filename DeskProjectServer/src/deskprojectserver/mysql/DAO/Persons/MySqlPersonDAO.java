@@ -16,7 +16,6 @@ import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author gabriel
@@ -34,6 +33,8 @@ public class MySqlPersonDAO extends PersonDAO {
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idPerson=?";
+    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
+            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
 
     public MySqlPersonDAO() {
         super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
@@ -57,10 +58,33 @@ public class MySqlPersonDAO extends PersonDAO {
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public ArrayList<Person> getAllPersons() throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Person> persons = new ArrayList<>();
+
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            while (qr.getResultSet().next()) {
+                ArrayList<String> telephones = new ArrayList<>();
+                telephones.add(qr.getResultSet().getString(TEL_1));
+                telephones.add(qr.getResultSet().getString(TEL_2));
+                Person p;
+                p = new Person(qr.getResultSet().getString(NAME),null,
+                telephones,qr.getResultSet().getString(ID)) {};
+                try{
+                    p.setAddress(super.getAddressDAO().getAddress(p));
+                }
+                catch(DatabaseErrorException | NoResultsException e){
+                    //
+                }
+                persons.add(p);
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        return persons;
     }
 
     @Override
@@ -88,4 +112,3 @@ public class MySqlPersonDAO extends PersonDAO {
     }
 
 }
-

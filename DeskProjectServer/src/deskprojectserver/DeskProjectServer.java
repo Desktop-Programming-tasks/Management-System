@@ -5,15 +5,9 @@
  */
 package deskprojectserver;
 
-import Classes.Enums.EmployeeType;
-import Classes.Persons.Address;
-import Classes.Persons.Employee;
-import Classes.Persons.JuridicalPerson;
 import Classes.Persons.Person;
-import Classes.Persons.Supplier;
-import Classes.Transactions.Brand;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
-import java.util.ArrayList;
+
 
 /**
  *
@@ -26,8 +20,9 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            Supplier emp = new Supplier(null, null, null, null, "252");
-            DAOBuilder.getInstance().getPersonDAO().removePerson(emp);
+            for(Person p : DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
+                System.out.println(p);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

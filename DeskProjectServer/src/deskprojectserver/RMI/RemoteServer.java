@@ -149,11 +149,11 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public ArrayList<String> queryStates() throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getlDAO().getStates();
+        return DAOBuilder.getInstance().getLocationsDAO().getStates();
     }
 
     @Override
     public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getlDAO().getCities(state);
+        return DAOBuilder.getInstance().getLocationsDAO().getCities(state);
     }
 }
