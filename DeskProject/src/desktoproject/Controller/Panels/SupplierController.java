@@ -168,6 +168,7 @@ public class SupplierController implements Initializable {
                 } else {
                     PersonDAO.insertPerson(supplier);
                     GUIController.getInstance().showRegisterAlert("Fornecedor");
+                    GUIController.getInstance().backToIndex();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();

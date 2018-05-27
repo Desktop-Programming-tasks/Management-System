@@ -123,11 +123,11 @@ public class GUIController {
         if(!back){
             executionStack.push(new ScreenCall(type, obj));
         }
-        System.out.println("\nExecution stack");
-        for(ScreenCall sc : executionStack){
-            System.out.println("Screen: "+sc.getScreen().name());
-            System.out.println("Obj: "+sc.getObj());
-        }
+//        System.out.println("\nExecution stack");
+//        for(ScreenCall sc : executionStack){
+//            System.out.println("Screen: "+sc.getScreen().name());
+//            System.out.println("Obj: "+sc.getObj());
+//        }
         if(!isMenu){
             setMenuScreen();
         }
@@ -321,6 +321,18 @@ public class GUIController {
 //        showRegisterAlert(personType, idName+" já utilizado");
     }
     
+    public void showSelectionErrorAlert(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro de seleção", "Nenhuma entrada selecionada");
+    }
+    
+    public void showDeleteError(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro de exclusão", "Entrada não encontrada");
+    }
+    
+    public void showOperationNotAllowed(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro de operação", "Operação não permitida");
+    }
+    
     public void closeModal() {
         modalStage.close();
     }
@@ -329,6 +341,11 @@ public class GUIController {
         executionStack.pop();
         ScreenCall obj = executionStack.peek();
         callScreen(obj.getScreen(),obj.getObj(),true);
+    }
+    
+    public void backToIndex(){
+        executionStack.clear();
+        callScreen(ScreenType.INDEX);
     }
     
     public void testScreen() {
@@ -347,7 +364,7 @@ public class GUIController {
         LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
         Employee employee = new Employee("login test", "password", EmployeeType.COMMOM, "87854", "employee of the month", address, telephones, "498431");
         Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
-        ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+        ArrayList<Transaction> transactions = new ArrayList<>();
         transactions.add(testProduct);
         transactions.add(service);
         
