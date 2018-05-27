@@ -179,6 +179,7 @@ public class CustomerController implements Initializable {
                 }else{
                     PersonDAO.insertPerson(person);
                     GUIController.getInstance().showRegisterAlert("Cliente");
+                    GUIController.getInstance().backToIndex();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
