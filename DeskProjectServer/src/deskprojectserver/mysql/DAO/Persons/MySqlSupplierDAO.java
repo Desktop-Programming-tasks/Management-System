@@ -23,11 +23,13 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class MySqlSupplierDAO extends SupplierDAO {
-
+    
     private static final String INSERT_SQL = "INSERT INTO `Supplier`(`JuridicalPerson_Person_idPerson`) "
             + "VALUES (?)";
     private static final String GET_ONE_SQL
             = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier` "
+            + "WHERE JuridicalPerson_Person_idPerson=?";
+    private static final String REMOVE_SQL="DELETE FROM `Supplier` "
             + "WHERE JuridicalPerson_Person_idPerson=?";
 
     @Override
@@ -47,8 +49,14 @@ public class MySqlSupplierDAO extends SupplierDAO {
     }
 
     @Override
-    public void removeSupplier(Supplier supplier) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException {
+        getSupplier(supplier.getId());
+        try{
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, supplier.getId());
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override

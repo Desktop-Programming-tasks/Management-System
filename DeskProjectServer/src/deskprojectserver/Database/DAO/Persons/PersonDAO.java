@@ -14,6 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import java.util.ArrayList;
 
 /**
@@ -65,10 +66,9 @@ public abstract class PersonDAO {
                 throw e;
             }
         }
-        try{
-        addressDAO.insertAddress(p);
-        }
-        catch(DatabaseErrorException e){
+        try {
+            addressDAO.insertAddress(p);
+        } catch (DatabaseErrorException e) {
             throw e;
         }
     }
@@ -102,6 +102,18 @@ public abstract class PersonDAO {
             } catch (NoResultsException f) {
                 throw f;
             }
+        }
+    }
+    
+    public void removePerson(Person p) throws DatabaseErrorException, NoResultsException, OperationNotAllowed {
+        if (p instanceof Employee) {
+            employeeDAO.removeEmployee((Employee) p);
+        }
+        else if(p instanceof Supplier){
+            supplierDAO.removeSupplier((Supplier) p);
+        }
+        else{
+            throw new OperationNotAllowed();
         }
     }
 
