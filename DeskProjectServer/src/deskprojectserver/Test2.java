@@ -32,9 +32,9 @@ public class Test2 {
                     "Gabriel", address, telephones, "251");
             ArrayList<Brand> brands = new ArrayList<>();
             brands.add(new Brand("AMD"));
-            brands.add(new Brand("NVIDIA"));
-            brands.add(new Brand("Intel"));
-            Supplier sup = new Supplier(brands, "Supplier", address, telephones, "21");
+            //brands.add(new Brand("NVIDI1A"));
+            //brands.add(new Brand("Intel12"));
+            Supplier sup = new Supplier(brands, "Supplier", address, telephones, "12111");
             
             JuridicalPerson jp = new JuridicalPerson("Teste Again", address, telephones, "25213");
             

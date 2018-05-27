@@ -31,8 +31,9 @@ public class MySqlSupplierDAO extends SupplierDAO {
     private static final String REMOVE_SQL = "DELETE FROM `Supplier` "
             + "WHERE JuridicalPerson_Person_idPerson=?";
     private static final String INSERT_SUPPLIER_BRAND_SQL = "INSERT INTO "
-            + "`Supplier_has_Brand`(`Supplier_JuridicalPerson_Person_idPerson`, "
+            + "`Brand_has_Supplier`(`Supplier_JuridicalPerson_Person_idPerson`, "
             + "`Brand_nameBrand`) VALUES (?,?)";
+    
 
     @Override
     public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
