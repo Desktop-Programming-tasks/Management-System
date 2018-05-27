@@ -64,6 +64,11 @@ public class RemoteServer implements ServerMethods {
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
         DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
     }
+    
+    @Override
+    public void updatePerson(Person person) throws RemoteException, DatabaseErrorException, DuplicatedLoginException, NoResultsException {
+        DAOBuilder.getInstance().getPersonDAO().updatePerson(person);
+    }
 
     @Override
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
