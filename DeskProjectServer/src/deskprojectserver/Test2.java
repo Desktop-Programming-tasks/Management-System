@@ -30,13 +30,17 @@ public class Test2 {
             
             Employee emp = new Employee("Teste", "1234", EmployeeType.MANAGER, "15",
                     "Gabriel", address, telephones, "251");
+            ArrayList<Brand> brands = new ArrayList<>();
+            brands.add(new Brand("AMD"));
+            //brands.add(new Brand("NVIDI1A"));
+            //brands.add(new Brand("Intel12"));
+            Supplier sup = new Supplier(brands, "Supplier", address, telephones, "12111");
             
-            Supplier sup = new Supplier(null, "Supplier", address, telephones, "252");
-            
-            JuridicalPerson jp = new JuridicalPerson("Teste Again", address, telephones, "253");
+            JuridicalPerson jp = new JuridicalPerson("Teste Again", address, telephones, "25213");
             
             LegalPerson lp = new LegalPerson("15", "batatao", address, telephones, "254");
-            //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
+            DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
+            //DAOBuilder.getInstance().getPersonDAO().removePerson(sup);
         } catch (Exception e) {
             e.printStackTrace();
         }

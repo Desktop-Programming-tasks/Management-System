@@ -25,11 +25,10 @@ import java.util.ArrayList;
  */
 public interface ServerMethods extends Remote {
     public Person queryPerson(String id) throws RemoteException, NoResultsException, DatabaseErrorException;
-    public ArrayList<Person> querryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException;
+    public ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed;
     
-    public Brand queryBrand() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException;

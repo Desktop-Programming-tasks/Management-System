@@ -67,7 +67,7 @@ public class RMIClientTest {
             
             
             //System.out.println("GetAll");
-            //ArrayList<Person> persons = rmiChannel.querryAllPersons();
+            //ArrayList<Person> persons = rmiChannel.queryAllPersons();
             //System.out.println(persons);
             
         } catch (RemoteException | NotBoundException ex) {

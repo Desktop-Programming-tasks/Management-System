@@ -29,7 +29,7 @@ public abstract class PersonDAO {
     }
     
     public static ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
-        return Globals.getInstance().getChannel().querryAllPersons();
+        return Globals.getInstance().getChannel().queryAllPersons();
     }
     
     public static void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {

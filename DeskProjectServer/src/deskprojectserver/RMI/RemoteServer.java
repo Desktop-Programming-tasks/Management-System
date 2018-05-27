@@ -54,7 +54,7 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public ArrayList<Person> querryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+    public ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getAllPersons();
     }
 
@@ -66,11 +66,6 @@ public class RemoteServer implements ServerMethods {
     @Override
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
         DAOBuilder.getInstance().getPersonDAO().removePerson(person);
-    }
-
-    @Override
-    public Brand queryBrand() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
