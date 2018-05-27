@@ -5,7 +5,9 @@
  */
 package deskprojectserver;
 
+import Classes.Enums.EmployeeType;
 import Classes.Persons.Address;
+import Classes.Persons.Employee;
 import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
@@ -29,10 +31,10 @@ public class DeskProjectServer {
             ArrayList<String> telephones = new ArrayList<>();
             telephones.add("43 3528 2515");
             telephones.add("45 3528 2524");
-            LegalPerson lp = new LegalPerson("15", "batatao", address, telephones, "254");
-            LegalPerson lpu= new LegalPerson("20", "batatao atualizado", address, telephones, "254");
-            //DAOBuilder.getInstance().getPersonDAO().insertPerson(lp);
-            DAOBuilder.getInstance().getPersonDAO().updatePerson(lpu);
+            Employee emp = new Employee("login update", "12345", EmployeeType.MANAGER, "95",
+                    "Gabriel de Abreu", address, telephones, "func cpf");
+            //DAOBuilder.getInstance().getPersonDAO().insertPerson(emp);
+            DAOBuilder.getInstance().getPersonDAO().updatePerson(emp);
         } catch (Exception e) {
             e.printStackTrace();
         }
