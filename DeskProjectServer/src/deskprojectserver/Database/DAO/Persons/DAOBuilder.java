@@ -6,9 +6,11 @@
 package deskprojectserver.Database.DAO.Persons;
 
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
+import deskprojectserver.Database.DAO.Transactions.ProductDAO;
 import deskprojectserver.mysql.Commons.MySqlBrandDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlLocationsDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
+import deskprojectserver.mysql.DAO.Transactions.MySqlProductDAO;
 
 /**
  *
@@ -18,11 +20,13 @@ public class DAOBuilder {
     private final PersonDAO pDAO;
     private final LocationsDAO lDAO;
     private final BrandDAO bDAO;
+    private final ProductDAO productDAO;
     
     private DAOBuilder() {
         pDAO= new MySqlPersonDAO();
         lDAO= new MySqlLocationsDAO();
         bDAO= new MySqlBrandDAO();
+        productDAO= new MySqlProductDAO();
     }
 
     public PersonDAO getPersonDAO() {
@@ -40,6 +44,11 @@ public class DAOBuilder {
     public static DAOBuilder getInstance() {
         return DAOBuilderHolder.INSTANCE;
     }
+
+    public ProductDAO getProductDAO() {
+        return productDAO;
+    }
+    
     
     private static class DAOBuilderHolder {
 

@@ -26,6 +26,8 @@ public class MySqlBrandDAO extends BrandDAO {
     private static final String GET_ALL_SQL = "SELECT `nameBrand` "
             + "FROM `Brand` WHERE 1";
     private static final String NAME = "nameBrand";
+    private static final String CHECK_SQL = "SELECT `nameBrand` "
+            + "FROM `Brand` WHERE nameBrand=?";
 
     @Override
     public void insertBrand(Brand brand) throws DatabaseErrorException, DuplicatedEntryException {
@@ -61,6 +63,20 @@ public class MySqlBrandDAO extends BrandDAO {
             throw new DatabaseErrorException();
         }
         return brands;
+    }
+
+    @Override
+    public void checkIfExists(Brand brand) throws DatabaseErrorException, NoResultsException {
+        try {
+            QueryResult qr = MySqlHandler.getInstance().
+                    getDb().query(CHECK_SQL, brand.getName());
+            while(qr.getResultSet().next()){
+                return;
+            }
+            throw new NoResultsException();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
     }
 
 }

@@ -12,6 +12,7 @@ import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
+import Classes.Transactions.Product;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlSupplierDAO;
@@ -29,21 +30,24 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            ArrayList<Brand> brands = new ArrayList<>();
-            //brands.add(new Brand("AMD"));
-            brands.add(new Brand("NVIDIA"));
-            Address address = new Address("Teste fuck", 1074, "whatever atualizado", "Acajutiba", "Bahia");
-            ArrayList<String> telephones = new ArrayList<>();
-            telephones.add("43 3528 2515");
-            telephones.add("45 3528 2524");
-            Employee emp = new Employee("login update", "12345", EmployeeType.MANAGER, "95",
-                    "Gabriel de Abreu", address, telephones, "func cpf");
-            Supplier sup = new Supplier(brands, "Fornecedor fuck", address, telephones, "2424");
-            //DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
-            DAOBuilder.getInstance().getPersonDAO().updatePerson(sup);
-            for(Person p: DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
-                System.out.println(p);
-            }
+//            ArrayList<Brand> brands = new ArrayList<>();
+//            //brands.add(new Brand("AMD"));
+//            brands.add(new Brand("NVIDIA"));
+//            Address address = new Address("Teste fuck", 1074, "whatever atualizado", "Acajutiba", "Bahia");
+//            ArrayList<String> telephones = new ArrayList<>();
+//            telephones.add("43 3528 2515");
+//            telephones.add("45 3528 2524");
+//            Employee emp = new Employee("login update", "12345", EmployeeType.MANAGER, "95",
+//                    "Gabriel de Abreu", address, telephones, "func cpf");
+//            Supplier sup = new Supplier(brands, "Fornecedor fuck", address, telephones, "2424");
+//            //DAOBuilder.getInstance().getPersonDAO().insertPerson(sup);
+//            DAOBuilder.getInstance().getPersonDAO().updatePerson(sup);
+//            for(Person p: DAOBuilder.getInstance().getPersonDAO().getAllPersons()){
+//                System.out.println(p);
+//            }
+            Product product = new Product("3", new Brand("AMD"), 204, "Processador Ryzen");
+            product.setQuantityInStock(300);
+            DAOBuilder.getInstance().getProductDAO().insertProduct(product);
         } catch (Exception e) {
             e.printStackTrace();
         }

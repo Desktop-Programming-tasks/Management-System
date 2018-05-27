@@ -23,5 +23,6 @@ public abstract class BrandDAO {
 
     public abstract void removeBrand(Brand brand) throws DatabaseErrorException, NoResultsException;
     
+    public abstract void checkIfExists(Brand brand) throws DatabaseErrorException,NoResultsException;
     public abstract ArrayList<Brand> getAllBrands() throws DatabaseErrorException;
 }

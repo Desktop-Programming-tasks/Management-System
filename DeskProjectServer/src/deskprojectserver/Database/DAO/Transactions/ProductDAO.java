@@ -6,6 +6,10 @@
 package deskprojectserver.Database.DAO.Transactions;
 
 import Classes.Transactions.Product;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
+import Exceptions.UnavailableBrandException;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +17,14 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class ProductDAO {
-    public abstract void insertProduct(Product product) throws Exception;
-    public abstract void updateProduct(Product product) throws Exception;
-    public abstract void removeProduct(Product product) throws Exception;
-    public abstract Product getProduct(String id) throws Exception;
-    public abstract ArrayList<Product> getAllProducts() throws Exception;               
+
+    public abstract void insertProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, DuplicatedEntryException;
+
+    public abstract void updateProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, NoResultsException;
+
+    public abstract void removeProduct(Product product) throws DatabaseErrorException, NoResultsException;
+
+    public abstract Product getProduct(String id) throws DatabaseErrorException, NoResultsException;
+
+    public abstract ArrayList<Product> getAllProducts() throws DatabaseErrorException;
 }
