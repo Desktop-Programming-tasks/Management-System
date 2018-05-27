@@ -5,13 +5,21 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Persons.Person;
+import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,11 +74,11 @@ public class PersonController implements Initializable {
     @FXML 
     private Label mainLabel;
     @FXML
-    private TableView PersonTable;
+    private TableView<Person> personTable;
     @FXML
-    private TableColumn personDocColumn;
+    private TableColumn<Person,String> personDocColumn;
     @FXML
-    private TableColumn personNameColumn;
+    private TableColumn<Person,String> personNameColumn;
     @FXML
     private TextField searchTextField;
 
@@ -79,7 +87,18 @@ public class PersonController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        populateTable();
+    }
+    
+    private void populateTable(){
+        try {
+            personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+            System.out.println(ex.getMessage());
+        } catch (NoResultsException ex) {
+            //
+        }
     }
     
     @FXML
