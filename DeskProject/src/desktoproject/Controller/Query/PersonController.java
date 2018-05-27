@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 
@@ -87,6 +88,9 @@ public class PersonController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        personDocColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
         populateTable();
     }
     
