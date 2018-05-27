@@ -31,11 +31,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-
 
 /**
  * FXML Controller class
@@ -43,10 +42,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author noda
  */
 public class PersonController implements Initializable {
-    
+
     private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
-    
-    public static Parent call(PersonQueryType type) throws IOException{
+
+    public static Parent call(PersonQueryType type) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(PersonController.class.getClassLoader().getResource(personControllerPath));
         Parent p = loader.load();
@@ -55,15 +54,15 @@ public class PersonController implements Initializable {
         controller.setUpComponents();
         return p;
     }
-    
+
     private PersonQueryType type;
-    
+
     private void setType(PersonQueryType type) {
         this.type = type;
     }
-    
+
     private void setUpComponents() {
-        switch(type) {
+        switch (type) {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
@@ -77,8 +76,9 @@ public class PersonController implements Initializable {
                 break;
             }
         }
+        populateTable();
     }
-    
+
     @FXML
     private Label mainLabel;
     @FXML
@@ -86,9 +86,9 @@ public class PersonController implements Initializable {
     @FXML
     private TableView<Person> personTable;
     @FXML
-    private TableColumn<Person,String> personDocColumn;
+    private TableColumn<Person, String> personDocColumn;
     @FXML
-    private TableColumn<Person,String> personNameColumn;
+    private TableColumn<Person, String> personNameColumn;
     @FXML
     private TextField searchTextField;
 
@@ -99,55 +99,71 @@ public class PersonController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         personDocColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
-        populateTable();
     }
-    
-    private void populateTable(){
+
+    private void setTableAction() {
+        personTable.setRowFactory(tv -> {
+            TableRow<Person> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Person person = row.getItem();
+                    if (type == PersonQueryType.CUSTOMER) {
+                        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, person);
+                    } else {
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, person);
+                    }
+                }
+            });
+            return row;
+        });
+    }
+
+    private void populateTable() {
         try {
-            if(type == PersonQueryType.CUSTOMER){
+            if (type == PersonQueryType.CUSTOMER) {
+                System.out.println(PersonDAO.queryAllPersons());
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
-            }else{
+            } else {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
             }
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
         } catch (NoResultsException ex) {
             //
         }
     }
-    
+
     @FXML
-    private void createNew(){
+    private void createNew() {
         GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
     }
-    
+
     @FXML
-    private void detailsPerson(){
+    private void detailsPerson() {
         Person person = personTable.getSelectionModel().getSelectedItem();
-        if(person==null){
+        if (person == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
-            if(type == PersonQueryType.CUSTOMER){
+        } else {
+            if (type == PersonQueryType.CUSTOMER) {
                 GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, person);
-            }else{
+            } else {
                 GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, person);
             }
         }
     }
-    
+
     @FXML
-    private void delete(){
+    private void delete() {
         Person person = personTable.getSelectionModel().getSelectedItem();
-        if(person==null){
+        if (person == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             try {
-                if(GUIController.getInstance().showEraseConfirmationAlert(person.getName())){
+                if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
                     PersonDAO.deletePerson(person);
                 }
-            } catch (RemoteException|DatabaseErrorException ex) {
+            } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {
                 GUIController.getInstance().showDeleteError();
@@ -156,9 +172,9 @@ public class PersonController implements Initializable {
             }
         }
     }
-    
+
     @FXML
-    public void back(){
+    public void back() {
         GUIController.getInstance().backToPrevious();
     }
 }

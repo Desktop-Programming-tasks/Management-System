@@ -66,6 +66,8 @@ public class QuerySupplierController implements Initializable {
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("brands"));
         
         populateTable();
+        
+        setTableAction();
     }
     
     public void populateTable(){
@@ -99,11 +101,17 @@ public class QuerySupplierController implements Initializable {
     
     @FXML
     private void createNew() {
-        
+        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_CREATE);
     }
     
     @FXML
     private void editSupplier() {
-        
+        Supplier supplier = suppliersTable.getSelectionModel().getSelectedItem();
+        if(supplier==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            System.out.println(supplier.toString());
+            GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, supplier);
+        }
     }
 }

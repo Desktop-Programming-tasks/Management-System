@@ -23,8 +23,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -109,20 +107,26 @@ public class SupplierController implements Initializable {
     private void fillScreen() {
         nameTextField.setText(supplier.getName());
         CNPJTextField.setText(supplier.getCNPJ());
-        telTextField.setText(supplier.getTelephones().get(0));
-        if (supplier.getTelephones().get(1) != null) {
-            secTelTextField.setText(supplier.getTelephones().get(1));
+        
+        selectSupplierBrands();
+    }
+    
+    private void selectSupplierBrands(){
+        ArrayList<Brand> brands = new ArrayList<>(brandsTable.getItems());
+        
+        for(Brand tableBrand : brands){
+            for(Brand supplierBrand : supplier.getAvaliableBrands()){
+                if(tableBrand.getName().equals(supplierBrand.getName())){
+                    brandsTable.getSelectionModel().select(tableBrand);
+                }
+            }
         }
     }
-
+    
     @FXML
     private TextField nameTextField;
     @FXML
     private TextField CNPJTextField;
-    @FXML
-    private TextField telTextField;
-    @FXML
-    private TextField secTelTextField;
     @FXML
     private Label mainLabel;
     @FXML
