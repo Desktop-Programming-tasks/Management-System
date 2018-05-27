@@ -35,8 +35,9 @@ public class MySqlPersonDAO extends PersonDAO {
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idPerson=?";
-    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
-            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
+//    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
+//            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
+    private final static String GET_ALL_ID = "SELECT `idPerson` FROM `Person` WHERE 1";
 
     public MySqlPersonDAO() {
         super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
@@ -66,21 +67,14 @@ public class MySqlPersonDAO extends PersonDAO {
         ArrayList<Person> persons = new ArrayList<>();
 
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_ID);
             while (qr.getResultSet().next()) {
-                ArrayList<String> telephones = new ArrayList<>();
-                telephones.add(qr.getResultSet().getString(TEL_1));
-                telephones.add(qr.getResultSet().getString(TEL_2));
-                Person p;
-                p = new BasicPerson(qr.getResultSet().getString(NAME), null,
-                        telephones, qr.getResultSet().getString(ID));
                 try {
-                    p.setAddress(super.getAddressDAO().getAddress(p));
-                } catch (DatabaseErrorException | NoResultsException e) {
+                    persons.add(getPerson(qr.getResultSet().getString(ID)));
+                } catch (NoResultsException e) {
                     //
-                }
-                persons.add(p);
-            }
+                } 
+           }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
@@ -90,7 +84,8 @@ public class MySqlPersonDAO extends PersonDAO {
 
     @Override
     public Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException {
-        Person p = new Person(null, null, null, id){};
+        Person p = new Person(null, null, null, id) {
+        };
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
             ArrayList<String> tels = new ArrayList<>();
@@ -109,13 +104,5 @@ public class MySqlPersonDAO extends PersonDAO {
             throw new NoResultsException();
         }
         return p;
-    }
-
-    private class BasicPerson extends Person implements Serializable{
-
-        public BasicPerson(String name, Address address, ArrayList<String> telephones, String Id) {
-            super(name, address, telephones, Id);
-        }
-
     }
 }
