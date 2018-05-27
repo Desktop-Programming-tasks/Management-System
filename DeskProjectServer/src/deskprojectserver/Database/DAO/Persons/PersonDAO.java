@@ -140,6 +140,29 @@ public abstract class PersonDAO {
         return suppliers;
     }
 
+    public void updatePerson(Person p) throws DatabaseErrorException, NoResultsException {
+        basicUpdatePerson(p);
+        if (p instanceof LegalPerson) {
+            legalPersonDAO.updateLegalPerson((LegalPerson) p);
+            if (p instanceof Employee) {
+                try {
+                    employeeDAO.updateEmployee((Employee) p);
+                } catch (NoResultsException e) {
+                    //Não é funcionário
+                }
+            }
+        } else if (p instanceof JuridicalPerson) {
+            juridicalDAO.updateJuridicalPerson((JuridicalPerson) p);
+            if (p instanceof Supplier) {
+                try {
+                    supplierDAO.updateSupplier((Supplier) p);
+                } catch (NoResultsException e) {
+                    //Não é supplier
+                }
+            }
+        }
+    }
+
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
