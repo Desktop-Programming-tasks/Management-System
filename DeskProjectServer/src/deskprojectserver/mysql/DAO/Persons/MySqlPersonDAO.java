@@ -5,6 +5,7 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
+import Classes.Persons.Address;
 import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
@@ -13,6 +14,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -70,12 +72,11 @@ public class MySqlPersonDAO extends PersonDAO {
                 telephones.add(qr.getResultSet().getString(TEL_1));
                 telephones.add(qr.getResultSet().getString(TEL_2));
                 Person p;
-                p = new Person(qr.getResultSet().getString(NAME),null,
-                telephones,qr.getResultSet().getString(ID)) {};
-                try{
+                p = new BasicPerson(qr.getResultSet().getString(NAME), null,
+                        telephones, qr.getResultSet().getString(ID));
+                try {
                     p.setAddress(super.getAddressDAO().getAddress(p));
-                }
-                catch(DatabaseErrorException | NoResultsException e){
+                } catch (DatabaseErrorException | NoResultsException e) {
                     //
                 }
                 persons.add(p);
@@ -89,8 +90,7 @@ public class MySqlPersonDAO extends PersonDAO {
 
     @Override
     public Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException {
-        Person p = new Person(null, null, null, id) {
-        };
+        Person p = new Person(null, null, null, id){};
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
             ArrayList<String> tels = new ArrayList<>();
@@ -111,4 +111,11 @@ public class MySqlPersonDAO extends PersonDAO {
         return p;
     }
 
+    private class BasicPerson extends Person implements Serializable{
+
+        public BasicPerson(String name, Address address, ArrayList<String> telephones, String Id) {
+            super(name, address, telephones, Id);
+        }
+
+    }
 }
