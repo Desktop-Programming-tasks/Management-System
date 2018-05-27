@@ -126,8 +126,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
-            //throw new DatabaseErrorException();
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
         return employees;
     }

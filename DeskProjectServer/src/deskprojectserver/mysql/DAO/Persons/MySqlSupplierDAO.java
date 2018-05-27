@@ -58,7 +58,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
                         execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
             }
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
     }
 
@@ -72,8 +72,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
                         execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
             }
         } catch (ClassNotFoundException | SQLException e) {
-            
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
 
     }

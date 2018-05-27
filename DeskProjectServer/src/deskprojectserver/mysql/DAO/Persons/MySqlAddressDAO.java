@@ -66,7 +66,7 @@ public class MySqlAddressDAO extends AddressDAO {
                     temp.getStreet(), temp.getNumber(), temp.getDistrict(), temp.getCity(),
                     temp.getState(),person.getId());
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseErrorException();
         }
     }
 
