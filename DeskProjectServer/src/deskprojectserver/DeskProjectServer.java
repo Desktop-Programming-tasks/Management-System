@@ -11,7 +11,6 @@ import deskprojectserver.Database.DAO.Persons.SupplierDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlSupplierDAO;
 import deskprojectserver.mysql.MySqlHandler;
 
-
 /**
  *
  * @author gabriel
@@ -23,8 +22,9 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            System.out.println(DAOBuilder.getInstance().getPersonDAO().getPerson("211"));
-            System.out.println(DAOBuilder.getInstance().getPersonDAO().getPerson("211").getId());
+            for (Person p : DAOBuilder.getInstance().getPersonDAO().getAllSuppliers()) {
+                System.out.println(p);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -26,7 +26,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String LOGIN = "loginEmployee";
     private static final String PASSWORD = "passwordEmployee";
     private static final String EMP_TYPE = "EmployeeType_idEmployeeType";
-
+    private static final String ID="LegalPerson_Person_idPerson";
     private static final String INSERT_SQL = "INSERT INTO `Employee`(`loginEmployee`, "
             + "`passwordEmployee`, `EmployeeType_idEmployeeType`, "
             + "`LegalPerson_Person_idPerson`) "
@@ -82,7 +82,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                 return new Employee(qr.getResultSet().getString(LOGIN),
                         qr.getResultSet().getString(PASSWORD),
                         (qr.getResultSet().getInt(EMP_TYPE) == 1) ? EmployeeType.MANAGER : EmployeeType.COMMOM,
-                        null, null, null, null, null);
+                        null, null, null, null, id);
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
@@ -103,14 +103,16 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                             = new Employee(
                                     qr.getResultSet().getString(LOGIN),
                                     qr.getResultSet().getString(PASSWORD),
-                                    EmployeeType.MANAGER, null, null, null, null, LOGIN);
+                                    EmployeeType.MANAGER, null, null, null, null,
+                                    qr.getResultSet().getString(ID));
                     employees.add(emp);
                 } else {
                     Employee emp
                             = new Employee(
                                     qr.getResultSet().getString(LOGIN),
                                     qr.getResultSet().getString(PASSWORD),
-                                    EmployeeType.COMMOM, null, null, null, null, LOGIN);
+                                    EmployeeType.COMMOM, null, null, null, null,
+                                    qr.getResultSet().getString(ID));
                     employees.add(emp);
                 }
             }

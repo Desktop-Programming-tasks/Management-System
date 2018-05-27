@@ -15,10 +15,6 @@ public class Brand implements Serializable{
 
     private String name;
 
-    public Brand(int id, String name) {
-        this.name = name;
-    }
-
     public Brand(String name) {
         this.name = name;
     }
