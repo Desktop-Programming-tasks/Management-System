@@ -174,18 +174,18 @@ public class CustomerController implements Initializable {
                 person = new JuridicalPerson(nameTextField.getText(), address, telephones, CNPJTextField.getText());
             }
             try {
-                PersonDAO.insertPerson(person);
-                GUIController.getInstance().showRegister("Clilente");
-            } catch (RemoteException ex) {
-                //alert of connection error
+                if(edit){
+                
+                }else{
+                    PersonDAO.insertPerson(person);
+                    GUIController.getInstance().showRegisterAlert("Cliente");
+                }
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
-                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                GUIController.getInstance().showDupplicatedAlert("Cliente",isLegalPerson?"CPF":"CNPJ");
             } catch (DuplicatedLoginException ex) {
-                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoResultsException ex) {
-                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (DatabaseErrorException ex) {
-                Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+                //no login inserting costumer
             }
         }
         

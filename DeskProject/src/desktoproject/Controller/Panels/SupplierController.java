@@ -8,13 +8,20 @@ package desktoproject.Controller.Panels;
 import Classes.Persons.Address;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.DuplicatedLoginException;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,8 +35,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
-
 
 /**
  * FXML Controller class
@@ -151,12 +156,26 @@ public class SupplierController implements Initializable {
 
     @FXML
     private void mainAction() {
-        if(validate()){
-            Address address = ((AddressComponentController)addressComponent.getController()).getAddress();
-            ArrayList<String> telephone = ((TelephoneComponentController)telephoneComponent.getController()).getTelephones();
+        if (validate()) {
+            Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
+            ArrayList<String> telephone = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
             ArrayList<Brand> brands = new ArrayList<>(BrandsTable.getSelectionModel().getSelectedItems());
             Supplier supplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
-            System.out.println(supplier.toString());
+
+            try {
+                if (edit) {
+
+                } else {
+                    PersonDAO.insertPerson(supplier);
+                    GUIController.getInstance().showRegisterAlert("Fornecedor");
+                }
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (DuplicatedEntryException ex) {
+                GUIController.getInstance().showDupplicatedAlert("Fornecedor", "CNPJ");
+            } catch (DuplicatedLoginException ex) {
+                //no login inserting costumer
+            }
         }
     }
 
