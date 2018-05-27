@@ -119,18 +119,25 @@ public abstract class PersonDAO {
     public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
         ArrayList<Employee> employees = employeeDAO.getAllEmployees();
         try {
-            for (Employee emp : employees) {
-                LegalPerson lp = legalPersonDAO.getLegalPerson(emp.getId());
-                Person p = basicGetPerson(emp.getId());
-                emp.setName(p.getName());
-                emp.setAddress(p.getAddress());
-                emp.setTelephones(p.getTelephones());
-                emp.setRG(lp.getRG());
+            for (int i = 0; i < employees.size(); i++) {
+                employees.set(i, (Employee) getPerson(employees.get(i).getId()));
             }
         } catch (DatabaseErrorException | NoResultsException e) {
             //
         }
         return employees;
+    }
+
+    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
+        ArrayList<Supplier> suppliers = supplierDAO.getAllSuppliers();
+        try {
+            for (int i = 0; i < suppliers.size(); i++) {
+                suppliers.set(i, (Supplier) getPerson(suppliers.get(i).getId()));
+            }
+        } catch (NoResultsException e) {
+            //
+        }
+        return suppliers;
     }
 
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;

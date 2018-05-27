@@ -51,6 +51,6 @@ public class Employee extends LegalPerson implements Serializable{
 
     @Override
     public String toString() {
-        return "Employee{" + "login=" + login + ", password=" + password + ", type=" + type + '}';
+        return super.toString()+"Employee{" + "login=" + login + ", password=" + password + ", type=" + type + '}';
     }
 }
