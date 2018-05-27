@@ -316,8 +316,8 @@ public class GUIController {
                 "Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
     }
     
-    public void showDupplicatedAlert(String personType,String idName){
-        showAlert(Alert.AlertType.ERROR, "Erro no cadastro", personType+" já cadastrado", idName+" já utilizado");
+    public void showDupplicatedAlert(String type,String idName){
+        showAlert(Alert.AlertType.ERROR, "Erro no cadastro", type+" já cadastrado", idName+" já utilizado");
 //        showRegisterAlert(personType, idName+" já utilizado");
     }
     

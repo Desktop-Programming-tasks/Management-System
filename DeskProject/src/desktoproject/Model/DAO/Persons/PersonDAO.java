@@ -5,7 +5,9 @@
  */
 package desktoproject.Model.DAO.Persons;
 
+import Classes.Persons.Employee;
 import Classes.Persons.Person;
+import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
@@ -30,6 +32,14 @@ public abstract class PersonDAO {
     
     public static ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryAllPersons();
+    }
+    
+    public static ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().queryAllEmployees();
+    }
+    
+    public static ArrayList<Supplier> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().queryAllSuppliers();
     }
     
     public static void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
