@@ -50,7 +50,7 @@ public class ServiceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }    
     
     @FXML

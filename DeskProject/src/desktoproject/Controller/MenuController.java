@@ -11,12 +11,14 @@ import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,18 +28,18 @@ import javafx.scene.layout.AnchorPane;
 public class MenuController implements Initializable {
 
     private static final String path = "desktoproject/View/Menu.fxml";
-    
-    public static ScreenObject call() throws IOException{
+
+    public static ScreenObject call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(LoginController.class.getClassLoader().getResource(path));
         Parent p = loader.load();
         MenuController controller = loader.getController();
         return new ScreenObject(p, controller);
     }
-    
+
     @FXML
     private AnchorPane dynamic;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -45,103 +47,103 @@ public class MenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
-    public AnchorPane getDynamic(){
+
+    public AnchorPane getDynamic() {
         return dynamic;
     }
-    
+
     @FXML
-    private void showIndex(){
+    private void showIndex() {
         GUIController.getInstance().callScreen(ScreenType.INDEX);
     }
-    
+
     @FXML
-    private void showHelp(){
+    private void showHelp() {
         GUIController.getInstance().showAboutAlert();
     }
-    
+
     @FXML
-    private void showQueryTransactionAll(){
+    private void showQueryTransactionAll() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_ALL);
     }
-    
+
     @FXML
-    private void showCreateSell(){
+    private void showCreateSell() {
         GUIController.getInstance().callScreen(ScreenType.TRANSACTION_SALE_CREATE);
     }
-    
+
     @FXML
-    private void showQuerySell(){
+    private void showQuerySell() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_SALE);
     }
-    
+
     @FXML
-    private void showCreateBuy(){
+    private void showCreateBuy() {
         GUIController.getInstance().callScreen(ScreenType.TRANSACTION_BUY_CREATE);
     }
-    
+
     @FXML
-    private void showQueryBuy(){
+    private void showQueryBuy() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_BUY);
     }
-    
+
     @FXML
-    private void showCreateClient(){
+    private void showCreateClient() {
         GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
     }
-    
+
     @FXML
-    private void showQueryClient(){
+    private void showQueryClient() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_PERSON_CUSTOMER);
     }
 
     @FXML
-    private void showCreateSupplier(){
+    private void showCreateSupplier() {
         GUIController.getInstance().callScreen(ScreenType.SUPPLIER_CREATE);
     }
-    
+
     @FXML
-    private void showQuerySupplier(){
+    private void showQuerySupplier() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_SUPPLIER);
     }
 
     @FXML
-    private void showCreateEmployee(){
+    private void showCreateEmployee() {
         GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_CREATE);
     }
-    
+
     @FXML
-    private void showQueryEmployee(){
+    private void showQueryEmployee() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_PERSON_EMPLOYEE);
     }
-    
+
     @FXML
-    private void showCreateService(){
+    private void showCreateService() {
         GUIController.getInstance().callModal(ModalType.SERVICE_NEW);
     }
-    
+
     @FXML
-    private void showQueryService(){
+    private void showQueryService() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_SERVICE);
     }
-    
+
     @FXML
-    private void showCreateProduct(){
+    private void showCreateProduct() {
         GUIController.getInstance().callScreen(ScreenType.PRODUCT_CREATE);
     }
-    
+
     @FXML
-    private void showQueryProduct(){
+    private void showQueryProduct() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_STOCK);
     }
 
     @FXML
-    private void showCreateBrand(){
+    private void showCreateBrand() {
         GUIController.getInstance().callModal(ModalType.BRAND_NEW);
     }
-    
+
     @FXML
-    private void showQueryBrand(){
+    private void showQueryBrand() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_BRAND);
     }
 }

@@ -50,7 +50,7 @@ public class StockController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        StockTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }   
         
     @FXML

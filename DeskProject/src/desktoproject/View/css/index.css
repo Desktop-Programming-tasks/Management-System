@@ -18,7 +18,7 @@
     /* Configurations */
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
-    
+    -fx-font-size: 12pt;
     -fx-background-color: white;
 }
 
@@ -68,7 +68,6 @@
 .menu-button {
     -fx-background-color: -base-color;
     -fx-text-fill: -primary-color;
-    -fx-font-size: 17px;
     -fx-border-radius: 0;
 }
 .button:hover,
@@ -77,7 +76,7 @@
     -fx-background-radius: 0;
 }
 .table-button {
-    -fx-font-size: 14px;
+    
 }
 
 /*Text area*/
@@ -324,4 +323,22 @@
 
 .menu-button .menu{
     
+}
+
+.gridpane *{
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
+}
+
+.scroll-pane {
+   -fx-background: #FFFFFF;
+   -fx-border-color: #FFFFFF;
+}
+
+.index-main-btn{
+    -fx-font-size: 2em;
+}
+
+.index-sub-btn{
+    -fx-font-size: 1em;
 }

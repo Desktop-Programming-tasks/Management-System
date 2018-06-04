@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -9,37 +8,46 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1280.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Panels.SupplierController">
+<AnchorPane minHeight="900.0" minWidth="520.0" prefHeight="900.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Panels.SupplierController">
    <children>
-      <Group AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="mainLabel" prefHeight="30.0" prefWidth="319.0" text="MAIN LABEL">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER_RIGHT" layoutY="50.0" spacing="16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Label fx:id="mainLabel" prefHeight="30.0" prefWidth="319.0" text="MAIN LABEL">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
-            <TextField fx:id="nameTextField" layoutY="50.0" prefHeight="30.0" prefWidth="720.0" promptText="Nome do Cliente *" />
-            <TextField fx:id="CNPJTextField" layoutY="100.0" prefHeight="26.0" prefWidth="330.0" promptText="CNPJ *" />
+            <TextField fx:id="nameTextField" prefHeight="30.0" prefWidth="720.0" promptText="Nome do Cliente *" />
+            <TextField fx:id="CNPJTextField" maxWidth="330.0" prefHeight="30.0" prefWidth="330.0" promptText="CNPJ *" VBox.vgrow="NEVER" />
          </children>
-      </Group>
-      <Separator layoutY="269.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="170.0" />
-      <AnchorPane fx:id="addressPane" layoutY="360.0" prefHeight="160.0" prefWidth="830.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="560.0" AnchorPane.topAnchor="360.0" />
+      </VBox>
+      <Separator layoutY="269.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
+      <AnchorPane fx:id="telephonePane" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0" />
+      <Separator layoutX="10.0" layoutY="180.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0" />
+      <AnchorPane fx:id="addressPane" layoutY="360.0" prefHeight="160.0" prefWidth="830.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0" />
+      <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0" />
+      <TableView fx:id="brandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="520.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Marcas" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <VBox alignment="CENTER" layoutX="1075.0" layoutY="801.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="200.0" text="Cadastrar marca">
+               <styleClass>
+                  <String fx:value="level-1" />
+                  <String fx:value="table-button" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
       <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
       <Button fx:id="mainBtn" layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" onAction="#mainAction" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="MAIN BTN" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Separator layoutX="10.0" layoutY="180.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="330.0" />
-      <TableView fx:id="brandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="205.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <columns>
-          <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="470.0" resizable="false" text="Marcas" />
-        </columns>
-      </TableView>
-      <Button layoutX="916.0" layoutY="567.0" mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="150.0" text="Cadastrar marca" AnchorPane.bottomAnchor="160.0" AnchorPane.rightAnchor="0.0">
-         <styleClass>
-            <String fx:value="level-1" />
-            <String fx:value="table-button" />
-         </styleClass>
-      </Button>
-      <AnchorPane fx:id="telephonePane" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="560.0" AnchorPane.topAnchor="200.0" />
    </children>
 </AnchorPane>

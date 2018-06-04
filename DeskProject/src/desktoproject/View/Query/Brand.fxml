@@ -6,41 +6,46 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="690.0" prefWidth="1280.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Query.BrandController">
+<AnchorPane minHeight="360.0" minWidth="520.0" prefHeight="360.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Query.BrandController">
    <children>
       <Label layoutY="6.0" text="Consulta de Marca" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <TableView fx:id="brandTable" editable="true" layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+      <TableView fx:id="brandTable" editable="true" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="50.0">
          <columns>
-            <TableColumn fx:id="nameColumn" editable="false" maxWidth="-1.0" minWidth="1216.0" prefWidth="1216.0" resizable="false" sortable="false" text="Nome" />
+            <TableColumn fx:id="nameColumn" editable="false" maxWidth="-1.0" minWidth="392.0" prefWidth="392.0" resizable="false" sortable="false" text="Nome" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="1066.0" layoutY="550.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="160.0" text="Deletar" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="0.0">
-         <styleClass>
-            <String fx:value="level-1" />
-            <String fx:value="table-button" />
-         </styleClass>
-      </Button>
+      <HBox alignment="CENTER" layoutX="91.0" layoutY="341.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Button fx:id="c" alignment="CENTER" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="159.0" text="Registrar">
+               <styleClass>
+                  <String fx:value="level-1" />
+                  <String fx:value="table-button" />
+               </styleClass>
+            </Button>
+            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#editBrand" prefHeight="35.0" prefWidth="160.0" text="Editar">
+               <styleClass>
+                  <String fx:value="level-1" />
+                  <String fx:value="table-button" />
+               </styleClass>
+            </Button>
+            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="160.0" text="Deletar">
+               <styleClass>
+                  <String fx:value="level-1" />
+                  <String fx:value="table-button" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
       <Button layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <Button fx:id="c" layoutX="870.0" layoutY="521.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#createNewBrand" prefHeight="35.0" prefWidth="159.0" text="Registrar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <styleClass>
-            <String fx:value="level-1" />
-            <String fx:value="table-button" />
-         </styleClass>
-      </Button>
-      <Button layoutX="1130.0" layoutY="565.0" minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#editBrand" prefHeight="35.0" prefWidth="160.0" text="Editar" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="200.0">
-         <styleClass>
-            <String fx:value="level-1" />
-            <String fx:value="table-button" />
-         </styleClass>
-      </Button>
    </children>
 </AnchorPane>

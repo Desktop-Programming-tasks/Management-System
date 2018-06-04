@@ -61,6 +61,8 @@ public class QuerySupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        suppliersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("CNPJ"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("brands"));

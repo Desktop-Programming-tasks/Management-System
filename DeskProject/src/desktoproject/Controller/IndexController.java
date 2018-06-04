@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -27,7 +28,10 @@ public class IndexController implements Initializable {
         loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
         return loader.load();
     }
-
+    
+    @FXML
+    private AnchorPane overPanel;
+    
     /**
      * Initializes the controller class.
      */
