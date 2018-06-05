@@ -5,7 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import desktoproject.Model.Classes.Transactions.ServiceType;
+import Classes.Transactions.ServiceType;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public abstract class ServiceTypeDAO {
     public abstract void insertServiceType(ServiceType st) throws Exception;
     public abstract void updateServiceType(ServiceType st) throws Exception;
-    public abstract void removeServiceType(ServiceType st) throws Exception;
     public abstract ServiceType getServiceType(String id) throws Exception;
     public abstract ArrayList<ServiceType> getAllServiceTypes() throws Exception;
     
