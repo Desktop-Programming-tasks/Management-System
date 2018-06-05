@@ -194,6 +194,11 @@ public class GUIController {
                     setDynamicChild(ServiceController.call());
                     break;
                 }
+                case QUERY_SERVICE_TYPE: {
+                    dynamic.setMaxWidth(1280);
+                    setDynamicChild(ServiceTypeQueryController.call());
+                    break;
+                }
                 case QUERY_STOCK: {
                     dynamic.setMaxWidth(1280);
                     setDynamicChild(StockController.call());

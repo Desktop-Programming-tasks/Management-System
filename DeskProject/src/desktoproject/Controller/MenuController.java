@@ -126,6 +126,11 @@ public class MenuController implements Initializable {
     private void showQueryService() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_SERVICE);
     }
+    
+    @FXML
+    private void showQueryServiceType(){
+        GUIController.getInstance().callScreen(ScreenType.QUERY_SERVICE_TYPE);
+    }
 
     @FXML
     private void showCreateProduct() {

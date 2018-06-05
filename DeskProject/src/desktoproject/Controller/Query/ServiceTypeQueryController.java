@@ -18,15 +18,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 /**
  * FXML Controller class
  *
- * @author noda
+ * @author viniciusmn
  */
-public class ServiceController implements Initializable {
-    
-    private static final String PATH = "desktoproject/View/Query/Service.fxml";
+public class ServiceTypeQueryController implements Initializable {
+
+    private static final String PATH = "desktoproject/View/Query/ServiceTypeQuery.fxml";
     
     public static Parent call() throws IOException{
         FXMLLoader loader = new FXMLLoader();
@@ -34,10 +33,12 @@ public class ServiceController implements Initializable {
         return loader.load();
     }
     
+    /**
+     * Initializes the controller class.
+     */
+    
     @FXML
     private TableView ServiceTable;
-    @FXML
-    private TableColumn statusColumn;
     @FXML
     private TableColumn nameColumn;
     @FXML
@@ -45,30 +46,26 @@ public class ServiceController implements Initializable {
     @FXML
     private TextField searchTextField;
     
-    
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
     }    
     
     @FXML
-    public void back() {
+    private void back() {
         GUIController.getInstance().backToPrevious();
     }
     
     @FXML
-    public void showModalUpdateService() {
-        
-    }    
+    private void newServiceType(){
+    
+    }
+    
     @FXML
-    private void detailsProduct(){
-        
+    private void editServiceType(){
+    
     }
 }

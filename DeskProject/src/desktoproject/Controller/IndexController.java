@@ -106,6 +106,11 @@ public class IndexController implements Initializable {
     }
     
     @FXML
+    private void showQueryServiceType(){
+        GUIController.getInstance().callScreen(ScreenType.QUERY_SERVICE_TYPE);
+    }
+    
+    @FXML
     private void showCreateProduct(){
         GUIController.getInstance().callScreen(ScreenType.PRODUCT_CREATE);
     }

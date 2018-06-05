@@ -63,6 +63,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Vendas" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryBuy" text="Compra" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryServiceType" text="Tipo de Serviço" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Funcionários" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryClient" text="Clientes" />
                   <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Fornecedores" />
