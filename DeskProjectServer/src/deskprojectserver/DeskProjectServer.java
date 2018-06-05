@@ -5,11 +5,9 @@
  */
 package deskprojectserver;
 
-import deskprojectserver.Database.DAOBuilder;
-import Classes.Transactions.ServiceType;
+import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
-import Exceptions.DuplicatedEntryException;
-import Exceptions.NoResultsException;
+import deskprojectserver.Database.DAOBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,27 +22,12 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            //ServiceType st = new ServiceType("batata311", 10);
-            //ServiceType st2 = new ServiceType("batata2", 120);
-
-            //DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st);
-            //DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st2);
-          for (ServiceType stQ : DAOBuilder.getInstance().
-                  getServiceTypeDAO().getLikeServiceTypes("31")) {
-                System.out.println(stQ.getName());
-                System.out.println(stQ.getPrice());
-                System.out.println(stQ.getId());
+            for (Product p : DAOBuilder.getInstance().getProductDAO().getLikeProducts("zé")) {
+                System.out.println(p);
             }
-//            ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("batata2");
-//            System.out.println(st.getName());
-//            System.out.println(st.getPrice());
-//            System.out.println(st.getId());
-//            st.setPrice(200321312);
-//            DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
-        } catch (DatabaseErrorException e) {
-            e.printStackTrace();
+        } catch (DatabaseErrorException ex) {
+            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }

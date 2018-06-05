@@ -18,13 +18,15 @@ import java.util.ArrayList;
  */
 public abstract class ProductDAO {
 
-    public abstract void insertProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, DuplicatedEntryException;
+    public abstract void insertProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException;
 
-    public abstract void updateProduct(Product product) throws UnavailableBrandException,DatabaseErrorException, NoResultsException,DuplicatedEntryException;
+    public abstract void updateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
 
     public abstract void removeProduct(Product product) throws DatabaseErrorException, NoResultsException;
 
     public abstract Product getProduct(String id) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Product> getAllProducts() throws DatabaseErrorException;
+
+    public abstract ArrayList<Product> getLikeProducts(String id) throws DatabaseErrorException;
 }
