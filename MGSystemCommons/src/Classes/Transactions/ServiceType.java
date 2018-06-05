@@ -12,10 +12,18 @@ import java.io.Serializable;
  * @author gabriel
  */
 public class ServiceType implements Serializable{
-
+    
+    private int id;
     private String name;
     private float price;
 
+    public ServiceType(int id, String name, float price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    
     public ServiceType(String name, float price) {
         this.name = name;
         this.price = price;
@@ -37,4 +45,8 @@ public class ServiceType implements Serializable{
         this.price = price;
     }
 
+    public int getId() {
+        return id;
+    }
+    
 }

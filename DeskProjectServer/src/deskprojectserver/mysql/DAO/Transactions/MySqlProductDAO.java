@@ -14,6 +14,8 @@ import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Database.DAO.Transactions.ProductDAO;
+import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.Commons.MySqlBrandDAO;
 import deskprojectserver.mysql.MySqlHandler;
@@ -41,6 +43,9 @@ public class MySqlProductDAO extends ProductDAO {
     private static final String GET_ONE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE barCodeProduct=?";
+    private static final String GET_LIKE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "FROM `Product` WHERE nameProduct LIKE ?";
     private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
     private static final String UPDATE_SQL = "UPDATE `Product` "
             + "SET `nameProduct`=?,"
@@ -122,9 +127,37 @@ public class MySqlProductDAO extends ProductDAO {
 
     @Override
     public ArrayList<Product> getAllProducts() throws DatabaseErrorException {
+        return getProductsGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Product> getLikeProducts(String id) throws DatabaseErrorException {
+        return getProductsGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL,
+                            FormatUtils.setLikeParam(id));
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    private ArrayList<Product> getProductsGeneric(QueryExecuter exec) throws DatabaseErrorException {
         ArrayList<Product> products = new ArrayList<>();
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
                 Product product = new Product(
                         qr.getResultSet().getString(BAR_CODE),
@@ -134,7 +167,7 @@ public class MySqlProductDAO extends ProductDAO {
                 products.add(product);
             }
             qr.closeAll();
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseErrorException();
         }
         return products;
