@@ -15,6 +15,8 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,6 +33,8 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             + "FROM `ServiceType` WHERE nameServiceType=?";
     private static final String GET_ALL_SQL="SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType`";
+    private static final String UPDATE_SQL="UPDATE `ServiceType` "
+            + "SET `nameServiceType`=?,`priceServiceType`=? WHERE idServiceType=?";
 
     @Override
     public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
@@ -45,7 +49,15 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
 
     @Override
     public void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(),st.getPrice()
+            ,st.getId());
+        } catch (MySQLIntegrityConstraintViolationException ex) {
+            throw new DuplicatedEntryException();
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
