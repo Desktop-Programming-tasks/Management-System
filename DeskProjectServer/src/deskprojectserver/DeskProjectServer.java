@@ -6,6 +6,7 @@
 package deskprojectserver;
 
 import Classes.Transactions.Product;
+import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import deskprojectserver.Database.DAOBuilder;
 import java.util.logging.Level;
@@ -22,9 +23,14 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for (Product p : DAOBuilder.getInstance().getProductDAO().getAllProducts()) {
+            for (Product p : DAOBuilder.getInstance().getProductDAO().getLikeProducts("batata")) {
                 System.out.println(p);
             }
+//        for(ServiceType st: DAOBuilder.getInstance().getServiceTypeDAO().getLikeServiceTypes("31")){
+//            System.out.println(st.getId());
+//            System.out.println(st.getName());
+//            System.out.println(st.getPrice());
+//        }
         } catch (DatabaseErrorException ex) {
             Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
