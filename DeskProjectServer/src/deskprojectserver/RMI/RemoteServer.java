@@ -19,7 +19,7 @@ import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
 import Exceptions.UnavailableBrandException;
 import RMI.ServerMethods;
-import deskprojectserver.DAOBuilder;
+import deskprojectserver.Database.DAOBuilder;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

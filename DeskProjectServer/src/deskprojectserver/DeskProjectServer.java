@@ -5,6 +5,7 @@
  */
 package deskprojectserver;
 
+import deskprojectserver.Database.DAOBuilder;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;

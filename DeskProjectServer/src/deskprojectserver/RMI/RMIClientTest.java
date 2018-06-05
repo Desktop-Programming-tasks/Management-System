@@ -15,7 +15,7 @@ import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import RMI.ServerMethods;
-import deskprojectserver.DAOBuilder;
+import deskprojectserver.Database.DAOBuilder;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
