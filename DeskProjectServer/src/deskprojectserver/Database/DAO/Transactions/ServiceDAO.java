@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public abstract class ServiceDAO {
     public abstract void insertService(Service service) throws Exception;
     public abstract void updateService(Service service) throws Exception;
-    public abstract void removeService(Service service) throws Exception;   
     public abstract Service getService(String id) throws Exception;
     public abstract ArrayList<Service> getAllServices() throws Exception;
 }

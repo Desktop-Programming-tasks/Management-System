@@ -7,7 +7,6 @@ package Classes.Transactions;
 
 import Classes.Enums.ServiceStatus;
 import Classes.Persons.Employee;
-import desktoproject.Model.Classes.Transactions.ServiceType;
 import java.io.Serializable;
 import java.time.LocalDate;
 
