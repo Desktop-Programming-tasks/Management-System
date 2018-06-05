@@ -23,12 +23,13 @@ import java.util.ArrayList;
 public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     private static final String NAME="nameServiceType";
     private static final String PRICE="priceServiceType";
+    private static final String ID="idServiceType";
     private static final String INSERT_SQL = "INSERT INTO "
             + "`ServiceType`(`nameServiceType`, `priceServiceType`) "
             + "VALUES (?,?)";
-    private static final String GET_ONE_SQL = "SELECT `nameServiceType`, `priceServiceType` "
+    private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType` WHERE nameServiceType=?";
-    private static final String GET_ALL_SQL="SELECT `nameServiceType`, `priceServiceType` "
+    private static final String GET_ALL_SQL="SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType`";
 
     @Override
@@ -53,7 +54,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
             while (qr.getResultSet().next()) {
-                st = new ServiceType(qr.getResultSet().getString(NAME),
+                st = new ServiceType(qr.getResultSet().getInt(ID),qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE));
             }
             qr.closeAll();
@@ -72,7 +73,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
         try{
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
             while(qr.getResultSet().next()){
-                services.add(new ServiceType(qr.getResultSet().getString(NAME),
+                services.add(new ServiceType(qr.getResultSet().getInt(ID),qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE)));
             }
         }

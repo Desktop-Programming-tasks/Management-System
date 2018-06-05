@@ -24,12 +24,20 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for(ServiceType st : DAOBuilder.getInstance().getServiceTypeDAO().getAllServiceTypes()){
-                System.out.println(st.getName());
-                System.out.println(st.getPrice());
+            ServiceType st = new ServiceType("batata311", 10);
+            //ServiceType st2 = new ServiceType("batata2", 120);
+            
+            DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st);
+            //DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st2);
+            for (ServiceType stQ : DAOBuilder.getInstance().getServiceTypeDAO().getAllServiceTypes()) {
+                System.out.println(stQ.getName());
+                System.out.println(stQ.getPrice());
+                System.out.println(stQ.getId());
             }
         } catch (DatabaseErrorException e) {
             e.printStackTrace();
+        } catch (DuplicatedEntryException ex) {
+            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
