@@ -5,10 +5,12 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
@@ -112,8 +114,28 @@ public class QuerySupplierController implements Initializable {
         if(supplier==null){
             GUIController.getInstance().showSelectionErrorAlert();
         }else{
-            System.out.println(supplier.toString());
             GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, supplier);
+        }
+    }
+    
+    
+    @FXML
+    private void delete(){
+        Person person = suppliersTable.getSelectionModel().getSelectedItem();
+        if (person == null) {
+            GUIController.getInstance().showSelectionErrorAlert();
+        } else {
+            try {
+                if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
+                    PersonDAO.deletePerson(person);
+                }
+            } catch (RemoteException | DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showDeleteErrorAlert();
+            } catch (OperationNotAllowed ex) {
+                GUIController.getInstance().showOperationNotAllowed();
+            }
         }
     }
 }
