@@ -8,6 +8,7 @@ package desktoproject.Controller.Query;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
+import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
@@ -18,9 +19,13 @@ import desktoproject.Model.DAO.Persons.PersonDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +36,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -67,10 +73,18 @@ public class QuerySupplierController implements Initializable {
         suppliersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("CNPJ"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        brandsColumn.setCellValueFactory(new PropertyValueFactory<>("brands"));
+        brandsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Supplier, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Supplier, String> p) {
+                List<String> brands = new LinkedList<>();
+                p.getValue().getAvaliableBrands().forEach((b) -> {
+                    brands.add(b.getName());
+                });
+                return new SimpleStringProperty(String.join(", ",brands));
+            }
+        });
         
         populateTable();
-        
         setTableAction();
     }
     

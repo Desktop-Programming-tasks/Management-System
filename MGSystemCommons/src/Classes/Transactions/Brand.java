@@ -29,6 +29,6 @@ public class Brand implements Serializable{
 
     @Override
     public String toString() {
-        return "Brand{ name=" + name + '}';
+        return "Brand{" + "name=" + name + '}';
     }
 }

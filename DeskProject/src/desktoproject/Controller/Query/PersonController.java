@@ -76,7 +76,6 @@ public class PersonController implements Initializable {
                 break;
             }
         }
-        populateTable();
     }
 
     @FXML
@@ -99,6 +98,8 @@ public class PersonController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         personDocColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        populateTable();
+        setTableAction();
     }
 
     private void setTableAction() {

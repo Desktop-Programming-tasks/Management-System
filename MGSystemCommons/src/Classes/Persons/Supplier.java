@@ -21,19 +21,6 @@ public class Supplier extends JuridicalPerson implements Serializable{
     public ArrayList<Brand> getAvaliableBrands() {
         return avaliableBrands;
     }
-    
-    public String getBrands(){
-        String brands = "";
-        for(Brand b : avaliableBrands){
-            brands += b.getName()+", ";
-        }
-        
-        if(!brands.isEmpty()){
-            brands.substring(0, brands.length()-2);
-        }
-        
-        return brands;
-    }
 
     public void setAvaliableBrands(ArrayList<Brand> avaliableBrands) {
         this.avaliableBrands = avaliableBrands;
