@@ -11,6 +11,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
+import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,10 +21,15 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class MySqlServiceTypeDAO extends ServiceTypeDAO {
-
+    private static final String NAME="nameServiceType";
+    private static final String PRICE="priceServiceType";
     private static final String INSERT_SQL = "INSERT INTO "
             + "`ServiceType`(`nameServiceType`, `priceServiceType`) "
             + "VALUES (?,?)";
+    private static final String GET_ONE_SQL = "SELECT `nameServiceType`, `priceServiceType` "
+            + "FROM `ServiceType` WHERE nameServiceType=?";
+    private static final String GET_ALL_SQL="SELECT `nameServiceType`, `priceServiceType` "
+            + "FROM `ServiceType`";
 
     @Override
     public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
@@ -37,18 +43,43 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     }
 
     @Override
-    public void updateServiceType(ServiceType stOld, ServiceType stNew) throws DatabaseErrorException, DuplicatedEntryException {
+    public void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ServiceType getServiceType(String id) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ServiceType st = null;
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            while (qr.getResultSet().next()) {
+                st = new ServiceType(qr.getResultSet().getString(NAME),
+                        qr.getResultSet().getFloat(PRICE));
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        if (st == null) {
+            throw new NoResultsException();
+        }
+        return st;
     }
 
     @Override
     public ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<ServiceType> services = new ArrayList<>();
+        try{
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            while(qr.getResultSet().next()){
+                services.add(new ServiceType(qr.getResultSet().getString(NAME),
+                        qr.getResultSet().getFloat(PRICE)));
+            }
+        }
+        catch(ClassNotFoundException | SQLException e){
+            throw new DatabaseErrorException();
+        }
+        return services;
     }
 
 }

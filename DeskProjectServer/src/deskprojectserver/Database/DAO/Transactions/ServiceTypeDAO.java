@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public abstract class ServiceTypeDAO {
     public abstract void insertServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
-    public abstract void updateServiceType(ServiceType stOld,ServiceType stNew) throws DatabaseErrorException,DuplicatedEntryException;
+    public abstract void updateServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
     public abstract ServiceType getServiceType(String id) throws DatabaseErrorException,NoResultsException;
     public abstract ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException;
     

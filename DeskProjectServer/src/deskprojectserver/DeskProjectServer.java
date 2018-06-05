@@ -9,6 +9,9 @@ import deskprojectserver.Database.DAOBuilder;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,9 +24,11 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            ServiceType st = new ServiceType("whatever2", 1550);
-            DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st);
-        } catch (DatabaseErrorException | DuplicatedEntryException e) {
+            for(ServiceType st : DAOBuilder.getInstance().getServiceTypeDAO().getAllServiceTypes()){
+                System.out.println(st.getName());
+                System.out.println(st.getPrice());
+            }
+        } catch (DatabaseErrorException e) {
             e.printStackTrace();
         }
 
