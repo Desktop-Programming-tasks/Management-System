@@ -41,7 +41,7 @@
                   <String fx:value="table-button" />
                </styleClass>
             </Button>
-            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="159.0" text="Excluir">
+            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="159.0" text="Excluir">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

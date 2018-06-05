@@ -20,7 +20,7 @@
       </Label>
       <VBox alignment="CENTER_RIGHT" layoutY="50.0" spacing="16.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <TextField fx:id="nameTextField" prefHeight="30.0" prefWidth="720.0" promptText="Nome do Cliente *" />
+            <TextField fx:id="nameTextField" prefHeight="30.0" prefWidth="720.0" promptText="Nome do Fornecedor *" />
             <TextField fx:id="CNPJTextField" maxWidth="330.0" prefHeight="30.0" prefWidth="330.0" promptText="CNPJ *" VBox.vgrow="NEVER" />
          </children>
       </VBox>

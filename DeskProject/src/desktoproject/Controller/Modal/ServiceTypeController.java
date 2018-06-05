@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Modal;
 
+import Classes.Transactions.Service;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Utils.Misc;
@@ -17,6 +18,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -28,6 +31,7 @@ public class ServiceTypeController implements Initializable {
 
     private static final String PATH = "desktoproject/View/Modal/ServiceType.fxml";
     private boolean EDIT;
+    private Service service;
     
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -48,11 +52,30 @@ public class ServiceTypeController implements Initializable {
         return p;
     }
     
+    
+    private void setUpComponents(){
+        if(EDIT){
+            mainLabel.setText("Editar Serviço");
+            mainBtn.setText("Alterar");
+        }else{
+            mainLabel.setText("Registrar Serviço");
+            mainBtn.setText("Registrar");
+        }
+    }
+    
+    private void fillScreen(){
+        nameTextField.setText(service.getName());
+        valueTextField.setText(String.valueOf(service.getPrice()));
+    }
 
     @FXML
     private TextField nameTextField;
     @FXML
     private TextField valueTextField;
+    @FXML
+    private Label mainLabel;
+    @FXML
+    private Button mainBtn;
 
     /**
      * Initializes the controller class.
@@ -64,10 +87,10 @@ public class ServiceTypeController implements Initializable {
     }
 
     @FXML
-    private void register() {
+    private void mainAction() {
         if (validate()) {
-            ServiceType service = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
-            System.out.println(service.toString());
+            ServiceType newService = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+            
         }
     }
 
@@ -92,6 +115,8 @@ public class ServiceTypeController implements Initializable {
     public void setEDIT(boolean EDIT) {
         this.EDIT = EDIT;
     }
-    
-    
+
+    public void setService(Service service) {
+        this.service = service;
+    }
 }

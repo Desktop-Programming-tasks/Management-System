@@ -48,8 +48,9 @@
          </Menu>
          <Menu mnemonicParsing="false" text="Servicos">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Novo" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Consultar" />
+             <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Novo tipo" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryServiceType" text="Consultar tipos de serviço" />
+               <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Consultar serviços em andamento" />
            </items>
          </Menu>
          <Menu mnemonicParsing="false" text="Produtos">
