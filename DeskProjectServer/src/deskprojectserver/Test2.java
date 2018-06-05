@@ -13,7 +13,6 @@ import Classes.Persons.LegalPerson;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
-import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.util.ArrayList;
 
 /**

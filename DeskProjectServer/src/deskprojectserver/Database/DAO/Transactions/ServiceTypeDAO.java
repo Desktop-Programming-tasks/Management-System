@@ -6,6 +6,9 @@
 package deskprojectserver.Database.DAO.Transactions;
 
 import Classes.Transactions.ServiceType;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +16,9 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public abstract class ServiceTypeDAO {
-    public abstract void insertServiceType(ServiceType st) throws Exception;
-    public abstract void updateServiceType(ServiceType st) throws Exception;
-    public abstract ServiceType getServiceType(String id) throws Exception;
-    public abstract ArrayList<ServiceType> getAllServiceTypes() throws Exception;
+    public abstract void insertServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
+    public abstract void updateServiceType(ServiceType stOld,ServiceType stNew) throws DatabaseErrorException,DuplicatedEntryException;
+    public abstract ServiceType getServiceType(String id) throws DatabaseErrorException,NoResultsException;
+    public abstract ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException;
     
 }
