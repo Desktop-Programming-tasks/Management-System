@@ -12,7 +12,6 @@ import desktoproject.Controller.Enums.*;
 import desktoproject.Controller.Modal.*;
 import desktoproject.Controller.Panels.*;
 import desktoproject.Controller.Query.*;
-import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Utils.Pairs.ScreenCall;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
