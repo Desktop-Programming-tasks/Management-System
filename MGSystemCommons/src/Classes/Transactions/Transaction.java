@@ -37,7 +37,7 @@ public abstract class Transaction implements Serializable{
         return price;
     }
 
-    protected void setPrice(float price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

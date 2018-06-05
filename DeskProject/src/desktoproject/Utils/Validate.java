@@ -5,8 +5,12 @@
  */
 package desktoproject.Utils;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 
 /**
@@ -20,7 +24,7 @@ public class Validate {
     public Validate() {
         errorMessage = "";
     }
-    
+
     private static final int NAME_MAX_LENGTH = 50;
     private static final int NICK_MIN_LENGTH = 4;
     private static final int NICK_MAX_LENGTH = 25;
@@ -33,38 +37,40 @@ public class Validate {
     private static final String CPF_PATTERN = "[0-9]{3}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{2}";
     private static final String RG_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}(-)[0-9]{1}";
     private static final String CNPJ_PATTERN = "[0-9]{2}(.)[0-9]{3}(.)[0-9]{3}||[0-9]{4}(-)[0-9]{2}";
+    private static final String NUMBER_PATTERN = "[0-9]*";
+    private static final String PRICE_PATTERN = "[0-9]*(,)?[0-9]*";
 
     public String getErrorMessage() {
         return errorMessage;
     }
-    
-    public void appendErrorMessage(String error){
+
+    public void appendErrorMessage(String error) {
         this.errorMessage += error;
     }
-    
+
     public boolean validateEmpty(String fieldName, String content) {
-        if(content.isEmpty()) {
-            errorMessage+=(fieldName)+(" não pode ser vazio!\n");
+        if (content.isEmpty()) {
+            errorMessage += (fieldName) + (" não pode ser vazio!\n");
             return false;
         }
         return true;
     }
-    
+
     public void validateTelephone(String num) {
         String pattern = TEL_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if(validateEmpty("Telefone", num)){
-            if(!matcher.matches()) {
-                errorMessage+=("Formato de telefone inválido!\n");
+        if (validateEmpty("Telefone", num)) {
+            if (!matcher.matches()) {
+                errorMessage += ("Formato de telefone inválido!\n");
             }
         }
     }
-    
+
     public void validateName(String name) {
-        if(validateEmpty("Nome", name)){
-            if(name.length() > NAME_MAX_LENGTH) {
-                errorMessage+=("Nome muito grande!\n");
+        if (validateEmpty("Nome", name)) {
+            if (name.length() > NAME_MAX_LENGTH) {
+                errorMessage += ("Nome muito grande!\n");
             }
         }
     }
@@ -73,71 +79,85 @@ public class Validate {
         String pattern = NICKNAME_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(nick);
-        if(validateEmpty("Nickname", nick)){
-            if(!matcher.matches()) {
-                errorMessage+=("Formato de nickname inválido!\n");
-            } else if(nick.length() < NICK_MIN_LENGTH) {
-                errorMessage+=("Nickname muito curto!\n");
-            } else if(nick.length() > NICK_MAX_LENGTH) {
-                errorMessage+=("Nickname muito longo!\n");
+        if (validateEmpty("Nickname", nick)) {
+            if (!matcher.matches()) {
+                errorMessage += ("Formato de nickname inválido!\n");
+            } else if (nick.length() < NICK_MIN_LENGTH) {
+                errorMessage += ("Nickname muito curto!\n");
+            } else if (nick.length() > NICK_MAX_LENGTH) {
+                errorMessage += ("Nickname muito longo!\n");
             }
         }
-        
+
     }
 
     public boolean validatePassword(String password) {
-        if(validateEmpty("Senha", password)){
+        if (validateEmpty("Senha", password)) {
             if (password.length() > PASSWORD_MAX_LENGTH) {
-                errorMessage+=("Senha muito longa!\n");
-            } else if(password.length() < PASSWORD_MIN_LENGTH) {
-                errorMessage+=("Senha muito curta!\n");
-            }else{
+                errorMessage += ("Senha muito longa!\n");
+            } else if (password.length() < PASSWORD_MIN_LENGTH) {
+                errorMessage += ("Senha muito curta!\n");
+            } else {
                 return true;
             }
         }
         return false;
     }
-    
-    public boolean validateConfirmPassword(String password){
-        if(password.isEmpty()){
-            errorMessage+="Por Favor digite a senha de confirmação";
+
+    public boolean validateConfirmPassword(String password) {
+        if (password.isEmpty()) {
+            errorMessage += "Por Favor digite a senha de confirmação";
             return false;
         }
         return true;
     }
 
-    public void validateStreet(String street){
+    public void validateStreet(String street) {
         validateEmpty("Rua", street);
     }
-    
-    public void validateDistrict(String district){
+
+    public void validateDistrict(String district) {
         validateEmpty("Bairro", district);
     }
-    
+
     public void validateAddressNumber(String num) {
-        if(validateEmpty("Número do endereço", num)){
-            validateNumber(num);
+        if (validateEmpty("Número do endereço", num)) {
+            String pattern = ADDRESS_NUMBER_PATTERN;
+            Pattern test = Pattern.compile(pattern);
+            Matcher matcher = test.matcher(num);
+            if (!matcher.matches()) {
+                errorMessage += ("Não é um número válido!\n");
+            }
         }
     }
-    
-    public void validateNumber(String num){
-        String pattern = ADDRESS_NUMBER_PATTERN;
+
+    public void validateNumber(String num) {
+        String pattern = NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if(!matcher.matches()){
-            errorMessage+=("Não é um número!\n");
+        if (!matcher.matches()) {
+            errorMessage += ("Não é um número!\n");
         }
     }
     
-    public void validateState(String state){
-        if(state == null){
-            errorMessage+="Selecione um estado válido\n";
+    public void validatePrice(String num){
+        String pattern = PRICE_PATTERN;
+        Pattern test = Pattern.compile(pattern);
+        Matcher matcher = test.matcher(num);
+        if (!matcher.matches()) {
+            errorMessage += ("Não é um preço válido!\n");
         }
     }
-    
-    public void validateCity(String city){
-        if(city == null){
-            errorMessage+="Selecione uma cidade válida\n";
+
+    public void validateState(String state) {
+        if (state == null) {
+            errorMessage += "Selecione um estado válido\n";
+        }
+    }
+
+    public void validateCity(String city) {
+        if (city == null) {
+            errorMessage += "Selecione uma cidade válida\n";
         }
     }
 
@@ -145,48 +165,68 @@ public class Validate {
         String pattern = CPF_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(cpf);
-        
-        if(validateEmpty("CPF", cpf)){
-            if(!matcher.matches()) {
-                errorMessage+=("Número de CPF inválido!\n");
+
+        if (validateEmpty("CPF", cpf)) {
+            if (!matcher.matches()) {
+                errorMessage += ("Número de CPF inválido!\n");
             }
         }
     }
-    
+
     public void validateCNPJ(String cnpj) {
         String pattern = CNPJ_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(cnpj);
-        
-        if(validateEmpty("CNPJ", cnpj)){
-            if(!matcher.matches()) {
-                errorMessage+=("Número de CNPJ inválido!\n");
+
+        if (validateEmpty("CNPJ", cnpj)) {
+            if (!matcher.matches()) {
+                errorMessage += ("Número de CNPJ inválido!\n");
             }
         }
     }
-    
+
     public void validateRG(String rg) {
         String pattern = RG_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(rg);
-        
-        if(validateEmpty("RG", rg)){
-            if(!matcher.matches()) {
-                errorMessage+=("Número de RG inválido!\n");
+
+        if (validateEmpty("RG", rg)) {
+            if (!matcher.matches()) {
+                errorMessage += ("Número de RG inválido!\n");
             }
         }
-        
+
     }
-    
-    public void passwordMatch(String pass1, String pass2){
-        if(!pass1.equals(pass2)){
-            errorMessage+=("Senhas diferentes!\n");
+
+    public void passwordMatch(String pass1, String pass2) {
+        if (!pass1.equals(pass2)) {
+            errorMessage += ("Senhas diferentes!\n");
+        }
+    }
+
+    public void emptyTableSelection(TableView table,String name) {
+        if (table.getSelectionModel().getSelectedItems().isEmpty()) {
+            errorMessage += ("Por favor selecione "+name+"\n");
         }
     }
     
-    public void emptySelection(TableView table){
-        if(table.getSelectionModel().getSelectedItems().isEmpty()){
-            errorMessage+=("");
+    public void emptyComboBoxSelection(ComboBox combo,String name){
+        if(combo.getSelectionModel().getSelectedItem()==null){
+            errorMessage += ("Por favor selecione "+name+"\n");
+        }
+    }
+    
+    public boolean validateDatePicker(DatePicker picker,String name){
+        if(picker.getValue()==null){
+            errorMessage += ("Por favor selecione "+name+"\n");
+            return false;
+        }
+        return true;
+    }
+    
+    public void validateDate(DatePicker begin, DatePicker end){
+        if(end.getValue().isBefore(begin.getValue())){
+            errorMessage += "Data de fim antes do início\n";
         }
     }
 }

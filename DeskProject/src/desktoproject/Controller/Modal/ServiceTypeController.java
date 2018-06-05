@@ -9,6 +9,7 @@ import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Utils.Misc;
+import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -83,7 +84,7 @@ public class ServiceTypeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Misc.setOnlyNumbers(valueTextField);
+        Misc.setOnlyNumbersWithComma(valueTextField);
     }
 
     @FXML

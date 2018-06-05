@@ -22,8 +22,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -135,8 +133,6 @@ public class CustomerController implements Initializable {
     @FXML
     private ToggleGroup personGroup;
     @FXML
-    private Group legalGroup;
-    @FXML
     private RadioButton legalPersonRadio;
     @FXML
     private RadioButton juridicalPersonRadio;
@@ -221,7 +217,8 @@ public class CustomerController implements Initializable {
     }
 
     private void toggleFields() {
-        legalGroup.setVisible(isLegalPerson);
+        RGTextField.setVisible(isLegalPerson);
+        CPFTextField.setVisible(isLegalPerson);
         CNPJTextField.setVisible(!isLegalPerson);
     }
 

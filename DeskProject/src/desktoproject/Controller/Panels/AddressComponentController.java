@@ -11,6 +11,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.LocationsDAO;
+import desktoproject.Utils.Misc;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -87,6 +88,7 @@ public class AddressComponentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Misc.setOnlyNumbersWithDot(numberTextField);
         try {
             // TODO
             ArrayList<String> states = LocationsDAO.getStates();

@@ -63,8 +63,9 @@ public class GUIController {
         mainStage = stage;
         mainStage.setMinWidth(640);
         mainStage.setMinHeight(480);
-        callLogin();
+//        callLogin();
         setUpModalStage();
+        callModalForResult(ModalType.SERVICE_NEW);
 //        callScreen(ScreenType.CUSTOMER_CREATE);
 //        testScreen();
 //        callModal(ModalType.SERVICE_NEW);
@@ -122,11 +123,6 @@ public class GUIController {
         if(!back){
             executionStack.push(new ScreenCall(type, obj));
         }
-//        System.out.println("\nExecution stack");
-//        for(ScreenCall sc : executionStack){
-//            System.out.println("Screen: "+sc.getScreen().name());
-//            System.out.println("Obj: "+sc.getObj());
-//        }
         if(!isMenu){
             setMenuScreen();
         }
@@ -258,13 +254,29 @@ public class GUIController {
         callModal(type,null);
     }
     
-    public void callModal(ModalType type, Object obj){
+    public Transaction callModalForResult(ModalType type){
         try{
             switch(type){
                 case PRODUCT_ADD:{
-                    setUpModal(AddProductController.call());
-                    break;
+                    ScreenObject so = AddProductController.call();
+                    setUpModal(so.getParent());
+                    return ((AddProductController)so.getController()).getSelectedProduct();
                 }
+                case SERVICE_NEW:{
+                    ScreenObject so = CreateServiceController.call();
+                    setUpModal(so.getParent());
+                    return ((CreateServiceController)so.getController()).getNewServiceReturn();
+                }
+            }
+        }catch(IOException ex){
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public void callModal(ModalType type, Object obj){
+        try{
+            switch(type){
                 case BRAND_NEW:{
                     setUpModal(BrandModalController.call());
                     break;
@@ -274,15 +286,11 @@ public class GUIController {
                     break;
                 }
                 case SERVICE_TYPE_CREATE:{
-                    setUpModal(CreateServiceController.call());
+                    setUpModal(ServiceTypeController.call());
                     break;
                 }
                 case SERVICE_TYPE_EDIT:{
-                    setUpModal(CreateServiceController.call(obj));
-                    break;
-                }
-                case SERVICE_NEW:{
-                    setUpModal(ServiceTypeController.call());
+                    setUpModal(ServiceTypeController.call(obj));
                     break;
                 }
                 case SERVICE_UPDATE:{
@@ -297,7 +305,7 @@ public class GUIController {
     
     private void setUpModal(Parent p){
         modalStage.setScene(new Scene(p));
-        modalStage.show();
+        modalStage.showAndWait();
     }
 
     public boolean showEraseConfirmationAlert(String msg) {

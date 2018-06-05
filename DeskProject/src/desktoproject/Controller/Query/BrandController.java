@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -85,22 +82,7 @@ public class BrandController implements Initializable {
     @FXML
     private void createNewBrand() {
         GUIController.getInstance().callModal(ModalType.BRAND_NEW);
-    }
-
-    @FXML
-    private void delete() {
-        Brand brand = brandTable.getSelectionModel().getSelectedItem();
-        if (brand == null) {
-            GUIController.getInstance().showSelectionErrorAlert();
-        } else {
-            try {
-                BrandDAO.deleteBrand(brand);
-            } catch (RemoteException | DatabaseErrorException ex) {
-                GUIController.getInstance().showConnectionErrorAlert();
-            } catch (NoResultsException ex) {
-                GUIController.getInstance().showDeleteErrorAlert();
-            }
-        }
+        populateTable();
     }
 
     @FXML
@@ -110,6 +92,7 @@ public class BrandController implements Initializable {
             GUIController.getInstance().showSelectionErrorAlert();
         } else {
             GUIController.getInstance().callModal(ModalType.BRAND_UPDATE, brand);
+            populateTable();
         }
     }
 
