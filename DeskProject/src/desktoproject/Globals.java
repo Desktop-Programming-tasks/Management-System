@@ -34,17 +34,16 @@ public class Globals {
         return rmiChannel;
     }
 
-    private Globals() {
+    private Globals() throws RemoteException {
         try {
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", 1099);
             this.rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
         } catch (NotBoundException | RemoteException ex) {
-//            Logger.getLogger(Globals.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("CAGOU A MERDA DO RMI "+ex.getMessage());
+            throw new RemoteException();
         }
     }
 
-    public static Globals getInstance() {
+    public static Globals getInstance() throws RemoteException {
         return INSTANCE==null?INSTANCE= new Globals():INSTANCE;
     }
 }

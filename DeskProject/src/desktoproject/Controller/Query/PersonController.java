@@ -166,7 +166,7 @@ public class PersonController implements Initializable {
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {
-                GUIController.getInstance().showDeleteError();
+                GUIController.getInstance().showDeleteErrorAlert();
             } catch (OperationNotAllowed ex) {
                 GUIController.getInstance().showOperationNotAllowed();
             }

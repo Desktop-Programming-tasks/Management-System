@@ -226,12 +226,12 @@ public class GUIController {
                 }
                 case PRODUCT_CREATE: {
                     dynamic.setMaxWidth(1280);
-                    setDynamicChild(ProductController.call());
+                    setDynamicChild(ProductController.call(mainStage));
                     break;
                 }
                 case PRODUCT_DISPLAY: {
                     dynamic.setMaxWidth(1280);
-                    setDynamicChild(ProductController.call(obj));
+                    setDynamicChild(ProductController.call(obj,mainStage));
                     break;
                 }
                 case SUPPLIER_CREATE: {
@@ -269,16 +269,20 @@ public class GUIController {
                     setUpModal(BrandModalController.call(obj));
                     break;
                 }
-                case SERVICE_ADD:{
-                    setUpModal(ServiceSingleController.call());
+                case SERVICE_TYPE_CREATE:{
+                    setUpModal(CreateServiceController.call());
+                    break;
+                }
+                case SERVICE_TYPE_EDIT:{
+                    setUpModal(CreateServiceController.call(obj));
                     break;
                 }
                 case SERVICE_NEW:{
-                    setUpModal(NewServiceController.call());
+                    setUpModal(ServiceTypeController.call());
                     break;
                 }
                 case SERVICE_UPDATE:{
-                    setUpModal(ServiceSingleController.call(obj));
+                    setUpModal(CreateServiceController.call(obj));
                     break;
                 }
             }
@@ -348,12 +352,24 @@ public class GUIController {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de seleção", "Nenhuma entrada selecionada");
     }
     
-    public void showDeleteError(){
+    public void showDeleteErrorAlert(){
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de exclusão", "Entrada não encontrada");
     }
     
     public void showOperationNotAllowed(){
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de operação", "Operação não permitida");
+    }
+    
+    public void showUpdateErrorAlert(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao alterar", "Pessoa não encontrada");
+    }
+    
+    public void showUpdateAlert(){
+        showAlert(Alert.AlertType.INFORMATION, "Alteração", "Alteração concluida","");
+    }
+    
+    public void showBrandExceptioAlert(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro de marca", "A marca selecionada não está mais disponivel");
     }
     
     public void closeModal() {

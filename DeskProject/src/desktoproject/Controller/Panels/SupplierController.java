@@ -23,6 +23,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -172,11 +174,13 @@ public class SupplierController implements Initializable {
 
             try {
                 if (edit) {
-
+                    PersonDAO.updatePerson(supplier);
+                    GUIController.getInstance().showUpdateAlert();
+                    GUIController.getInstance().backToPrevious();
                 } else {
                     PersonDAO.insertPerson(supplier);
                     GUIController.getInstance().showRegisterAlert("Fornecedor");
-                    GUIController.getInstance().backToIndex();
+                    GUIController.getInstance().backToPrevious();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
@@ -184,6 +188,8 @@ public class SupplierController implements Initializable {
                 GUIController.getInstance().showDupplicatedAlert("Fornecedor", "CNPJ");
             } catch (DuplicatedLoginException ex) {
                 //no login inserting costumer
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showUpdateErrorAlert();
             }
         }
     }

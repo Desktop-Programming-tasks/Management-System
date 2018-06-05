@@ -26,15 +26,15 @@ import javafx.scene.control.TextField;
  *
  * @author noda
  */
-public class ServiceSingleController implements Initializable {
+public class CreateServiceController implements Initializable {
 
-    private static final String addServicePath = "desktoproject/View/Modal/ServiceSingle.fxml";
+    private static final String PATH = "desktoproject/View/Modal/CreateService.fxml";
     
     public static Parent call() throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ServiceSingleController.class.getClassLoader().getResource(addServicePath));
+            loader.setLocation(CreateServiceController.class.getClassLoader().getResource(PATH));
             Parent p = loader.load();
-            ServiceSingleController controller = loader.getController();
+            CreateServiceController controller = loader.getController();
             controller.setEdit(false);
             controller.setUpComponents();
             return p;
@@ -42,9 +42,9 @@ public class ServiceSingleController implements Initializable {
     
     public static Parent call(Object obj) throws IOException{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(ServiceSingleController.class.getClassLoader().getResource(addServicePath));
+            loader.setLocation(CreateServiceController.class.getClassLoader().getResource(PATH));
             Parent p = loader.load();
-            ServiceSingleController controller = loader.getController();
+            CreateServiceController controller = loader.getController();
             controller.setService((Service) obj);
             controller.setEdit(true);
             controller.setUpComponents();

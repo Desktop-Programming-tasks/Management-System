@@ -11,6 +11,7 @@ import Classes.Persons.Employee;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
+import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
@@ -20,6 +21,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
@@ -155,11 +158,13 @@ public class EmployeeController implements Initializable {
 
             try {
                 if (edit) {
-
+                    PersonDAO.updatePerson(newEmployee);
+                    GUIController.getInstance().showUpdateAlert();
+                    GUIController.getInstance().backToPrevious();
                 } else {
                     PersonDAO.insertPerson(newEmployee);
                     GUIController.getInstance().showRegisterAlert("Funcionário");
-                    GUIController.getInstance().backToIndex();
+                    GUIController.getInstance().backToPrevious();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
@@ -167,6 +172,8 @@ public class EmployeeController implements Initializable {
                 GUIController.getInstance().showDupplicatedAlert("Funcionário", "CPF");
             } catch (DuplicatedLoginException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Funcionário", "Login");
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showUpdateErrorAlert();
             }
         }
     }

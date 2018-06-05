@@ -17,6 +17,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import Exceptions.UnavailableBrandException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -36,9 +37,10 @@ public interface ServerMethods extends Remote {
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException;
     
-    public Product queryProduct() throws  RemoteException, NoResultsException, DatabaseErrorException;
+    public Product queryProduct(String id) throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Product> queryAllProducts() throws RemoteException, NoResultsException, DatabaseErrorException;
-    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
+    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, UnavailableBrandException;
+    public void updateProduct(Product product) throws RemoteException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException;
 
     public Record queryRecord() throws  RemoteException, NoResultsException, DatabaseErrorException;

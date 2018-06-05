@@ -115,13 +115,17 @@ public class Validate {
     }
     
     public void validateAddressNumber(String num) {
+        if(validateEmpty("Número do endereço", num)){
+            validateNumber(num);
+        }
+    }
+    
+    public void validateNumber(String num){
         String pattern = ADDRESS_NUMBER_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if(validateEmpty("Número do endereço", num)){
-            if(!matcher.matches()) {
-                errorMessage+=("Não é um número!\n");
-            }
+        if(!matcher.matches()){
+            errorMessage+=("Não é um número!\n");
         }
     }
     
@@ -180,9 +184,9 @@ public class Validate {
         }
     }
     
-    public void emptyTable(TableView table){
-        if(table.getItems().isEmpty()){
-            errorMessage+=("Nenhum item adicionado!\n");
+    public void emptySelection(TableView table){
+        if(table.getSelectionModel().getSelectedItems().isEmpty()){
+            errorMessage+=("");
         }
     }
 }

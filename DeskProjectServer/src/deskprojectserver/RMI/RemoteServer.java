@@ -17,6 +17,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import Exceptions.UnavailableBrandException;
 import RMI.ServerMethods;
 import deskprojectserver.Database.DAO.Persons.DAOBuilder;
 import java.rmi.AlreadyBoundException;
@@ -91,23 +92,28 @@ public class RemoteServer implements ServerMethods {
     }
 
     @Override
-    public Product queryProduct() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Product queryProduct(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getProductDAO().getProduct(id);
     }
 
     @Override
     public ArrayList<Product> queryAllProducts() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return DAOBuilder.getInstance().getProductDAO().getAllProducts();
     }
 
     @Override
-    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, UnavailableBrandException {
+        DAOBuilder.getInstance().getProductDAO().insertProduct(product);
+    }
+    
+    @Override
+    public void updateProduct(Product product) throws RemoteException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException {
+        DAOBuilder.getInstance().getProductDAO().updateProduct(product);
     }
 
     @Override
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAOBuilder.getInstance().getProductDAO().removeProduct(product);
     }
 
     @Override

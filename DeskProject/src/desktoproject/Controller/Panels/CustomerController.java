@@ -175,11 +175,13 @@ public class CustomerController implements Initializable {
             }
             try {
                 if(edit){
-                
+                    PersonDAO.updatePerson(person);
+                    GUIController.getInstance().showUpdateAlert();
+                    GUIController.getInstance().backToPrevious();
                 }else{
                     PersonDAO.insertPerson(person);
                     GUIController.getInstance().showRegisterAlert("Cliente");
-                    GUIController.getInstance().backToIndex();
+                    GUIController.getInstance().backToPrevious();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
@@ -187,6 +189,8 @@ public class CustomerController implements Initializable {
                 GUIController.getInstance().showDupplicatedAlert("Cliente",isLegalPerson?"CPF":"CNPJ");
             } catch (DuplicatedLoginException ex) {
                 //no login inserting costumer
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showUpdateErrorAlert();
             }
         }
         

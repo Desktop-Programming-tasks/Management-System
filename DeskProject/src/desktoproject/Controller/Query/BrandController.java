@@ -98,7 +98,7 @@ public class BrandController implements Initializable {
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {
-                GUIController.getInstance().showDeleteError();
+                GUIController.getInstance().showDeleteErrorAlert();
             }
         }
     }

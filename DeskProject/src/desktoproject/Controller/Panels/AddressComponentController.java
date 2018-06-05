@@ -9,6 +9,7 @@ package desktoproject.Controller.Panels;
 import Classes.Persons.Address;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.LocationsDAO;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
@@ -94,12 +95,10 @@ public class AddressComponentController implements Initializable {
                 stateComboBox.setValue(states.get(0));
                 getCityList();
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DatabaseErrorException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+            //
         }
         
     }
@@ -115,12 +114,10 @@ public class AddressComponentController implements Initializable {
             }else{
                 cityComboBox.setDisable(true);
             }
-        } catch (RemoteException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DatabaseErrorException ex) {
-            Logger.getLogger(AddressComponentController.class.getName()).log(Level.SEVERE, null, ex);
+            //
         }
         
     }

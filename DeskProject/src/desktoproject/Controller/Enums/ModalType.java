@@ -13,7 +13,8 @@ public enum ModalType {
     PRODUCT_ADD,
     BRAND_NEW,
     BRAND_UPDATE,
-    SERVICE_ADD,
+    SERVICE_TYPE_CREATE,
+    SERVICE_TYPE_EDIT,
     SERVICE_NEW,
     SERVICE_UPDATE
 }

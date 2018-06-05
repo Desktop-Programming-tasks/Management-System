@@ -44,6 +44,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -194,13 +195,23 @@ public class TransactionController implements Initializable {
         
         mainActionScreenTitle.setText(mainLabelString);
         primaryBtn.setText(primaryBtnString);
-        
+        setStageBreak();
+        adjustComponents();
+    }
+    
+    private void setStageBreak(){
         stage.widthProperty().addListener((observable) -> {
-            if(stage.getWidth()>1056){
+            adjustComponents();
+        });
+    }
+    
+    private void adjustComponents(){
+        if(stage.getWidth()>1056){
                 ObservableList<Node> workingCollection = FXCollections.observableArrayList(vBox.getChildren());
                 vBox.getChildren().clear();
                 for(Node n : workingCollection){
                     hBox.getChildren().add(n);
+                    hBox.setHgrow(n, Priority.ALWAYS);
                 }
                 hBox.toFront();
             }else{
@@ -211,7 +222,6 @@ public class TransactionController implements Initializable {
                 }
                 vBox.toFront();
             }
-        });
     }
     
     private void fillScreen() {
