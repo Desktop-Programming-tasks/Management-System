@@ -22,7 +22,7 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for (Product p : DAOBuilder.getInstance().getProductDAO().getLikeProducts("zé")) {
+            for (Product p : DAOBuilder.getInstance().getProductDAO().getAllProducts()) {
                 System.out.println(p);
             }
         } catch (DatabaseErrorException ex) {

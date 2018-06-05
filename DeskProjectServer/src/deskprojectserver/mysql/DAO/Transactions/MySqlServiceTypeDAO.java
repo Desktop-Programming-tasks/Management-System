@@ -12,6 +12,7 @@ import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
 import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -82,33 +83,43 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
 
     @Override
     public ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException {
-        ArrayList<ServiceType> services = new ArrayList<>();
-        try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
-            while (qr.getResultSet().next()) {
-                services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
-                        qr.getResultSet().getFloat(PRICE)));
+        return getServiceTypesGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
             }
-            qr.closeAll();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new DatabaseErrorException();
-        }
-        return services;
+        });
     }
 
     @Override
     public ArrayList<ServiceType> getLikeServiceTypes(String id) throws DatabaseErrorException {
+        return getServiceTypesGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL,
+                            FormatUtils.setLikeParam(id));
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    private ArrayList<ServiceType> getServiceTypesGeneric(QueryExecuter exec) throws DatabaseErrorException {
         ArrayList<ServiceType> services = new ArrayList<>();
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL, 
-                    FormatUtils.setLikeParam(id));
+            QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
                 services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE)));
             }
             qr.closeAll();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
             throw new DatabaseErrorException();
         }
         return services;
