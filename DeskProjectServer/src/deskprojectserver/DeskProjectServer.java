@@ -29,23 +29,20 @@ public class DeskProjectServer {
 
             //DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st);
             //DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st2);
-//            for (ServiceType stQ : DAOBuilder.getInstance().getServiceTypeDAO().getAllServiceTypes()) {
-//                System.out.println(stQ.getName());
-//                System.out.println(stQ.getPrice());
-//                System.out.println(stQ.getId());
-//            }
-            ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("batata2");
-            System.out.println(st.getName());
-            System.out.println(st.getPrice());
-            System.out.println(st.getId());
-            st.setPrice(200321312);
-            DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
+          for (ServiceType stQ : DAOBuilder.getInstance().
+                  getServiceTypeDAO().getLikeServiceTypes("31")) {
+                System.out.println(stQ.getName());
+                System.out.println(stQ.getPrice());
+                System.out.println(stQ.getId());
+            }
+//            ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("batata2");
+//            System.out.println(st.getName());
+//            System.out.println(st.getPrice());
+//            System.out.println(st.getId());
+//            st.setPrice(200321312);
+//            DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
         } catch (DatabaseErrorException e) {
             e.printStackTrace();
-        } catch (NoResultsException ex) {
-            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DuplicatedEntryException ex) {
-            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

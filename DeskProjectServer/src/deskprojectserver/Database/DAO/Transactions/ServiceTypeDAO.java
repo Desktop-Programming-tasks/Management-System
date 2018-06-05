@@ -20,5 +20,6 @@ public abstract class ServiceTypeDAO {
     public abstract void updateServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
     public abstract ServiceType getServiceType(String id) throws DatabaseErrorException,NoResultsException;
     public abstract ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException;
+    public abstract ArrayList<ServiceType> getLikeServiceTypes(String id) throws DatabaseErrorException;
     
 }

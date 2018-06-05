@@ -11,30 +11,32 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
+import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author gabriel
  */
 public class MySqlServiceTypeDAO extends ServiceTypeDAO {
-    private static final String NAME="nameServiceType";
-    private static final String PRICE="priceServiceType";
-    private static final String ID="idServiceType";
+
+    private static final String NAME = "nameServiceType";
+    private static final String PRICE = "priceServiceType";
+    private static final String ID = "idServiceType";
     private static final String INSERT_SQL = "INSERT INTO "
             + "`ServiceType`(`nameServiceType`, `priceServiceType`) "
             + "VALUES (?,?)";
     private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType` WHERE nameServiceType=?";
-    private static final String GET_ALL_SQL="SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
+    private static final String GET_ALL_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType`";
-    private static final String UPDATE_SQL="UPDATE `ServiceType` "
+    private static final String UPDATE_SQL = "UPDATE `ServiceType` "
             + "SET `nameServiceType`=?,`priceServiceType`=? WHERE idServiceType=?";
+    private static final String GET_LIKE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
+            + "FROM `ServiceType` WHERE nameServiceType LIKE ?";
 
     @Override
     public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
@@ -49,13 +51,12 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
 
     @Override
     public void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
-        try{
-            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(),st.getPrice()
-            ,st.getId());
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(), st.getPrice(),
+                    st.getId());
         } catch (MySQLIntegrityConstraintViolationException ex) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
             throw new DatabaseErrorException();
         }
     }
@@ -66,7 +67,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
             while (qr.getResultSet().next()) {
-                st = new ServiceType(qr.getResultSet().getInt(ID),qr.getResultSet().getString(NAME),
+                st = new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE));
             }
             qr.closeAll();
@@ -82,14 +83,32 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     @Override
     public ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException {
         ArrayList<ServiceType> services = new ArrayList<>();
-        try{
+        try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
-            while(qr.getResultSet().next()){
-                services.add(new ServiceType(qr.getResultSet().getInt(ID),qr.getResultSet().getString(NAME),
+            while (qr.getResultSet().next()) {
+                services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE)));
             }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
         }
-        catch(ClassNotFoundException | SQLException e){
+        return services;
+    }
+
+    @Override
+    public ArrayList<ServiceType> getLikeServiceTypes(String id) throws DatabaseErrorException {
+        ArrayList<ServiceType> services = new ArrayList<>();
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL, 
+                    FormatUtils.setLikeParam(id));
+            while (qr.getResultSet().next()) {
+                services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
+                        qr.getResultSet().getFloat(PRICE)));
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
         return services;
