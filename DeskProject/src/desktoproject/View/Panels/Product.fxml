@@ -42,7 +42,7 @@
                   <HBox fx:id="quantityGroup" alignment="CENTER_RIGHT" spacing="8.0">
                      <children>
                         <Label alignment="CENTER" text="Quantidade" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="quantityTextField" alignment="CENTER" editable="false" prefHeight="33.0" prefWidth="100.0" />
+                        <TextField fx:id="quantityTextField" alignment="CENTER" disable="true" editable="false" prefHeight="33.0" prefWidth="100.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="8.0">

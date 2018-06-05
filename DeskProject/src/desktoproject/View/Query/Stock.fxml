@@ -20,7 +20,7 @@
       <TableView fx:id="StockTable" layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <columns>
             <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Nome" />
-            <TableColumn fx:id="brandColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Marcas" />
+            <TableColumn fx:id="brandColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Marca" />
             <TableColumn fx:id="quantityColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Quantidade" />
             <TableColumn fx:id="codeColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Código" />
          </columns>
@@ -31,12 +31,6 @@
       <HBox alignment="CENTER" layoutX="865.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#detailsProduct" prefHeight="35.0" prefWidth="150.0" text="Detalhes">
-               <styleClass>
-                  <String fx:value="level-1" />
-                  <String fx:value="table-button" />
-               </styleClass>
-            </Button>
-            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="159.0" text="Deletar">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

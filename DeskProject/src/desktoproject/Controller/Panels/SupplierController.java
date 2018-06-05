@@ -114,9 +114,7 @@ public class SupplierController implements Initializable {
     }
     
     private void selectSupplierBrands(){
-        ArrayList<Brand> brands = new ArrayList<>(brandsTable.getItems());
-        
-        for(Brand tableBrand : brands){
+        for(Brand tableBrand : brandsTable.getItems()){
             for(Brand supplierBrand : supplier.getAvaliableBrands()){
                 if(tableBrand.getName().equals(supplierBrand.getName())){
                     brandsTable.getSelectionModel().select(tableBrand);

@@ -20,14 +20,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
@@ -95,7 +92,7 @@ public class ProductController implements Initializable {
         
         quantityGroup.setVisible(edit);
         barCodeTextField.setDisable(edit);
-        populateTable();
+        
         setStageBreak();
         adjustComponents();
     }
@@ -129,8 +126,17 @@ public class ProductController implements Initializable {
         nameTextField.setText(product.getName());
         priceTextField.setText(String.valueOf(product.getPrice()));
         barCodeTextField.setText(product.getBarCode());
+        quantityTextField.setText(String.valueOf(product.getQuantity()));
         
-        brandsTable.getSelectionModel().select(product.getBrand());
+        selectTableBrand();
+    }
+    
+    private void selectTableBrand(){
+        for(Brand b : brandsTable.getItems()){
+            if(b.getName().equals(product.getBrand().getName())){
+                brandsTable.getSelectionModel().select(b);
+            }
+        }
     }
 
     @FXML
@@ -167,6 +173,7 @@ public class ProductController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableListeners();
+        populateTable();
     }
 
     private void populateTable() {

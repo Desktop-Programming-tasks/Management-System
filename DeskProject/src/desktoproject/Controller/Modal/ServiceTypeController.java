@@ -6,8 +6,8 @@
 package desktoproject.Controller.Modal;
 
 import Classes.Transactions.Service;
+import Classes.Transactions.ServiceType;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.Classes.Transactions.ServiceType;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
