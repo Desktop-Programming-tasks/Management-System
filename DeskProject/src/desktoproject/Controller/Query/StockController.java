@@ -9,9 +9,11 @@ import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -78,6 +80,22 @@ public class StockController implements Initializable {
         
         populateTable();
         setTableAction();
+        setUpSearch();
+    }
+    
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+                try {
+                    StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
     }
     
     private void populateTable(){
@@ -108,9 +126,20 @@ public class StockController implements Initializable {
     private void back() {
         GUIController.getInstance().backToPrevious();
     }
+    
+    @FXML
+    private void create(){
+        GUIController.getInstance().callScreen(ScreenType.PRODUCT_CREATE);
+    }
 
     @FXML
     private void detailsProduct() {
-
+        Product product = StockTable.getSelectionModel().getSelectedItem();
+        if(product==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, product);
+            populateTable();
+        }
     }
 }

@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="360.0" minWidth="520.0" prefHeight="360.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Query.BrandController">
+<AnchorPane minWidth="520.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Query.BrandController">
    <children>
       <Label layoutY="6.0" text="Consulta de Marca" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <TableView fx:id="brandTable" editable="true" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="50.0">
+      <TableView fx:id="brandTable" editable="true" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <columns>
             <TableColumn fx:id="nameColumn" editable="false" maxWidth="-1.0" minWidth="392.0" prefWidth="392.0" resizable="false" sortable="false" text="Nome" />
          </columns>
@@ -33,12 +33,6 @@
                </styleClass>
             </Button>
             <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#editBrand" prefHeight="35.0" prefWidth="160.0" text="Editar">
-               <styleClass>
-                  <String fx:value="level-1" />
-                  <String fx:value="table-button" />
-               </styleClass>
-            </Button>
-            <Button minHeight="35.0" minWidth="160.0" mnemonicParsing="false" onAction="#delete" prefHeight="35.0" prefWidth="160.0" text="Deletar">
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="table-button" />

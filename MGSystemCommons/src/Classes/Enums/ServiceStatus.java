@@ -16,5 +16,33 @@ public enum ServiceStatus {
     WAITING_FOR_WITHDRAWAL,
     REFUSED,
     RUNNING,
-    DONE
+    DONE;
+    
+    public static String translateEnumToGUI(ServiceStatus status){
+        switch(status){
+            case DONE:{
+                return "Terminado";
+            }
+            case ON_ESTIMATE:{
+                return "Em orçamento";
+            }
+            case REFUSED:{
+                return "Recusado";
+            }
+            case RUNNING:{
+                return "Em andamento";
+            }
+            case WAITING_FOR_APPROVAL:{
+                return "Aguardando aprovação";
+            }
+            case WAITING_FOR_WITHDRAWAL:{
+                return "Aguardando retirada";
+            }
+            case WAITING_PAYMENT:{
+                return "Aguardando pagamento";
+            }
+            default:
+                return "";
+        }
+    }
 }

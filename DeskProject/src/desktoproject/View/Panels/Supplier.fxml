@@ -29,7 +29,7 @@
       <Separator layoutX="10.0" layoutY="180.0" prefHeight="5.0" prefWidth="720.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0" />
       <AnchorPane fx:id="addressPane" layoutY="360.0" prefHeight="160.0" prefWidth="830.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0" />
       <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0" />
-      <TableView fx:id="brandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="64.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="520.0">
+      <TableView fx:id="brandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0">
         <columns>
           <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Marcas" />
         </columns>

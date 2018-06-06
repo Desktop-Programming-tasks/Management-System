@@ -5,13 +5,17 @@
  */
 package desktoproject.Controller.Modal;
 
-import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Misc;
+import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,41 +35,46 @@ public class ServiceTypeController implements Initializable {
 
     private static final String PATH = "desktoproject/View/Modal/ServiceType.fxml";
     private boolean EDIT;
-    private Service service;
-    
+    private ServiceType serviceType;
+
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ServiceTypeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         ServiceTypeController controller = loader.getController();
         controller.setEDIT(false);
+        controller.setUpComponents();
         return p;
     }
 
-    public static Parent call(Object service) throws IOException {
+    public static Parent call(Object serviceType) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(ServiceTypeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         ServiceTypeController controller = loader.getController();
         controller.setEDIT(true);
-        
+        controller.setServiceType((ServiceType) serviceType);
+        controller.setUpComponents();
+
         return p;
     }
-    
-    
-    private void setUpComponents(){
-        if(EDIT){
+
+    private void setUpComponents() {
+        if (EDIT) {
             mainLabel.setText("Editar Serviço");
             mainBtn.setText("Alterar");
-        }else{
+            fillScreen();
+        } else {
             mainLabel.setText("Registrar Serviço");
             mainBtn.setText("Registrar");
         }
     }
-    
-    private void fillScreen(){
-        nameTextField.setText(service.getName());
-        valueTextField.setText(String.valueOf(service.getPrice()));
+
+    private void fillScreen() {
+        nameTextField.setText(serviceType.getName());
+        System.out.println(serviceType.getPrice());
+        System.out.println(String.valueOf(serviceType.getPrice()));
+        valueTextField.setText(changeToComma(String.valueOf(serviceType.getPrice())));
     }
 
     @FXML
@@ -83,15 +92,31 @@ public class ServiceTypeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Misc.setOnlyNumbers(valueTextField);
+        Misc.setOnlyNumbersWithComma(valueTextField);
     }
 
     @FXML
     private void mainAction() {
         if (validate()) {
-            ServiceType newService = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
-            
+            ServiceType newServiceType = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+            try {
+                if (EDIT) {
+                    newServiceType.setId(serviceType.getId());
+                    ServiceTypeDAO.updateServiceType(newServiceType);
+                    GUIController.getInstance().showUpdateAlert();
+                    GUIController.getInstance().closeModal();
+                } else {
+                    ServiceTypeDAO.insertServiceType(newServiceType);
+                    GUIController.getInstance().showRegisterAlert("Tipo de serviço");
+                    GUIController.getInstance().closeModal();
+                }
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            }catch (DuplicatedEntryException ex) {
+                GUIController.getInstance().showDupplicatedAlert("Tipo de serviço", newServiceType.getName());
+            }
         }
+
     }
 
     @FXML
@@ -116,7 +141,7 @@ public class ServiceTypeController implements Initializable {
         this.EDIT = EDIT;
     }
 
-    public void setService(Service service) {
-        this.service = service;
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
     }
 }

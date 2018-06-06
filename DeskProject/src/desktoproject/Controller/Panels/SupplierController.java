@@ -200,6 +200,7 @@ public class SupplierController implements Initializable {
     @FXML
     private void createNewBrand() {
         GUIController.getInstance().callModal(ModalType.BRAND_NEW);
+        populateTable();
     }
 
     private void setSupplier(Supplier supplier) {

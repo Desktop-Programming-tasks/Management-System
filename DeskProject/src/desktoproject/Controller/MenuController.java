@@ -119,7 +119,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void showCreateService() {
-        GUIController.getInstance().callModal(ModalType.SERVICE_NEW);
+        GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_CREATE);
     }
 
     @FXML

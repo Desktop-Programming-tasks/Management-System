@@ -15,6 +15,8 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Utils.Misc;
+import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -124,7 +126,7 @@ public class ProductController implements Initializable {
 
     private void fillScreen() {
         nameTextField.setText(product.getName());
-        priceTextField.setText(String.valueOf(product.getPrice()));
+        priceTextField.setText(changeToComma(String.valueOf(product.getPrice())));
         barCodeTextField.setText(product.getBarCode());
         quantityTextField.setText(String.valueOf(product.getQuantity()));
         
@@ -172,6 +174,9 @@ public class ProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        
+        Misc.setOnlyNumbersWithComma(priceTextField);
+        Misc.setOnlyNumbers(barCodeTextField);
         setTableListeners();
         populateTable();
     }
@@ -200,7 +205,7 @@ public class ProductController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            Product newProduct = new Product(barCodeTextField.getText(), brandsTable.getSelectionModel().getSelectedItem(), Float.valueOf(priceTextField.getText()), nameTextField.getText());
+            Product newProduct = new Product(barCodeTextField.getText(), brandsTable.getSelectionModel().getSelectedItem(), Float.valueOf(Misc.changeToDot(priceTextField.getText())), nameTextField.getText());
 
             try {
                 if (edit) {
@@ -227,6 +232,7 @@ public class ProductController implements Initializable {
     @FXML
     private void createNewBrand() {
         GUIController.getInstance().callModal(ModalType.BRAND_NEW);
+        populateTable();
     }
 
     public void setProduct(Product product) {
@@ -248,11 +254,9 @@ public class ProductController implements Initializable {
 
         valObj.validateName(nameTextField.getText());
 
-        valObj.validateNumber(priceTextField.getText());
+        valObj.validatePrice(priceTextField.getText());
 
-        valObj.validateNumber(quantityTextField.getText());
-
-        valObj.emptySelection(brandsTable);
+        valObj.emptyTableSelection(brandsTable,"uma marca");
 
         if (valObj.getErrorMessage().isEmpty()) {
             return true;

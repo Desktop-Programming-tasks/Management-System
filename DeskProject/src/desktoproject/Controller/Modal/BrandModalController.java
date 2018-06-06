@@ -26,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-
 /**
  * FXML Controller class
  *
@@ -94,21 +93,21 @@ public class BrandModalController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            Brand brand = new Brand(nameTextField.getText());
-            
-            if (edit) {
+            Brand newBrand = new Brand(nameTextField.getText());
 
-            } else {
-                try {
-                    BrandDAO.insertBrand(brand);
+            try {
+                if (edit) {
+                    
+                } else {
+                    BrandDAO.insertBrand(newBrand);
                     GUIController.getInstance().showRegisterAlert("Marca");
                     GUIController.getInstance().closeModal();
-                    
-                } catch (RemoteException|DatabaseErrorException ex) {
-                    GUIController.getInstance().showConnectionErrorAlert();
-                } catch (DuplicatedEntryException ex) {
-                    GUIController.getInstance().showDupplicatedAlert("Marca", "nome");
                 }
+
+            } catch (RemoteException | DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (DuplicatedEntryException ex) {
+                GUIController.getInstance().showDupplicatedAlert("Marca", "nome");
             }
         }
     }

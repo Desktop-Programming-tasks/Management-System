@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -8,6 +7,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxWidth="1280.0" minHeight="600.0" minWidth="520.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Panels.CustomerController">
@@ -18,23 +20,27 @@
          </font>
       </Label>
       <TextField fx:id="nameTextField" layoutY="100.0" prefHeight="30.0" promptText="Nome do Cliente *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0" />
-      <RadioButton fx:id="juridicalPersonRadio" layoutX="53.0" layoutY="180.0" mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0">
-         <toggleGroup>
-            <ToggleGroup fx:id="personGroup" />
-         </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="legalPersonRadio" layoutX="53.0" layoutY="150.0" mnemonicParsing="false" selected="true" text="Pessoa Fisica" textAlignment="CENTER" toggleGroup="$personGroup" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="110.0" />
-      <Group layoutX="275.0" layoutY="150.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="110.0">
+      <GridPane hgap="8.0" layoutX="50.0" layoutY="110.0" styleClass="gridpane" vgap="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="110.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Group fx:id="legalGroup">
-               <children>
-                  <TextField fx:id="CPFTextField" layoutY="43.0" prefHeight="37.0" prefWidth="270.0" promptText="CPF *" />
-                  <TextField fx:id="RGTextField" prefHeight="37.0" prefWidth="270.0" promptText="RG *" />
-               </children>
-            </Group>
-            <TextField fx:id="CNPJTextField" prefHeight="37.0" prefWidth="270.0" promptText="CNPJ *" visible="false" />
+            <RadioButton fx:id="legalPersonRadio" mnemonicParsing="false" selected="true" text="Pessoa Fisica" textAlignment="CENTER">
+               <toggleGroup>
+                  <ToggleGroup fx:id="personGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="juridicalPersonRadio" mnemonicParsing="false" text="Pessoa Juridica" textAlignment="CENTER" textOverrun="CLIP" toggleGroup="$personGroup" wrapText="true" GridPane.rowIndex="1" />
+            <TextField fx:id="RGTextField" prefHeight="37.0" prefWidth="270.0" promptText="RG *" GridPane.columnIndex="1" />
+            <TextField fx:id="CPFTextField" prefHeight="37.0" prefWidth="270.0" promptText="CPF *" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="CNPJTextField" prefHeight="37.0" prefWidth="270.0" promptText="CNPJ *" visible="false" GridPane.columnIndex="1" />
          </children>
-      </Group>
+      </GridPane>
       <Separator layoutY="269.0" prefHeight="5.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="230.0" />
       <AnchorPane fx:id="telephonePane" layoutY="300.0" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0" />
       <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />

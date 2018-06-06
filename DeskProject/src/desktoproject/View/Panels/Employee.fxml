@@ -46,12 +46,12 @@
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField fx:id="userTextField" prefHeight="26.0" prefWidth="516.0" promptText="Usuário *" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dados de Acesso">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
+            <TextField fx:id="userTextField" prefHeight="26.0" prefWidth="516.0" promptText="Usuário *" GridPane.rowIndex="1" />
             <PasswordField fx:id="passwordFieldOficial" prefHeight="33.0" prefWidth="516.0" promptText="Informe a senha *" GridPane.rowIndex="2" />
             <PasswordField fx:id="passwordFieldConfirm" prefHeight="33.0" prefWidth="516.0" promptText="Confirme a senha *" GridPane.rowIndex="3" />
          </children>

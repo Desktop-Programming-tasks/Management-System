@@ -30,10 +30,10 @@
          </rowConstraints>
          <children>
             <TextField fx:id="streetTextField" promptText="Rua *" GridPane.columnSpan="4" />
-            <TextField fx:id="districtTextField" promptText="Bairro *" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             <TextField fx:id="numberTextField" promptText="Número *" GridPane.columnIndex="4" />
-            <ComboBox fx:id="cityComboBox" promptText="--------" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="districtTextField" promptText="Bairro *" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             <ComboBox fx:id="stateComboBox" onAction="#getCityList" promptText="Estado" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cityComboBox" promptText="--------" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

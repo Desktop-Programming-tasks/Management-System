@@ -12,6 +12,7 @@ import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
+import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
@@ -174,5 +175,35 @@ public class RemoteServer implements ServerMethods {
     @Override
     public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getAllEmployees();
+    }
+
+    @Override
+    public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getProductDAO().getLikeProducts(id);
+    }
+
+    @Override
+    public void insertServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
+        DAOBuilder.getInstance().getServiceTypeDAO().insertServiceType(st);
+    }
+
+    @Override
+    public void updateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
+        DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
+    }
+
+    @Override
+    public ServiceType queryServiceType(String id) throws RemoteException, DatabaseErrorException, NoResultsException {
+        return DAOBuilder.getInstance().getServiceTypeDAO().getServiceType(id);
+    }
+
+    @Override
+    public ArrayList<ServiceType> queryAllServiceTypes() throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getServiceTypeDAO().getAllServiceTypes();
+    }
+
+    @Override
+    public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getServiceTypeDAO().getLikeServiceTypes(id);
     }
 }
