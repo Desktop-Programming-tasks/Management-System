@@ -12,10 +12,13 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
+import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import jdk.nashorn.internal.ir.ForNode;
 
 /**
  *
@@ -34,9 +37,11 @@ public class MySqlPersonDAO extends PersonDAO {
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idPerson=?";
-//    private final static String GET_ALL_SQL = "SELECT `idPerson`, `namePerson`,"
-//            + " `tel1Person`, `tel2Person` FROM `Person` WHERE 1";
+
     private final static String GET_ALL_ID = "SELECT `idPerson` FROM `Person` WHERE 1";
+
+    private final static String GET_LIKE_ID = "SELECT `idPerson` FROM `Person` WHERE "
+            + " namePerson LIKE ?";
 
     private final static String UPDATE_SQL = "UPDATE `Person` SET"
             + "`namePerson`=?,`tel1Person`=?,"
@@ -62,33 +67,12 @@ public class MySqlPersonDAO extends PersonDAO {
 
     @Override
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
-        try{
-        MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getName(),
-                p.getTelephones().get(0),p.getTelephones().get(1),p.getId());
-        }
-        catch(ClassNotFoundException | SQLException e){
-            throw new DatabaseErrorException();
-        }
-    }
-
-    @Override
-    public ArrayList<Person> getAllPersons() throws DatabaseErrorException {
-        ArrayList<Person> persons = new ArrayList<>();
-
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_ID);
-            while (qr.getResultSet().next()) {
-                try {
-                    persons.add(getPerson(qr.getResultSet().getString(ID)));
-                } catch (NoResultsException e) {
-                    //
-                }
-            }
-            qr.closeAll();
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getName(),
+                    p.getTelephones().get(0), p.getTelephones().get(1), p.getId());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
-        return persons;
     }
 
     @Override
@@ -113,5 +97,52 @@ public class MySqlPersonDAO extends PersonDAO {
             throw new NoResultsException();
         }
         return p;
+    }
+
+    private ArrayList<Person> getPersonsGeneric(QueryExecuter exec) throws DatabaseErrorException {
+        ArrayList<Person> persons = new ArrayList<>();
+        try {
+            QueryResult qr = exec.execute();
+            while (qr.getResultSet().next()) {
+                try {
+                    persons.add(getPerson(qr.getResultSet().getString(ID)));
+                } catch (NoResultsException e) {
+                    //
+                }
+            }
+            qr.closeAll();
+        } catch (SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        return persons;
+    }
+
+    @Override
+    public ArrayList<Person> getAllPersons() throws DatabaseErrorException {
+        return getPersonsGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_ID);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Person> getLikePersons(String id) throws DatabaseErrorException {
+        return getPersonsGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_ID, 
+                            FormatUtils.setLikeParam(id));
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
     }
 }

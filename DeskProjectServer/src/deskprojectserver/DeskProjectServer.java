@@ -24,7 +24,7 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for(Person p : DAOBuilder.getInstance().getPersonDAO().getLikeSuppliers("fuck")){
+            for(Person p : DAOBuilder.getInstance().getPersonDAO().getLikePersons("va")){
                 System.out.println(p);
             }
         } catch (DatabaseErrorException ex) {
