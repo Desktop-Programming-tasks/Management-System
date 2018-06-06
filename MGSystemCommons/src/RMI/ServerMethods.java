@@ -66,4 +66,5 @@ public interface ServerMethods extends Remote {
             
     public ArrayList<Supplier> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException;
+    //public ArrayList<Employee> searchEmplyee() throws RemoteException, 
 }

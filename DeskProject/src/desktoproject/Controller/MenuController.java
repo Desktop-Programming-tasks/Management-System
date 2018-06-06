@@ -11,14 +11,11 @@ import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.binding.DoubleBinding;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -28,7 +25,7 @@ import javafx.stage.Stage;
 public class MenuController implements Initializable {
 
     private static final String path = "desktoproject/View/Menu.fxml";
-
+    
     public static ScreenObject call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(LoginController.class.getClassLoader().getResource(path));
@@ -45,7 +42,7 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO 
     }
 
     public AnchorPane getDynamic() {
@@ -54,7 +51,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void showIndex() {
-        GUIController.getInstance().callScreen(ScreenType.INDEX);
+        GUIController.getInstance().backToIndex();
     }
 
     @FXML
