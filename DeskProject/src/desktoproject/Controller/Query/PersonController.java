@@ -113,7 +113,7 @@ public class PersonController implements Initializable {
                     if(type==EMPLOYEE){
                         personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
                     }else{
-                        
+                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
                     }
                 } catch (RemoteException|DatabaseErrorException ex) {
                     

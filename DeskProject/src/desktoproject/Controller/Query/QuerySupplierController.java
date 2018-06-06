@@ -46,21 +46,21 @@ import javafx.util.Callback;
 public class QuerySupplierController implements Initializable {
 
     private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
-    
-    public static Parent call() throws IOException{
+
+    public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(QuerySupplierController.class.getClassLoader().getResource(querySupplierPath));        
+        loader.setLocation(QuerySupplierController.class.getClassLoader().getResource(querySupplierPath));
         return loader.load();
     }
-    
+
     @FXML
     private TableView<Supplier> suppliersTable;
     @FXML
-    private TableColumn<Supplier,String> cnpjColumn;
+    private TableColumn<Supplier, String> cnpjColumn;
     @FXML
-    private TableColumn<Supplier,String> nameColumn;
+    private TableColumn<Supplier, String> nameColumn;
     @FXML
-    private TableColumn<Supplier,String> brandsColumn;
+    private TableColumn<Supplier, String> brandsColumn;
     @FXML
     private TextField searchTextField;
 
@@ -69,7 +69,7 @@ public class QuerySupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         suppliersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("CNPJ"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -80,26 +80,43 @@ public class QuerySupplierController implements Initializable {
                 p.getValue().getAvaliableBrands().forEach((b) -> {
                     brands.add(b.getName());
                 });
-                return new SimpleStringProperty(String.join(", ",brands));
+                return new SimpleStringProperty(String.join(", ", brands));
             }
         });
-        
+
         populateTable();
         setTableAction();
+        setUpSearch();
     }
-    
-    public void populateTable(){
+
+    private void setUpSearch() {
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            newValue = newValue.trim();
+            if (newValue.isEmpty()) {
+                populateTable();
+            } else {
+                try {
+                    suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue))));
+
+                } catch (RemoteException | DatabaseErrorException ex) {
+
+                }
+            }
+        });
+    }
+
+    public void populateTable() {
         try {
             suppliersTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
         }
-        
+
     }
-    
-    private void setTableAction(){
+
+    private void setTableAction() {
         suppliersTable.setRowFactory(tv -> {
             TableRow<Supplier> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -116,25 +133,24 @@ public class QuerySupplierController implements Initializable {
     private void back() {
         GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
     private void createNew() {
         GUIController.getInstance().callScreen(ScreenType.SUPPLIER_CREATE);
     }
-    
+
     @FXML
     private void editSupplier() {
         Supplier supplier = suppliersTable.getSelectionModel().getSelectedItem();
-        if(supplier==null){
+        if (supplier == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, supplier);
         }
     }
-    
-    
+
     @FXML
-    private void delete(){
+    private void delete() {
         Person person = suppliersTable.getSelectionModel().getSelectedItem();
         if (person == null) {
             GUIController.getInstance().showSelectionErrorAlert();
