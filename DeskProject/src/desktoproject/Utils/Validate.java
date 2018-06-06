@@ -210,6 +210,12 @@ public class Validate {
         }
     }
     
+    public void emptyTransactionTable(TableView table){
+        if (table.getSelectionModel().getSelectedItems().isEmpty()) {
+            errorMessage += ("Por favor realize pelo menso uma transação\n");
+        }
+    }
+    
     public void emptyComboBoxSelection(ComboBox combo,String name){
         if(combo.getSelectionModel().getSelectedItem()==null){
             errorMessage += ("Por favor selecione "+name+"\n");
