@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +68,23 @@ public class ServiceTypeQueryController implements Initializable {
         
         populateTable();
         setTableAction();
+        setUpSearch();
     }    
+    
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+                try {
+                    ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.searchServiceTypes(newValue)));
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
+    }
     
     private void populateTable(){
         try {

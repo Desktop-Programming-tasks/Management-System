@@ -39,7 +39,7 @@ public abstract class ProductDAO {
         Globals.getInstance().getChannel().updateProduct(product);
     }
     
-    public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException {
+    public static ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException {
         return Globals.getInstance().getChannel().searchProduct(id);
     }
 }

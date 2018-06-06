@@ -22,10 +22,10 @@
       <HBox fx:id="hBox" alignment="CENTER" spacing="32.0" styleClass="gridpane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
       <VBox fx:id="vBox" alignment="CENTER" layoutX="-5.0" layoutY="50.0" spacing="32.0" styleClass="gridpane" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
          <children>
-            <VBox spacing="32.0">
+            <VBox alignment="CENTER_LEFT" spacing="32.0">
                <children>
-                  <TextField fx:id="barCodeTextField" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Código de Barras *" />
-                  <TextField fx:id="nameTextField" minHeight="30.0" minWidth="500.0" prefHeight="30.0" prefWidth="500.0" promptText="Nome do Produto *" />
+                  <TextField fx:id="barCodeTextField" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" promptText="Código de Barras *" />
+                  <TextField fx:id="nameTextField" minHeight="35.0" minWidth="500.0" prefHeight="35.0" prefWidth="500.0" promptText="Nome do Produto *" />
                   <HBox alignment="CENTER_RIGHT" VBox.vgrow="NEVER">
                      <children>
                         <Label text="R$" textAlignment="CENTER" HBox.hgrow="ALWAYS">
@@ -36,13 +36,13 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                         </Label>
-                        <TextField fx:id="priceTextField" alignment="CENTER" promptText="Preço *" />
+                        <TextField fx:id="priceTextField" alignment="CENTER" minHeight="35.0" prefHeight="35.0" promptText="Preço *" />
                      </children>
                   </HBox>
                   <HBox fx:id="quantityGroup" alignment="CENTER_RIGHT" spacing="8.0">
                      <children>
                         <Label alignment="CENTER" text="Quantidade" HBox.hgrow="ALWAYS" />
-                        <TextField fx:id="quantityTextField" alignment="CENTER" disable="true" editable="false" prefHeight="33.0" prefWidth="100.0" />
+                        <TextField fx:id="quantityTextField" alignment="CENTER" disable="true" editable="false" minHeight="35.0" prefHeight="35.0" prefWidth="100.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="8.0">

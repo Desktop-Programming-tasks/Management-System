@@ -176,6 +176,7 @@ public class ProductController implements Initializable {
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         
         Misc.setOnlyNumbersWithComma(priceTextField);
+        Misc.setOnlyNumbers(barCodeTextField);
         setTableListeners();
         populateTable();
     }
@@ -204,7 +205,7 @@ public class ProductController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            Product newProduct = new Product(barCodeTextField.getText(), brandsTable.getSelectionModel().getSelectedItem(), Float.valueOf(priceTextField.getText()), nameTextField.getText());
+            Product newProduct = new Product(barCodeTextField.getText(), brandsTable.getSelectionModel().getSelectedItem(), Float.valueOf(Misc.changeToDot(priceTextField.getText())), nameTextField.getText());
 
             try {
                 if (edit) {

@@ -62,7 +62,7 @@ public class GUIController {
     public void startApp(Stage stage) {
         mainStage = stage;
         mainStage.setMinWidth(640);
-        mainStage.setMinHeight(480);
+        mainStage.setMinHeight(500);
         callLogin();
         setUpModalStage();
 //        callModalForResult(ModalType.SERVICE_NEW);
@@ -75,6 +75,7 @@ public class GUIController {
         modalStage = new Stage();
         modalStage.initOwner(mainStage);
         modalStage.initModality(Modality.APPLICATION_MODAL);
+        modalStage.setResizable(false);
     }
 
     private void setDynamicChild(Parent p) {
