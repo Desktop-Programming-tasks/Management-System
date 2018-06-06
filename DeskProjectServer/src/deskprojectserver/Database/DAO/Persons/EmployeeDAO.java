@@ -22,4 +22,5 @@ public abstract class EmployeeDAO {
     public abstract void removeEmployee(Employee employee) throws DatabaseErrorException,NoResultsException ;
     public abstract Employee getEmployee(String id) throws DatabaseErrorException,NoResultsException ;
     public abstract ArrayList<Employee> getAllEmployees() throws DatabaseErrorException;
+    public abstract ArrayList<Employee> getLikeEmployees(String id) throws DatabaseErrorException;
 }

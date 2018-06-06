@@ -5,6 +5,7 @@
  */
 package deskprojectserver;
 
+import Classes.Persons.Person;
 import Classes.Transactions.Product;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
@@ -23,14 +24,9 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for (Product p : DAOBuilder.getInstance().getProductDAO().getLikeProducts("batata")) {
+            for(Person p : DAOBuilder.getInstance().getPersonDAO().getLikeEmployees("ba")){
                 System.out.println(p);
             }
-//        for(ServiceType st: DAOBuilder.getInstance().getServiceTypeDAO().getLikeServiceTypes("31")){
-//            System.out.println(st.getId());
-//            System.out.println(st.getName());
-//            System.out.println(st.getPrice());
-//        }
         } catch (DatabaseErrorException ex) {
             Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
