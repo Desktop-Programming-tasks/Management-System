@@ -38,4 +38,8 @@ public abstract class ProductDAO {
     public static void updateProduct(Product product) throws RemoteException, UnavailableBrandException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException {
         Globals.getInstance().getChannel().updateProduct(product);
     }
+    
+    public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchProduct(id);
+    }
 }
