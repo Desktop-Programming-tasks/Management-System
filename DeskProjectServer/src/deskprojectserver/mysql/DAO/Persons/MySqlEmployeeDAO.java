@@ -13,17 +13,20 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
+import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import jdk.nashorn.internal.ir.ForNode;
 
 /**
  *
  * @author gabriel
  */
 public class MySqlEmployeeDAO extends EmployeeDAO {
-
+    
     private static final String LOGIN = "loginEmployee";
     private static final String PASSWORD = "passwordEmployee";
     private static final String EMP_TYPE = "EmployeeType_idEmployeeType";
@@ -38,12 +41,14 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String GET_ALL_SQL = "SELECT `loginEmployee`, `passwordEmployee`, "
             + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
             + "`Employee`";
+    private static final String GET_LIKE_SQL = "SELECT `loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM `Employee`,`Person` WHERE Employee.LegalPerson_Person_idPerson =\n"
+            + "Person.idPerson AND Person.namePerson LIKE ?";
     private static final String REMOVE_SQL = "DELETE FROM `Employee` "
             + "WHERE LegalPerson_Person_idPerson=?";
     private static final String UPDATE_SQL = "UPDATE `Employee` "
             + "SET `loginEmployee`=?,`passwordEmployee`=?"
             + " WHERE LegalPerson_Person_idPerson=?";
-
+    
     @Override
     public void insertEmployee(Employee employee) throws DatabaseErrorException, DuplicatedEntryException {
         try {
@@ -62,21 +67,20 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
     }
-
+    
     @Override
     public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
         getEmployee(employee.getId());
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     employee.getLogin(), employee.getPassword(), employee.getId());
-        } catch (MySQLIntegrityConstraintViolationException e){
+        } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedLoginException();
-        } 
-        catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
-
+    
     @Override
     public void removeEmployee(Employee employee) throws NoResultsException, DatabaseErrorException {
         getEmployee(employee.getId());
@@ -86,7 +90,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
     }
-
+    
     @Override
     public Employee getEmployee(String id) throws DatabaseErrorException, NoResultsException {
         try {
@@ -102,14 +106,13 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
         throw new NoResultsException();
-
+        
     }
-
-    @Override
-    public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
+    
+    private ArrayList<Employee> getEmployeesGeneric(QueryExecuter executer) throws DatabaseErrorException {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            QueryResult qr = executer.execute();
             while (qr.getResultSet().next()) {
                 if (qr.getResultSet().getInt(EMP_TYPE) == 1) {
                     Employee emp
@@ -129,10 +132,39 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                     employees.add(emp);
                 }
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseErrorException();
         }
         return employees;
     }
-
+    
+    @Override
+    public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
+        return getEmployeesGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+    
+    @Override
+    public ArrayList<Employee> getLikeEmployees(String id) throws DatabaseErrorException {
+        return getEmployeesGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL,
+                            FormatUtils.setLikeParam(id));
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+    
 }

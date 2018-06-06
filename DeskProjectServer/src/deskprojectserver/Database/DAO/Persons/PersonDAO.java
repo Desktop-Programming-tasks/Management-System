@@ -115,8 +115,8 @@ public abstract class PersonDAO {
         }
     }
 
-    public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
-        ArrayList<Employee> employees = employeeDAO.getAllEmployees();
+    private ArrayList<Employee> getEmployeesGeneric(EmployeeRequester requester) throws DatabaseErrorException {
+        ArrayList<Employee> employees = requester.request();
         try {
             for (int i = 0; i < employees.size(); i++) {
                 employees.set(i, (Employee) getPerson(employees.get(i).getId()));
@@ -125,6 +125,24 @@ public abstract class PersonDAO {
             //
         }
         return employees;
+    }
+
+    public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
+        return getEmployeesGeneric(new EmployeeRequester() {
+            @Override
+            public ArrayList<Employee> request() throws DatabaseErrorException {
+                return employeeDAO.getAllEmployees();
+            }
+        });
+    }
+
+    public ArrayList<Employee> getLikeEmployees(String id) throws DatabaseErrorException {
+        return getEmployeesGeneric(new EmployeeRequester() {
+            @Override
+            public ArrayList<Employee> request() throws DatabaseErrorException {
+                return employeeDAO.getLikeEmployees(id);
+            }
+        });
     }
 
     public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
@@ -173,6 +191,11 @@ public abstract class PersonDAO {
 
     public AddressDAO getAddressDAO() {
         return addressDAO;
+    }
+
+    private abstract class EmployeeRequester {
+
+        public abstract ArrayList<Employee> request() throws DatabaseErrorException;
     }
 
 }
