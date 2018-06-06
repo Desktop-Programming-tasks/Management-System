@@ -30,11 +30,11 @@ public abstract class ServiceTypeDAO {
         return Globals.getInstance().getChannel().queryServiceType(id);
     }
     
-    public ArrayList<ServiceType> queryAllServiceTypes() throws RemoteException, DatabaseErrorException {
+    public static ArrayList<ServiceType> queryAllServiceTypes() throws RemoteException, DatabaseErrorException {
         return Globals.getInstance().getChannel().queryAllServiceTypes();
     }
             
-    public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException {
+    public static ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException {
         return Globals.getInstance().getChannel().searchServiceTypes(id);
     }
 }

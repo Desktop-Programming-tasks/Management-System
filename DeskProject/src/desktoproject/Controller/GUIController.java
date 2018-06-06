@@ -119,7 +119,7 @@ public class GUIController {
         callScreen(type, obj,false);
     }
 
-    public void callScreen(ScreenType type, Object obj, boolean back) {
+    private void callScreen(ScreenType type, Object obj, boolean back) {
         if(!back){
             executionStack.push(new ScreenCall(type, obj));
         }

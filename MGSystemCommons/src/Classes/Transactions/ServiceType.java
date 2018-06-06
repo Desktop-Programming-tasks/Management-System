@@ -48,5 +48,9 @@ public class ServiceType implements Serializable{
     public int getId() {
         return id;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ServiceType{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
+    }
 }

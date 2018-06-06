@@ -5,15 +5,26 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Transactions.Product;
+import Classes.Transactions.ServiceType;
+import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,11 +49,11 @@ public class ServiceTypeQueryController implements Initializable {
      */
     
     @FXML
-    private TableView ServiceTable;
+    private TableView<ServiceType> ServiceTable;
     @FXML
-    private TableColumn nameColumn;
+    private TableColumn<ServiceType,String> nameColumn;
     @FXML
-    private TableColumn priceColumn;
+    private TableColumn<ServiceType,String> priceColumn;
     @FXML
     private TextField searchTextField;
     
@@ -52,7 +63,34 @@ public class ServiceTypeQueryController implements Initializable {
         
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        populateTable();
+        setTableAction();
     }    
+    
+    private void populateTable(){
+        try {
+            ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
+        }catch (RemoteException | DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        }
+        //
+        
+    }
+    
+    private void setTableAction(){
+        ServiceTable.setRowFactory(tv -> {
+            TableRow<ServiceType> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    ServiceType serviceType = row.getItem();
+                    GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT, serviceType);
+                    populateTable();
+                }
+            });
+            return row;
+        });
+    }
     
     @FXML
     private void back() {
@@ -61,11 +99,18 @@ public class ServiceTypeQueryController implements Initializable {
     
     @FXML
     private void newServiceType(){
-    
+        GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_CREATE);
+        populateTable();
     }
     
     @FXML
     private void editServiceType(){
-    
+        ServiceType serviceType = ServiceTable.getSelectionModel().getSelectedItem();
+        if(serviceType==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT,serviceType);
+            populateTable();
+        }
     }
 }

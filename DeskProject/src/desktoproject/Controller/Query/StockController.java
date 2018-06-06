@@ -9,6 +9,7 @@ import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
@@ -111,6 +112,12 @@ public class StockController implements Initializable {
 
     @FXML
     private void detailsProduct() {
-
+        Product product = StockTable.getSelectionModel().getSelectedItem();
+        if(product==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, product);
+            populateTable();
+        }
     }
 }
