@@ -206,4 +206,9 @@ public class RemoteServer implements ServerMethods {
     public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException {
         return DAOBuilder.getInstance().getServiceTypeDAO().getLikeServiceTypes(id);
     }
+
+    @Override
+    public ArrayList<Employee> searchEmployees(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getPersonDAO().getLikeEmployees(id);
+    }
 }

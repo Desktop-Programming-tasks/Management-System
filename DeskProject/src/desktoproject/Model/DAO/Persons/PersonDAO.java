@@ -49,4 +49,8 @@ public abstract class PersonDAO {
     public static void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
         Globals.getInstance().getChannel().deletePerson(person);
     }
+    
+    public static ArrayList<Employee> searchEmployee(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchEmployees(id);
+    }
 }
