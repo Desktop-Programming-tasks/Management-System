@@ -100,8 +100,28 @@ public class PersonController implements Initializable {
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         populateTable();
         setTableAction();
+        setUpSearch();
     }
 
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+                try {
+                    if(type==EMPLOYEE){
+                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployee(newValue))));
+                    }else{
+                        
+                    }
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
+    }
+    
     private void setTableAction() {
         personTable.setRowFactory(tv -> {
             TableRow<Person> row = new TableRow<>();
