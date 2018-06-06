@@ -76,6 +76,7 @@ public class PersonController implements Initializable {
                 break;
             }
         }
+        populateTable();
     }
 
     @FXML
@@ -98,7 +99,6 @@ public class PersonController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         personDocColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        populateTable();
         setTableAction();
         setUpSearch();
     }
@@ -142,7 +142,6 @@ public class PersonController implements Initializable {
     private void populateTable() {
         try {
             if (type == PersonQueryType.CUSTOMER) {
-                System.out.println(PersonDAO.queryAllPersons());
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
             } else {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
