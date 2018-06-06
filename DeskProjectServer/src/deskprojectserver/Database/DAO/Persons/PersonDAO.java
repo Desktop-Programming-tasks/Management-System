@@ -207,6 +207,8 @@ public abstract class PersonDAO {
 
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 
+    public abstract ArrayList<Person> getLikePersons(String id) throws DatabaseErrorException;
+
     public AddressDAO getAddressDAO() {
         return addressDAO;
     }
