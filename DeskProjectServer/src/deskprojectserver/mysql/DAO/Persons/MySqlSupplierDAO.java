@@ -12,6 +12,8 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
+import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -40,6 +42,8 @@ public class MySqlSupplierDAO extends SupplierDAO {
             + " FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
     private static final String GET_ALL_SQL = "SELECT `JuridicalPerson_Person_idPerson` "
             + "FROM `Supplier` WHERE 1";
+    private static final String GET_LIKE_SQL = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier`,`Person` WHERE \n"
+            + "Supplier.JuridicalPerson_Person_idPerson=Person.idPerson AND Person.namePerson LIKE ?";
     private static final String REMOVE_ONE_BRANDS_SQL = "DELETE "
             + "FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
 
@@ -111,11 +115,10 @@ public class MySqlSupplierDAO extends SupplierDAO {
 
     }
 
-    @Override
-    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
+    private ArrayList<Supplier> getSuppliersGeneric(QueryExecuter executer) throws DatabaseErrorException {
         ArrayList<Supplier> suppliers = new ArrayList<>();
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+            QueryResult qr = executer.execute();
             while (qr.getResultSet().next()) {
                 try {
                     suppliers.add(getSupplier(qr.getResultSet().getString(ID)));
@@ -123,10 +126,39 @@ public class MySqlSupplierDAO extends SupplierDAO {
                     //
                 }
             }
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseErrorException();
         }
         return suppliers;
+    }
+
+    @Override
+    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
+        return getSuppliersGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Supplier> getLikeSuppliers(String id) throws DatabaseErrorException {
+        return getSuppliersGeneric(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL,
+                            FormatUtils.setLikeParam(id));
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
     }
 
 }

@@ -145,8 +145,8 @@ public abstract class PersonDAO {
         });
     }
 
-    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
-        ArrayList<Supplier> suppliers = supplierDAO.getAllSuppliers();
+    private ArrayList<Supplier> getSuppliersGeneric(SupplierRequester requester) throws DatabaseErrorException {
+        ArrayList<Supplier> suppliers = requester.request();
         try {
             for (int i = 0; i < suppliers.size(); i++) {
                 suppliers.set(i, (Supplier) getPerson(suppliers.get(i).getId()));
@@ -155,6 +155,24 @@ public abstract class PersonDAO {
             //
         }
         return suppliers;
+    }
+
+    public ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException {
+        return getSuppliersGeneric(new SupplierRequester() {
+            @Override
+            public ArrayList<Supplier> request() throws DatabaseErrorException {
+                return supplierDAO.getAllSuppliers();
+            }
+        });
+    }
+
+    public ArrayList<Supplier> getLikeSuppliers(String id) throws DatabaseErrorException {
+        return getSuppliersGeneric(new SupplierRequester() {
+            @Override
+            public ArrayList<Supplier> request() throws DatabaseErrorException {
+                return supplierDAO.getLikeSuppliers(id);
+            }
+        });
     }
 
     public void updatePerson(Person p) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
@@ -198,4 +216,8 @@ public abstract class PersonDAO {
         public abstract ArrayList<Employee> request() throws DatabaseErrorException;
     }
 
+    private abstract class SupplierRequester {
+
+        public abstract ArrayList<Supplier> request() throws DatabaseErrorException;
+    }
 }

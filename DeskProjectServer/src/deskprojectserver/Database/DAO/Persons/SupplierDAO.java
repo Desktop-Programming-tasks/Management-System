@@ -11,15 +11,21 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author gabriel
  */
 public abstract class SupplierDAO {
-    public abstract void insertSupplier(Supplier supplier) throws DatabaseErrorException,DuplicatedEntryException;
-    public abstract void updateSupplier(Supplier supplier) throws DatabaseErrorException,NoResultsException;
-    public abstract void removeSupplier(Supplier supplier) throws DatabaseErrorException,NoResultsException;
-    public abstract Supplier getSupplier(String id) throws DatabaseErrorException,NoResultsException;
+
+    public abstract void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException;
+
+    public abstract void updateSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException;
+
+    public abstract void removeSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException;
+
+    public abstract Supplier getSupplier(String id) throws DatabaseErrorException, NoResultsException;
+
     public abstract ArrayList<Supplier> getAllSuppliers() throws DatabaseErrorException;
+
+    public abstract ArrayList<Supplier> getLikeSuppliers(String id) throws DatabaseErrorException;
 }
