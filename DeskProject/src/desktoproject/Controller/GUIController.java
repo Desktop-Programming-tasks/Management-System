@@ -132,7 +132,7 @@ public class GUIController {
                 case INDEX: {
                     dynamic.setMaxWidth(1280);
                     dynamic.setMaxHeight(720);
-                    setDynamicChild(IndexController.call(mainStage));
+                    setDynamicChild(IndexController.call(mainStage).getParent());
                     break;
                 }
                 case TRANSACTION_BUY_CREATE:{
