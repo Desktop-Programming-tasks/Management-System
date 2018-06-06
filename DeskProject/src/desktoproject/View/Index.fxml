@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -40,24 +42,32 @@
                   <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Cliente" />
                   <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Marcas" />
               </items>
-               <graphic>
-                  <FontAwesomeIconView glyphName="PLUS_SQUARE" opacity="0.5" styleClass="sub-glyph" />
-               </graphic>
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="index-sub-btn" />
                </styleClass>
+               <graphic>
+                  <ImageView fx:id="imageRegister" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/plus-square.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </MenuButton>
             <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showQueryProduct" text="Estoque" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <graphic>
-                  <FontAwesomeIconView glyphName="CUBES" opacity="0.5" styleClass="sub-glyph" />
-               </graphic>
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="index-sub-btn" />
                </styleClass>
+               <graphic>
+                  <ImageView fx:id="imageStock" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/archive.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <MenuButton alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
+            <MenuButton fx:id="subBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Transações" />
                 <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Vendas" />
@@ -69,13 +79,17 @@
                   <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Fornecedores" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryBrand" text="Marcas" />
               </items>
-               <graphic>
-                  <FontAwesomeIconView glyphName="SEARCH" opacity="0.5" styleClass="sub-glyph" />
-               </graphic>
                <styleClass>
                   <String fx:value="level-1" />
                   <String fx:value="index-sub-btn" />
                </styleClass>
+               <graphic>
+                  <ImageView fx:id="imageQuery" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </MenuButton>
             <GridPane hgap="20.0" GridPane.columnSpan="3" GridPane.rowSpan="2">
               <columnConstraints>
@@ -86,23 +100,34 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#callSale" text="VENDA" textAlignment="RIGHT">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="MONEY" opacity="0.5" style="-glyph-size: 3em;" styleClass="main-glyph" />
-                     </graphic>
+                  <Button fx:id="mainBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#callSale" text="VENDA" textAlignment="RIGHT">
                      <styleClass>
                         <String fx:value="level-1" />
                         <String fx:value="index-main-btn" />
                      </styleClass>
+                     <graphic>
+                        <ImageView fx:id="imageSale" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/money.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   <Button alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#callBuy" text="COMPRA" GridPane.columnIndex="1">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="SHOPPING_CART" opacity="0.5" styleClass="main-glyph" />
-                     </graphic>
                      <styleClass>
                         <String fx:value="level-1" />
                         <String fx:value="index-main-btn" />
                      </styleClass>
+                     <graphic>
+                        <ImageView fx:id="imageBuy" fitHeight="50.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/shopping-cart.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust />
+                           </effect>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </GridPane>

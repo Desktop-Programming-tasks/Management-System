@@ -63,9 +63,9 @@ public class GUIController {
         mainStage = stage;
         mainStage.setMinWidth(640);
         mainStage.setMinHeight(480);
-//        callLogin();
+        callLogin();
         setUpModalStage();
-        callModalForResult(ModalType.SERVICE_NEW);
+//        callModalForResult(ModalType.SERVICE_NEW);
 //        callScreen(ScreenType.CUSTOMER_CREATE);
 //        testScreen();
 //        callModal(ModalType.SERVICE_NEW);
@@ -131,7 +131,7 @@ public class GUIController {
                 case INDEX: {
                     dynamic.setMaxWidth(1280);
                     dynamic.setMaxHeight(720);
-                    setDynamicChild(IndexController.call());
+                    setDynamicChild(IndexController.call(mainStage));
                     break;
                 }
                 case TRANSACTION_BUY_CREATE:{

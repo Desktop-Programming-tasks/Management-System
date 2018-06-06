@@ -14,7 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -23,14 +27,34 @@ import javafx.scene.layout.AnchorPane;
  */
 public class IndexController implements Initializable {
     private static final String indexPath = "desktoproject/View/Index.fxml";
-    public static Parent call() throws IOException {
+    public static Parent call(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
-        return loader.load();
+        Parent p = loader.load();
+        IndexController controller = loader.getController();
+        controller.setStage(stage);
+        controller.setIconsListeners();
+        return p;
     }
+    
+    private Stage stage;
     
     @FXML
     private AnchorPane overPanel;
+    @FXML
+    private ImageView imageRegister;
+    @FXML
+    private ImageView imageStock;
+    @FXML
+    private ImageView imageQuery;
+    @FXML
+    private ImageView imageBuy;
+    @FXML
+    private ImageView imageSale;
+    @FXML
+    private Button mainBtn;
+    @FXML
+    private MenuButton subBtn;
     
     /**
      * Initializes the controller class.
@@ -38,6 +62,42 @@ public class IndexController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    private void setIconsListeners(){
+        stage.widthProperty().addListener((observable) -> {
+            float main = 200,sub = 160;
+            stage.getWidth();//dont ask
+            imageSale.setFitWidth(mainBtn.getWidth()-main);
+            imageBuy.setFitWidth(mainBtn.getWidth()-main);
+            
+            double subSize = subBtn.getWidth()-sub;
+            if(subSize<30){
+                subSize = 30;
+            }else if(subSize>100){
+                subSize = 100;
+            }
+            imageQuery.setFitWidth(subSize);
+            imageStock.setFitWidth(subSize);
+            imageRegister.setFitWidth(subSize);
+        });
+        
+        stage.heightProperty().addListener((observable) -> {
+            float main = 130,sub = 34;
+            stage.getHeight();//dont ask
+            imageSale.setFitHeight(mainBtn.getHeight()-main);
+            imageBuy.setFitHeight(mainBtn.getHeight()-main);
+            
+            double subSize = subBtn.getHeight()-sub;
+            if(subSize<30){
+                subSize = 30;
+            }else if(subSize>100){
+                subSize = 100;
+            }
+            imageQuery.setFitHeight(subSize);
+            imageStock.setFitHeight(subSize);
+            imageRegister.setFitHeight(subSize);
+        });
     }
     
     @FXML
@@ -128,5 +188,9 @@ public class IndexController implements Initializable {
     @FXML
     private void showQueryBrand(){
         GUIController.getInstance().callScreen(ScreenType.QUERY_BRAND);
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }
