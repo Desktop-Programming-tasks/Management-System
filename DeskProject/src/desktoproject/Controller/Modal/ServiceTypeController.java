@@ -101,22 +101,22 @@ public class ServiceTypeController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            ServiceType newService = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
-            System.out.println(newService.toString());
+            ServiceType newServiceType = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
             try {
                 if (EDIT) {
-                    ServiceTypeDAO.updateServiceType(newService);
+                    newServiceType.setId(serviceType.getId());
+                    ServiceTypeDAO.updateServiceType(newServiceType);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().closeModal();
                 } else {
-                    ServiceTypeDAO.insertServiceType(newService);
+                    ServiceTypeDAO.insertServiceType(newServiceType);
                     GUIController.getInstance().showRegisterAlert("Tipo de serviço");
                     GUIController.getInstance().closeModal();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             }catch (DuplicatedEntryException ex) {
-                GUIController.getInstance().showDupplicatedAlert("Tipo de serviço", newService.getName());
+                GUIController.getInstance().showDupplicatedAlert("Tipo de serviço", newServiceType.getName());
             }
         }
 

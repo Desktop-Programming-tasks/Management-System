@@ -45,6 +45,10 @@ public class ServiceType implements Serializable{
         this.price = price;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
