@@ -12,6 +12,7 @@ import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
+import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
@@ -42,6 +43,7 @@ public interface ServerMethods extends Remote {
     public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, UnavailableBrandException;
     public void updateProduct(Product product) throws RemoteException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException;
+    public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException;
 
     public Record queryRecord() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException;
@@ -52,6 +54,12 @@ public interface ServerMethods extends Remote {
     public ArrayList<Service> querryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
     public void deleteService(Service service) throws RemoteException, NoResultsException, DatabaseErrorException;
+    
+    public void insertServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
+    public void updateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
+    public ServiceType queryServiceType(String id) throws RemoteException, DatabaseErrorException, NoResultsException;
+    public ArrayList<ServiceType> queryAllServiceTypes() throws RemoteException, DatabaseErrorException;
+    public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException;
     
     public ArrayList<String> queryStates() throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException;
