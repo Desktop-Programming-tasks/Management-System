@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -15,54 +16,75 @@
     </stylesheets>
     <MenuBar layoutY="-2.0" prefHeight="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Arquivo">
+          <Menu fx:id="menuGroupArquivo" text="_Arquivo">
             <items>
-               <MenuItem mnemonicParsing="false" onAction="#showIndex" text="Principal" />
-                  <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Sobre" />
-               <MenuItem mnemonicParsing="false" text="Sair" />
-              <MenuItem mnemonicParsing="false" text="Fechar" />
+               <MenuItem fx:id="menuItemPrincipal" onAction="#showIndex" text="_Principal">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+                  <MenuItem onAction="#showHelp" text="S_obre" />
+               <MenuItem text="_Sair">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
+              <MenuItem text="_Fechar" />
             </items>
           </Menu>
-         <Menu mnemonicParsing="false" text="Transações">
+         <Menu text="_Transações">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Consultar" />
+             <MenuItem onAction="#showQueryTransactionAll" text="Consul_tar">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="T" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem mnemonicParsing="false" onAction="#showCreateSell" text="Nova Venda" />
+               <MenuItem onAction="#showCreateSell" text="Nova _Venda">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Consultar Venda" />
                <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem mnemonicParsing="false" onAction="#showCreateBuy" text="Nova Compra" />
+               <MenuItem onAction="#showCreateBuy" text="Nova _Compra">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                <MenuItem mnemonicParsing="false" onAction="#showQueryBuy" text="Consultar Compra" />
            </items>
          </Menu>
-         <Menu mnemonicParsing="false" text="Pessoas">
+         <Menu text="_Pessoas">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Novo Cliente" />
+             <MenuItem onAction="#showCreateClient" text="Novo _Cliente">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
                <MenuItem mnemonicParsing="false" onAction="#showQueryClient" text="Consultar Cliente" />
                <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem mnemonicParsing="false" onAction="#showCreateSupplier" text="Novo Fornecedor" />
+               <MenuItem onAction="#showCreateSupplier" text="Novo _Fornecedor" />
                <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Consultar Fornecedor" />
                <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem mnemonicParsing="false" onAction="#showCreateEmployee" text="Novo Empregado" />
+               <MenuItem onAction="#showCreateEmployee" text="Novo _Empregado" />
                <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Consultar Empregado" />
            </items>
          </Menu>
-         <Menu mnemonicParsing="false" text="Servicos">
+         <Menu text="_Servicos">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Novo tipo" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryServiceType" text="Consultar tipos de serviço" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Consultar serviços em andamento" />
+             <MenuItem onAction="#showCreateService" text="_Novo tipo" />
+               <MenuItem onAction="#showQueryServiceType" text="_Consultar tipos de serviço" />
+               <MenuItem onAction="#showQueryService" text="Consultar serviços em _andamento" />
            </items>
          </Menu>
-         <Menu mnemonicParsing="false" text="Produtos">
+         <Menu text="P_rodutos">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showCreateProduct" text="Novo" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryProduct" text="Consultar Estoque" />
+             <MenuItem onAction="#showCreateProduct" text="_Novo" />
+               <MenuItem onAction="#showQueryProduct" text="Consultar _Estoque">
+                  <accelerator>
+                     <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                  </accelerator></MenuItem>
            </items>
          </Menu>
-         <Menu mnemonicParsing="false" text="Marcas">
+         <Menu text="_Marcas">
            <items>
-             <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Nova" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryBrand" text="Consultar" />
+             <MenuItem onAction="#showCreateBrand" text="_Nova" />
+               <MenuItem onAction="#showQueryBrand" text="_Consultar" />
            </items>
          </Menu>
         </menus>
