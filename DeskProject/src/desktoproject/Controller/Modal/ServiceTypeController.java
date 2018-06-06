@@ -5,21 +5,18 @@
  */
 package desktoproject.Controller.Modal;
 
-import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Misc;
-import desktoproject.Utils.Pairs.ScreenObject;
+import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -77,7 +74,7 @@ public class ServiceTypeController implements Initializable {
         nameTextField.setText(serviceType.getName());
         System.out.println(serviceType.getPrice());
         System.out.println(String.valueOf(serviceType.getPrice()));
-        valueTextField.setText(String.valueOf(serviceType.getPrice()));
+        valueTextField.setText(changeToComma(String.valueOf(serviceType.getPrice())));
     }
 
     @FXML

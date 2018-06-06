@@ -16,6 +16,7 @@ import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Misc;
+import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -125,7 +126,7 @@ public class ProductController implements Initializable {
 
     private void fillScreen() {
         nameTextField.setText(product.getName());
-        priceTextField.setText(String.valueOf(product.getPrice()));
+        priceTextField.setText(changeToComma(String.valueOf(product.getPrice())));
         barCodeTextField.setText(product.getBarCode());
         quantityTextField.setText(String.valueOf(product.getQuantity()));
         

@@ -45,4 +45,8 @@ public abstract class Misc {
     public static String changeToDot(String num){
         return num.replace(",",".");
     }
+    
+    public static String changeToComma(String num) {
+        return num.replace(".", ",");
+    }
 }
