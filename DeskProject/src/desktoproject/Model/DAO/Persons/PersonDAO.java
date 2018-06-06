@@ -50,7 +50,11 @@ public abstract class PersonDAO {
         Globals.getInstance().getChannel().deletePerson(person);
     }
     
-    public static ArrayList<Employee> searchEmployee(String id) throws RemoteException, DatabaseErrorException {
+    public static ArrayList<Employee> searchEmployees(String id) throws RemoteException, DatabaseErrorException {
         return Globals.getInstance().getChannel().searchEmployees(id);
+    }
+    
+    public static ArrayList<Supplier> searchSuppliers(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchSupliers(id);
     }
 }

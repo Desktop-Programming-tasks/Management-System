@@ -111,7 +111,7 @@ public class PersonController implements Initializable {
             }else{
                 try {
                     if(type==EMPLOYEE){
-                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployee(newValue))));
+                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
                     }else{
                         
                     }
