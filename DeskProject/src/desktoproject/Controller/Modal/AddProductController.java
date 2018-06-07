@@ -11,6 +11,7 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
@@ -26,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -71,6 +73,10 @@ public class AddProductController implements Initializable {
     private TableColumn<Product, String> quantityColumn;
     @FXML
     private TableColumn<Product, String> priceColumn;
+    @FXML
+    private Button addBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -78,6 +84,12 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(ProductName);
+        Animation.bindAnimation(ProductPrice);
+        Animation.bindAnimation(ProductQuantity);
+        Animation.bindShadowAnimation(addBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
         tmpProduct = null;
         selectedProduct = null;
 

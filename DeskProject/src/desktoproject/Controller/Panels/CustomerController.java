@@ -15,6 +15,7 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -25,7 +26,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -131,6 +131,8 @@ public class CustomerController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
     private ToggleGroup personGroup;
     @FXML
     private RadioButton legalPersonRadio;
@@ -151,6 +153,13 @@ public class CustomerController implements Initializable {
             isLegalPerson = observable.getValue().equals(legalPersonRadio);
             toggleFields();
         });
+        
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(RGTextField);
+        Animation.bindAnimation(CPFTextField);
+        Animation.bindAnimation(CNPJTextField);
     }
 
     @FXML

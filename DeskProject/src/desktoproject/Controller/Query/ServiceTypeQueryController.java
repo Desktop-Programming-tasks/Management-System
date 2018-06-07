@@ -5,26 +5,22 @@
  */
 package desktoproject.Controller.Query;
 
-import Classes.Transactions.Product;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
-import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ModalType;
-import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -58,9 +54,20 @@ public class ServiceTypeQueryController implements Initializable {
     private TableColumn<ServiceType,String> priceColumn;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button newBtn;
+    @FXML
+    private Button backBtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindShadowAnimation(newBtn);
+        Animation.bindShadowAnimation(editBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
+        Animation.bindAnimation(searchTextField);
         ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

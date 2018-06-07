@@ -5,8 +5,6 @@
  */
 package desktoproject.Controller;
 
-
-import Classes.Enums.RecordType;
 import Classes.Persons.Person;
 import Classes.Transactions.Record;
 import Classes.Transactions.Transaction;
@@ -17,6 +15,7 @@ import desktoproject.Controller.Enums.TransactionType;
 import static desktoproject.Controller.Enums.TransactionType.BUY;
 import static desktoproject.Controller.Enums.TransactionType.SALE;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -126,6 +125,12 @@ public class TransactionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindShadowAnimation(primaryBtn);
+        Animation.bindShadowAnimation(addProductBtn);
+        Animation.bindShadowAnimation(addServiceBtn);
+        Animation.bindShadowAnimation(deleteEntry);
+        Animation.bindAnimation(searchTextField);
+        
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));

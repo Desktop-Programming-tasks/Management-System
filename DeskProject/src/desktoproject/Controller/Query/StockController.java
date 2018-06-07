@@ -5,15 +5,13 @@
  */
 package desktoproject.Controller.Query;
 
-import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
-import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -25,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableRow;
@@ -60,12 +59,24 @@ public class StockController implements Initializable {
     private TableColumn<Product, String> codeColumn;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button newBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindShadowAnimation(newBtn);
+        Animation.bindShadowAnimation(editBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
+        Animation.bindAnimation(searchTextField);
+        
         StockTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("barCode"));

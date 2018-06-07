@@ -16,6 +16,7 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -132,6 +133,10 @@ public class SupplierController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
+    private Button createBrand;
+    @FXML
     private TableView<Brand> brandsTable;
     @FXML
     private AnchorPane addressPane;
@@ -145,6 +150,13 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(CNPJTextField);
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(createBrand);
+        
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         

@@ -28,8 +28,8 @@
          </children>
       </HBox>
       <TextField fx:id="ProductQuantity" layoutX="381.0" layoutY="282.0" promptText="Quantidade *" AnchorPane.bottomAnchor="55.0" AnchorPane.rightAnchor="0.0" />
-      <Button layoutX="8.0" layoutY="309.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <Button layoutX="411.0" layoutY="311.0" mnemonicParsing="false" onAction="#selectProduct" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Adicionar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="backBtn" cancelButton="true" layoutX="8.0" layoutY="309.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Button fx:id="addBtn" defaultButton="true" layoutX="411.0" layoutY="311.0" mnemonicParsing="false" onAction="#selectProduct" prefHeight="35.0" prefWidth="125.0" text="Adicionar" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <TableView fx:id="productTable" layoutX="16.0" layoutY="55.0" prefHeight="200.0" prefWidth="503.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nome" />

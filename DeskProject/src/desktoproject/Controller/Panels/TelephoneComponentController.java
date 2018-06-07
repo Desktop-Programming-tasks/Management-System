@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -77,6 +78,8 @@ public class TelephoneComponentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(telTextField);
+        Animation.bindAnimation(secTelTextField);
     }    
 
     private void setTelephones(ArrayList<String> telephones) {

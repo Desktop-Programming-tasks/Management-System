@@ -22,8 +22,8 @@
          </font>
       </Label>
       <ComboBox fx:id="comboBoxService" prefWidth="150.0" promptText="Nome do serviço *" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-      <Button layoutX="8.0" layoutY="235.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <Button fx:id="primaryBtn" layoutX="330.0" layoutY="280.0" mnemonicParsing="false" onAction="#mainAction" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Primary Btn" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="backBtn" cancelButton="true" layoutX="8.0" layoutY="235.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Button fx:id="primaryBtn" defaultButton="true" layoutX="330.0" layoutY="280.0" mnemonicParsing="false" onAction="#mainAction" prefHeight="35.0" prefWidth="125.0" text="Primary Btn" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <VBox alignment="CENTER" layoutX="371.0" layoutY="262.0" spacing="8.0" styleClass="gridpane" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <children>
             <HBox alignment="CENTER" spacing="8.0">
