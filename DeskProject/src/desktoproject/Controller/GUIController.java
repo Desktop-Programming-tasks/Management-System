@@ -63,7 +63,9 @@ public class GUIController {
         mainStage = stage;
         mainStage.setMinWidth(640);
         mainStage.setMinHeight(500);
-        callLogin();
+        mainStage.setTitle("Gerenciador");
+//        callLogin();
+        callScreen(ScreenType.INDEX);
         setUpModalStage();
 //        callScreen(ScreenType.EMPLOYEE_CREATE);
 //        callModalForResult(ModalType.SERVICE_NEW);
@@ -77,6 +79,7 @@ public class GUIController {
         modalStage.initOwner(mainStage);
         modalStage.initModality(Modality.APPLICATION_MODAL);
         modalStage.setResizable(false);
+        modalStage.setTitle("Gerenciador");
     }
 
     private void setDynamicChild(Parent p) {
