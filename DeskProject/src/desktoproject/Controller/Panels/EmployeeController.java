@@ -14,6 +14,7 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -21,15 +22,10 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,7 +33,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -46,11 +41,11 @@ import javafx.stage.Stage;
  */
 public class EmployeeController implements Initializable {
 
-    private static final String panelEmployeePath = "desktoproject/View/Panels/Employee.fxml";
+    private static final String PATH = "desktoproject/View/Panels/Employee.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         EmployeeController controller = loader.getController();
         controller.setAddressComponentObj(AddressComponentController.call());
@@ -62,7 +57,7 @@ public class EmployeeController implements Initializable {
 
     public static Parent call(Object employee) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
 
         EmployeeController controller = loader.getController();
@@ -132,6 +127,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
     private AnchorPane addressPane;
     @FXML
     private AnchorPane telephonePane;
@@ -141,7 +138,14 @@ public class EmployeeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(RGTextField);
+        Animation.bindAnimation(CPFTextField);
+        Animation.bindAnimation(userTextField);
+        Animation.bindAnimation(passwordFieldOficial);
+        Animation.bindAnimation(passwordFieldConfirm);
     }
 
     @FXML

@@ -11,6 +11,7 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -20,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -44,6 +46,12 @@ public class BrandController implements Initializable {
     private TableView<Brand> brandTable;
     @FXML
     private TableColumn<Brand, String> nameColumn;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button createBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -52,6 +60,10 @@ public class BrandController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        Animation.bindShadowAnimation(editBtn);
+        Animation.bindShadowAnimation(createBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
         setTableAction();
         populateTable();
     }

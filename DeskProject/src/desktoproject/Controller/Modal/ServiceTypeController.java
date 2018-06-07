@@ -10,6 +10,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
@@ -85,6 +86,8 @@ public class ServiceTypeController implements Initializable {
     private Label mainLabel;
     @FXML
     private Button mainBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -92,7 +95,13 @@ public class ServiceTypeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(valueTextField);
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
         Misc.setOnlyNumbersWithComma(valueTextField);
+        
     }
 
     @FXML

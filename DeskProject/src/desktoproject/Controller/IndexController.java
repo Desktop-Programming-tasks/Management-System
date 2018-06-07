@@ -7,6 +7,7 @@ package desktoproject.Controller;
 
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
@@ -55,16 +56,26 @@ public class IndexController implements Initializable {
     @FXML
     private ImageView imageSale;
     @FXML
-    private Button mainBtn;
+    private Button saleBtn;
     @FXML
-    private MenuButton subBtn;
+    private Button buyBtn;
+    @FXML
+    private MenuButton queryBtn;
+    @FXML
+    private MenuButton registerBtn;
+    @FXML
+    private Button stockBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Animation.bindShadowAnimation(saleBtn);
+        Animation.bindShadowAnimation(buyBtn);
+//        Animation.bindShadowAnimation(queryBtn);
+//        Animation.bindShadowAnimation(registerBtn); 
+        Animation.bindShadowAnimation(stockBtn);
     }
 
     private void setIconsListeners() {
@@ -80,10 +91,10 @@ public class IndexController implements Initializable {
     public void setIconWidth() {
         float main = 200, sub = 160;
         stage.getWidth();//dont ask
-        imageSale.setFitWidth(mainBtn.getWidth() - main);
-        imageBuy.setFitWidth(mainBtn.getWidth() - main);
+        imageSale.setFitWidth(saleBtn.getWidth() - main);
+        imageBuy.setFitWidth(saleBtn.getWidth() - main);
 
-        double subSize = subBtn.getWidth() - sub;
+        double subSize = queryBtn.getWidth() - sub;
         if (subSize < 30) {
             subSize = 30;
         } else if (subSize > 100) {
@@ -97,10 +108,10 @@ public class IndexController implements Initializable {
     public void setIconHeight() {
         float main = 130, sub = 34;
         stage.getHeight();//dont ask
-        imageSale.setFitHeight(mainBtn.getHeight() - main);
-        imageBuy.setFitHeight(mainBtn.getHeight() - main);
+        imageSale.setFitHeight(saleBtn.getHeight() - main);
+        imageBuy.setFitHeight(saleBtn.getHeight() - main);
 
-        double subSize = subBtn.getHeight() - sub;
+        double subSize = queryBtn.getHeight() - sub;
         if (subSize < 30) {
             subSize = 30;
         } else if (subSize > 100) {

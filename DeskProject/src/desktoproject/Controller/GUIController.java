@@ -65,6 +65,7 @@ public class GUIController {
         mainStage.setMinHeight(500);
         callLogin();
         setUpModalStage();
+//        callScreen(ScreenType.EMPLOYEE_CREATE);
 //        callModalForResult(ModalType.SERVICE_NEW);
 //        callScreen(ScreenType.CUSTOMER_CREATE);
 //        testScreen();

@@ -6,6 +6,7 @@
 package desktoproject.Controller.Query;
 
 import desktoproject.Controller.GUIController;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -44,13 +46,23 @@ public class ServiceController implements Initializable {
     private TableColumn priceColumn;
     @FXML
     private TextField searchTextField;
-    
+    @FXML
+    private Button cancelBtn;
+    @FXML
+    private Button updateBtn;
+    @FXML
+    private Button backBtn;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindShadowAnimation(updateBtn);
+        Animation.bindShadowAnimation(cancelBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
+        Animation.bindAnimation(searchTextField);
         ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));

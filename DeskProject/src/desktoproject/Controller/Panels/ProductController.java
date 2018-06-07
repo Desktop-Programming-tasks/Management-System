@@ -15,6 +15,7 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import static desktoproject.Utils.Misc.changeToComma;
 import desktoproject.Utils.Validate;
@@ -144,6 +145,10 @@ public class ProductController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
+    private Button createBrand;
+    @FXML
     private Label mainLabel;
     @FXML
     private Label brandLabel;
@@ -173,6 +178,15 @@ public class ProductController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindAnimation(barCodeTextField);
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(quantityTextField);
+        Animation.bindAnimation(priceTextField);
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(createBrand);
+        
+        
         brandsColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         
         Misc.setOnlyNumbersWithComma(priceTextField);

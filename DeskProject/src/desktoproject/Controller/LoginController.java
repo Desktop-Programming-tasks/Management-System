@@ -6,6 +6,7 @@
 package desktoproject.Controller;
 
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,6 +45,9 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(passTextField);
+        Animation.bindAnimation(userTextField);
+        Animation.bindShadowAnimation(loginBtn);
     }    
     
     @FXML
