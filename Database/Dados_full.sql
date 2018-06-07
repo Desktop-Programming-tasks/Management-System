@@ -21,43 +21,34 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `mydb`
 --
-
---
--- Fazendo dump de dados para tabela `Address`
---
-
-INSERT INTO `Address` (`Person_idPerson`, `streetAddress`, `numberAddress`, `districtAddress`, `City_nameCity`, `City_State_nameState`) VALUES
-('00.000.000', 'Rua do Cliente Juridico 1', 1, 'Bairro do Cliente Juriico 1', 'Acaiaca', 'Minas Gerais'),
-('000.000.000-00', 'Rua do Cliente 1', 1, 'Bairro do Cliente 1', 'Abatiá', 'Paraná'),
-('000.000.000-01', 'Rua do Cliente 2', 2, 'Bairro do Cliente 2', 'Acrelândia', 'Acre'),
-('001.002.003-00', 'Rua do Cliente 3', 3, 'Bairro do Cliente 3', 'Acopiara', 'Ceará'),
-('01.000.020', 'Rua do Fornecedor 1', 1, 'Bairro do Fornecedor 1', 'Acrelândia', 'Acre'),
-('555.555.222-52', 'Rua do funcionário 2', 2, 'Bairro do funcionário 2', 'Açailândia', 'Maranhão'),
-('88.111.333', 'Rua do Fornecedor 2 ', 2, 'Bairro do Fornecedor 2', 'Abadiânia', 'Goiás'),
-('888.665.777-63', 'Rua do funcionário 1 ', 1, 'Bairro do funcionário 1', 'Acrelândia', 'Acre');
-
---
--- Fazendo dump de dados para tabela `Brand`
---
-
-INSERT INTO `Brand` (`nameBrand`) VALUES
-('AMD'),
-('EVGA'),
-('G.Skill'),
-('Intel'),
-('NVIDIA'),
-('Samsung');
-
---
--- Fazendo dump de dados para tabela `Brand_has_Supplier`
---
-
-INSERT INTO `Brand_has_Supplier` (`Brand_nameBrand`, `Supplier_JuridicalPerson_Person_idPerson`) VALUES
-('AMD', '01.000.020'),
-('EVGA', '01.000.020'),
-('G.Skill', '01.000.020'),
-('Intel', '01.000.020'),
-('NVIDIA', '01.000.020');
+INSERT INTO `State` (`nameState`) VALUES
+('Acre'),
+('Alagoas'),
+('Amapá'),
+('Amazonas'),
+('Bahia'),
+('Ceará'),
+('Distrito Federal'),
+('Espírito Santo'),
+('Goiás'),
+('Maranhão'),
+('Mato Grosso'),
+('Mato Grosso do Sul'),
+('Minas Gerais'),
+('Pará'),
+('Paraíba'),
+('Paraná'),
+('Pernambuco'),
+('Piauí'),
+('Rio de Janeiro'),
+('Rio Grande do Norte'),
+('Rio Grande do Sul'),
+('Rondônia'),
+('Roraima'),
+('Santa Catarina'),
+('São Paulo'),
+('Sergipe'),
+('Tocantins');
 
 --
 -- Fazendo dump de dados para tabela `City`
@@ -93,29 +84,31 @@ INSERT INTO `City` (`nameCity`, `State_nameState`) VALUES
 ('Acrelândia', 'Acre');
 
 --
--- Fazendo dump de dados para tabela `Employee`
+-- Fazendo dump de dados para tabela `Person`
 --
 
-INSERT INTO `Employee` (`loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson`) VALUES
-('func2', '123456', 2, '555.555.222-52'),
-('func1', '123456', 2, '888.665.777-63');
-
+INSERT INTO `Person` (`idPerson`, `namePerson`, `tel1Person`, `tel2Person`) VALUES
+('00.000.000', 'Cliente Jurídico 1', '8811113333', '1785521474'),
+('000.000.000-00', 'Cliente 1 ', '0000000000', '0000000000'),
+('000.000.000-01', 'Cliente 2 ', '4300001111', '4300002222'),
+('001.002.003-00', 'Cliente 3 ', '4322223333', '4322321111'),
+('01.000.020', 'Fornecedor 1', '2511118888', '2177774444'),
+('555.555.222-52', 'Funcionario 2', '0011112222', '1122223333'),
+('88.111.333', 'Fornecedor 2', '7754543333', '1122223333'),
+('888.665.777-63', 'Funcionario 1', '4300008888', '4300008888');
 --
--- Fazendo dump de dados para tabela `EmployeeType`
---
-
-INSERT INTO `EmployeeType` (`idEmployeeType`, `nameEmployeeType`) VALUES
-(1, 'MANAGER'),
-(2, 'COMMON');
-
---
--- Fazendo dump de dados para tabela `JuridicalPerson`
+-- Fazendo dump de dados para tabela `Address`
 --
 
-INSERT INTO `JuridicalPerson` (`Person_idPerson`) VALUES
-('00.000.000'),
-('01.000.020'),
-('88.111.333');
+INSERT INTO `Address` (`Person_idPerson`, `streetAddress`, `numberAddress`, `districtAddress`, `City_nameCity`, `City_State_nameState`) VALUES
+('00.000.000', 'Rua do Cliente Juridico 1', 1, 'Bairro do Cliente Juriico 1', 'Acaiaca', 'Minas Gerais'),
+('000.000.000-00', 'Rua do Cliente 1', 1, 'Bairro do Cliente 1', 'Abatiá', 'Paraná'),
+('000.000.000-01', 'Rua do Cliente 2', 2, 'Bairro do Cliente 2', 'Acrelândia', 'Acre'),
+('001.002.003-00', 'Rua do Cliente 3', 3, 'Bairro do Cliente 3', 'Acopiara', 'Ceará'),
+('01.000.020', 'Rua do Fornecedor 1', 1, 'Bairro do Fornecedor 1', 'Acrelândia', 'Acre'),
+('555.555.222-52', 'Rua do funcionário 2', 2, 'Bairro do funcionário 2', 'Açailândia', 'Maranhão'),
+('88.111.333', 'Rua do Fornecedor 2 ', 2, 'Bairro do Fornecedor 2', 'Abadiânia', 'Goiás'),
+('888.665.777-63', 'Rua do funcionário 1 ', 1, 'Bairro do funcionário 1', 'Acrelândia', 'Acre');
 
 --
 -- Fazendo dump de dados para tabela `LegalPerson`
@@ -129,18 +122,65 @@ INSERT INTO `LegalPerson` (`rgLegalPerson`, `Person_idPerson`) VALUES
 ('55.111.222-3', '888.665.777-63');
 
 --
--- Fazendo dump de dados para tabela `Person`
+-- Fazendo dump de dados para tabela `JuridicalPerson`
 --
 
-INSERT INTO `Person` (`idPerson`, `namePerson`, `tel1Person`, `tel2Person`) VALUES
-('00.000.000', 'Cliente Jurídico 1', '8811113333', '1785521474'),
-('000.000.000-00', 'Cliente 1 ', '0000000000', '0000000000'),
-('000.000.000-01', 'Cliente 2 ', '4300001111', '4300002222'),
-('001.002.003-00', 'Cliente 3 ', '4322223333', '4322321111'),
-('01.000.020', 'Fornecedor 1', '2511118888', '2177774444'),
-('555.555.222-52', 'Funcionario 2', '0011112222', '1122223333'),
-('88.111.333', 'Fornecedor 2', '7754543333', '1122223333'),
-('888.665.777-63', 'Funcionario 1', '4300008888', '4300008888');
+INSERT INTO `JuridicalPerson` (`Person_idPerson`) VALUES
+('00.000.000'),
+('01.000.020'),
+('88.111.333');
+
+--
+-- Fazendo dump de dados para tabela `Brand`
+--
+
+INSERT INTO `Brand` (`nameBrand`) VALUES
+('AMD'),
+('EVGA'),
+('G.Skill'),
+('Intel'),
+('NVIDIA'),
+('Samsung');
+
+--
+-- Fazendo dump de dados para tabela `Supplier`
+--
+
+INSERT INTO `Supplier` (`JuridicalPerson_Person_idPerson`) VALUES
+('01.000.020'),
+('88.111.333');
+--
+-- Fazendo dump de dados para tabela `Brand_has_Supplier`
+--
+
+INSERT INTO `Brand_has_Supplier` (`Brand_nameBrand`, `Supplier_JuridicalPerson_Person_idPerson`) VALUES
+('AMD', '01.000.020'),
+('EVGA', '01.000.020'),
+('G.Skill', '01.000.020'),
+('Intel', '01.000.020'),
+('NVIDIA', '01.000.020');
+
+
+
+--
+-- Fazendo dump de dados para tabela `EmployeeType`
+--
+
+INSERT INTO `EmployeeType` (`idEmployeeType`, `nameEmployeeType`) VALUES
+(1, 'MANAGER'),
+(2, 'COMMON');
+
+--
+-- Fazendo dump de dados para tabela `Employee`
+--
+
+INSERT INTO `Employee` (`loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson`) VALUES
+('func2', '123456', 2, '555.555.222-52'),
+('func1', '123456', 2, '888.665.777-63');
+
+
+
+
 
 --
 -- Fazendo dump de dados para tabela `Product`
@@ -178,42 +218,9 @@ INSERT INTO `ServiceType` (`idServiceType`, `nameServiceType`, `priceServiceType
 -- Fazendo dump de dados para tabela `State`
 --
 
-INSERT INTO `State` (`nameState`) VALUES
-('Acre'),
-('Alagoas'),
-('Amapá'),
-('Amazonas'),
-('Bahia'),
-('Ceará'),
-('Distrito Federal'),
-('Espírito Santo'),
-('Goiás'),
-('Maranhão'),
-('Mato Grosso'),
-('Mato Grosso do Sul'),
-('Minas Gerais'),
-('Pará'),
-('Paraíba'),
-('Paraná'),
-('Pernambuco'),
-('Piauí'),
-('Rio de Janeiro'),
-('Rio Grande do Norte'),
-('Rio Grande do Sul'),
-('Rondônia'),
-('Roraima'),
-('Santa Catarina'),
-('São Paulo'),
-('Sergipe'),
-('Tocantins');
 
---
--- Fazendo dump de dados para tabela `Supplier`
---
 
-INSERT INTO `Supplier` (`JuridicalPerson_Person_idPerson`) VALUES
-('01.000.020'),
-('88.111.333');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
