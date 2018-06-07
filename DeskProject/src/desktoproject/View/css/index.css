@@ -172,7 +172,7 @@
 .table-view{
     /* Constants used throughout the tableview. */
     -fx-table-header-border-color: transparent;
-    -fx-table-cell-border-color: -fx-box-border; /* Horizontal Lines*/
+    -fx-table-cell-border-color: -fx-box-border;  /*Horizontal Lines*/
     -fx-background-color: transparent;
 }
 
@@ -182,11 +182,13 @@
 .table-view .filler, .tree-table-view .filler, .table-view .column-header,
 	.tree-table-view .column-header {
 	-fx-size: 40;
-	-fx-border-style: none;
+	/*-fx-border-style: none;*/
+        -fx-border-style: solid;
 	-fx-border-color: -swatch-grey;
-	-fx-border-width: 0 0 2 0;
-	-fx-background-color: transparent;
+	-fx-border-width: 0 1 2 0;
+	-fx-background-color: #FFFFFF;
 }
+
 
 .table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
 	{
