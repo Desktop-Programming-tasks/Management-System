@@ -5,12 +5,20 @@
             <url>src/deskprojectserver/DeskProjectServer.java</url>
             <bookmark id="1">
                 <name/>
+<<<<<<< HEAD
+                <line>19</line>
+=======
                 <line>24</line>
+>>>>>>> a5ccab96f15f589d9cdf3ef837d4c3486f80de07
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/Database/DAOBuilder.java</file>
+            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/mysql/MySqlHandler.java</file>
+            <file>file:/home/gabriel/Documentos/Management-System/DeskProjectServer/src/deskprojectserver/Database/Database.java</file>
+        </group>
     </open-files>
 </project-private>
