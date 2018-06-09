@@ -210,10 +210,20 @@ public class EmployeeController implements Initializable {
         if (validate()) {
             Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-            Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), employeeTypeCombobox.getValue(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+            
+            String password = "";
+            
+            if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+                password = passwordFieldOficial.getText();
+            }else{
+                password = employee.getPassword();
+            }
+            
+            Employee newEmployee = new Employee(userTextField.getText(), password, employeeTypeCombobox.getValue(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
 
             try {
                 if (edit) {
+                    newEmployee.setId(employee.getId());
                     PersonDAO.updatePerson(newEmployee);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
@@ -268,8 +278,10 @@ public class EmployeeController implements Initializable {
 
         valObj.validateNick(userTextField.getText());
 
-        if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
-            valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
+        if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+            if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
+                valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
+            }
         }
 
         if (valObj.getErrorMessage().isEmpty()) {
