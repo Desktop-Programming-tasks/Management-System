@@ -18,8 +18,8 @@
       </Label>
       <TableView fx:id="StockTable" layoutX="20.0" layoutY="64.0" maxWidth="1175.0" minWidth="1000.0" prefWidth="1175.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="codeColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Código" />
             <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Nome" />
+            <TableColumn fx:id="codeColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Código" />
             <TableColumn fx:id="brandColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Marca" />
             <TableColumn fx:id="quantityColumn" maxWidth="1.7976931348623157E308" minWidth="130.0" prefWidth="130.0" text="Quantidade" />
          </columns>

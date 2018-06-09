@@ -83,15 +83,12 @@ public class QuerySupplierController implements Initializable {
         suppliersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         cnpjColumn.setCellValueFactory(new PropertyValueFactory<>("CNPJ"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        brandsColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Supplier, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Supplier, String> p) {
-                List<String> brands = new LinkedList<>();
-                p.getValue().getAvaliableBrands().forEach((b) -> {
-                    brands.add(b.getName());
-                });
-                return new SimpleStringProperty(String.join(", ", brands));
-            }
+        brandsColumn.setCellValueFactory((TableColumn.CellDataFeatures<Supplier, String> p) -> {
+            List<String> brands = new LinkedList<>();
+            p.getValue().getAvaliableBrands().forEach((b) -> {
+                brands.add(b.getName());
+            });
+            return new SimpleStringProperty(String.join(", ", brands));
         });
 
         populateTable();
