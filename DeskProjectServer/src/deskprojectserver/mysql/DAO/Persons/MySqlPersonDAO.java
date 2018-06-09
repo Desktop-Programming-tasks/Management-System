@@ -12,6 +12,8 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
+import static deskprojectserver.Utils.ActivationStatus.ACTIVE_STATE;
+import static deskprojectserver.Utils.ActivationStatus.INACTIVE_STATE;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -60,7 +62,7 @@ public class MySqlPersonDAO extends PersonDAO {
     public void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getDocumentId(), p.getName(),
-                    p.getTelephones().get(0), p.getTelephones().get(1), 1);
+                    p.getTelephones().get(0), p.getTelephones().get(1), ACTIVE_STATE);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -72,7 +74,9 @@ public class MySqlPersonDAO extends PersonDAO {
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getDocumentId(), p.getName(),
-                    p.getTelephones().get(0), p.getTelephones().get(1), 1, p.getId());
+                    p.getTelephones().get(0), p.getTelephones().get(1),
+                    p.isActive() ? ACTIVE_STATE : INACTIVE_STATE,
+                    p.getId());
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new DatabaseErrorException();
@@ -92,6 +96,7 @@ public class MySqlPersonDAO extends PersonDAO {
                 p.setDocumentId(id);
                 tels.add(qr.getResultSet().getString(TEL_1));
                 tels.add(qr.getResultSet().getString(TEL_2));
+                p.setActive(true);
                 p.setTelephones(tels);
             }
             qr.closeAll();

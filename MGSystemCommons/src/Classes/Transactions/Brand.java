@@ -11,9 +11,17 @@ import java.io.Serializable;
  *
  * @author gabriel
  */
-public class Brand implements Serializable{
+public class Brand implements Serializable {
 
+    private int id;
     private String name;
+    private boolean active;
+
+    public Brand(int id, String name, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+    }
 
     public Brand(String name) {
         this.name = name;
@@ -25,6 +33,22 @@ public class Brand implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

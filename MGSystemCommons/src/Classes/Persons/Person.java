@@ -19,6 +19,7 @@ public abstract class Person implements Serializable {
     private Address address;
     private ArrayList<String> telephones;
     private String documentId;
+    private boolean active;
 
     public Person(int id, String name, Address address, ArrayList<String> telephones, String documentId) {
         this.id = id;
@@ -27,7 +28,6 @@ public abstract class Person implements Serializable {
         this.telephones = telephones;
         this.documentId = documentId;
     }
-    
     
     public Person(String name, Address address, ArrayList<String> telephones, String Id) {
         this.name = name;
@@ -81,5 +81,14 @@ public abstract class Person implements Serializable {
     public String toString() {
         return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + documentId + '}';
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
 
 }
