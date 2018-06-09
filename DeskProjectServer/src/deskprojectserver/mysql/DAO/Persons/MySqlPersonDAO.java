@@ -27,25 +27,28 @@ import jdk.nashorn.internal.ir.ForNode;
 public class MySqlPersonDAO extends PersonDAO {
 
     protected final static String ID = "idPerson";
+    protected final static String ID_DOCUMENT = "idDocumentPerson";
     protected final static String NAME = "namePerson";
     protected final static String TEL_1 = "tel1Person";
     protected final static String TEL_2 = "tel2Person";
 
-    private final static String INSERT_SQL = "INSERT INTO `Person`(`idPerson`, "
-            + "`namePerson`, `tel1Person`, `tel2Person`)"
-            + " VALUES (?,?,?,?)";
-    private final static String GET_SINGLE_SQL = "SELECT `idPerson`, `namePerson`, "
+    private final static String INSERT_SQL = "INSERT INTO "
+            + "`Person`(`idDocumentPerson`, `namePerson`, `tel1Person`, `tel2Person`"
+            + ", `isActivePerson`) "
+            + "VALUES (?,?,?,?,?)";
+
+    private final static String GET_SINGLE_SQL = "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
-            + "WHERE idPerson=?";
+            + "WHERE idDocumentPerson=?";
 
-    private final static String GET_ALL_ID = "SELECT `idPerson` FROM `Person` WHERE 1";
+    private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` WHERE 1";
 
-    private final static String GET_LIKE_ID = "SELECT `idPerson` FROM `Person` WHERE "
+    private final static String GET_LIKE_ID = "SELECT `idDocumentPerson` FROM `Person` WHERE "
             + " namePerson LIKE ?";
 
     private final static String UPDATE_SQL = "UPDATE `Person` SET"
-            + "`namePerson`=?,`tel1Person`=?,"
-            + "`tel2Person`=? WHERE idPerson=?";
+            + "`idDocumentPerson`=?,`namePerson`=?,`tel1Person`=?,"
+            + "`tel2Person`=?,`isActivePerson`=? WHERE idPerson=?";
 
     public MySqlPersonDAO() {
         super(new MySqlAddressDAO(), new MySqlEmployeeDAO(),
@@ -56,8 +59,8 @@ public class MySqlPersonDAO extends PersonDAO {
     @Override
     public void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException {
         try {
-            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getId(), p.getName(),
-                    p.getTelephones().get(0), p.getTelephones().get(1));
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getDocumentId(), p.getName(),
+                    p.getTelephones().get(0), p.getTelephones().get(1), 1);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -68,9 +71,10 @@ public class MySqlPersonDAO extends PersonDAO {
     @Override
     public void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         try {
-            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getName(),
-                    p.getTelephones().get(0), p.getTelephones().get(1), p.getId());
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, p.getDocumentId(), p.getName(),
+                    p.getTelephones().get(0), p.getTelephones().get(1), 1, p.getId());
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
     }
@@ -83,8 +87,9 @@ public class MySqlPersonDAO extends PersonDAO {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
             ArrayList<String> tels = new ArrayList<>();
             while (qr.getResultSet().next()) {
+                p.setId(qr.getResultSet().getInt(ID));
                 p.setName(qr.getResultSet().getString(NAME));
-                p.setId(id);
+                p.setDocumentId(id);
                 tels.add(qr.getResultSet().getString(TEL_1));
                 tels.add(qr.getResultSet().getString(TEL_2));
                 p.setTelephones(tels);
@@ -105,7 +110,7 @@ public class MySqlPersonDAO extends PersonDAO {
             QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
                 try {
-                    persons.add(getPerson(qr.getResultSet().getString(ID)));
+                    persons.add(getPerson(qr.getResultSet().getString(ID_DOCUMENT)));
                 } catch (NoResultsException e) {
                     //
                 }
@@ -137,7 +142,7 @@ public class MySqlPersonDAO extends PersonDAO {
             @Override
             public QueryResult execute() throws DatabaseErrorException {
                 try {
-                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_ID, 
+                    return MySqlHandler.getInstance().getDb().query(GET_LIKE_ID,
                             FormatUtils.setLikeParam(id));
                 } catch (ClassNotFoundException | SQLException e) {
                     throw new DatabaseErrorException();

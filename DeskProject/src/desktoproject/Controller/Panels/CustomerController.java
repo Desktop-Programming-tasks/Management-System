@@ -174,17 +174,18 @@ public class CustomerController implements Initializable {
             Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
             if (isLegalPerson) {
-                person = new LegalPerson(RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+                newPerson = new LegalPerson(RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
             } else {
-                person = new JuridicalPerson(nameTextField.getText(), address, telephones, CNPJTextField.getText());
+                newPerson = new JuridicalPerson(nameTextField.getText(), address, telephones, CNPJTextField.getText());
             }
             try {
                 if(edit){
-                    PersonDAO.updatePerson(person);
+                    newPerson.setId(person.getId());
+                    PersonDAO.updatePerson(newPerson);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
                 }else{
-                    PersonDAO.insertPerson(person);
+                    PersonDAO.insertPerson(newPerson);
                     GUIController.getInstance().showRegisterAlert("Cliente");
                     GUIController.getInstance().backToPrevious();
                 }

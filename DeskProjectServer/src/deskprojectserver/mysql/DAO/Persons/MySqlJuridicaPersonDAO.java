@@ -39,7 +39,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
 
     @Override
     public void updateJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException, NoResultsException {
-        getJuridicalPerson(jp.getId());
+        getJuridicalPerson(jp.getDocumentId());
     }
 
     @Override

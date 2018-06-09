@@ -18,6 +18,7 @@ public class Employee extends LegalPerson implements Serializable{
     private String password;
     private EmployeeType type;
 
+    
     public Employee(String login, String password, EmployeeType type, String RG, String name, Address address, ArrayList<String> telephones, String cpf) {
         super(RG, name, address, telephones, cpf);
         this.login = login;
@@ -25,6 +26,14 @@ public class Employee extends LegalPerson implements Serializable{
         this.type = type;
     }
 
+    public Employee(String login, String password, EmployeeType type, String RG, int id, String name, Address address, ArrayList<String> telephones, String documentId) {
+        super(RG, id, name, address, telephones, documentId);
+        this.login = login;
+        this.password = password;
+        this.type = type;
+    }
+    
+    
     public String getLogin() {
         return login;
     }

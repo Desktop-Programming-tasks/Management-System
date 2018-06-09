@@ -5,6 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
+import Classes.Enums.EmployeeType;
 import Classes.Persons.Employee;
 import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
@@ -85,19 +86,21 @@ public abstract class PersonDAO {
             LegalPerson lp = legalPersonDAO.getLegalPerson(id);
             try {
                 Employee emp = employeeDAO.getEmployee(id);
-                return new Employee(emp.getLogin(), emp.getPassword(), emp.getEmployeeType(), lp.getRG(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+                return new Employee(emp.getLogin(), emp.getPassword(),
+                        emp.getEmployeeType(), lp.getRG(), p.getId(), p.getName(),
+                        p.getAddress(), p.getTelephones(), p.getDocumentId());
             } catch (NoResultsException b) {
-                return new LegalPerson(lp.getRG(), p.getName(), p.getAddress(), p.getTelephones(),
-                        p.getId());
+                return new LegalPerson(lp.getRG(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(),
+                        p.getDocumentId());
             }
         } catch (NoResultsException c) {
             try {
                 juridicalDAO.getJuridicalPerson(id);
                 try {
                     Supplier supplier = supplierDAO.getSupplier(id);
-                    return new Supplier(supplier.getAvaliableBrands(), p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+                    return new Supplier(supplier.getAvaliableBrands(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
                 } catch (NoResultsException d) {
-                    return new JuridicalPerson(p.getName(), p.getAddress(), p.getTelephones(), p.getId());
+                    return new JuridicalPerson(p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
                 }
             } catch (NoResultsException f) {
                 throw f;
@@ -119,7 +122,7 @@ public abstract class PersonDAO {
         ArrayList<Employee> employees = requester.request();
         try {
             for (int i = 0; i < employees.size(); i++) {
-                employees.set(i, (Employee) getPerson(employees.get(i).getId()));
+                employees.set(i, (Employee) getPerson(employees.get(i).getDocumentId()));
             }
         } catch (DatabaseErrorException | NoResultsException e) {
             //
@@ -149,7 +152,7 @@ public abstract class PersonDAO {
         ArrayList<Supplier> suppliers = requester.request();
         try {
             for (int i = 0; i < suppliers.size(); i++) {
-                suppliers.set(i, (Supplier) getPerson(suppliers.get(i).getId()));
+                suppliers.set(i, (Supplier) getPerson(suppliers.get(i).getDocumentId()));
             }
         } catch (NoResultsException e) {
             //

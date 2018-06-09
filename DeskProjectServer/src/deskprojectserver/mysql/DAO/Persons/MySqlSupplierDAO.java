@@ -50,7 +50,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
     @Override
     public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
         try {
-            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, supplier.getId());
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, supplier.getDocumentId());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -59,7 +59,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
         try {
             for (Brand brand : supplier.getAvaliableBrands()) {
                 MySqlHandler.getInstance().getDb().
-                        execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
+                        execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getDocumentId(), brand.getName());
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
@@ -68,12 +68,12 @@ public class MySqlSupplierDAO extends SupplierDAO {
 
     @Override
     public void updateSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException {
-        getSupplier(supplier.getId());
+        getSupplier(supplier.getDocumentId());
         try {
-            MySqlHandler.getInstance().getDb().execute(REMOVE_ONE_BRANDS_SQL, supplier.getId());
+            MySqlHandler.getInstance().getDb().execute(REMOVE_ONE_BRANDS_SQL, supplier.getDocumentId());
             for (Brand brand : supplier.getAvaliableBrands()) {
                 MySqlHandler.getInstance().getDb().
-                        execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getId(), brand.getName());
+                        execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getDocumentId(), brand.getName());
             }
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
@@ -83,9 +83,9 @@ public class MySqlSupplierDAO extends SupplierDAO {
 
     @Override
     public void removeSupplier(Supplier supplier) throws DatabaseErrorException, NoResultsException {
-        getSupplier(supplier.getId());
+        getSupplier(supplier.getDocumentId());
         try {
-            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, supplier.getId());
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, supplier.getDocumentId());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }

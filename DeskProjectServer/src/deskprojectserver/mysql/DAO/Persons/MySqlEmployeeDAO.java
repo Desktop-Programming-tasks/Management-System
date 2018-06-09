@@ -70,10 +70,10 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     
     @Override
     public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
-        getEmployee(employee.getId());
+        getEmployee(employee.getDocumentId());
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
-                    employee.getLogin(), employee.getPassword(), employee.getId());
+                    employee.getLogin(), employee.getPassword(), employee.getDocumentId());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedLoginException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -83,9 +83,9 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     
     @Override
     public void removeEmployee(Employee employee) throws NoResultsException, DatabaseErrorException {
-        getEmployee(employee.getId());
+        getEmployee(employee.getDocumentId());
         try {
-            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, employee.getId());
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, employee.getDocumentId());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
