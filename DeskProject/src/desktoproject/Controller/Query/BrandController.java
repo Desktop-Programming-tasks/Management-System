@@ -26,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 /**
  * FXML Controller class
@@ -69,12 +70,24 @@ public class BrandController implements Initializable {
     }
     
     private void setTableAction(){
+        brandTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Brand item = brandTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    GUIController.getInstance().callModal(ModalType.BRAND_UPDATE, item);
+                    populateTable();
+                }
+            }
+        });
+        
         brandTable.setRowFactory(tv -> {
             TableRow<Brand> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    System.out.println("entrou no click");
                     Brand brand = row.getItem();
                     GUIController.getInstance().callModal(ModalType.BRAND_UPDATE, brand);
+                    populateTable();
                 }
             });
             return row;

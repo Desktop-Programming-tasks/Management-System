@@ -75,6 +75,11 @@
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
+
+.menu-button:focused {
+    -fx-border-color: -primary-color;
+}
+
 .table-button {
     
 }

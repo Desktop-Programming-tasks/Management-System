@@ -6,9 +6,11 @@
 package desktoproject.Controller.Query;
 
 import Classes.Persons.Person;
+import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
@@ -32,6 +34,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 /**
  * FXML Controller class
@@ -132,6 +135,19 @@ public class PersonController implements Initializable {
     }
     
     private void setTableAction() {
+        personTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Person item = personTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    if (type == PersonQueryType.CUSTOMER) {
+                        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, item);
+                    } else {
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, item);
+                    }
+                }
+            }
+        });
+        
         personTable.setRowFactory(tv -> {
             TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

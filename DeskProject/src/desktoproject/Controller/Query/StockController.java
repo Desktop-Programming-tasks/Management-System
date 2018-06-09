@@ -5,9 +5,11 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
@@ -30,6 +32,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
 /**
@@ -121,6 +124,14 @@ public class StockController implements Initializable {
     }
     
     private void setTableAction(){
+        StockTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Product item = StockTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, item);
+                }
+            }
+        });
         StockTable.setRowFactory(tv -> {
             TableRow<Product> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
