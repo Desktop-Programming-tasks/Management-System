@@ -56,7 +56,7 @@ public class AddProductController implements Initializable {
     }
 
     @FXML
-    private TextField ProductName;
+    private TextField searchTextField;
     @FXML
     private TextField ProductPrice;
     @FXML
@@ -84,11 +84,13 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Animation.bindAnimation(ProductName);
+        Animation.bindAnimation(searchTextField);
         Animation.bindAnimation(ProductPrice);
         Animation.bindAnimation(ProductQuantity);
         Animation.bindShadowAnimation(addBtn);
         Animation.bindShadowAnimation(backBtn);
+        
+        productTable.requestFocus();
         
         tmpProduct = null;
         selectedProduct = null;

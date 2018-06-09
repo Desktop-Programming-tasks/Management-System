@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Transactions.Brand;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import desktoproject.Controller.Enums.ModalType;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 /**
  * FXML Controller class
@@ -104,6 +106,15 @@ public class ServiceTypeQueryController implements Initializable {
     }
     
     private void setTableAction(){
+        ServiceTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                ServiceType item = ServiceTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT, item);
+                    populateTable();
+                }
+            }
+        });
         ServiceTable.setRowFactory(tv -> {
             TableRow<ServiceType> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

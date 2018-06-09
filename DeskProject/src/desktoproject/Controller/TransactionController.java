@@ -89,6 +89,8 @@ public class TransactionController implements Initializable {
     private Button addServiceBtn;
     @FXML
     private Button deleteEntry;
+    @FXML
+    private Button backBtn;
 
     @FXML
     private Label mainActionScreenTitle;
@@ -129,7 +131,9 @@ public class TransactionController implements Initializable {
         Animation.bindShadowAnimation(addProductBtn);
         Animation.bindShadowAnimation(addServiceBtn);
         Animation.bindShadowAnimation(deleteEntry);
+        Animation.bindShadowAnimation(backBtn);
         Animation.bindAnimation(searchTextField);
+        
         
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));

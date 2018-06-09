@@ -64,14 +64,14 @@ public class GUIController {
         mainStage.setMinWidth(640);
         mainStage.setMinHeight(500);
         mainStage.setTitle("Gerenciador");
-//        callLogin();
-        callScreen(ScreenType.INDEX);
+        callLogin();
+//        callScreen(ScreenType.INDEX);
         setUpModalStage();
 //        callScreen(ScreenType.EMPLOYEE_CREATE);
-//        callModalForResult(ModalType.SERVICE_NEW);
+//        callModalForResult(ModalType.PRODUCT_ADD);
 //        callScreen(ScreenType.CUSTOMER_CREATE);
 //        testScreen();
-//        callModal(ModalType.SERVICE_NEW);
+//        callModal(ModalType.BRAND_NEW);
     }
 
     private void setUpModalStage() {

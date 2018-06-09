@@ -7,9 +7,11 @@ package desktoproject.Controller.Query;
 
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
+import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
@@ -21,7 +23,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,8 +34,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
-
+import javafx.scene.input.KeyCode;
 /**
  * FXML Controller class
  *
@@ -124,6 +124,14 @@ public class QuerySupplierController implements Initializable {
     }
 
     private void setTableAction() {
+        suppliersTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Supplier item = suppliersTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, item);
+                }
+            }
+        });
         suppliersTable.setRowFactory(tv -> {
             TableRow<Supplier> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

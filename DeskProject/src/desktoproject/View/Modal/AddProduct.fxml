@@ -42,7 +42,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField layoutX="381.0" layoutY="-1.0" prefHeight="33.0" prefWidth="224.0" promptText="Pesquisar nome" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TextField fx:id="searchTextField" layoutX="381.0" layoutY="-1.0" prefHeight="33.0" prefWidth="224.0" promptText="Pesquisar nome" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
    <padding>
       <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />

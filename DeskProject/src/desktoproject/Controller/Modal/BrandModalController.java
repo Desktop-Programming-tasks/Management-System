@@ -94,6 +94,8 @@ public class BrandModalController implements Initializable {
         Animation.bindAnimation(nameTextField);
         Animation.bindShadowAnimation(mainBtn);
         Animation.bindShadowAnimation(backBtn);
+        
+        mainBtn.requestFocus();
     }
 
     @FXML
