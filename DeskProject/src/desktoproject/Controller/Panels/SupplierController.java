@@ -180,15 +180,16 @@ public class SupplierController implements Initializable {
             Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
             ArrayList<String> telephone = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
             ArrayList<Brand> brands = new ArrayList<>(brandsTable.getSelectionModel().getSelectedItems());
-            Supplier supplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
+            Supplier newSupplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
 
             try {
                 if (edit) {
-                    PersonDAO.updatePerson(supplier);
+                    newSupplier.setId(supplier.getId());
+                    PersonDAO.updatePerson(newSupplier);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
                 } else {
-                    PersonDAO.insertPerson(supplier);
+                    PersonDAO.insertPerson(newSupplier);
                     GUIController.getInstance().showRegisterAlert("Fornecedor");
                     GUIController.getInstance().backToPrevious();
                 }

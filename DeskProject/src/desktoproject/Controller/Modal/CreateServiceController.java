@@ -260,7 +260,7 @@ public class CreateServiceController implements Initializable {
             Service newService = new Service(beginDate.getValue(),endDate.getValue(),comboBoxState.getValue(),comboBoxEmployee.getValue(),comboBoxService.getValue());
             
             if(edit){
-                
+            
             }else{
                 newServiceReturn = newService;
             }
