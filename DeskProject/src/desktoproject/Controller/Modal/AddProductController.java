@@ -115,6 +115,22 @@ public class AddProductController implements Initializable {
         populateTable();
         blockFields(true);
         setTableAction();
+        setUpSearch();
+    }
+    
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+                try {
+                    productTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
     }
 
     private void populateTable() {

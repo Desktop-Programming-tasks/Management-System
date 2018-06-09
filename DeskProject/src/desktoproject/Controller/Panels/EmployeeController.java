@@ -22,17 +22,23 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -104,12 +110,15 @@ public class EmployeeController implements Initializable {
         CPFTextField.setText(employee.getCPF());
 
         userTextField.setText(employee.getLogin());
+        employeeTypeCombobox.setValue(employee.getEmployeeType());
         //dont set the password, only detect changes in password if anything new is writen in the password and confirm password fields
     }
     
     @FXML
     private GridPane gridpaneBasicData;
 
+    @FXML
+    private ComboBox<EmployeeType> employeeTypeCombobox;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -146,10 +155,53 @@ public class EmployeeController implements Initializable {
         Animation.bindAnimation(userTextField);
         Animation.bindAnimation(passwordFieldOficial);
         Animation.bindAnimation(passwordFieldConfirm);
+        Animation.bindAnimation(employeeTypeCombobox);
+        
+        comboBoxSetup();
+        loadComboBox();
+    }
+    
+    private void comboBoxSetup(){
+        employeeTypeCombobox.setCellFactory(new Callback<ListView<EmployeeType>, ListCell<EmployeeType>>(){
+            @Override
+            public ListCell<EmployeeType> call(ListView<EmployeeType> param) {
+                return new ListCell<EmployeeType>(){
+                    @Override
+                    protected void updateItem(EmployeeType item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(EmployeeType.translateEnumToGUI(item));
+                        }
+                    }
+                };
+            }
+        });
+        employeeTypeCombobox.setConverter(new StringConverter<EmployeeType>() {
+            @Override
+            public String toString(EmployeeType object) {
+                if(object==null){
+                    return null;
+                }else{
+                    return EmployeeType.translateEnumToGUI(object);
+                }
+            }
+
+            @Override
+            public EmployeeType fromString(String string) {
+                return null;
+            }
+        });
+    } 
+    
+    private void loadComboBox() {
+        employeeTypeCombobox.setItems(FXCollections.observableArrayList(EmployeeType.values()));
+        employeeTypeCombobox.setValue(EmployeeType.COMMOM);
     }
 
     @FXML
-    public void back() {
+    private void back() {
         GUIController.getInstance().backToPrevious();
     }
 
@@ -158,7 +210,7 @@ public class EmployeeController implements Initializable {
         if (validate()) {
             Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-            Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), EmployeeType.COMMOM, RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+            Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), employeeTypeCombobox.getValue(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
 
             try {
                 if (edit) {
@@ -227,4 +279,6 @@ public class EmployeeController implements Initializable {
             return false;
         }
     }
+
+    
 }

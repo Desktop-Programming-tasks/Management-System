@@ -60,9 +60,9 @@
                <SeparatorMenuItem mnemonicParsing="false" />
                <MenuItem onAction="#showCreateSupplier" text="Novo _Fornecedor" />
                <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Consultar Fornecedor" />
-               <SeparatorMenuItem mnemonicParsing="false" />
-               <MenuItem onAction="#showCreateEmployee" text="Novo _Empregado" />
-               <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Consultar Empregado" />
+               <SeparatorMenuItem fx:id="employeeSeparator" mnemonicParsing="false" />
+               <MenuItem fx:id="newEmployeeMenuItem" onAction="#showCreateEmployee" text="Novo _Empregado" />
+               <MenuItem fx:id="queryEmployeeMenuItem" mnemonicParsing="false" onAction="#showQueryEmployee" text="Consultar Empregado" />
            </items>
          </Menu>
          <Menu text="_Servicos">
