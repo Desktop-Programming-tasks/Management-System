@@ -18,12 +18,17 @@ public class JuridicalPerson extends Person implements Serializable{
         super(name, address, telephones, cnpj);
     }
 
+    public JuridicalPerson(int id, String name, Address address, ArrayList<String> telephones, String documentId) {
+        super(id, name, address, telephones, documentId);
+    }
+    
+
     public String getCNPJ() {
-        return getId();
+        return getDocumentId();
     }
 
     public void setCNPJ(String cnpj) {
-        setId(cnpj);
+        setDocumentId(cnpj);
     }
 
     @Override
