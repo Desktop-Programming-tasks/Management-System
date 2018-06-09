@@ -140,7 +140,7 @@ public class TransactionController implements Initializable {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         
         
-        clientDocumentColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        clientDocumentColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         
         transactions = new ArrayList<>();

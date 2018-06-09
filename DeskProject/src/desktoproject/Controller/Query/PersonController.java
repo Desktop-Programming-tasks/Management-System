@@ -109,7 +109,7 @@ public class PersonController implements Initializable {
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
         
-        personDocColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        personDocColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
         setUpSearch();
