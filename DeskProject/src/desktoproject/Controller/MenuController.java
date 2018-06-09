@@ -5,16 +5,23 @@
  */
 package desktoproject.Controller;
 
+import Classes.Enums.EmployeeType;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Globals;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -36,13 +43,28 @@ public class MenuController implements Initializable {
 
     @FXML
     private AnchorPane dynamic;
+    
+    @FXML
+    private SeparatorMenuItem employeeSeparator;
+    @FXML
+    private MenuItem newEmployeeMenuItem;
+    @FXML
+    private MenuItem queryEmployeeMenuItem;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO 
+        try {
+            if(Globals.getInstance().getEmployee().getEmployeeType() == EmployeeType.COMMOM){
+                employeeSeparator.setVisible(false);
+                newEmployeeMenuItem.setVisible(false);
+                queryEmployeeMenuItem.setVisible(false);
+            }
+        } catch (RemoteException ex) {
+            System.out.println("ops - inside menu controller");
+        }
     }
 
     public AnchorPane getDynamic() {

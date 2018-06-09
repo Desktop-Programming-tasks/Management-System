@@ -5,19 +5,25 @@
  */
 package desktoproject.Controller;
 
+import Classes.Enums.EmployeeType;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Globals;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -65,6 +71,10 @@ public class IndexController implements Initializable {
     private MenuButton registerBtn;
     @FXML
     private Button stockBtn;
+    @FXML
+    private MenuItem queryEmployeeMenuItem;
+    @FXML
+    private MenuItem registerEmployeeMenuItem;
 
     /**
      * Initializes the controller class.
@@ -76,6 +86,15 @@ public class IndexController implements Initializable {
 //        Animation.bindShadowAnimation(queryBtn);
 //        Animation.bindShadowAnimation(registerBtn); 
         Animation.bindShadowAnimation(stockBtn);
+        
+        try {
+            if(Globals.getInstance().getEmployee().getEmployeeType()==EmployeeType.COMMOM){
+                queryEmployeeMenuItem.setVisible(false);
+                registerEmployeeMenuItem.setVisible(false);
+            }
+        } catch (RemoteException ex) {
+            System.out.println("ops - inside index controller");
+        }
     }
 
     private void setIconsListeners() {

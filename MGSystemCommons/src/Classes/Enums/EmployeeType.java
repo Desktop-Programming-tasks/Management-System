@@ -11,5 +11,18 @@ package Classes.Enums;
  */
 public enum EmployeeType {
     MANAGER,
-    COMMOM
+    COMMOM;
+    
+    public static String translateEnumToGUI(EmployeeType type){
+        switch(type){
+            case COMMOM:{
+                return "Normal";
+            }
+            case MANAGER:{
+                return "Gerente";
+            }
+            default:
+                return "";
+        }
+    }
 }

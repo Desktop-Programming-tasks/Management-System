@@ -67,15 +67,15 @@
             </GridPane>
             <MenuButton fx:id="queryBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Consultar" textAlignment="CENTER" GridPane.rowIndex="2">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Transações" />
-                <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Vendas" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryBuy" text="Compra" />
-                  <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Serviços" />
-                  <MenuItem mnemonicParsing="false" onAction="#showQueryServiceType" text="Tipo de Serviço" />
-                  <MenuItem mnemonicParsing="false" onAction="#showQueryEmployee" text="Funcionários" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryClient" text="Clientes" />
                   <MenuItem mnemonicParsing="false" onAction="#showQuerySupplier" text="Fornecedores" />
+                  <MenuItem fx:id="queryEmployeeMenuItem" mnemonicParsing="false" onAction="#showQueryEmployee" text="Funcionários" />
                   <MenuItem mnemonicParsing="false" onAction="#showQueryBrand" text="Marcas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryService" text="Serviços" />
+                  <MenuItem mnemonicParsing="false" onAction="#showQueryServiceType" text="Tipo de Serviço" />
+                <MenuItem mnemonicParsing="false" onAction="#showQueryTransactionAll" text="Transações" />
+                <MenuItem mnemonicParsing="false" onAction="#showQuerySell" text="Vendas" />
               </items>
                <graphic>
                   <ImageView fx:id="imageQuery" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -100,12 +100,12 @@
             </Button>
             <MenuButton fx:id="registerBtn" alignment="CENTER" contentDisplay="TOP" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Registrar" GridPane.columnIndex="2" GridPane.rowIndex="2">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#showCreateEmployee" text="Funcionário" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateSupplier" text="Fornecedor" />
+                <MenuItem fx:id="registerEmployeeMenuItem" mnemonicParsing="false" onAction="#showCreateEmployee" text="Funcionário" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Marcas" />
                 <MenuItem mnemonicParsing="false" onAction="#showCreateProduct" text="Produto" />
                   <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Serviço" />
-                  <MenuItem mnemonicParsing="false" onAction="#showCreateSupplier" text="Fornecedor" />
-                  <MenuItem mnemonicParsing="false" onAction="#showCreateClient" text="Cliente" />
-                  <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Marcas" />
               </items>
                <graphic>
                   <ImageView fx:id="imageRegister" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
