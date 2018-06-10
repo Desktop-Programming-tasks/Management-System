@@ -43,10 +43,11 @@ public class MySqlPersonDAO extends PersonDAO {
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idDocumentPerson=?";
 
-    private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` WHERE 1";
+    private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` "
+            + "WHERE isActivePerson";
 
     private final static String GET_LIKE_ID = "SELECT `idDocumentPerson` FROM `Person` WHERE "
-            + " namePerson LIKE ?";
+            + " namePerson LIKE ? AND isActivePerson";
 
     private final static String UPDATE_SQL = "UPDATE `Person` SET"
             + "`idDocumentPerson`=?,`namePerson`=?,`tel1Person`=?,"

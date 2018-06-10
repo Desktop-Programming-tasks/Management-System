@@ -42,15 +42,15 @@ public class MySqlProductDAO extends ProductDAO {
 
     private static final String GET_ALL_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
-            + "FROM `Product` WHERE 1";
+            + "FROM `Product` WHERE isActiveProduct";
 
     private static final String GET_ONE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
-            + "FROM `Product` WHERE (barCodeProduct=? OR idProduct=?)";
+            + "FROM `Product` WHERE ((barCodeProduct=? OR idProduct=?) AND isActiveProduct)";
 
     private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
-            + "FROM `Product` WHERE nameProduct LIKE ?";
+            + "FROM `Product` WHERE nameProduct LIKE ? AND isActiveProduct";
     private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
 
     private static final String UPDATE_SQL = ""
