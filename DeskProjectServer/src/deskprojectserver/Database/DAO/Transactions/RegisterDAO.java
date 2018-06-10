@@ -11,6 +11,7 @@ import Classes.Transactions.Service;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import java.util.ArrayList;
 
@@ -39,8 +40,18 @@ public abstract class RegisterDAO {
         }
     }
 
-    public abstract Record getRegister(String id);
+    public Record getRegister(String id) throws NoResultsException, DatabaseErrorException {
+        Record record = basicGetRecord(id);
+        record.getTransations().addAll(tProductDAO.getAllRecordProducts(record));
+        return record;
+    }
 
-    protected abstract void basicInsertRecord(Record record) throws DuplicatedEntryException,DatabaseErrorException;
+    protected abstract Record basicGetRecord(String id) throws DatabaseErrorException,NoResultsException;
+
+    protected abstract void basicInsertRecord(Record record) throws DuplicatedEntryException, DatabaseErrorException;
+
+    public abstract ArrayList<Record> getAllRecords() throws DatabaseErrorException;
+
+    public abstract ArrayList<Record> getLikeRecords(String id) throws DatabaseErrorException;
 
 }
