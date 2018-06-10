@@ -17,7 +17,7 @@
                <children>
                   <TextField fx:id="userTextField" maxHeight="35.0" maxWidth="450.0" minHeight="35.0" minWidth="450.0" prefHeight="35.0" prefWidth="450.0" promptText="Usuário" />
                   <PasswordField fx:id="passTextField" maxHeight="35.0" maxWidth="450.0" minHeight="35.0" minWidth="450.0" prefHeight="35.0" prefWidth="450.0" promptText="Senha" />
-                  <Button fx:id="loginBtn" maxHeight="50.0" maxWidth="120.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="120.0" styleClass="level-1" text="Login" />
+                  <Button fx:id="loginBtn" defaultButton="true" maxHeight="50.0" maxWidth="120.0" minHeight="50.0" minWidth="120.0" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="120.0" text="Login" />
                </children>
             </VBox>
             <Label alignment="CENTER" layoutX="470.0" layoutY="179.0" text="Login no sistema" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">

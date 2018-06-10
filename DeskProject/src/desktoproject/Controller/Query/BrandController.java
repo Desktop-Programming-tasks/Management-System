@@ -11,6 +11,7 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -20,10 +21,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 /**
  * FXML Controller class
@@ -44,6 +47,12 @@ public class BrandController implements Initializable {
     private TableView<Brand> brandTable;
     @FXML
     private TableColumn<Brand, String> nameColumn;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button createBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -52,17 +61,33 @@ public class BrandController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        Animation.bindShadowAnimation(editBtn);
+        Animation.bindShadowAnimation(createBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
         setTableAction();
         populateTable();
     }
     
     private void setTableAction(){
+        brandTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Brand item = brandTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    GUIController.getInstance().callModal(ModalType.BRAND_UPDATE, item);
+                    populateTable();
+                }
+            }
+        });
+        
         brandTable.setRowFactory(tv -> {
             TableRow<Brand> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    System.out.println("entrou no click");
                     Brand brand = row.getItem();
                     GUIController.getInstance().callModal(ModalType.BRAND_UPDATE, brand);
+                    populateTable();
                 }
             });
             return row;

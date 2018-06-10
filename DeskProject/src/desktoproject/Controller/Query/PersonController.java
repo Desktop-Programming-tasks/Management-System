@@ -6,6 +6,7 @@
 package desktoproject.Controller.Query;
 
 import Classes.Persons.Person;
+import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
@@ -16,18 +17,16 @@ import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -35,6 +34,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 
 /**
  * FXML Controller class
@@ -91,13 +91,25 @@ public class PersonController implements Initializable {
     private TableColumn<Person, String> personNameColumn;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button editBtn;
+    @FXML
+    private Button createBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        personDocColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        Animation.bindAnimation(searchTextField);
+        Animation.bindShadowAnimation(editBtn);
+        Animation.bindShadowAnimation(createBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(deleteBtn);
+        
+        personDocColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
         setUpSearch();
@@ -123,6 +135,19 @@ public class PersonController implements Initializable {
     }
     
     private void setTableAction() {
+        personTable.setOnKeyReleased((event) -> {
+            if(event.getCode() == KeyCode.ENTER){
+                Person item = personTable.getSelectionModel().getSelectedItem();
+                if(item!=null){
+                    if (type == PersonQueryType.CUSTOMER) {
+                        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, item);
+                    } else {
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, item);
+                    }
+                }
+            }
+        });
+        
         personTable.setRowFactory(tv -> {
             TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(event -> {

@@ -11,6 +11,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.LocationsDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
@@ -88,6 +89,12 @@ public class AddressComponentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindAnimation(streetTextField);
+        Animation.bindAnimation(numberTextField);
+        Animation.bindAnimation(districtTextField);
+        Animation.bindAnimation(cityComboBox);
+        Animation.bindAnimation(stateComboBox);
+        
         Misc.setOnlyNumbersWithDot(numberTextField);
         try {
             // TODO

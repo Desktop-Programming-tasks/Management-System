@@ -13,10 +13,12 @@ import java.io.Serializable;
  */
 public class Product extends Transaction implements Serializable {
 
+    private int id;
     private String barCode;
     private int quantityInStock;
     private Brand brand;
-
+    private boolean active;
+    
     public Product(String barCode) {
         this.barCode = barCode;
     }
@@ -27,6 +29,22 @@ public class Product extends Transaction implements Serializable {
         this.brand = brand;
     }
 
+    public Product(int id, String barCode, Brand brand, float price, String name) {
+        super(price, name);
+        this.id = id;
+        this.barCode = barCode;
+        this.brand = brand;
+    }
+
+    public Product(int id, String barCode, int quantityInStock, Brand brand, boolean active, float price, String name) {
+        super(price, name);
+        this.id = id;
+        this.barCode = barCode;
+        this.quantityInStock = quantityInStock;
+        this.brand = brand;
+        this.active = active;
+    }
+    
     public String getBarCode() {
         return barCode;
     }
@@ -51,6 +69,22 @@ public class Product extends Transaction implements Serializable {
         this.brand = brand;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     @Override
     public String toString() {
         return "Product{name=" + getName() + " barCode=" + barCode + ", quantityInStock=" + quantityInStock + ", brand=" + brand + '}';

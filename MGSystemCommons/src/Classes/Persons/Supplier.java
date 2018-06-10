@@ -31,6 +31,12 @@ public class Supplier extends JuridicalPerson implements Serializable{
         this.avaliableBrands = avaliableBrands;
     }
 
+    public Supplier(ArrayList<Brand> avaliableBrands, int id, String name, Address address, ArrayList<String> telephones, String documentId) {
+        super(id, name, address, telephones, documentId);
+        this.avaliableBrands = avaliableBrands;
+    }
+    
+
     @Override
     public String toString() {
         return super.toString() + "Supplier{" + "avaliableBrands=" + avaliableBrands + '}';

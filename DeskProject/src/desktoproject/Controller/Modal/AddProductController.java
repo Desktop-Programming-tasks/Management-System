@@ -11,6 +11,7 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
@@ -26,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -54,7 +56,7 @@ public class AddProductController implements Initializable {
     }
 
     @FXML
-    private TextField ProductName;
+    private TextField searchTextField;
     @FXML
     private TextField ProductPrice;
     @FXML
@@ -71,6 +73,10 @@ public class AddProductController implements Initializable {
     private TableColumn<Product, String> quantityColumn;
     @FXML
     private TableColumn<Product, String> priceColumn;
+    @FXML
+    private Button addBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -78,6 +84,14 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(searchTextField);
+        Animation.bindAnimation(ProductPrice);
+        Animation.bindAnimation(ProductQuantity);
+        Animation.bindShadowAnimation(addBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
+        productTable.requestFocus();
+        
         tmpProduct = null;
         selectedProduct = null;
 
@@ -101,6 +115,22 @@ public class AddProductController implements Initializable {
         populateTable();
         blockFields(true);
         setTableAction();
+        setUpSearch();
+    }
+    
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+                try {
+                    productTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
     }
 
     private void populateTable() {

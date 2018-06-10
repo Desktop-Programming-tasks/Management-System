@@ -45,7 +45,7 @@ public class MySqlAddressDAO extends AddressDAO {
     public void insertAddress(Person person) throws DatabaseErrorException {
         Address ads = person.getAddress();
         try {
-            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getId(),
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, person.getDocumentId(),
                     ads.getStreet(), ads.getNumber(), ads.getDistrict(), ads.getCity(), ads.getState());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
@@ -64,7 +64,7 @@ public class MySqlAddressDAO extends AddressDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     temp.getStreet(), temp.getNumber(), temp.getDistrict(), temp.getCity(),
-                    temp.getState(),person.getId());
+                    temp.getState(),person.getDocumentId());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
@@ -74,7 +74,7 @@ public class MySqlAddressDAO extends AddressDAO {
     public Address getAddress(Person person) throws DatabaseErrorException, NoResultsException {
         Address address = null;
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getId());
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, person.getDocumentId());
 
             while (qr.getResultSet().next()) {
                 address = new Address(

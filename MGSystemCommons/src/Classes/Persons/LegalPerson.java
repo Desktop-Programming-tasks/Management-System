@@ -21,6 +21,13 @@ public class LegalPerson extends Person implements Serializable{
         this.RG = RG;
     }
 
+    public LegalPerson(String RG, int id, String name, Address address, ArrayList<String> telephones, String documentId) {
+        super(id, name, address, telephones, documentId);
+        this.RG = RG;
+    }
+    
+    
+
     public String getRG() {
         return RG;
     }
@@ -30,11 +37,11 @@ public class LegalPerson extends Person implements Serializable{
     }
 
     public String getCPF() {
-        return getId();
+        return getDocumentId();
     }
 
     public void setCPF(String cpf) {
-        setId(cpf);
+        setDocumentId(cpf);
     }
 
     @Override

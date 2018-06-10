@@ -12,18 +12,28 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public abstract class Person implements Serializable{
-
+public abstract class Person implements Serializable {
+    
+    private int id;
     private String name;
     private Address address;
     private ArrayList<String> telephones;
-    private String Id;
+    private String documentId;
+    private boolean active;
 
+    public Person(int id, String name, Address address, ArrayList<String> telephones, String documentId) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.telephones = telephones;
+        this.documentId = documentId;
+    }
+    
     public Person(String name, Address address, ArrayList<String> telephones, String Id) {
         this.name = name;
         this.address = address;
         this.telephones = telephones;
-        this.Id = Id;
+        this.documentId = Id;
     }
 
     public String getName() {
@@ -50,17 +60,35 @@ public abstract class Person implements Serializable{
         this.telephones = telephones;
     }
 
-    public String getId() {
-        return Id;
+    public String getDocumentId() {
+        return documentId;
     }
 
-    public void setId(String Id) {
-        this.Id = Id;
+    public void setDocumentId(String Id) {
+        this.documentId = Id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + Id + '}';
+        return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + documentId + '}';
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
 
 }

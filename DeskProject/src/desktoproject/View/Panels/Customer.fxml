@@ -43,9 +43,9 @@
       </GridPane>
       <Separator layoutY="269.0" prefHeight="5.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="230.0" />
       <AnchorPane fx:id="telephonePane" layoutY="300.0" prefHeight="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0" />
-      <Button layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <Button fx:id="mainBtn" layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" onAction="#mainAction" prefHeight="35.0" prefWidth="125.0" styleClass="level-1" text="MAIN BTN" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Separator layoutX="10.0" layoutY="280.0" prefHeight="5.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="370.0" />
       <AnchorPane fx:id="addressPane" layoutY="440.0" prefHeight="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="400.0" />
+      <Button fx:id="mainBtn" defaultButton="true" layoutX="1091.0" layoutY="621.0" mnemonicParsing="false" onAction="#mainAction" prefHeight="35.0" prefWidth="125.0" text="MAIN BTN" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="backBtn" cancelButton="true" layoutY="621.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
    </children>
 </AnchorPane>

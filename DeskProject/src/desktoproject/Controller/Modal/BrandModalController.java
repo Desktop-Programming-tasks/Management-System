@@ -10,6 +10,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
@@ -81,6 +82,8 @@ public class BrandModalController implements Initializable {
     private Label mainLabel;
     @FXML
     private Button mainBtn;
+    @FXML
+    private Button backBtn;
 
     /**
      * Initializes the controller class.
@@ -88,6 +91,11 @@ public class BrandModalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Animation.bindAnimation(nameTextField);
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
+        mainBtn.requestFocus();
     }
 
     @FXML

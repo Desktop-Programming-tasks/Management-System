@@ -44,9 +44,9 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
 
     @Override
     public void updateLegalPerson(LegalPerson lp) throws NoResultsException, DatabaseErrorException {
-        getLegalPerson(lp.getId());
+        getLegalPerson(lp.getDocumentId());
         try{
-            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,lp.getRG(),lp.getId());
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,lp.getRG(),lp.getDocumentId());
         }
         catch(ClassNotFoundException | SQLException e){
             throw new DatabaseErrorException();

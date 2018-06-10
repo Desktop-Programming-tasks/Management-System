@@ -14,6 +14,7 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -21,23 +22,23 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -46,11 +47,11 @@ import javafx.stage.Stage;
  */
 public class EmployeeController implements Initializable {
 
-    private static final String panelEmployeePath = "desktoproject/View/Panels/Employee.fxml";
+    private static final String PATH = "desktoproject/View/Panels/Employee.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         EmployeeController controller = loader.getController();
         controller.setAddressComponentObj(AddressComponentController.call());
@@ -62,7 +63,7 @@ public class EmployeeController implements Initializable {
 
     public static Parent call(Object employee) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelEmployeePath));
+        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
 
         EmployeeController controller = loader.getController();
@@ -109,12 +110,15 @@ public class EmployeeController implements Initializable {
         CPFTextField.setText(employee.getCPF());
 
         userTextField.setText(employee.getLogin());
+        employeeTypeCombobox.setValue(employee.getEmployeeType());
         //dont set the password, only detect changes in password if anything new is writen in the password and confirm password fields
     }
     
     @FXML
     private GridPane gridpaneBasicData;
 
+    @FXML
+    private ComboBox<EmployeeType> employeeTypeCombobox;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -132,6 +136,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
     private AnchorPane addressPane;
     @FXML
     private AnchorPane telephonePane;
@@ -141,11 +147,61 @@ public class EmployeeController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(RGTextField);
+        Animation.bindAnimation(CPFTextField);
+        Animation.bindAnimation(userTextField);
+        Animation.bindAnimation(passwordFieldOficial);
+        Animation.bindAnimation(passwordFieldConfirm);
+        Animation.bindAnimation(employeeTypeCombobox);
+        
+        comboBoxSetup();
+        loadComboBox();
+    }
+    
+    private void comboBoxSetup(){
+        employeeTypeCombobox.setCellFactory(new Callback<ListView<EmployeeType>, ListCell<EmployeeType>>(){
+            @Override
+            public ListCell<EmployeeType> call(ListView<EmployeeType> param) {
+                return new ListCell<EmployeeType>(){
+                    @Override
+                    protected void updateItem(EmployeeType item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            setText(EmployeeType.translateEnumToGUI(item));
+                        }
+                    }
+                };
+            }
+        });
+        employeeTypeCombobox.setConverter(new StringConverter<EmployeeType>() {
+            @Override
+            public String toString(EmployeeType object) {
+                if(object==null){
+                    return null;
+                }else{
+                    return EmployeeType.translateEnumToGUI(object);
+                }
+            }
 
+            @Override
+            public EmployeeType fromString(String string) {
+                return null;
+            }
+        });
+    } 
+    
+    private void loadComboBox() {
+        employeeTypeCombobox.setItems(FXCollections.observableArrayList(EmployeeType.values()));
+        employeeTypeCombobox.setValue(EmployeeType.COMMOM);
     }
 
     @FXML
-    public void back() {
+    private void back() {
         GUIController.getInstance().backToPrevious();
     }
 
@@ -154,10 +210,20 @@ public class EmployeeController implements Initializable {
         if (validate()) {
             Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-            Employee newEmployee = new Employee(userTextField.getText(), passwordFieldOficial.getText(), EmployeeType.COMMOM, RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
+            
+            String password = "";
+            
+            if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+                password = passwordFieldOficial.getText();
+            }else{
+                password = employee.getPassword();
+            }
+            
+            Employee newEmployee = new Employee(userTextField.getText(), password, employeeTypeCombobox.getValue(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
 
             try {
                 if (edit) {
+                    newEmployee.setId(employee.getId());
                     PersonDAO.updatePerson(newEmployee);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
@@ -212,8 +278,10 @@ public class EmployeeController implements Initializable {
 
         valObj.validateNick(userTextField.getText());
 
-        if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
-            valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
+        if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+            if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
+                valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
+            }
         }
 
         if (valObj.getErrorMessage().isEmpty()) {
@@ -223,4 +291,6 @@ public class EmployeeController implements Initializable {
             return false;
         }
     }
+
+    
 }

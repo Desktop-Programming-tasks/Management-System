@@ -8,6 +8,7 @@ package desktoproject.Controller.Query;
 import desktoproject.Controller.Enums.TransactionQueryType;
 import static desktoproject.Controller.Enums.TransactionQueryType.ALL;
 import desktoproject.Controller.GUIController;
+import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -81,12 +83,22 @@ public class GenericTransactionController implements Initializable {
     private ComboBox typeComboBox;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Button detailsBtn;
+    @FXML
+    private Button backBtn;
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Animation.bindAnimation(searchTextField);
+        Animation.bindAnimation(typeComboBox);
+        
+        Animation.bindShadowAnimation(detailsBtn);
+        Animation.bindShadowAnimation(backBtn);
+        
         transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 

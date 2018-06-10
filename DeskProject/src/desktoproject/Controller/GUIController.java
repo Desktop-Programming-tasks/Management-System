@@ -63,12 +63,15 @@ public class GUIController {
         mainStage = stage;
         mainStage.setMinWidth(640);
         mainStage.setMinHeight(500);
+        mainStage.setTitle("Gerenciador");
         callLogin();
+//        callScreen(ScreenType.INDEX);
         setUpModalStage();
-//        callModalForResult(ModalType.SERVICE_NEW);
+//        callScreen(ScreenType.EMPLOYEE_CREATE);
+//        callModalForResult(ModalType.PRODUCT_ADD);
 //        callScreen(ScreenType.CUSTOMER_CREATE);
 //        testScreen();
-//        callModal(ModalType.SERVICE_NEW);
+//        callModal(ModalType.BRAND_NEW);
     }
 
     private void setUpModalStage() {
@@ -76,6 +79,7 @@ public class GUIController {
         modalStage.initOwner(mainStage);
         modalStage.initModality(Modality.APPLICATION_MODAL);
         modalStage.setResizable(false);
+        modalStage.setTitle("Gerenciador");
     }
 
     private void setDynamicChild(Parent p) {
@@ -128,120 +132,98 @@ public class GUIController {
             setMenuScreen();
         }
         try {
+            dynamic.setMaxWidth(1280);
             switch (type) {
                 case INDEX: {
-                    dynamic.setMaxWidth(1280);
                     dynamic.setMaxHeight(720);
                     setDynamicChild(IndexController.call(mainStage).getParent());
                     break;
                 }
                 case TRANSACTION_BUY_CREATE:{
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(TransactionController.call(TransactionType.BUY,mainStage));
                     break;
                 }
                 case TRANSACTION_SALE_CREATE:{
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(TransactionController.call(TransactionType.SALE,mainStage));
                     break;
                 }
                 case TRANSACTION_BUY_DISPLAY:{
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(TransactionController.call(TransactionType.BUY,obj,mainStage));
                     break;
                 }
                 case TRANSACTION_SALE_DISPLAY:{
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(TransactionController.call(TransactionType.SALE,obj,mainStage));
                     break;
                 }
                 case QUERY_TRANSACTION_BUY: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(GenericTransactionController.call(TransactionQueryType.BUY));
                     break;
                 }
                 case QUERY_TRANSACTION_SALE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(GenericTransactionController.call(TransactionQueryType.SALE));
                     break;
                 }
                 case QUERY_TRANSACTION_ALL: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(GenericTransactionController.call(TransactionQueryType.ALL));
                     break;
                 }
                 case QUERY_BRAND: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(BrandController.call());
                     break;
                 }
                 case QUERY_PERSON_CUSTOMER: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(PersonController.call(PersonQueryType.CUSTOMER));
                     break;
                 }
                 case QUERY_PERSON_EMPLOYEE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(PersonController.call(PersonQueryType.EMPLOYEE));
                     break;
                 }
                 case QUERY_SERVICE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(ServiceController.call());
                     break;
                 }
                 case QUERY_SERVICE_TYPE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(ServiceTypeQueryController.call());
                     break;
                 }
                 case QUERY_STOCK: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(StockController.call());
                     break;
                 }
                 case QUERY_SUPPLIER: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(QuerySupplierController.call());
                     break;
                 }
                 case CUSTOMER_CREATE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(CustomerController.call());
                     break;
                 }
                 case CUSTOMER_DISPLAY: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(CustomerController.call(obj));
                     break;
                 }
                 case EMPLOYEE_CREATE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(EmployeeController.call());
                     break;
                 }
                 case EMPLOYEE_DISPLAY: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(EmployeeController.call(obj));
                     break;
                 }
                 case PRODUCT_CREATE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(ProductController.call(mainStage));
                     break;
                 }
                 case PRODUCT_DISPLAY: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(ProductController.call(obj,mainStage));
                     break;
                 }
                 case SUPPLIER_CREATE: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(SupplierController.call());
                     break;
                 }
                 case SUPPLIER_DISPLAY: {
-                    dynamic.setMaxWidth(1280);
                     setDynamicChild(SupplierController.call(obj));
                     break;
                 }

@@ -7,13 +7,13 @@ package desktoproject.Controller.Modal;
 
 import Classes.Enums.ServiceStatus;
 import Classes.Persons.Employee;
-import Classes.Persons.Person;
 import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -110,6 +110,8 @@ public class CreateServiceController implements Initializable {
     private ComboBox<ServiceType> comboBoxService;
     @FXML
     private Button primaryBtn;
+    @FXML
+    private Button backBtn;
     
     /**
      * Initializes the controller class.
@@ -118,6 +120,14 @@ public class CreateServiceController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //value from database
+        Animation.bindAnimation(valueTextField);
+        Animation.bindAnimation(beginDate);
+        Animation.bindAnimation(endDate);
+        Animation.bindAnimation(comboBoxEmployee);
+        Animation.bindAnimation(comboBoxState);
+        Animation.bindAnimation(comboBoxService);
+        Animation.bindShadowAnimation(primaryBtn);
+        Animation.bindShadowAnimation(backBtn);
         
         comboBoxSetup();
         loadComboBox();
@@ -250,7 +260,7 @@ public class CreateServiceController implements Initializable {
             Service newService = new Service(beginDate.getValue(),endDate.getValue(),comboBoxState.getValue(),comboBoxEmployee.getValue(),comboBoxService.getValue());
             
             if(edit){
-                
+            
             }else{
                 newServiceReturn = newService;
             }

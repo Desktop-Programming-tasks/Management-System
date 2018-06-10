@@ -16,6 +16,7 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
@@ -132,6 +133,10 @@ public class SupplierController implements Initializable {
     @FXML
     private Button mainBtn;
     @FXML
+    private Button backBtn;
+    @FXML
+    private Button createBrand;
+    @FXML
     private TableView<Brand> brandsTable;
     @FXML
     private AnchorPane addressPane;
@@ -145,6 +150,13 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        Animation.bindAnimation(nameTextField);
+        Animation.bindAnimation(CNPJTextField);
+        Animation.bindShadowAnimation(mainBtn);
+        Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(createBrand);
+        
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
@@ -168,15 +180,16 @@ public class SupplierController implements Initializable {
             Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
             ArrayList<String> telephone = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
             ArrayList<Brand> brands = new ArrayList<>(brandsTable.getSelectionModel().getSelectedItems());
-            Supplier supplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
+            Supplier newSupplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
 
             try {
                 if (edit) {
-                    PersonDAO.updatePerson(supplier);
+                    newSupplier.setId(supplier.getId());
+                    PersonDAO.updatePerson(newSupplier);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
                 } else {
-                    PersonDAO.insertPerson(supplier);
+                    PersonDAO.insertPerson(newSupplier);
                     GUIController.getInstance().showRegisterAlert("Fornecedor");
                     GUIController.getInstance().backToPrevious();
                 }
