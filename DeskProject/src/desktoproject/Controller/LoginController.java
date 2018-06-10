@@ -122,10 +122,9 @@ public class LoginController extends Controller implements Initializable {
             RemoteLogin loginChannel = (RemoteLogin) rmiRegistry.lookup(RemoteLogin.RMI_LOGIN);
             
             return loginChannel.tryLogin(login, password);
-        } catch (RemoteException | NotBoundException ex) {
+        } catch (RemoteException | NotBoundException | DatabaseErrorException ex) {
             ex.printStackTrace();
             GUIController.getInstance().showConnectionErrorAlert();
-        } catch (DatabaseErrorException ex) {
         }
         return Autentication.ERROR_ON_LOGIN;
     }

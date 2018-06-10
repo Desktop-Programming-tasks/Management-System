@@ -18,6 +18,7 @@ public abstract class MyObservable {
     
     public MyObservable(){
         subscribed = new ArrayList<>();
+        setType();
     }
     
     private void notifyAllSubscribed(){
