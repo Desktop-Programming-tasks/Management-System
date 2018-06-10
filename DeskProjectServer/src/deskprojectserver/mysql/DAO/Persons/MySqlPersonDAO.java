@@ -41,7 +41,7 @@ public class MySqlPersonDAO extends PersonDAO {
 
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
             + "`tel1Person`, `tel2Person` FROM `Person` "
-            + "WHERE idDocumentPerson=?";
+            + "WHERE idDocumentPerson=? AND isActivePerson";
 
     private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` "
             + "WHERE isActivePerson";

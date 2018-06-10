@@ -202,12 +202,24 @@ public abstract class PersonDAO {
         }
     }
 
+    public void inactivatePerson(Person p) throws DatabaseErrorException, NoResultsException {
+        if (p instanceof LegalPerson) {
+            legalPersonDAO.removeLegalPerson((LegalPerson) p);
+        } else if (p instanceof JuridicalPerson) {
+            juridicalDAO.removeJuridcalPerson((JuridicalPerson) p);
+        }
+        addressDAO.removeAddress(p);
+        
+    }
+
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
     protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
-
+    
+    
+        
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 
     public abstract ArrayList<Person> getLikePersons(String id) throws DatabaseErrorException;
