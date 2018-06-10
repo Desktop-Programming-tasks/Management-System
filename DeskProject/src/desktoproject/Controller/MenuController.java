@@ -27,17 +27,17 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author noda
  */
-public class MenuController implements Initializable {
+public class MenuController extends Controller implements Initializable {
 
-    private static final String PATH = "desktoproject/View/Menu.fxml";
-    
-    public static ScreenObject call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(LoginController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        MenuController controller = loader.getController();
-        return new ScreenObject(p, controller);
-    }
+//    private static final String PATH = "desktoproject/View/Menu.fxml";
+//    
+//    public static ScreenObject call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(LoginController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        MenuController controller = loader.getController();
+//        return new ScreenObject(p, controller);
+//    }
 
     @FXML
     private AnchorPane dynamic;
@@ -167,5 +167,10 @@ public class MenuController implements Initializable {
     @FXML
     private void showQueryBrand() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_BRAND);
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.MENU_SCREEN;
     }
 }

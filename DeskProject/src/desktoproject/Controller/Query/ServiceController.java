@@ -5,7 +5,10 @@
  */
 package desktoproject.Controller.Query;
 
+import desktoproject.Controller.Controller;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
@@ -26,15 +29,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author noda
  */
-public class ServiceController implements Initializable {
+public class ServiceController extends Controller implements Initializable, TableScreen {
     
-    private static final String PATH = "desktoproject/View/Query/Service.fxml";
-    
-    public static Parent call() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
-        return loader.load();
-    }
+//    private static final String PATH = "desktoproject/View/Query/Service.fxml";
+//    
+//    public static Parent call() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
+//        return loader.load();
+//    }
     
     @FXML
     private TableView ServiceTable;
@@ -82,5 +85,25 @@ public class ServiceController implements Initializable {
     @FXML
     private void detailsProduct(){
         
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.SERVICE_QUERY;
+    }
+
+    @Override
+    public void populateTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setTableAction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setUpSearch() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

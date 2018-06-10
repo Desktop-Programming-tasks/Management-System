@@ -5,10 +5,14 @@
  */
 package desktoproject.Controller.Query;
 
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.TransactionQueryType;
 import static desktoproject.Controller.Enums.TransactionQueryType.ALL;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,18 +32,26 @@ import javafx.scene.control.TextField;
  *
  * @author ecaanchesjr
  */
-public class GenericTransactionController implements Initializable {
+public class GenericTransactionController extends Controller implements Initializable, TableScreen {
 
-    private static final String genericTransactionPath = "desktoproject/View/Query/GenericTransaction.fxml";
+//    private static final String genericTransactionPath = "desktoproject/View/Query/GenericTransaction.fxml";
+//    
+//    public static Parent call(TransactionQueryType type) throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource(genericTransactionPath));
+//        Parent p = loader.load();
+//        GenericTransactionController controller = loader.getController();
+//        controller.setType(type);
+//        controller.setUpComponents();
+//        return p;
+//    }
     
-    public static Parent call(TransactionQueryType type) throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource(genericTransactionPath));
-        Parent p = loader.load();
-        GenericTransactionController controller = loader.getController();
+    public ScreenData call(TransactionQueryType type) throws IOException {
+        ScreenData callReturn = super.call();
+        GenericTransactionController controller = (GenericTransactionController) callReturn.getController();
         controller.setType(type);
         controller.setUpComponents();
-        return p;
+        return new ScreenData(callReturn.getParent(), controller);
     }
     
     private TransactionQueryType type;
@@ -107,12 +119,28 @@ public class GenericTransactionController implements Initializable {
         
     }
 
-    public void setTransactionType(String transationType) {
-        
-    }
-
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.GENERIC_TRANSACTION_QUERY;
+    }
+
+    @Override
+    public void populateTable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setTableAction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setUpSearch() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

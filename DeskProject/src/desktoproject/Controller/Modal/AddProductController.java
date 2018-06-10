@@ -8,13 +8,14 @@ package desktoproject.Controller.Modal;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Controller;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
-import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -22,9 +23,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -39,21 +38,23 @@ import javafx.util.Callback;
  *
  * @author noda
  */
-public class AddProductController implements Initializable {
+public class AddProductController extends Controller implements Initializable, TableScreen {
 
-    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
+//    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
+//    
+//
+//    public static ScreenObject call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(AddProductController.class.getClassLoader().getResource(addProductPath));
+//        Parent p = loader.load();
+//        AddProductController controller = loader.getController();
+//
+//        return new ScreenObject(p, controller);
+//    }
+
     private Product tmpProduct;
     private Product selectedProduct;
-
-    public static ScreenObject call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AddProductController.class.getClassLoader().getResource(addProductPath));
-        Parent p = loader.load();
-        AddProductController controller = loader.getController();
-
-        return new ScreenObject(p, controller);
-    }
-
+    
     @FXML
     private TextField searchTextField;
     @FXML
@@ -121,7 +122,8 @@ public class AddProductController implements Initializable {
         setUpSearch();
     }
     
-    private void setUpSearch(){
+    @Override
+    public void setUpSearch(){
         searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
             newValue = newValue.trim();
             if(newValue.isEmpty()){
@@ -136,7 +138,8 @@ public class AddProductController implements Initializable {
         });
     }
 
-    private void populateTable() {
+    @Override
+    public void populateTable() {
         try {
             productTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
         } catch (RemoteException | DatabaseErrorException ex) {
@@ -154,7 +157,8 @@ public class AddProductController implements Initializable {
         ProductPrice.setText("");
     }
 
-    private void setTableAction() {
+    @Override
+    public void setTableAction() {
         productTable.setRowFactory(tv -> {
             TableRow<Product> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -204,5 +208,10 @@ public class AddProductController implements Initializable {
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
             return false;
         }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.ADD_PRODUCT_MODAL;
     }
 }

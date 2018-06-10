@@ -7,19 +7,19 @@ package desktoproject.Controller.Query;
 
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -33,15 +33,15 @@ import javafx.scene.input.KeyCode;
  *
  * @author viniciusmn
  */
-public class ServiceTypeQueryController implements Initializable {
+public class ServiceTypeQueryController extends Controller implements Initializable, TableScreen {
 
-    private static final String PATH = "desktoproject/View/Query/ServiceTypeQuery.fxml";
-    
-    public static Parent call() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
-        return loader.load();
-    }
+//    private static final String PATH = "desktoproject/View/Query/ServiceTypeQuery.fxml";
+//    
+//    public static Parent call() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
+//        return loader.load();
+//    }
     
     /**
      * Initializes the controller class.
@@ -79,7 +79,8 @@ public class ServiceTypeQueryController implements Initializable {
         setUpSearch();
     }    
     
-    private void setUpSearch(){
+    @Override
+    public void setUpSearch(){
         searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
             newValue = newValue.trim();
             if(newValue.isEmpty()){
@@ -94,7 +95,8 @@ public class ServiceTypeQueryController implements Initializable {
         });
     }
     
-    private void populateTable(){
+    @Override
+    public void populateTable(){
         try {
             ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
         }catch (RemoteException | DatabaseErrorException ex) {
@@ -104,7 +106,8 @@ public class ServiceTypeQueryController implements Initializable {
         
     }
     
-    private void setTableAction(){
+    @Override
+    public void setTableAction(){
         ServiceTable.setOnKeyReleased((event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 ServiceType item = ServiceTable.getSelectionModel().getSelectedItem();
@@ -147,5 +150,10 @@ public class ServiceTypeQueryController implements Initializable {
             GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT,serviceType);
             populateTable();
         }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.SERVICE_TYPE_QUERY;
     }
 }

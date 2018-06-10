@@ -10,11 +10,13 @@ import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -23,9 +25,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -38,15 +38,17 @@ import javafx.scene.input.KeyCode;
  *
  * @author ecaanchesjr
  */
-public class QuerySupplierController implements Initializable {
+public class QuerySupplierController extends Controller implements Initializable, TableScreen {
 
-    private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
-
-    public static Parent call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(QuerySupplierController.class.getClassLoader().getResource(querySupplierPath));
-        return loader.load();
-    }
+//    private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
+//
+//    public static Parent call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(QuerySupplierController.class.getClassLoader().getResource(querySupplierPath));
+//        return loader.load();
+//    }
+    
+    
 
     @FXML
     private TableView<Supplier> suppliersTable;
@@ -94,7 +96,8 @@ public class QuerySupplierController implements Initializable {
         setUpSearch();
     }
 
-    private void setUpSearch() {
+    @Override
+    public void setUpSearch() {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             newValue = newValue.trim();
             if (newValue.isEmpty()) {
@@ -110,6 +113,7 @@ public class QuerySupplierController implements Initializable {
         });
     }
 
+    @Override
     public void populateTable() {
         try {
             suppliersTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
@@ -121,7 +125,8 @@ public class QuerySupplierController implements Initializable {
 
     }
 
-    private void setTableAction() {
+    @Override
+    public void setTableAction() {
         suppliersTable.setOnKeyReleased((event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 Supplier item = suppliersTable.getSelectionModel().getSelectedItem();
@@ -181,5 +186,10 @@ public class QuerySupplierController implements Initializable {
                 GUIController.getInstance().showOperationNotAllowed();
             }
         }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.SUPPLIER_QUERY;
     }
 }

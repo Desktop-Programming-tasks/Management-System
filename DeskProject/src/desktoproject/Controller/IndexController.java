@@ -10,43 +10,34 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Globals;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.Pairs.ScreenObject;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author ecaanchesjr
  */
-public class IndexController implements Initializable {
+public class IndexController extends Controller implements Initializable {
 
-    private static final String indexPath = "desktoproject/View/Index.fxml";
-
-    public static ScreenObject call(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
-        Parent p = loader.load();
-        IndexController controller = loader.getController();
-        controller.setStage(stage);
-//        controller.setIconsListeners();
-        return new ScreenObject(p, controller);
-    }
-
-    private Stage stage;
-
+//    private static final String indexPath = "desktoproject/View/Index.fxml";
+//
+//    public static ScreenData call(Stage stage) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
+//        Parent p = loader.load();
+//        IndexController controller = loader.getController();
+//
+//        return new ScreenData(p, controller);
+//    }
     @FXML
     private AnchorPane overPanel;
     @FXML
@@ -84,59 +75,15 @@ public class IndexController implements Initializable {
 //        Animation.bindShadowAnimation(queryBtn);
 //        Animation.bindShadowAnimation(registerBtn); 
         Animation.bindShadowAnimation(stockBtn);
-        
+
         try {
-            if(Globals.getInstance().getEmployee().getEmployeeType()==EmployeeType.COMMOM){
+            if (Globals.getInstance().getEmployee().getEmployeeType() == EmployeeType.COMMOM) {
                 queryEmployeeMenuItem.setVisible(false);
                 registerEmployeeMenuItem.setVisible(false);
             }
         } catch (RemoteException ex) {
             System.out.println("ops - inside index controller");
         }
-    }
-
-    private void setIconsListeners() {
-        stage.widthProperty().addListener((observable) -> {
-            setIconWidth();
-        });
-
-        stage.heightProperty().addListener((observable) -> {
-            setIconHeight();
-        });
-    }
-
-    public void setIconWidth() {
-        float main = 200, sub = 160;
-        stage.getWidth();//dont ask
-        imageSale.setFitWidth(saleBtn.getWidth() - main);
-        imageBuy.setFitWidth(saleBtn.getWidth() - main);
-
-        double subSize = queryBtn.getWidth() - sub;
-        if (subSize < 30) {
-            subSize = 30;
-        } else if (subSize > 100) {
-            subSize = 100;
-        }
-        imageQuery.setFitWidth(subSize);
-        imageStock.setFitWidth(subSize);
-        imageRegister.setFitWidth(subSize);
-    }
-
-    public void setIconHeight() {
-        float main = 130, sub = 34;
-        stage.getHeight();//dont ask
-        imageSale.setFitHeight(saleBtn.getHeight() - main);
-        imageBuy.setFitHeight(saleBtn.getHeight() - main);
-
-        double subSize = queryBtn.getHeight() - sub;
-        if (subSize < 30) {
-            subSize = 30;
-        } else if (subSize > 100) {
-            subSize = 100;
-        }
-        imageQuery.setFitHeight(subSize);
-        imageStock.setFitHeight(subSize);
-        imageRegister.setFitHeight(subSize);
     }
 
     @FXML
@@ -228,18 +175,19 @@ public class IndexController implements Initializable {
     private void showQueryBrand() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_BRAND);
     }
-    
+
     @FXML
     private void showPromoteLegalPersons() {
         GUIController.getInstance().callScreen(ScreenType.REGISTER_PROMOTE_LEGAL_PERSON);
     }
-    
+
     @FXML
     private void showPromoteJuridicalPersons() {
         GUIController.getInstance().callScreen(ScreenType.REGISTER_PROMOTE_JURIDICAL_PERSON);
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.INDEX_SCREEN;
     }
 }
