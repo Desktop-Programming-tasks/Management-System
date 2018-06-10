@@ -5,8 +5,14 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
+import Classes.Transactions.Product;
 import Classes.Transactions.Record;
+import Classes.Transactions.Service;
 import Classes.Transactions.Transaction;
+import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
+import Exceptions.OutOfStockException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,14 +20,27 @@ import Classes.Transactions.Transaction;
  */
 public abstract class RegisterDAO {
 
-    public abstract void insertRegister(Record register);
+    TransactionProductDAO tProductDAO;
+    TransactionServiceDAO tServiceDAO;
 
-    public void createRegisterAndCommitTransations(Record register, TransactionDAO td) {
-        for (Transaction el : register.getTransations()) {
-            td.insertTransaction(el);
+    public RegisterDAO(TransactionProductDAO tProductDAO, TransactionServiceDAO tServiceDAO) {
+        this.tProductDAO = tProductDAO;
+        this.tServiceDAO = tServiceDAO;
+    }
+
+    public void insertFullRegisterAndTransactions(Record record) throws DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
+        basicInsertRecord(record);
+        for (Transaction t : record.getTransations()) {
+            if (t instanceof Product) {
+                tProductDAO.completeInsertProductTransaction(record, (Product) t);
+            } else if (t instanceof Service) {
+                tServiceDAO.insertServiceTransaction(record, (Service) t);
+            }
         }
-        insertRegister(register);
     }
 
     public abstract Record getRegister(String id);
+
+    protected abstract void basicInsertRecord(Record record) throws DuplicatedEntryException,DatabaseErrorException;
+
 }

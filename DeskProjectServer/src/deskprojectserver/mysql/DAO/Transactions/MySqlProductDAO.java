@@ -126,6 +126,8 @@ public class MySqlProductDAO extends ProductDAO {
                         new Brand(qr.getResultSet().getString(BRAND_NAME)),
                         qr.getResultSet().getFloat(PRICE),
                         qr.getResultSet().getString(NAME));
+                product.setQuantityInStock(qr.getResultSet().getInt(QUANTITY));
+                product.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {

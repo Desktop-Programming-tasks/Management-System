@@ -5,14 +5,14 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import Classes.Transactions.Transaction;
-import java.util.ArrayList;
+import Classes.Transactions.Record;
+import Classes.Transactions.Service;
 
 /**
  *
  * @author gabriel
  */
-public abstract class TransactionDAO {
-    public abstract void insertTransaction(Transaction mov);
-    public abstract ArrayList<Transaction> getTransactions(String RegisterID);
+public abstract class TransactionServiceDAO {
+
+    public abstract void insertServiceTransaction(Record record, Service service);
 }

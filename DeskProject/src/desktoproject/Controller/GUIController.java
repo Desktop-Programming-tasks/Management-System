@@ -39,7 +39,7 @@ import javafx.stage.Stage;
 public class GUIController {
 
     private final String cssAlertPath = "desktoproject/View/css/alert.css";
-    
+
     private Stage mainStage;
     private Stage modalStage;
 
@@ -57,6 +57,7 @@ public class GUIController {
     }
 
     private static class GUIControllerHolder {
+
         private static final GUIController INSTANCE = new GUIController();
     }
 
@@ -85,14 +86,14 @@ public class GUIController {
 
     private void setDynamicChild(Parent p) {
         this.dynamic.getChildren().clear();
-        AnchorPane.setTopAnchor(p,32.00);
-        AnchorPane.setLeftAnchor(p,32.00);
-        AnchorPane.setBottomAnchor(p,32.00);
-        AnchorPane.setRightAnchor(p,32.00);
+        AnchorPane.setTopAnchor(p, 32.00);
+        AnchorPane.setLeftAnchor(p, 32.00);
+        AnchorPane.setBottomAnchor(p, 32.00);
+        AnchorPane.setRightAnchor(p, 32.00);
         this.dynamic.getChildren().add(p);
     }
-    
-    public void callLogin(){
+
+    public void callLogin() {
         try {
             mainStage.setScene(new Scene(LoginController.call()));
             mainStage.show();
@@ -102,11 +103,11 @@ public class GUIController {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void setMenuScreen(){
+
+    private void setMenuScreen() {
         try {
             ScreenObject info = MenuController.call();
-            this.dynamic = ((MenuController)info.getController()).getDynamic();
+            this.dynamic = ((MenuController) info.getController()).getDynamic();
             mainStage.setScene(new Scene(info.getParent()));
             mainStage.show();
             isMenu = true;
@@ -114,22 +115,22 @@ public class GUIController {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //if no object is passed the callScreen is called with null
     //this method is used to call screens that don't need to display information of an already created object
-    public void callScreen(ScreenType type){
+    public void callScreen(ScreenType type) {
         callScreen(type, null);
     }
-    
-    public void callScreen(ScreenType type, Object obj){
-        callScreen(type, obj,false);
+
+    public void callScreen(ScreenType type, Object obj) {
+        callScreen(type, obj, false);
     }
 
     private void callScreen(ScreenType type, Object obj, boolean back) {
-        if(!back){
+        if (!back) {
             executionStack.push(new ScreenCall(type, obj));
         }
-        if(!isMenu){
+        if (!isMenu) {
             setMenuScreen();
         }
         try {
@@ -140,20 +141,20 @@ public class GUIController {
                     setDynamicChild(IndexController.call(mainStage).getParent());
                     break;
                 }
-                case TRANSACTION_BUY_CREATE:{
-                    setDynamicChild(TransactionController.call(TransactionType.BUY,mainStage));
+                case TRANSACTION_BUY_CREATE: {
+                    setDynamicChild(TransactionController.call(TransactionType.BUY, mainStage));
                     break;
                 }
-                case TRANSACTION_SALE_CREATE:{
-                    setDynamicChild(TransactionController.call(TransactionType.SALE,mainStage));
+                case TRANSACTION_SALE_CREATE: {
+                    setDynamicChild(TransactionController.call(TransactionType.SALE, mainStage));
                     break;
                 }
-                case TRANSACTION_BUY_DISPLAY:{
-                    setDynamicChild(TransactionController.call(TransactionType.BUY,obj,mainStage));
+                case TRANSACTION_BUY_DISPLAY: {
+                    setDynamicChild(TransactionController.call(TransactionType.BUY, obj, mainStage));
                     break;
                 }
-                case TRANSACTION_SALE_DISPLAY:{
-                    setDynamicChild(TransactionController.call(TransactionType.SALE,obj,mainStage));
+                case TRANSACTION_SALE_DISPLAY: {
+                    setDynamicChild(TransactionController.call(TransactionType.SALE, obj, mainStage));
                     break;
                 }
                 case QUERY_TRANSACTION_BUY: {
@@ -229,7 +230,7 @@ public class GUIController {
                     break;
                 }
                 case PRODUCT_DISPLAY: {
-                    setDynamicChild(ProductController.call(obj,mainStage));
+                    setDynamicChild(ProductController.call(obj, mainStage));
                     break;
                 }
                 case SUPPLIER_CREATE: {
@@ -249,35 +250,35 @@ public class GUIController {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void callModal(ModalType type){
-        callModal(type,null);
+
+    public void callModal(ModalType type) {
+        callModal(type, null);
     }
-    
-    public Transaction callModalForResult(ModalType type){
-        try{
-            switch(type){
-                case PRODUCT_ADD:{
+
+    public Transaction callModalForResult(ModalType type) {
+        try {
+            switch (type) {
+                case PRODUCT_ADD: {
                     ScreenObject so = AddProductController.call();
                     setUpModal(so.getParent());
-                    return ((AddProductController)so.getController()).getSelectedProduct();
+                    return ((AddProductController) so.getController()).getSelectedProduct();
                 }
-                case SERVICE_NEW:{
+                case SERVICE_NEW: {
                     ScreenObject so = CreateServiceController.call();
                     setUpModal(so.getParent());
-                    return ((CreateServiceController)so.getController()).getNewServiceReturn();
+                    return ((CreateServiceController) so.getController()).getNewServiceReturn();
                 }
             }
-        }catch(IOException ex){
+        } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    public void callModal(ModalType type, Object obj){
-        try{
-            switch(type){
-                case BRAND_NEW:{
+
+    public void callModal(ModalType type, Object obj) {
+        try {
+            switch (type) {
+                case BRAND_NEW: {
                     setUpModal(BrandModalController.call());
                     break;
                 }
@@ -285,25 +286,25 @@ public class GUIController {
                     setUpModal(BrandModalController.call(obj));
                     break;
                 }
-                case SERVICE_TYPE_CREATE:{
+                case SERVICE_TYPE_CREATE: {
                     setUpModal(ServiceTypeController.call());
                     break;
                 }
-                case SERVICE_TYPE_EDIT:{
+                case SERVICE_TYPE_EDIT: {
                     setUpModal(ServiceTypeController.call(obj));
                     break;
                 }
-                case SERVICE_UPDATE:{
+                case SERVICE_UPDATE: {
                     setUpModal(CreateServiceController.call(obj));
                     break;
                 }
             }
-        }catch(IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void setUpModal(Parent p){
+
+    private void setUpModal(Parent p) {
         modalStage.setScene(new Scene(p));
         modalStage.showAndWait();
     }
@@ -311,103 +312,104 @@ public class GUIController {
     public boolean showEraseConfirmationAlert(String msg) {
         Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
         confirmDelete.setTitle("Confirme a operação.");
-        confirmDelete.setHeaderText("Deseja realmente deletar "+msg+"?");
+        confirmDelete.setHeaderText("Deseja realmente deletar " + msg + "?");
         confirmDelete.setContentText(" ");
-        
+
         DialogPane diagPanel = confirmDelete.getDialogPane();
         diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
-        
+
         return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
     }
-    
-    public void showAlert(Alert.AlertType type, String title, String header, String content){
+
+    public void showAlert(Alert.AlertType type, String title, String header, String content) {
         Alert informationDiag;
-        
+
         informationDiag = new Alert(type);
         informationDiag.setTitle(title);
         informationDiag.setHeaderText(header);
         informationDiag.setContentText(content);
-        
+
         DialogPane diagPanel = informationDiag.getDialogPane();
         diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
         informationDiag.showAndWait();
     }
-    
+
     public void showEraseAlert() {
         showAlert(Alert.AlertType.INFORMATION, "Operação de remoção", "Remoção bem sucedida!", "Operação de remoção concluída!");
     }
-    
-    public void showRegisterAlert(String item){
-        showRegisterAlert(item,"");
+
+    public void showRegisterAlert(String item) {
+        showRegisterAlert(item, "");
     }
-    
-    public void showRegisterAlert(String item,String error){
-        showAlert(error.isEmpty()?Alert.AlertType.INFORMATION:Alert.AlertType.ERROR, "Cadastro", "Cadastro de "+item+(error.isEmpty()?" bem sucedida":" não concluída"), error);
+
+    public void showRegisterAlert(String item, String error) {
+        showAlert(error.isEmpty() ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR, "Cadastro", "Cadastro de " + item + (error.isEmpty() ? " bem sucedida" : " não concluída"), error);
     }
-    
-    public void showConnectionErrorAlert(){
+
+    public void showConnectionErrorAlert() {
         showAlert(Alert.AlertType.ERROR, "Erro de conexão", "Erro na conexão com o servidor", "");
     }
 
-    public void showAboutAlert() { 
-        showAlert(Alert.AlertType.INFORMATION, "Sobre o Software", 
-                "Sistema de Gerênciamento para Lojas de Informática.", 
+    public void showAboutAlert() {
+        showAlert(Alert.AlertType.INFORMATION, "Sobre o Software",
+                "Sistema de Gerênciamento para Lojas de Informática.",
                 "Software desenvolvido como trabalho prático para a \ndiscíplina de Programação Desktop.\n");
     }
-    
-    public void showDupplicatedAlert(String type,String idName){
-        showAlert(Alert.AlertType.ERROR, "Erro no cadastro", type+" já cadastrado", idName+" já utilizado");
+
+    public void showDupplicatedAlert(String type, String idName) {
+        showAlert(Alert.AlertType.ERROR, "Erro no cadastro", type + " já cadastrado", idName + " já utilizado");
 //        showRegisterAlert(personType, idName+" já utilizado");
     }
-    
-    public void showSelectionErrorAlert(){
+
+    public void showSelectionErrorAlert() {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de seleção", "Nenhuma entrada selecionada");
     }
-    
-    public void showDeleteErrorAlert(){
+
+    public void showDeleteErrorAlert() {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de exclusão", "Entrada não encontrada");
     }
-    
-    public void showOperationNotAllowed(){
+
+    public void showOperationNotAllowed() {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de operação", "Operação não permitida");
     }
-    
-    public void showUpdateErrorAlert(){
+
+    public void showUpdateErrorAlert() {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao alterar", "Pessoa não encontrada");
     }
-    
-    public void showUpdateAlert(){
-        showAlert(Alert.AlertType.INFORMATION, "Alteração", "Alteração concluida","");
+
+    public void showUpdateAlert() {
+        showAlert(Alert.AlertType.INFORMATION, "Alteração", "Alteração concluida", "");
     }
-    
-    public void showBrandExceptioAlert(){
+
+    public void showBrandExceptioAlert() {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de marca", "A marca selecionada não está mais disponivel");
     }
-    
+
     public void showPromoteAlert(String promote) {
-        showAlert(Alert.AlertType.INFORMATION, "Promoção de "+promote, "Pessoa promovida com sucesso", "");
+        showAlert(Alert.AlertType.INFORMATION, "Promoção de " + promote, "Pessoa promovida com sucesso", "");
     }
-    
+
     public void closeModal() {
         modalStage.close();
     }
-    
+
     public void backToPrevious() {
         executionStack.pop();
         ScreenCall obj = executionStack.peek();
-        callScreen(obj.getScreen(),obj.getObj(),true);
+        callScreen(obj.getScreen(), obj.getObj(), true);
     }
-    
-    public void backToIndex(){
+
+    public void backToIndex() {
         executionStack.clear();
         callScreen(ScreenType.INDEX);
     }
-    
+
     public void testScreen() {
         Brand testBrand = new Brand("Batata");
         Brand testBrand2 = new Brand("Batata1");
         ArrayList<Brand> brands = new ArrayList<>();
-        brands.add(testBrand); brands.add(testBrand2);
+        brands.add(testBrand);
+        brands.add(testBrand2);
         Product testProduct = new Product("123456789", testBrand, 1100, "Escova de Dente");
         Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
         ArrayList<String> telephones = new ArrayList<>();
@@ -422,9 +424,8 @@ public class GUIController {
         ArrayList<Transaction> transactions = new ArrayList<>();
         transactions.add(testProduct);
         transactions.add(service);
-        
-        Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
-        
+
+        //Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
 //        callModal(ModalType.SERVICE_ADD);
 //        callModal(ModalType.SERVICE_UPDATE,service);
 //        callScreen(ScreenType.TRANSACTION_BUY_DISPLAY,record);
