@@ -51,7 +51,7 @@ public class MySqlProductDAO extends ProductDAO {
 
     private static final String GET_ONE_SQL_INACTIVE = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
-            + "FROM `Product` WHERE ((barCodeProduct=? OR idProduct=?)";
+            + "FROM `Product` WHERE (barCodeProduct=? OR idProduct=?)";
 
     private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
