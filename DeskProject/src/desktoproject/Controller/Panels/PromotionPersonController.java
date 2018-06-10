@@ -5,7 +5,11 @@
  */
 package desktoproject.Controller.Panels;
 
+import Classes.Persons.Employee;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
+import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.PersonPromotion;
@@ -96,7 +100,18 @@ public class PromotionPersonController implements Initializable {
     }
 
     private void promote() {
-
+        switch(type) {
+            case JURIDICAL_PERSON: {
+                JuridicalPerson person = (JuridicalPerson) personTable.getSelectionModel().getSelectedItem();
+                GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Supplier(person));
+                break;
+            }
+            case LEGAL_PERSON: {
+                LegalPerson person = (LegalPerson) personTable.getSelectionModel().getSelectedItem();
+                GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee(person));
+                break;
+            }
+        }
     }
 
     private void setUpSearch() {
@@ -120,12 +135,12 @@ public class PromotionPersonController implements Initializable {
     private void setTableAction() {
         personTable.setOnKeyReleased((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                Person item = personTable.getSelectionModel().getSelectedItem();
-                if (item != null) {
+                Person person = personTable.getSelectionModel().getSelectedItem();
+                if (person != null) {
                     if (type == PersonPromotion.LEGAL_PERSON) {
-                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, item);
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee((LegalPerson) person));
                     } else {
-                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, item);
+                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, new Supplier((JuridicalPerson) person));
                     }
                 }
             }
@@ -137,9 +152,9 @@ public class PromotionPersonController implements Initializable {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Person person = row.getItem();
                     if (type == PersonPromotion.LEGAL_PERSON) {
-                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, person);
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee((LegalPerson) person));
                     } else {
-                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, person);
+                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, new Supplier((JuridicalPerson) person));
                     }
                 }
             });

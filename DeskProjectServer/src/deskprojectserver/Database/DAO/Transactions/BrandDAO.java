@@ -19,10 +19,13 @@ public abstract class BrandDAO {
 
     public abstract void insertBrand(Brand brand) throws DatabaseErrorException, DuplicatedEntryException;
 
+    protected abstract Brand getBrand(String id,boolean justActive) throws DatabaseErrorException,NoResultsException;
+
     public abstract void updateBrand(Brand brand) throws DatabaseErrorException, NoResultsException;
 
     public abstract void removeBrand(Brand brand) throws DatabaseErrorException, NoResultsException;
-    
-    public abstract void checkIfExists(Brand brand) throws DatabaseErrorException,NoResultsException;
+
+    public abstract void checkIfExists(Brand brand) throws DatabaseErrorException, NoResultsException;
+
     public abstract ArrayList<Brand> getAllBrands() throws DatabaseErrorException;
 }
