@@ -5,22 +5,17 @@
  */
 package desktoproject.Controller.Query;
 
-import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

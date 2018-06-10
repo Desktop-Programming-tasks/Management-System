@@ -5,24 +5,10 @@
  */
 package deskprojectserver;
 
-import Classes.Enums.RecordType;
-import Classes.Persons.Employee;
-import Classes.Persons.LegalPerson;
-import Classes.Persons.Person;
-import Classes.Transactions.Product;
 import Classes.Transactions.Record;
-import Classes.Transactions.ServiceType;
-import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
-import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
-import Exceptions.OutOfStockException;
 import deskprojectserver.Database.DAOBuilder;
-import Classes.Constants.RecordTypeConstants;
-import deskprojectserver.mysql.DAO.Transactions.MySqlProductTransactionDAO;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

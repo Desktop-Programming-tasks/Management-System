@@ -5,7 +5,6 @@
  */
 package desktoproject.Controller.Query;
 
-import Classes.Transactions.Brand;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import desktoproject.Controller.Enums.ModalType;

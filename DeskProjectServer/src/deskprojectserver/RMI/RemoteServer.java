@@ -24,8 +24,6 @@ import RMI.RemoteMethods;
 import deskprojectserver.Database.DAOBuilder;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -143,13 +141,18 @@ public class RemoteServer implements RemoteMethods {
     }
 
     @Override
-    public Record queryRecord() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Record queryRecord(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRegisterDAO().getRegister(id);
     }
 
     @Override
     public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return DAOBuilder.getInstance().getRegisterDAO().getAllRecords();
+    }
+    
+    @Override
+    public ArrayList<Record> queryLikeRecords(String clientName) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRegisterDAO().getLikeRecords(clientName);
     }
 
     @Override

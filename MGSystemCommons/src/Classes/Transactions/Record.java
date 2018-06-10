@@ -5,7 +5,6 @@
  */
 package Classes.Transactions;
 
-import Classes.Enums.RecordType;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import java.io.Serializable;

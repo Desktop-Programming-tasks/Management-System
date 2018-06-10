@@ -7,11 +7,9 @@ package desktoproject.Controller.Query;
 
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
-import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
-import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;

@@ -8,7 +8,6 @@ package desktoproject.Controller.Modal;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;

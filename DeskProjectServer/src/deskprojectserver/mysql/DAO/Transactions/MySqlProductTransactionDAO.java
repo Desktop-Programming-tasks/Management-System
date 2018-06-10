@@ -13,7 +13,6 @@ import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.Database.DAO.Transactions.ProductDAO;
 import deskprojectserver.Database.DAO.Transactions.TransactionProductDAO;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
