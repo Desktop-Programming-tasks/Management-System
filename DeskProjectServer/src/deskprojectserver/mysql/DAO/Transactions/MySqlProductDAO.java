@@ -35,6 +35,7 @@ public class MySqlProductDAO extends ProductDAO {
     private static final String PRICE = "priceProduct";
     private static final String QUANTITY = "quantityProduct";
     private static final String BRAND_NAME = "Brand_nameBrand";
+    private static final String IS_ACTIVE="isActiveProduct";
     private static final String INSERT_SQL = "INSERT INTO `Product`"
             + "(`barCodeProduct`, `nameProduct`, `priceProduct`, `quantityProduct`, "
             + "`Brand_nameBrand`, `isActiveProduct`)"
@@ -176,6 +177,7 @@ public class MySqlProductDAO extends ProductDAO {
                         new Brand(qr.getResultSet().getString(BRAND_NAME)),
                         qr.getResultSet().getFloat(PRICE), qr.getResultSet().getString(NAME));
                 product.setQuantityInStock(qr.getResultSet().getInt(QUANTITY));
+                product.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
                 products.add(product);
             }
             qr.closeAll();
