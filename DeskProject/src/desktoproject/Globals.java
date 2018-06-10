@@ -6,7 +6,7 @@
 package desktoproject;
 
 import Classes.Persons.Employee;
-import RMI.ServerMethods;
+import RMI.RemoteMethods;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,7 +19,7 @@ import java.rmi.registry.Registry;
 public class Globals {
 
     private Employee employee;
-    private ServerMethods rmiChannel;
+    private RemoteMethods rmiChannel;
     private static Globals INSTANCE;
 
     public Employee getEmployee() {
@@ -30,14 +30,14 @@ public class Globals {
         this.employee = employee;
     }
     
-    public ServerMethods getChannel() {
+    public RemoteMethods getChannel() {
         return rmiChannel;
     }
 
     private Globals() throws RemoteException {
         try {
-            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", 1100);
-            this.rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
+            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteMethods.RMI_PORT);
+            this.rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD_CHANNEL);
         } catch (NotBoundException | RemoteException ex) {
             throw new RemoteException();
         }

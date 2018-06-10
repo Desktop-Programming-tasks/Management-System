@@ -6,7 +6,7 @@
 package deskprojectserver.RMI;
 
 import RMI.RemoteLogin;
-import RMI.ServerMethods;
+import RMI.RemoteMethods;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -24,7 +24,7 @@ public class StartRemoteServer {
     private LoginServer loginServer;
     
     private RemoteLogin loginChannel;
-    private ServerMethods methodsChannel;
+    private RemoteMethods methodsChannel;
     
     private Registry rmiRegistry;
     
@@ -40,7 +40,7 @@ public class StartRemoteServer {
         
         try {
             loginChannel = (RemoteLogin) UnicastRemoteObject.exportObject(loginServer, 0);
-            rmiRegistry = LocateRegistry.createRegistry(1099);
+            rmiRegistry = LocateRegistry.createRegistry(1100);
             rmiRegistry.bind("RMI_LOGIN_Server", loginChannel);
             
             System.out.println("LoginServer already to receive connections...");
@@ -52,9 +52,10 @@ public class StartRemoteServer {
     private void openRemoteServer() {
         remoteServer = new RemoteServer();
         try {
-            methodsChannel = (ServerMethods) UnicastRemoteObject.exportObject(remoteServer, 0);
-            rmiRegistry = LocateRegistry.createRegistry(1100);
-            rmiRegistry.bind("RMI_BD_Server", methodsChannel);
+
+            methodsChannel = (RemoteMethods) UnicastRemoteObject.exportObject(remoteServer, 0);
+            rmiRegistry = LocateRegistry.createRegistry(RemoteMethods.RMI_PORT);
+            rmiRegistry.bind(RemoteMethods.RMI_BD_CHANNEL, methodsChannel);
 
             System.out.println("RemoteServer already to receive connections...");
         } catch (RemoteException | AlreadyBoundException ex) {
