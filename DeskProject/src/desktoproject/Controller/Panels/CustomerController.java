@@ -182,9 +182,7 @@ public class CustomerController implements Initializable {
                 if(edit){
                     newPerson.setId(person.getId());
                     newPerson.setActive(person.isActive());
-                    System.out.println("person "+person.isActive());
-                    System.out.println("newperson "+newPerson.isActive()); 
-                   PersonDAO.updatePerson(newPerson);
+                    PersonDAO.updatePerson(newPerson);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
                 }else{
