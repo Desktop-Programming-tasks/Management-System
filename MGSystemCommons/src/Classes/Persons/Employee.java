@@ -33,6 +33,9 @@ public class Employee extends LegalPerson implements Serializable{
         this.type = type;
     }
     
+    public Employee(LegalPerson person) {
+        super(person.getRG(), person.getName(), person.getAddress(), person.getTelephones(), person.getCPF());
+    }
     
     public String getLogin() {
         return login;

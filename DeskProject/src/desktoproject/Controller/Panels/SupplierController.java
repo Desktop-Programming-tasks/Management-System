@@ -81,6 +81,7 @@ public class SupplierController implements Initializable {
         Parent p = loader.load();
 
         SupplierController controller = loader.getController();
+        if(supplier == null) System.out.println("mas pq?");
         controller.setSupplier((Supplier) supplier);
         controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
         controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
