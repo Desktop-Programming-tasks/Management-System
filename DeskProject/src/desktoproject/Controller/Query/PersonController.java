@@ -181,7 +181,11 @@ public class PersonController implements Initializable {
 
     @FXML
     private void createNew() {
-        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
+        if(type == PersonQueryType.CUSTOMER){
+            GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
+        }else{
+            GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_CREATE);
+        }
     }
 
     @FXML
