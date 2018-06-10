@@ -35,6 +35,8 @@ public abstract class TransactionProductDAO {
 
     public abstract void updateStock(Product product, int quantity) throws DatabaseErrorException;
 
+    public abstract ArrayList<Product> getAllRecordProducts(Record record) throws DatabaseErrorException;
+
     public void completeInsertProductTransaction(Record record, Product product) throws DatabaseErrorException, OutOfStockException, DuplicatedEntryException {
         if (record.getType() == RecordTypeConstants.SALE) {
             checkIfAvailable(product);
