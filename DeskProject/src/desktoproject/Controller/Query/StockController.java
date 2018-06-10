@@ -12,12 +12,15 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.GUIController;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -68,6 +71,8 @@ public class StockController implements Initializable {
     private Button newBtn;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button deleteBtn;
 
     /**
      * Initializes the controller class.
@@ -77,6 +82,7 @@ public class StockController implements Initializable {
         Animation.bindShadowAnimation(newBtn);
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(deleteBtn);
         
         Animation.bindAnimation(searchTextField);
         
@@ -162,6 +168,25 @@ public class StockController implements Initializable {
         }else{
             GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, product);
             populateTable();
+        }
+    }
+    
+    @FXML
+    private void delete(){
+        Product product = StockTable.getSelectionModel().getSelectedItem();
+        if(product==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            try {
+                if (GUIController.getInstance().showEraseConfirmationAlert(product.getName())) {
+                    ProductDAO.deleteProduct(product);
+                    populateTable();
+                }
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            }catch (NoResultsException ex) {
+                System.out.println("ops - no result in stock controller");
+            }
         }
     }
 }
