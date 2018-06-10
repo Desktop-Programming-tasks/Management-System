@@ -182,7 +182,9 @@ public class CustomerController implements Initializable {
                 if(edit){
                     newPerson.setId(person.getId());
                     newPerson.setActive(person.isActive());
-                    PersonDAO.updatePerson(newPerson);
+                    System.out.println("person "+person.isActive());
+                    System.out.println("newperson "+newPerson.isActive()); 
+                   PersonDAO.updatePerson(newPerson);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
                 }else{
@@ -191,6 +193,7 @@ public class CustomerController implements Initializable {
                     GUIController.getInstance().backToPrevious();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
+                System.out.println(ex.getMessage());
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Cliente",isLegalPerson?"CPF":"CNPJ");
