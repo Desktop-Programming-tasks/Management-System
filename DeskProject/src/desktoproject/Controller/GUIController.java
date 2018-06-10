@@ -384,6 +384,10 @@ public class GUIController {
         showAlert(Alert.AlertType.ERROR, "Erro", "Erro de marca", "A marca selecionada não está mais disponivel");
     }
     
+    public void showPromoteAlert(String promote) {
+        showAlert(Alert.AlertType.INFORMATION, "Promoção de "+promote, "Pessoa promovida com sucesso", "");
+    }
+    
     public void closeModal() {
         modalStage.close();
     }

@@ -81,14 +81,16 @@ public class SupplierController implements Initializable {
         Parent p = loader.load();
 
         SupplierController controller = loader.getController();
-        if(supplier == null) System.out.println("mas pq?");
+        if (supplier == null) {
+            System.out.println("mas pq?");
+        }
         controller.setSupplier((Supplier) supplier);
         controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
         controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
         controller.setAnchors(p);
         controller.setEdit(true);
-        controller.setUpComponents();
         controller.setPromote(promote);
+        controller.setUpComponents();
         return p;
     }
 
@@ -120,7 +122,7 @@ public class SupplierController implements Initializable {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Fornecedor");
         }
-        if(promote) {
+        if (promote) {
             mainLabel.setText("Promover a fornecedor");
             mainBtn.setText("Salvar");
         }
@@ -129,20 +131,20 @@ public class SupplierController implements Initializable {
     private void fillScreen() {
         nameTextField.setText(supplier.getName());
         CNPJTextField.setText(supplier.getCNPJ());
-        
+
         selectSupplierBrands();
     }
-    
-    private void selectSupplierBrands(){
-        for(Brand tableBrand : brandsTable.getItems()){
-            for(Brand supplierBrand : supplier.getAvaliableBrands()){
-                if(tableBrand.getName().equals(supplierBrand.getName())){
+
+    private void selectSupplierBrands() {
+        for (Brand tableBrand : brandsTable.getItems()) {
+            for (Brand supplierBrand : supplier.getAvaliableBrands()) {
+                if (tableBrand.getName().equals(supplierBrand.getName())) {
                     brandsTable.getSelectionModel().select(tableBrand);
                 }
             }
         }
     }
-    
+
     @FXML
     private TextField nameTextField;
     @FXML
@@ -169,16 +171,16 @@ public class SupplierController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         Animation.bindAnimation(nameTextField);
         Animation.bindAnimation(CNPJTextField);
         Animation.bindShadowAnimation(mainBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(createBrand);
-        
+
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         brandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        
+
         populateTable();
     }
 
@@ -202,18 +204,26 @@ public class SupplierController implements Initializable {
             Supplier newSupplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
 
             try {
-                if (edit) {
+                if (promote) {
                     newSupplier.setId(supplier.getId());
                     newSupplier.setActive(supplier.isActive());
-                    PersonDAO.updatePerson(newSupplier);
-                    GUIController.getInstance().showUpdateAlert();
+                    PersonDAO.promoteSupplier(supplier);
+                    GUIController.getInstance().showPromoteAlert("Fornecedor");
                     GUIController.getInstance().backToPrevious();
                 } else {
-                    PersonDAO.insertPerson(newSupplier);
-                    GUIController.getInstance().showRegisterAlert("Fornecedor");
-                    GUIController.getInstance().backToPrevious();
+                    if (edit) {
+                        newSupplier.setId(supplier.getId());
+                        newSupplier.setActive(supplier.isActive());
+                        PersonDAO.updatePerson(newSupplier);
+                        GUIController.getInstance().showUpdateAlert();
+                        GUIController.getInstance().backToPrevious();
+                    } else {
+                        PersonDAO.insertPerson(newSupplier);
+                        GUIController.getInstance().showRegisterAlert("Fornecedor");
+                        GUIController.getInstance().backToPrevious();
+                    }
                 }
-            } catch (RemoteException|DatabaseErrorException ex) {
+            } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Fornecedor", "CNPJ");
@@ -281,6 +291,5 @@ public class SupplierController implements Initializable {
     private void setPromote(boolean promote) {
         this.promote = promote;
     }
-    
-    
+
 }
