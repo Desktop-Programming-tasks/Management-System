@@ -112,7 +112,13 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException {
-        //DAOBuilder.getInstance().getProductDAO().removeProduct(product);
+        try {
+            DAOBuilder.getInstance().getProductDAO().inactivateProduct(product);
+        } catch (UnavailableBrandException ex) {
+            //
+        } catch (DuplicatedEntryException ex) {
+            //
+        }
     }
 
     @Override

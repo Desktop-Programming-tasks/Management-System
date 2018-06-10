@@ -127,13 +127,13 @@ public abstract class PersonDAO {
         }
     }
 
-    public void removePerson(Person p) throws DatabaseErrorException, NoResultsException, OperationNotAllowed {
+    public void removePerson(Person p) throws DatabaseErrorException, NoResultsException {
         if (p instanceof Employee) {
             employeeDAO.removeEmployee((Employee) p);
         } else if (p instanceof Supplier) {
             supplierDAO.removeSupplier((Supplier) p);
         } else {
-            throw new OperationNotAllowed();
+            inactivatePerson(p);
         }
     }
 
