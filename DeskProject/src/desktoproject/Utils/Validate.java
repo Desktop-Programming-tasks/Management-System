@@ -213,7 +213,7 @@ public class Validate {
     }
     
     public void emptyTransactionTable(TableView table){
-        if (table.getSelectionModel().getSelectedItems().isEmpty()) {
+        if (table.getItems().isEmpty()) {
             errorMessage += ("Por favor realize pelo menso uma transação\n");
         }
     }
