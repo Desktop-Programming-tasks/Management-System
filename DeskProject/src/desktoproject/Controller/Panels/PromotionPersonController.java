@@ -26,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -99,18 +100,23 @@ public class PromotionPersonController implements Initializable {
         setUpSearch();
     }
 
+    @FXML
     private void promote() {
-        switch(type) {
-            case JURIDICAL_PERSON: {
-                JuridicalPerson person = (JuridicalPerson) personTable.getSelectionModel().getSelectedItem();
-                GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Supplier(person));
-                break;
+        if (personTable.getSelectionModel().getSelectedItem() != null) {
+            switch (type) {
+                case JURIDICAL_PERSON: {
+                    JuridicalPerson person = (JuridicalPerson) personTable.getSelectionModel().getSelectedItem();
+                    GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Supplier(person));
+                    break;
+                }
+                case LEGAL_PERSON: {
+                    LegalPerson person = (LegalPerson) personTable.getSelectionModel().getSelectedItem();
+                    GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee(person));
+                    break;
+                }
             }
-            case LEGAL_PERSON: {
-                LegalPerson person = (LegalPerson) personTable.getSelectionModel().getSelectedItem();
-                GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee(person));
-                break;
-            }
+        } else {
+            GUIController.getInstance().showSelectionErrorAlert();
         }
     }
 
@@ -164,7 +170,6 @@ public class PromotionPersonController implements Initializable {
 
     private void populateTable() {
         try {
-            System.out.println(type.name());
             if (type == PersonPromotion.LEGAL_PERSON) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllLegalPersons()));
             } else {
@@ -177,7 +182,7 @@ public class PromotionPersonController implements Initializable {
             //
         }
     }
-    
+
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();

@@ -36,7 +36,7 @@ public class Globals {
 
     private Globals() throws RemoteException {
         try {
-            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", 1099);
+            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", 1100);
             this.rmiChannel = (ServerMethods) rmiRegistry.lookup("RMI_BD_Server");
         } catch (NotBoundException | RemoteException ex) {
             throw new RemoteException();
