@@ -12,7 +12,7 @@ import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.OutOfStockException;
-import deskprojectserver.Utils.RecordTypeConstants;
+import Classes.Constants.RecordTypeConstants;
 import java.util.ArrayList;
 
 /**

@@ -18,7 +18,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import deskprojectserver.Database.DAOBuilder;
-import deskprojectserver.Utils.RecordTypeConstants;
+import Classes.Constants.RecordTypeConstants;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
