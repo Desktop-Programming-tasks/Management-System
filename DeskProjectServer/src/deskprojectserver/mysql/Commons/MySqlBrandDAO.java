@@ -30,7 +30,6 @@ public class MySqlBrandDAO extends BrandDAO {
             + " VALUES (?,?)";
     private static final String GET_ALL_SQL = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE isActiveBrand";
-
     private static final String NAME = "nameBrand";
     private static final String ID = "idBrand";
     private static final String IS_ACTIVE = "isActiveBrand";
@@ -39,8 +38,10 @@ public class MySqlBrandDAO extends BrandDAO {
             + " WHERE idBrand=?";
     private static final String CHECK_SQL = "SELECT `nameBrand` "
             + "FROM `Brand` WHERE nameBrand=?";
-    private static final String GET_ONE = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
+    private static final String GET_ONE_NAME = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE nameBrand=? AND isActiveBrand";
+    private static final String GET_ONE_ID = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
+            + "FROM `Brand` WHERE idBrand=?";
     private static final String GET_ONE_INACTIVE = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE nameBrand=?";
 
@@ -58,7 +59,7 @@ public class MySqlBrandDAO extends BrandDAO {
 
     @Override
     public void updateBrand(Brand brand) throws DatabaseErrorException, NoResultsException {
-        getBrand(brand.getName(), false);
+        getBrandByID(brand.getId(), false);
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     brand.getName(), brand.isActive(), brand.getId());
@@ -102,7 +103,7 @@ public class MySqlBrandDAO extends BrandDAO {
         QueryResult qr;
         if (justActive) {
             try {
-                qr = MySqlHandler.getInstance().getDb().query(GET_ONE, id);
+                qr = MySqlHandler.getInstance().getDb().query(GET_ONE_NAME, id);
             } catch (SQLException | ClassNotFoundException ex) {
                 throw new DatabaseErrorException();
             }
@@ -129,4 +130,29 @@ public class MySqlBrandDAO extends BrandDAO {
         return brand;
 
     }
+
+    protected Brand getBrandByID(int id, boolean justActive) throws DatabaseErrorException, NoResultsException {
+        QueryResult qr;
+        try {
+            qr = MySqlHandler.getInstance().getDb().query(GET_ONE_ID, id);
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
+        Brand brand = null;
+        try {
+            while (qr.getResultSet().next()) {
+                brand = new Brand(qr.getResultSet().getInt(ID),
+                        qr.getResultSet().getString(NAME),
+                        qr.getResultSet().getBoolean(IS_ACTIVE));
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseErrorException();
+        }
+        if (brand == null) {
+            throw new NoResultsException();
+        }
+        return brand;
+
+    }
+
 }

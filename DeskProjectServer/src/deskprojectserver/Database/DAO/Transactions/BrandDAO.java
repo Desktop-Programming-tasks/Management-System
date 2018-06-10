@@ -24,11 +24,13 @@ public abstract class BrandDAO {
             insertBrandBasic(brand);
         } catch (DuplicatedEntryException ex) {
             try {
+                System.out.println(brand.getName());
                 Brand auxBrand = getBrand(brand.getName(), false);
                 brand.setId(auxBrand.getId());
+                brand.setActive(true);
                 updateBrand(brand);
             } catch (NoResultsException ex1) {
-                //
+                System.out.println("asdadasas");
             }
         }
     }

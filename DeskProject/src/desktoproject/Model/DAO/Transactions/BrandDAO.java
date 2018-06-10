@@ -29,4 +29,8 @@ public abstract class BrandDAO {
     public static void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException {
         Globals.getInstance().getChannel().deleteBrand(brand);
     }
+    
+    public static void updateBrand(Brand brand) throws RemoteException, DatabaseErrorException, NoResultsException {
+        Globals.getInstance().getChannel().updateBrand(brand);
+    }
 }

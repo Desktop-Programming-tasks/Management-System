@@ -8,6 +8,7 @@ package desktoproject.Controller.Modal;
 import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Utils.Animation;
@@ -41,6 +42,7 @@ public class BrandModalController implements Initializable {
         loader.setLocation(BrandModalController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         BrandModalController controller = loader.getController();
+        controller.setEdit(false);
         controller.setUpComponents();
         return p;
     }
@@ -105,17 +107,22 @@ public class BrandModalController implements Initializable {
 
             try {
                 if (edit) {
-                    
+                    newBrand.setId(brand.getId());
+                    newBrand.setActive(brand.isActive());
+                    BrandDAO.updateBrand(newBrand);
+                    GUIController.getInstance().showUpdateAlert();
+                    GUIController.getInstance().closeModal();
                 } else {
                     BrandDAO.insertBrand(newBrand);
                     GUIController.getInstance().showRegisterAlert("Marca");
                     GUIController.getInstance().closeModal();
                 }
-
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Marca", "nome");
+            } catch (NoResultsException ex) {
+                System.out.println("No results from inside brand modal controller/ no problem");
             }
         }
     }
