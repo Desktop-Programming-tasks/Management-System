@@ -153,13 +153,36 @@ public class TransactionController implements Initializable {
         
         transactions = new ArrayList<>();
         
-        populatePersonTable();
         populateTable();
+        setUpSearch();
+    }
+    
+    private void setUpSearch(){
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populatePersonTable();
+            }else{
+                try {
+                    if(type==BUY){
+                        clientTable.setItems(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue)));
+                    }else{
+                        clientTable.setItems(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue)));
+                    }
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    
+                }
+            }
+        });
     }
     
     private void populatePersonTable(){
         try {
-            clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+            if(type==BUY){
+                clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
+            }else{
+                clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+            }
         } catch (RemoteException|DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
@@ -179,10 +202,11 @@ public class TransactionController implements Initializable {
             mainLabelString += "Consultar ";
             primaryBtn.setVisible(false);
             clientTable.setDisable(true);
-            transactionsTable.setDisable(true);
+//            transactionsTable.setDisable(true);
             addProductBtn.setVisible(false);
             addServiceBtn.setVisible(false);
             deleteEntry.setVisible(false);
+            searchTextField.setDisable(true);
             this.transactions = record.getTransations();
             fillScreen();
         }else{
@@ -195,14 +219,14 @@ public class TransactionController implements Initializable {
                 tableLabel.setText("Fornecedor");
                 mainLabelString += "Compra ";
                 primaryBtnString += "Compra ";
-                searchTextField.setText("Pesquisar fornecedor");
+                searchTextField.setPromptText("Pesquisar fornecedor");
                 break;
             }
             case SALE: {
                 tableLabel.setText("Cliente");
                 mainLabelString += "Venda ";
                 primaryBtnString += "Venda ";
-                searchTextField.setText("Pesquisar cliente");
+                searchTextField.setPromptText("Pesquisar cliente");
                 break;
             }
         }
@@ -211,6 +235,7 @@ public class TransactionController implements Initializable {
         primaryBtn.setText(primaryBtnString);
         setStageBreak();
         adjustComponents();
+        populatePersonTable();
     }
     
     private void setStageBreak(){
