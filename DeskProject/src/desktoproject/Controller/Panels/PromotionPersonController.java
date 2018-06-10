@@ -67,6 +67,7 @@ public class PromotionPersonController implements Initializable {
                 break;
             }
         }
+        populateTable();
     }
     @FXML
     private Label mainLabel;
@@ -148,6 +149,7 @@ public class PromotionPersonController implements Initializable {
 
     private void populateTable() {
         try {
+            System.out.println(type.name());
             if (type == PersonPromotion.LEGAL_PERSON) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllLegalPersons()));
             } else {
