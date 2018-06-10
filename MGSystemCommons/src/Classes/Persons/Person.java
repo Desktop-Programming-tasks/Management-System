@@ -75,11 +75,10 @@ public abstract class Person implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
+
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", address=" + address + ", telephones=" + telephones + ", Id=" + documentId + '}';
+        return "Person{" + "id=" + id + ", name=" + name + ", address=" + address + ", telephones=" + telephones + ", documentId=" + documentId + ", active=" + active + '}';
     }
 
     public boolean isActive() {

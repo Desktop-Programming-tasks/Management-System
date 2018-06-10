@@ -51,7 +51,6 @@ public class MySqlProductDAO extends ProductDAO {
     private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE nameProduct LIKE ? AND isActiveProduct";
-    private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
 
     private static final String UPDATE_SQL = ""
             + "UPDATE `Product`"
@@ -84,7 +83,7 @@ public class MySqlProductDAO extends ProductDAO {
     }
 
     @Override
-    public void insertProduct(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
+    public void insertProductBasic(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
         BrandDAO bdao = new MySqlBrandDAO();
         try {
             bdao.checkIfExists(product.getBrand());
@@ -98,16 +97,6 @@ public class MySqlProductDAO extends ProductDAO {
                     ActivationStatus.ACTIVE_STATE);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new DatabaseErrorException();
-        }
-    }
-
-    @Override
-    public void removeProduct(Product product) throws DatabaseErrorException, NoResultsException {
-        getProduct(product.getBarCode());
-        try {
-            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, product.getBarCode());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }

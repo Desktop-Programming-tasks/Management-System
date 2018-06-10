@@ -33,6 +33,7 @@ public class MySqlPersonDAO extends PersonDAO {
     protected final static String NAME = "namePerson";
     protected final static String TEL_1 = "tel1Person";
     protected final static String TEL_2 = "tel2Person";
+    private final static String IS_ACTIVE = "isActivePerson";
 
     private final static String INSERT_SQL = "INSERT INTO "
             + "`Person`(`idDocumentPerson`, `namePerson`, `tel1Person`, `tel2Person`"
@@ -40,8 +41,13 @@ public class MySqlPersonDAO extends PersonDAO {
             + "VALUES (?,?,?,?,?)";
 
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
-            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "`tel1Person`, `tel2Person`,`isActivePerson` FROM `Person` "
             + "WHERE idDocumentPerson=? AND isActivePerson";
+
+    private final static String GET_SINGLE_SQL_INACT = ""
+            + "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
+            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "WHERE idDocumentPerson=?";
 
     private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` "
             + "WHERE isActivePerson";
@@ -85,11 +91,16 @@ public class MySqlPersonDAO extends PersonDAO {
     }
 
     @Override
-    public Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException {
+    public Person basicGetPerson(String id, boolean justActive) throws DatabaseErrorException, NoResultsException {
         Person p = new Person(null, null, null, id) {
         };
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+            QueryResult qr;
+            if (justActive) {
+                qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+            } else {
+                qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL_INACT, id);
+            }
             ArrayList<String> tels = new ArrayList<>();
             while (qr.getResultSet().next()) {
                 p.setId(qr.getResultSet().getInt(ID));
@@ -97,11 +108,12 @@ public class MySqlPersonDAO extends PersonDAO {
                 p.setDocumentId(id);
                 tels.add(qr.getResultSet().getString(TEL_1));
                 tels.add(qr.getResultSet().getString(TEL_2));
-                p.setActive(true);
+                p.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
                 p.setTelephones(tels);
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
         if (p.getName() == null) {

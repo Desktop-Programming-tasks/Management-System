@@ -64,13 +64,11 @@ public class PersonController implements Initializable {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
-                deleteBtn.setVisible(false);
                 break;
             }
             case EMPLOYEE: {
                 mainLabel.setText("Consulta de Funcionários");
                 personDocColumn.setText("CPF");
-                deleteBtn.setVisible(true);
                 break;
             }
         }
@@ -179,7 +177,11 @@ public class PersonController implements Initializable {
 
     @FXML
     private void createNew() {
-        GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
+        if(type == PersonQueryType.CUSTOMER){
+            GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
+        }else{
+            GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_CREATE);
+        }
     }
 
     @FXML
@@ -205,6 +207,7 @@ public class PersonController implements Initializable {
             try {
                 if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
                     PersonDAO.deletePerson(person);
+                    populateTable();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();

@@ -173,6 +173,7 @@ public class QuerySupplierController implements Initializable {
             try {
                 if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
                     PersonDAO.deletePerson(person);
+                    populateTable();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();

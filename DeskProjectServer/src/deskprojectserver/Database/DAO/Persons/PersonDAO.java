@@ -17,6 +17,8 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,7 +44,16 @@ public abstract class PersonDAO {
         try {
             basicInsertPerson(p);
         } catch (DuplicatedEntryException e) {
-            throw e;
+            try {
+                Person aux = basicGetPerson(p.getDocumentId(),false);
+                if (aux.isActive()) {
+                    throw new DuplicatedEntryException();
+                } else {
+                    p.setActive(true);
+                }
+            } catch (NoResultsException ex) {
+                //
+            }
         }
         if (p instanceof LegalPerson) {
             try {
@@ -77,7 +88,7 @@ public abstract class PersonDAO {
     public Person getPerson(String id) throws DatabaseErrorException, NoResultsException {
         Person p;
         try {
-            p = basicGetPerson(id);
+            p = basicGetPerson(id,true);
             p.setAddress(addressDAO.getAddress(p));
         } catch (NoResultsException a) {
             throw a;
@@ -86,21 +97,29 @@ public abstract class PersonDAO {
             LegalPerson lp = legalPersonDAO.getLegalPerson(id);
             try {
                 Employee emp = employeeDAO.getEmployee(id);
-                return new Employee(emp.getLogin(), emp.getPassword(),
+                Employee empAux = new Employee(emp.getLogin(), emp.getPassword(),
                         emp.getEmployeeType(), lp.getRG(), p.getId(), p.getName(),
                         p.getAddress(), p.getTelephones(), p.getDocumentId());
+                empAux.setActive(p.isActive());
+                return empAux;
             } catch (NoResultsException b) {
-                return new LegalPerson(lp.getRG(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(),
+                LegalPerson lpAux = new LegalPerson(lp.getRG(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(),
                         p.getDocumentId());
+                lpAux.setActive(p.isActive());
+                return lpAux;
             }
         } catch (NoResultsException c) {
             try {
                 juridicalDAO.getJuridicalPerson(id);
                 try {
                     Supplier supplier = supplierDAO.getSupplier(id);
-                    return new Supplier(supplier.getAvaliableBrands(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    Supplier supplierAux = new Supplier(supplier.getAvaliableBrands(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    supplierAux.setActive(p.isActive());
+                    return supplierAux;
                 } catch (NoResultsException d) {
-                    return new JuridicalPerson(p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    JuridicalPerson jpAux = new JuridicalPerson(p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    jpAux.setActive(p.isActive());
+                    return jpAux;
                 }
             } catch (NoResultsException f) {
                 throw f;
@@ -108,13 +127,13 @@ public abstract class PersonDAO {
         }
     }
 
-    public void removePerson(Person p) throws DatabaseErrorException, NoResultsException, OperationNotAllowed {
+    public void removePerson(Person p) throws DatabaseErrorException, NoResultsException {
         if (p instanceof Employee) {
             employeeDAO.removeEmployee((Employee) p);
         } else if (p instanceof Supplier) {
             supplierDAO.removeSupplier((Supplier) p);
         } else {
-            throw new OperationNotAllowed();
+            inactivatePerson(p);
         }
     }
 
@@ -209,17 +228,29 @@ public abstract class PersonDAO {
             juridicalDAO.removeJuridcalPerson((JuridicalPerson) p);
         }
         addressDAO.removeAddress(p);
-        
+        p.setActive(false);
+        basicUpdatePerson(p);
+
+    }
+
+    public void juridicalToSupplier(Supplier sp) throws DatabaseErrorException, DuplicatedEntryException {
+        supplierDAO.insertSupplier(sp);
+    }
+
+    public void legalToEmployee(Employee emp) throws DatabaseErrorException, DuplicatedLoginException {
+        try {
+            employeeDAO.insertEmployee(emp);
+        } catch (DuplicatedEntryException e) {
+            throw new DuplicatedLoginException();
+        }
     }
 
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
-    protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
-    
-    
-        
+    protected abstract Person basicGetPerson(String id,boolean justActive) throws DatabaseErrorException, NoResultsException;
+
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 
     public abstract ArrayList<Person> getLikePersons(String id) throws DatabaseErrorException;

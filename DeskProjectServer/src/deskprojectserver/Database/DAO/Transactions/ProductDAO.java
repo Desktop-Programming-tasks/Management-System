@@ -11,6 +11,8 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.UnavailableBrandException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,15 +20,36 @@ import java.util.ArrayList;
  */
 public abstract class ProductDAO {
 
-    public abstract void insertProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException;
+    public void insertProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException {
+        try {
+            insertProductBasic(product);
+        } catch (DuplicatedEntryException e) {
+            try {
+                if (getProduct(product.getBarCode()).isActive()) {
+                    throw e;
+                } else {
+                    product.setActive(true);
+                    updateProduct(product);
+                }
+            } catch (NoResultsException ex) {
+                //
+            }
+        }
+    }
+
+    protected abstract void insertProductBasic(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException;
 
     public abstract void updateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
-
-    public abstract void removeProduct(Product product) throws DatabaseErrorException, NoResultsException;
 
     public abstract Product getProduct(String id) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Product> getAllProducts() throws DatabaseErrorException;
 
     public abstract ArrayList<Product> getLikeProducts(String id) throws DatabaseErrorException;
+
+    public void inactivateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException {
+        product.setActive(false);
+        updateProduct(product);
+
+    }
 }

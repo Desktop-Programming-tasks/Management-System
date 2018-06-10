@@ -30,22 +30,20 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-
 /**
  *
  * @author ecsanchesjr
  */
 public class RemoteServer implements ServerMethods {
-    
+
     public static void main(String[] args) {
         RemoteServer rmi = new RemoteServer();
-        
+
         try {
             ServerMethods rmiChannel = (ServerMethods) UnicastRemoteObject.exportObject(rmi, 0);
             Registry rmiRegistry = LocateRegistry.createRegistry(1099);
             rmiRegistry.bind("RMI_BD_Server", rmiChannel);
-            
+
             System.out.println("Server ready to receive connections...");
         } catch (RemoteException | AlreadyBoundException ex) {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,7 +64,7 @@ public class RemoteServer implements ServerMethods {
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
         DAOBuilder.getInstance().getPersonDAO().insertPerson(person);
     }
-    
+
     @Override
     public void updatePerson(Person person) throws RemoteException, DatabaseErrorException, DuplicatedLoginException, NoResultsException {
         DAOBuilder.getInstance().getPersonDAO().updatePerson(person);
@@ -106,7 +104,7 @@ public class RemoteServer implements ServerMethods {
     public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, UnavailableBrandException {
         DAOBuilder.getInstance().getProductDAO().insertProduct(product);
     }
-    
+
     @Override
     public void updateProduct(Product product) throws RemoteException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException {
         DAOBuilder.getInstance().getProductDAO().updateProduct(product);
@@ -114,7 +112,13 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException {
-        DAOBuilder.getInstance().getProductDAO().removeProduct(product);
+        try {
+            DAOBuilder.getInstance().getProductDAO().inactivateProduct(product);
+        } catch (UnavailableBrandException ex) {
+            //
+        } catch (DuplicatedEntryException ex) {
+            //
+        }
     }
 
     @Override
