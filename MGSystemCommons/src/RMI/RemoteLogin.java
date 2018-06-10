@@ -5,6 +5,8 @@
  */
 package RMI;
 
+import Classes.Enums.Autentication;
+import Exceptions.DatabaseErrorException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -13,6 +15,9 @@ import java.rmi.RemoteException;
  * @author ecsanchesjr
  */
 public interface RemoteLogin extends Remote {
-    public boolean tryLogin(String login, String password) throws RemoteException;
     
+    public final static String RMI_LOGIN = "RMI_LOGIN_CHANNEL";
+    public final static int RMI_PORT = 1100;
+    
+    public Autentication tryLogin(String login, String password) throws RemoteException, DatabaseErrorException;
 }

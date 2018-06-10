@@ -30,6 +30,6 @@ public interface RemoteMethods
         ServiceRemote,
         ServiceTypeRemote {
 
-    public final static String RMI_BD_CHANNEL = "RMI_BD_SERVER";
+    public final static String RMI_BD = "RMI_BD_SERVER";
     public final static int RMI_PORT = 1099;
 }

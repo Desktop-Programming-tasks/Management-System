@@ -5,7 +5,6 @@
  */
 package deskprojectserver.Database.DAO.Persons;
 
-import Classes.Enums.EmployeeType;
 import Classes.Persons.Employee;
 import Classes.Persons.JuridicalPerson;
 import Classes.Persons.LegalPerson;
@@ -15,11 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
-import Exceptions.OperationNotAllowed;
-import deskprojectserver.Database.DAOBuilder;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -270,5 +265,10 @@ public abstract class PersonDAO {
     private abstract class SupplierRequester {
 
         public abstract ArrayList<Supplier> request() throws DatabaseErrorException;
+    }
+    
+    public Employee getEmployeeWithLogin(String login) throws DatabaseErrorException, NoResultsException {
+        Employee newEmp = employeeDAO.getEmployeeByLogin(login);
+        return (Employee) getPerson(newEmp.getCPF());
     }
 }

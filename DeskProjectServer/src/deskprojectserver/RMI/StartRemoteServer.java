@@ -40,8 +40,8 @@ public class StartRemoteServer {
         
         try {
             loginChannel = (RemoteLogin) UnicastRemoteObject.exportObject(loginServer, 0);
-            rmiRegistry = LocateRegistry.createRegistry(1100);
-            rmiRegistry.bind("RMI_LOGIN_Server", loginChannel);
+            rmiRegistry = LocateRegistry.createRegistry(RemoteLogin.RMI_PORT);
+            rmiRegistry.bind(RemoteLogin.RMI_LOGIN, loginChannel);
             
             System.out.println("LoginServer already to receive connections...");
         } catch(RemoteException | AlreadyBoundException ex) {
@@ -55,7 +55,7 @@ public class StartRemoteServer {
 
             methodsChannel = (RemoteMethods) UnicastRemoteObject.exportObject(remoteServer, 0);
             rmiRegistry = LocateRegistry.createRegistry(RemoteMethods.RMI_PORT);
-            rmiRegistry.bind(RemoteMethods.RMI_BD_CHANNEL, methodsChannel);
+            rmiRegistry.bind(RemoteMethods.RMI_BD, methodsChannel);
 
             System.out.println("RemoteServer already to receive connections...");
         } catch (RemoteException | AlreadyBoundException ex) {

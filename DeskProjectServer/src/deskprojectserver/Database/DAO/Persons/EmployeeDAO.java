@@ -23,4 +23,5 @@ public abstract class EmployeeDAO {
     public abstract Employee getEmployee(String id) throws DatabaseErrorException,NoResultsException ;
     public abstract ArrayList<Employee> getAllEmployees() throws DatabaseErrorException;
     public abstract ArrayList<Employee> getLikeEmployees(String id) throws DatabaseErrorException;
+    public abstract Employee getEmployeeByLogin(String login) throws DatabaseErrorException, NoResultsException;
 }

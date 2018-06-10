@@ -22,11 +22,9 @@ public class Client {
     public static void main(String[] args) throws DatabaseErrorException {
         try {
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteMethods.RMI_PORT);
-            RemoteMethods rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD_CHANNEL);
+            RemoteMethods rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD);
             System.out.println(rmiChannel.searchEmployees("batata"));
-        } catch (RemoteException ex) {
-            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NotBoundException ex) {
+        } catch (RemoteException | NotBoundException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

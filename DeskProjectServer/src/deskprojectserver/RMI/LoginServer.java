@@ -5,7 +5,10 @@
  */
 package deskprojectserver.RMI;
 
+import Classes.Enums.Autentication;
+import Exceptions.DatabaseErrorException;
 import RMI.RemoteLogin;
+import deskprojectserver.Database.DAOBuilder;
 import java.rmi.RemoteException;
 
 /**
@@ -15,8 +18,8 @@ import java.rmi.RemoteException;
 public class LoginServer implements RemoteLogin {
 
     @Override
-    public boolean tryLogin(String login, String password) throws RemoteException {
-        return true;
+    public Autentication tryLogin(String login, String password) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getAutenticationDAO().autenticate(login, password);
     }
     
 }

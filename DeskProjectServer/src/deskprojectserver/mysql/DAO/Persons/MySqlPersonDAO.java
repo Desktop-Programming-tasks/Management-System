@@ -5,12 +5,13 @@
  */
 package deskprojectserver.mysql.DAO.Persons;
 
-import Classes.Persons.Address;
+import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import static deskprojectserver.Utils.ActivationStatus.ACTIVE_STATE;
 import static deskprojectserver.Utils.ActivationStatus.INACTIVE_STATE;
@@ -18,9 +19,9 @@ import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import jdk.nashorn.internal.ir.ForNode;
 
 /**
  *

@@ -26,6 +26,7 @@ public interface PersonRemote extends Remote {
     public ArrayList<Person> queryAllPersons() throws RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Supplier> queryAllSuppliers() throws RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException;
+    public Employee queryEmployeeByLogin(String login) throws RemoteException, DatabaseErrorException, NoResultsException;
     
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
     public void updatePerson(Person person) throws RemoteException, DuplicatedLoginException, NoResultsException, DatabaseErrorException;

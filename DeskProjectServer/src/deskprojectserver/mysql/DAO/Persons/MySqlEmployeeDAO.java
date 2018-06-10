@@ -17,8 +17,11 @@ import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jdk.nashorn.internal.ir.ForNode;
 
 /**
@@ -48,6 +51,10 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String UPDATE_SQL = "UPDATE `Employee` "
             + "SET `loginEmployee`=?,`passwordEmployee`=?"
             + " WHERE LegalPerson_Person_idPerson=?";
+    
+    private static final String GET_ONE_LOGIN_SQL = "SELECT `loginEmployee`, `passwordEmployee`, "
+            + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
+            + "`Employee` WHERE loginEmployee=?";
     
     @Override
     public void insertEmployee(Employee employee) throws DatabaseErrorException, DuplicatedEntryException {
@@ -166,5 +173,21 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             }
         });
     }
-    
+
+    @Override
+    public Employee getEmployeeByLogin(String login) throws DatabaseErrorException, NoResultsException {
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_LOGIN_SQL, login);
+            while (qr.getResultSet().next()) {
+                return new Employee(qr.getResultSet().getString(LOGIN),
+                        qr.getResultSet().getString(PASSWORD),
+                        (qr.getResultSet().getInt(EMP_TYPE) == 1) ? EmployeeType.MANAGER : EmployeeType.COMMOM,
+                        null, null, null, null, qr.getResultSet().getString(ID));
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        throw new NoResultsException();
+    }
 }

@@ -79,6 +79,11 @@ public class RemoteServer implements RemoteMethods {
     public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getAllEmployees();
     }
+    
+    @Override
+    public Employee queryEmployeeByLogin(String login) throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getPersonDAO().getEmployeeWithLogin(login);
+    } 
 
     @Override
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
