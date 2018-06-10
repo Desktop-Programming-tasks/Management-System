@@ -46,7 +46,7 @@ public class MySqlPersonDAO extends PersonDAO {
 
     private final static String GET_SINGLE_SQL_INACT = ""
             + "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
-            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "`tel1Person`, `tel2Person`,`isActivePerson` FROM `Person` "
             + "WHERE idDocumentPerson=?";
 
     private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` "
@@ -73,6 +73,7 @@ public class MySqlPersonDAO extends PersonDAO {
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
     }

@@ -58,7 +58,7 @@ public class MySqlAddressDAO extends AddressDAO {
     @Override
     public void removeAddress(Person person) throws DatabaseErrorException {
         try {
-            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, person.getId());
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, person.getDocumentId());
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
         }

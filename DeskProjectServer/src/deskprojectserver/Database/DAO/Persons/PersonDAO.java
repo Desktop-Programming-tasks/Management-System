@@ -16,6 +16,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import deskprojectserver.Database.DAOBuilder;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,10 +47,12 @@ public abstract class PersonDAO {
         } catch (DuplicatedEntryException e) {
             try {
                 Person aux = basicGetPerson(p.getDocumentId(),false);
+                p.setId(aux.getId());
                 if (aux.isActive()) {
                     throw new DuplicatedEntryException();
                 } else {
-                    p.setActive(true);
+                    p.setActive(true); 
+                    basicUpdatePerson(p);
                 }
             } catch (NoResultsException ex) {
                 //

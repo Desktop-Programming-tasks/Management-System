@@ -41,6 +41,7 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
     }
