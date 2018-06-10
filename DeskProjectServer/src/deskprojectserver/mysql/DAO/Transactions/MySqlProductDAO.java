@@ -42,19 +42,19 @@ public class MySqlProductDAO extends ProductDAO {
             + " VALUES (?,?,?,?,?,?)";
 
     private static final String GET_ALL_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
-            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand`,`isActiveProduct` "
             + "FROM `Product` WHERE isActiveProduct";
 
     private static final String GET_ONE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
-            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand`,`isActiveProduct` "
             + "FROM `Product` WHERE ((barCodeProduct=? OR idProduct=?) AND isActiveProduct)";
 
     private static final String GET_ONE_SQL_INACTIVE = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
-            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand`,`isActiveProduct` "
             + "FROM `Product` WHERE (barCodeProduct=? OR idProduct=?)";
 
     private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
-            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand`,`isActiveProduct` "
             + "FROM `Product` WHERE nameProduct LIKE ? AND isActiveProduct";
 
     private static final String UPDATE_SQL = ""
