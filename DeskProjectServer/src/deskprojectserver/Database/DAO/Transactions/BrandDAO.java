@@ -26,6 +26,7 @@ public abstract class BrandDAO {
             try {
                 Brand auxBrand = getBrand(brand.getName(), false);
                 brand.setId(auxBrand.getId());
+                brand.setActive(true);
                 updateBrand(brand);
             } catch (NoResultsException ex1) {
                 //
