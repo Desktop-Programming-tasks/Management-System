@@ -94,7 +94,7 @@ public class ProductController implements Initializable {
         }
         
         quantityGroup.setVisible(edit);
-        barCodeTextField.setDisable(edit);
+        //barCodeTextField.setDisable(edit);
         
         setStageBreak();
         adjustComponents();
@@ -223,9 +223,10 @@ public class ProductController implements Initializable {
 
             try {
                 if (edit) {
+                    newProduct.setId(product.getId());
                     ProductDAO.updateProduct(newProduct);
                     GUIController.getInstance().showUpdateAlert();
-                    GUIController.getInstance().backToPrevious();
+                    GUIController.getInstance().backToPrevious();                    
                 } else {
                     ProductDAO.insertProduct(newProduct);
                     GUIController.getInstance().showRegisterAlert("Produto");

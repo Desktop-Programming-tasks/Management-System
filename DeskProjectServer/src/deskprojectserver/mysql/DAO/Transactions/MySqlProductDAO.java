@@ -14,6 +14,7 @@ import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Database.DAO.Transactions.ProductDAO;
+import deskprojectserver.Utils.ActivationStatus;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -28,29 +29,59 @@ import java.util.ArrayList;
  */
 public class MySqlProductDAO extends ProductDAO {
 
+    private static final String ID = "idProduct";
     private static final String BAR_CODE = "barCodeProduct";
     private static final String NAME = "nameProduct";
     private static final String PRICE = "priceProduct";
     private static final String QUANTITY = "quantityProduct";
     private static final String BRAND_NAME = "Brand_nameBrand";
-    private static final String INSERT_SQL = "INSERT INTO `Product`(`barCodeProduct`, `nameProduct`, "
-            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand`) "
-            + "VALUES (?,?,?,?,?)";
+    private static final String INSERT_SQL = "INSERT INTO `Product`"
+            + "(`barCodeProduct`, `nameProduct`, `priceProduct`, `quantityProduct`, "
+            + "`Brand_nameBrand`, `isActiveProduct`)"
+            + " VALUES (?,?,?,?,?,?)";
 
-    private static final String GET_ALL_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
+    private static final String GET_ALL_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE 1";
-    private static final String GET_ONE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
+
+    private static final String GET_ONE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
-            + "FROM `Product` WHERE barCodeProduct=?";
-    private static final String GET_LIKE_SQL = "SELECT `barCodeProduct`, `nameProduct`, "
+            + "FROM `Product` WHERE (barCodeProduct=? OR idProduct=?)";
+
+    private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE nameProduct LIKE ?";
     private static final String REMOVE_SQL = "DELETE FROM `Product` WHERE barCodeProduct=?";
-    private static final String UPDATE_SQL = "UPDATE `Product` "
-            + "SET `nameProduct`=?,"
-            + "`priceProduct`=?,`quantityProduct`=?,"
-            + "`Brand_nameBrand`=? WHERE barCodeProduct=?";
+
+    private static final String UPDATE_SQL = ""
+            + "UPDATE `Product`"
+            + " SET `barCodeProduct`=?,`nameProduct`=?,"
+            + "`priceProduct`=?,`quantityProduct`=?,`"
+            + "Brand_nameBrand`=?,`isActiveProduct`=? WHERE idProduct=?";
+
+    @Override
+    public void updateProduct(Product product) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, UnavailableBrandException {
+        try {
+            getProduct(Integer.toString(product.getId()));
+        } catch (NoResultsException e) {
+            throw e;
+        }
+        try {
+            BrandDAO brand = new MySqlBrandDAO();
+            brand.checkIfExists(product.getBrand());
+        } catch (NoResultsException e) {
+            throw new UnavailableBrandException();
+        }
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, product.getBarCode(),
+                    product.getName(), product.getPrice(), product.getQuantityInStock(),
+                    product.getBrand().getName(), product.isActive() ? ActivationStatus.ACTIVE_STATE
+                    : ActivationStatus.INACTIVE_STATE, product.getId());
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            throw new DatabaseErrorException();
+        }
+    }
 
     @Override
     public void insertProduct(Product product) throws DatabaseErrorException, DuplicatedEntryException, UnavailableBrandException {
@@ -63,31 +94,10 @@ public class MySqlProductDAO extends ProductDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
                     product.getBarCode(), product.getName(), product.getPrice(),
-                    product.getQuantityInStock(), product.getBrand().getName());
+                    product.getQuantityInStock(), product.getBrand().getName(),
+                    ActivationStatus.ACTIVE_STATE);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new DatabaseErrorException();
-        }
-    }
-
-    @Override
-    public void updateProduct(Product product) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, UnavailableBrandException {
-        try {
-            getProduct(product.getBarCode());
-        } catch (NoResultsException e) {
-            throw e;
-        }
-        try {
-            BrandDAO brand = new MySqlBrandDAO();
-            brand.checkIfExists(product.getBrand());
-        } catch (NoResultsException e) {
-            throw new UnavailableBrandException();
-        }
-        try {
-            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
-                    product.getName(), product.getPrice(), product.getQuantityInStock(),
-                    product.getBrand().getName(), product.getBarCode());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
@@ -107,9 +117,10 @@ public class MySqlProductDAO extends ProductDAO {
     public Product getProduct(String id) throws DatabaseErrorException, NoResultsException {
         Product product = null;
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id,
+                    Integer.parseInt(id));
             while (qr.getResultSet().next()) {
-                product = new Product(
+                product = new Product(qr.getResultSet().getInt(ID),
                         qr.getResultSet().getString(BAR_CODE),
                         new Brand(qr.getResultSet().getString(BRAND_NAME)),
                         qr.getResultSet().getFloat(PRICE),
@@ -117,6 +128,7 @@ public class MySqlProductDAO extends ProductDAO {
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
         if (product == null) {
@@ -159,7 +171,7 @@ public class MySqlProductDAO extends ProductDAO {
         try {
             QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
-                Product product = new Product(
+                Product product = new Product(qr.getResultSet().getInt(ID),
                         qr.getResultSet().getString(BAR_CODE),
                         new Brand(qr.getResultSet().getString(BRAND_NAME)),
                         qr.getResultSet().getFloat(PRICE), qr.getResultSet().getString(NAME));
