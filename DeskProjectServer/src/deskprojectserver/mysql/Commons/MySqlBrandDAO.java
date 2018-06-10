@@ -45,7 +45,7 @@ public class MySqlBrandDAO extends BrandDAO {
             + "FROM `Brand` WHERE nameBrand=?";
 
     @Override
-    public void insertBrand(Brand brand) throws DatabaseErrorException, DuplicatedEntryException {
+    public void insertBrandBasic(Brand brand) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, brand.getName(),
                     ActivationStatus.ACTIVE_STATE);
