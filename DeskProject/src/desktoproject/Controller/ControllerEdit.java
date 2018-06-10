@@ -14,23 +14,35 @@ import java.io.IOException;
  */
 public abstract class ControllerEdit extends Controller {
     private boolean edit;
-    
-    private void setEdit(boolean edit) {
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public void setEdit(boolean edit) {
         this.edit = edit;
     }
     
-    public static ScreenData call(Object obj) throws IOException {
-        ScreenData callReturn = ControllerEdit.call();
-        ControllerEdit controllerEdit = (ControllerEdit) callReturn.getController();
-        controllerEdit.setEdit(true);
-        controllerEdit.setScreenObject(obj);
-        controllerEdit.setUpComponents();
-        return new ScreenData(callReturn.getParent(), controllerEdit);
+    @Override
+    public ScreenData call() throws IOException {
+        ScreenData callReturn = super.call();
+        ControllerEdit controller = (ControllerEdit) callReturn.getController();
+        controller.setUpComponents();
+        return new ScreenData(callReturn.getParent(), controller);
     }
     
-    public abstract void setScreenObject(Object obj);
+    public ScreenData call(Object obj) throws IOException {
+        ScreenData callReturn = super.call();
+        ControllerEdit controller = (ControllerEdit) callReturn.getController();
+        controller.setScreenObject(obj);
+        controller.setUpComponents();
+        controller.fillScreen();
+        return new ScreenData(callReturn.getParent(), controller);
+    }
     
     public abstract void setUpComponents();
     
     public abstract void fillScreen();
+    
+    public abstract void setScreenObject(Object obj);
 }

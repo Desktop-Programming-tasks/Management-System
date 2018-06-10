@@ -14,6 +14,7 @@ import desktoproject.Controller.Modal.*;
 import desktoproject.Controller.Panels.*;
 import desktoproject.Controller.Query.*;
 import desktoproject.Utils.Pairs.ScreenCall;
+import desktoproject.Utils.Pairs.ScreenData;
 import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -94,7 +95,7 @@ public class GUIController {
 
     public void callLogin() {
         try {
-            mainStage.setScene(new Scene(LoginController.call()));
+            mainStage.setScene(new Scene(new LoginController().call().getParent()));
             mainStage.show();
             isMenu = false;
             this.dynamic = null;
@@ -105,7 +106,7 @@ public class GUIController {
 
     private void setMenuScreen() {
         try {
-            ScreenObject info = MenuController.call();
+            ScreenData info = new MenuController().call();
             this.dynamic = ((MenuController) info.getController()).getDynamic();
             mainStage.setScene(new Scene(info.getParent()));
             mainStage.show();
@@ -132,119 +133,113 @@ public class GUIController {
         if (!isMenu) {
             setMenuScreen();
         }
+        ScreenData screenData = null;
         try {
             dynamic.setMaxWidth(1280);
             switch (type) {
                 case INDEX: {
                     dynamic.setMaxHeight(720);
-                    setDynamicChild(IndexController.call(mainStage).getParent());
+                    screenData = new IndexController().call();
                     break;
                 }
                 case TRANSACTION_BUY_CREATE: {
-                    setDynamicChild(TransactionController.call(TransactionType.BUY, mainStage));
+                    //screenData = TransactionController.call(TransactionType.BUY, mainStage);
                     break;
                 }
                 case TRANSACTION_SALE_CREATE: {
-                    setDynamicChild(TransactionController.call(TransactionType.SALE, mainStage));
+                    //screenData = TransactionController.call(TransactionType.SALE, mainStage);
                     break;
                 }
                 case TRANSACTION_BUY_DISPLAY: {
-                    setDynamicChild(TransactionController.call(TransactionType.BUY, obj, mainStage));
+                    //screenData = TransactionController.call(TransactionType.BUY, obj, mainStage);
                     break;
                 }
                 case TRANSACTION_SALE_DISPLAY: {
-                    setDynamicChild(TransactionController.call(TransactionType.SALE, obj, mainStage));
+                    //screenData = TransactionController.call(TransactionType.SALE, obj, mainStage);
                     break;
                 }
                 case QUERY_TRANSACTION_BUY: {
-                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.BUY));
+                    screenData = new GenericTransactionController().call(TransactionQueryType.BUY);
                     break;
                 }
                 case QUERY_TRANSACTION_SALE: {
-                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.SALE));
+                    screenData = new GenericTransactionController().call(TransactionQueryType.SALE);
                     break;
                 }
                 case QUERY_TRANSACTION_ALL: {
-                    setDynamicChild(GenericTransactionController.call(TransactionQueryType.ALL));
+                    screenData = new GenericTransactionController().call(TransactionQueryType.ALL);
                     break;
                 }
                 case QUERY_BRAND: {
-                    setDynamicChild(BrandController.call());
+                    screenData = new BrandController().call();
                     break;
                 }
                 case QUERY_PERSON_CUSTOMER: {
-                    setDynamicChild(PersonController.call(PersonQueryType.CUSTOMER));
+                    screenData = new PersonController().call(PersonQueryType.CUSTOMER);
                     break;
                 }
                 case QUERY_PERSON_EMPLOYEE: {
-                    setDynamicChild(PersonController.call(PersonQueryType.EMPLOYEE));
+                    screenData = new PersonController().call(PersonQueryType.EMPLOYEE);
                     break;
                 }
                 case QUERY_SERVICE: {
-                    setDynamicChild(ServiceController.call());
+                    screenData = new ServiceController().call();
                     break;
                 }
                 case QUERY_SERVICE_TYPE: {
-                    setDynamicChild(ServiceTypeQueryController.call());
+                    screenData = new ServiceTypeQueryController().call();
                     break;
                 }
                 case QUERY_STOCK: {
-                    setDynamicChild(StockController.call());
+                    screenData = new StockController().call();
                     break;
                 }
                 case QUERY_SUPPLIER: {
-                    setDynamicChild(QuerySupplierController.call());
+                    screenData = new QuerySupplierController().call();
                     break;
                 }
                 case REGISTER_PROMOTE_LEGAL_PERSON: {
-                    setDynamicChild(PromotionPersonController.call(PersonPromotion.LEGAL_PERSON));
+                    screenData = new PromotionPersonController().call(PersonPromotion.LEGAL_PERSON);
                     break;
                 }
                 case REGISTER_PROMOTE_JURIDICAL_PERSON: {
-                    setDynamicChild(PromotionPersonController.call(PersonPromotion.JURIDICAL_PERSON));
+                    screenData = new PromotionPersonController().call(PersonPromotion.JURIDICAL_PERSON);
                     break;
                 }
                 case CUSTOMER_CREATE: {
-                    setDynamicChild(CustomerController.call());
+                    screenData = new CustomerController().call();
                     break;
                 }
                 case CUSTOMER_DISPLAY: {
-                    setDynamicChild(CustomerController.call(obj));
+                    screenData = new CustomerController().call(obj);
                     break;
                 }
                 case EMPLOYEE_CREATE: {
-                    setDynamicChild(EmployeeController.call());
+                    screenData = new EmployeeController().call();
                     break;
                 }
                 case EMPLOYEE_DISPLAY: {
-                    setDynamicChild(EmployeeController.call(obj, false));
-                    break;
-                }
-                case EMPLOYEE_PROMOTE: {
-                    setDynamicChild(EmployeeController.call(obj, true));
+                    screenData = new EmployeeController().call(obj);
                     break;
                 }
                 case PRODUCT_CREATE: {
-                    setDynamicChild(ProductController.call(mainStage));
+                    screenData = new ProductController().call();
                     break;
                 }
                 case PRODUCT_DISPLAY: {
-                    setDynamicChild(ProductController.call(obj, mainStage));
+                    screenData = new ProductController().call(obj);
                     break;
                 }
                 case SUPPLIER_CREATE: {
-                    setDynamicChild(SupplierController.call());
+                    screenData = new SupplierController().call();
                     break;
                 }
                 case SUPPLIER_DISPLAY: {
-                    setDynamicChild(SupplierController.call(obj, false));
-                    break;
-                }
-                case SUPPLIER_PROMOTE: {
-                    setDynamicChild(SupplierController.call(obj, true));
+                    screenData = new SupplierController().call(obj);
                     break;
                 }
             }
+            setDynamicChild(screenData.getParent());
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -258,14 +253,14 @@ public class GUIController {
         try {
             switch (type) {
                 case PRODUCT_ADD: {
-                    ScreenObject so = AddProductController.call();
-                    setUpModal(so.getParent());
-                    return ((AddProductController) so.getController()).getSelectedProduct();
+                    ScreenData screenData = new AddProductController().call();
+                    setUpModal(screenData.getParent());
+                    return ((AddProductController) screenData.getController()).getSelectedProduct();
                 }
                 case SERVICE_NEW: {
-                    ScreenObject so = CreateServiceController.call();
-                    setUpModal(so.getParent());
-                    return ((CreateServiceController) so.getController()).getNewServiceReturn();
+                    ScreenData screenData = new CreateServiceController().call();
+                    setUpModal(screenData.getParent());
+                    return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
                 }
             }
         } catch (IOException ex) {
@@ -276,28 +271,30 @@ public class GUIController {
 
     public void callModal(ModalType type, Object obj) {
         try {
+            ScreenData screenData = null;
             switch (type) {
                 case BRAND_NEW: {
-                    setUpModal(BrandModalController.call());
+                    screenData = new BrandModalController().call();
                     break;
                 }
                 case BRAND_UPDATE: {
-                    setUpModal(BrandModalController.call(obj));
+                    screenData = new BrandModalController().call(obj);
                     break;
                 }
                 case SERVICE_TYPE_CREATE: {
-                    setUpModal(ServiceTypeController.call());
+                    screenData = new ServiceTypeController().call();
                     break;
                 }
                 case SERVICE_TYPE_EDIT: {
-                    setUpModal(ServiceTypeController.call(obj));
+                    screenData = new ServiceTypeController().call(obj);
                     break;
                 }
                 case SERVICE_UPDATE: {
-                    setUpModal(CreateServiceController.call(obj));
+                    screenData = new CreateServiceController().call(obj);
                     break;
                 }
             }
+            setUpModal(screenData.getParent());
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }

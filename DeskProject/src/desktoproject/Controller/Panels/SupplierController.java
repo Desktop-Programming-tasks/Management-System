@@ -6,12 +6,14 @@
 package desktoproject.Controller.Panels;
 
 import Classes.Persons.Address;
+import Classes.Persons.JuridicalPerson;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.ControllerPromotion;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
@@ -38,112 +40,55 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import desktoproject.Controller.FXMLPaths;
 
 /**
  * FXML Controller class
  *
  * @author noda
  */
-public class SupplierController implements Initializable {
-
-    private static final String PATH = "desktoproject/View/Panels/Supplier.fxml";
-
-    public static Parent call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(SupplierController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        SupplierController controller = loader.getController();
-        controller.setAddressComponentObj(AddressComponentController.call());
-        controller.setTelephoneComponent(TelephoneComponentController.call());
-        controller.setAnchors(p);
-        controller.setEdit(false);
-        controller.setUpComponents();
-        return p;
-    }
-
-//    public static Parent call(Object supplier) throws IOException {
+public class SupplierController extends ControllerPromotion implements Initializable {
+//
+//    private static final String PATH = "desktoproject/View/Panels/Supplier.fxml";
+//
+//    public static Parent call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(SupplierController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        SupplierController controller = loader.getController();
+//        controller.setAddressComponentObj(AddressComponentController.call());
+//        controller.setTelephoneComponent(TelephoneComponentController.call());
+//        controller.setAnchors(p);
+//        controller.setEdit(false);
+//        controller.setUpComponents();
+//        return p;
+//    }
+//
+//    public static Parent call(Object supplier, boolean promote) throws IOException {
 //        FXMLLoader loader = new FXMLLoader();
 //        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
 //        Parent p = loader.load();
 //
 //        SupplierController controller = loader.getController();
+//        if (supplier == null) {
+//            System.out.println("mas pq?");
+//        }
 //        controller.setSupplier((Supplier) supplier);
 //        controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
 //        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
 //        controller.setAnchors(p);
 //        controller.setEdit(true);
+//        controller.setPromote(promote);
 //        controller.setUpComponents();
 //        return p;
 //    }
-    public static Parent call(Object supplier, boolean promote) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-
-        SupplierController controller = loader.getController();
-        if (supplier == null) {
-            System.out.println("mas pq?");
-        }
-        controller.setSupplier((Supplier) supplier);
-        controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
-        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
-        controller.setAnchors(p);
-        controller.setEdit(true);
-        controller.setPromote(promote);
-        controller.setUpComponents();
-        return p;
-    }
-
-    private void setAnchors(Parent p) {
-        AnchorPane.setTopAnchor(p, 0.0);
-        AnchorPane.setLeftAnchor(p, 0.0);
-        AnchorPane.setBottomAnchor(p, 0.0);
-        AnchorPane.setRightAnchor(p, 0.0);
-    }
-
-    private Supplier supplier;
-    private boolean edit;
-    private boolean promote;
-    private ScreenObject addressComponent;
-    private ScreenObject telephoneComponent;
-
-    private void setUpComponents() {
-        addressPane.getChildren().clear();
-        addressPane.getChildren().add(addressComponent.getParent());
-        telephonePane.getChildren().clear();
-        telephonePane.getChildren().add(telephoneComponent.getParent());
-        populateTable();
-        if (edit) {
-            mainBtn.setText("Alterar");
-            mainLabel.setText("Editar Fornecedor");
-
-            fillScreen();
-        } else {
-            mainBtn.setText("Cadastrar");
-            mainLabel.setText("Cadastrar Fornecedor");
-        }
-        if (promote) {
-            mainLabel.setText("Promover a fornecedor");
-            mainBtn.setText("Salvar");
-        }
-    }
-
-    private void fillScreen() {
-        nameTextField.setText(supplier.getName());
-        CNPJTextField.setText(supplier.getCNPJ());
-
-        selectSupplierBrands();
-    }
-
-    private void selectSupplierBrands() {
-        for (Brand tableBrand : brandsTable.getItems()) {
-            for (Brand supplierBrand : supplier.getAvaliableBrands()) {
-                if (tableBrand.getName().equals(supplierBrand.getName())) {
-                    brandsTable.getSelectionModel().select(tableBrand);
-                }
-            }
-        }
-    }
+//
+//    private void setAnchors(Parent p) {
+//        AnchorPane.setTopAnchor(p, 0.0);
+//        AnchorPane.setLeftAnchor(p, 0.0);
+//        AnchorPane.setBottomAnchor(p, 0.0);
+//        AnchorPane.setRightAnchor(p, 0.0);
+//    }
 
     @FXML
     private TextField nameTextField;
@@ -165,6 +110,44 @@ public class SupplierController implements Initializable {
     private TableColumn<Brand, String> nameColumn;
     @FXML
     private AnchorPane telephonePane;
+
+    private Supplier supplier;
+
+    @Override
+    public void setUpComponents() {
+        populateTable();
+        if (isEdit()) {
+            mainBtn.setText("Alterar");
+            mainLabel.setText("Editar Fornecedor");
+
+            fillScreen();
+        } else {
+            mainBtn.setText("Cadastrar");
+            mainLabel.setText("Cadastrar Fornecedor");
+        }
+        if (isPromote()) {
+            mainLabel.setText("Promover a fornecedor");
+            mainBtn.setText("Salvar");
+        }
+    }
+
+    @Override
+    public void fillScreen() {
+        nameTextField.setText(supplier.getName());
+        CNPJTextField.setText(supplier.getCNPJ());
+
+        selectSupplierBrands();
+    }
+
+    private void selectSupplierBrands() {
+        for (Brand tableBrand : brandsTable.getItems()) {
+            for (Brand supplierBrand : supplier.getAvaliableBrands()) {
+                if (tableBrand.getName().equals(supplierBrand.getName())) {
+                    brandsTable.getSelectionModel().select(tableBrand);
+                }
+            }
+        }
+    }
 
     /**
      * Initializes the controller class.
@@ -198,20 +181,20 @@ public class SupplierController implements Initializable {
     @FXML
     private void mainAction() {
         if (validate()) {
-            Address address = ((AddressComponentController) addressComponent.getController()).getAddress();
-            ArrayList<String> telephone = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
+            Address address = ((AddressComponentController) getAddressComponent().getController()).getAddress();
+            ArrayList<String> telephone = ((TelephoneComponentController) getTelephoneComponent().getController()).getTelephones();
             ArrayList<Brand> brands = new ArrayList<>(brandsTable.getSelectionModel().getSelectedItems());
             Supplier newSupplier = new Supplier(brands, nameTextField.getText(), address, telephone, CNPJTextField.getText());
 
             try {
-                if (promote) {
+                if (isPromote()) {
                     newSupplier.setId(supplier.getId());
                     newSupplier.setActive(supplier.isActive());
                     PersonDAO.promoteSupplier(supplier);
                     GUIController.getInstance().showPromoteAlert("Fornecedor");
                     GUIController.getInstance().backToPrevious();
                 } else {
-                    if (edit) {
+                    if (isEdit()) {
                         newSupplier.setId(supplier.getId());
                         newSupplier.setActive(supplier.isActive());
                         PersonDAO.updatePerson(newSupplier);
@@ -246,35 +229,15 @@ public class SupplierController implements Initializable {
         populateTable();
     }
 
-    private void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
-
-    private Supplier getSupplier() {
-        return supplier;
-    }
-
-    private void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    private void setAddressComponentObj(ScreenObject addressComponentObj) {
-        this.addressComponent = addressComponentObj;
-    }
-
-    private void setTelephoneComponent(ScreenObject telephoneComponent) {
-        this.telephoneComponent = telephoneComponent;
-    }
-
     private boolean validate() {
         Validate valObj = new Validate();
 
         valObj.validateName(nameTextField.getText());
         valObj.validateCNPJ(CNPJTextField.getText());
 
-        valObj.appendErrorMessage(((TelephoneComponentController) telephoneComponent.getController()).validateFields());
+        valObj.appendErrorMessage(((TelephoneComponentController) getTelephoneComponent().getController()).validateFields());
 
-        valObj.appendErrorMessage(((AddressComponentController) addressComponent.getController()).validateFields());
+        valObj.appendErrorMessage(((AddressComponentController) getAddressComponent().getController()).validateFields());
 
         if (valObj.getErrorMessage().isEmpty()) {
             return true;
@@ -284,12 +247,27 @@ public class SupplierController implements Initializable {
         }
     }
 
-    private boolean isPromote() {
-        return promote;
+    @Override
+    public void setDynamicSecondary() {
+        addressPane.getChildren().clear();
+        addressPane.getChildren().add(getAddressComponent().getParent());
+        telephonePane.getChildren().clear();
+        telephonePane.getChildren().add(getTelephoneComponent().getParent());
     }
 
-    private void setPromote(boolean promote) {
-        this.promote = promote;
+    @Override
+    public void setScreenObject(Object obj) {
+        if(obj instanceof Supplier) {
+            this.supplier = (Supplier) obj;
+        } else {
+            this.supplier = new Supplier((JuridicalPerson) obj);
+            setPromote(true);
+        }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.SUPPLIER_SCREEN;
     }
 
 }

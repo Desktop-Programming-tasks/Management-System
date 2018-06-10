@@ -8,8 +8,11 @@ package desktoproject.Controller.Query;
 import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Utils.Animation;
 import java.io.IOException;
@@ -33,15 +36,15 @@ import javafx.scene.input.KeyCode;
  *
  * @author noda
  */
-public class BrandController implements Initializable {
-
-    private static final String PATH = "desktoproject/View/Query/Brand.fxml";
-
-    public static Parent call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(BrandController.class.getClassLoader().getResource(PATH));
-        return loader.load();
-    }
+public class BrandController extends Controller implements Initializable, TableScreen {
+//
+//    private static final String PATH = "desktoproject/View/Query/Brand.fxml";
+//
+//    public static Parent call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(BrandController.class.getClassLoader().getResource(PATH));
+//        return loader.load();
+//    }
 
     @FXML
     private TableView<Brand> brandTable;
@@ -72,7 +75,8 @@ public class BrandController implements Initializable {
         populateTable();
     }
     
-    private void setTableAction(){
+    @Override
+    public void setTableAction(){
         brandTable.setOnKeyReleased((event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 Brand item = brandTable.getSelectionModel().getSelectedItem();
@@ -97,6 +101,7 @@ public class BrandController implements Initializable {
         });
     }
 
+    @Override
     public void populateTable() {
         try {
             brandTable.setItems(FXCollections.observableArrayList(BrandDAO.queryAllBrands()));
@@ -146,5 +151,15 @@ public class BrandController implements Initializable {
                 GUIController.getInstance().showDeleteErrorAlert();
             }
         }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.BRAND_QUERY;
+    }
+
+    @Override
+    public void setUpSearch() {
+        // nothing happen here
     }
 }

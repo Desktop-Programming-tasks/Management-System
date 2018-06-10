@@ -15,21 +15,20 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author ecsanchesjr
  */
-public abstract class Controller {
-    private static String path;
+public abstract class Controller implements FXMLPaths {
+    protected String path;
     
-    public static void setPath(String path) {
-        Controller.path = path;
-    }
+    public abstract void setPath();
     
-    public static ScreenData call() throws IOException {
+    public ScreenData call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Controller.class.getResource(path));
+        setPath();
+        loader.setLocation(Controller.class.getClassLoader().getResource(path));
         Parent parent = loader.load();
         Controller controller = loader.getController();
         controller.setAnchors(parent);
         return new ScreenData(parent, controller);
-    } 
+    }
     
     private void setAnchors(Parent p) {
         AnchorPane.setTopAnchor(p, 0.0);

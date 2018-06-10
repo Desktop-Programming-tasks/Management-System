@@ -12,20 +12,22 @@ import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.PersonPromotion;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -40,20 +42,28 @@ import javafx.scene.input.KeyCode;
  *
  * @author ecsanchesjr
  */
-public class PromotionPersonController implements Initializable {
+public class PromotionPersonController extends Controller implements Initializable, TableScreen {
 
-    private static final String promotionFXMLPath = "desktoproject/View/Panels/PromotionPerson.fxml";
+//    private static final String promotionFXMLPath = "desktoproject/View/Panels/PromotionPerson.fxml";
+//
+//    public static Parent call(PersonPromotion type) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(PromotionPersonController.class.getClassLoader().getResource(promotionFXMLPath));
+//        Parent p = loader.load();
+//        PromotionPersonController controller = loader.getController();
+//        controller.setType(type);
+//        controller.setUpComponents();
+//        return p;
+//    }
 
-    public static Parent call(PersonPromotion type) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PromotionPersonController.class.getClassLoader().getResource(promotionFXMLPath));
-        Parent p = loader.load();
-        PromotionPersonController controller = loader.getController();
+    public ScreenData call(PersonPromotion type) throws IOException {
+        ScreenData callReturn = super.call();
+        PromotionPersonController controller = (PromotionPersonController) callReturn.getController();
         controller.setType(type);
         controller.setUpComponents();
-        return p;
+        return new ScreenData(callReturn.getParent(), controller);
     }
-
+    
     private PersonPromotion type;
 
     private void setType(PersonPromotion type) {
@@ -105,12 +115,12 @@ public class PromotionPersonController implements Initializable {
             switch (type) {
                 case JURIDICAL_PERSON: {
                     JuridicalPerson person = (JuridicalPerson) personTable.getSelectionModel().getSelectedItem();
-                    GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Supplier(person));
+                    GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, new Supplier(person));
                     break;
                 }
                 case LEGAL_PERSON: {
                     LegalPerson person = (LegalPerson) personTable.getSelectionModel().getSelectedItem();
-                    GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee(person));
+                    GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, new Employee(person));
                     break;
                 }
             }
@@ -119,7 +129,8 @@ public class PromotionPersonController implements Initializable {
         }
     }
 
-    private void setUpSearch() {
+    @Override
+    public void setUpSearch() {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             newValue = newValue.trim();
             if (newValue.isEmpty()) {
@@ -137,15 +148,16 @@ public class PromotionPersonController implements Initializable {
         });
     }
 
-    private void setTableAction() {
+    @Override
+    public void setTableAction() {
         personTable.setOnKeyReleased((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 Person person = personTable.getSelectionModel().getSelectedItem();
                 if (person != null) {
                     if (type == PersonPromotion.LEGAL_PERSON) {
-                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee((LegalPerson) person));
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, new Employee((LegalPerson) person));
                     } else {
-                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, new Supplier((JuridicalPerson) person));
+                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, new Supplier((JuridicalPerson) person));
                     }
                 }
             }
@@ -157,9 +169,9 @@ public class PromotionPersonController implements Initializable {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Person person = row.getItem();
                     if (type == PersonPromotion.LEGAL_PERSON) {
-                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_PROMOTE, new Employee((LegalPerson) person));
+                        GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_DISPLAY, new Employee((LegalPerson) person));
                     } else {
-                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_PROMOTE, new Supplier((JuridicalPerson) person));
+                        GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, new Supplier((JuridicalPerson) person));
                     }
                 }
             });
@@ -167,7 +179,8 @@ public class PromotionPersonController implements Initializable {
         });
     }
 
-    private void populateTable() {
+    @Override
+    public void populateTable() {
         try {
             if (type == PersonPromotion.LEGAL_PERSON) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllLegalPersons()));
@@ -185,5 +198,10 @@ public class PromotionPersonController implements Initializable {
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.PROMOTION_SCREEN;
     }
 }
