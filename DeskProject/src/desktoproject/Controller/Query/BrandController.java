@@ -53,7 +53,9 @@ public class BrandController implements Initializable {
     private Button createBtn;
     @FXML
     private Button backBtn;
-
+    @FXML
+    private Button deleteBtn;
+    
     /**
      * Initializes the controller class.
      */
@@ -64,6 +66,7 @@ public class BrandController implements Initializable {
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(createBtn);
         Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(deleteBtn);
         
         setTableAction();
         populateTable();
@@ -122,7 +125,26 @@ public class BrandController implements Initializable {
     }
 
     @FXML
-    public void back() {
+    private void back() {
         GUIController.getInstance().backToPrevious();
+    }
+    
+    @FXML
+    private void delete(){
+        Brand brand = brandTable.getSelectionModel().getSelectedItem();
+        if (brand == null) {
+            GUIController.getInstance().showSelectionErrorAlert();
+        } else {
+            try {
+                if (GUIController.getInstance().showEraseConfirmationAlert(brand.getName())) {
+                    BrandDAO.deleteBrand(brand);
+                    populateTable();
+                }
+            } catch (RemoteException | DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (NoResultsException ex) {
+                GUIController.getInstance().showDeleteErrorAlert();
+            }
+        }
     }
 }

@@ -107,15 +107,12 @@ public class BrandModalController implements Initializable {
 
             try {
                 if (edit) {
-                    System.out.println("edit");
                     newBrand.setId(brand.getId());
                     newBrand.setActive(brand.isActive());
-                    System.out.println(newBrand.toString());
                     BrandDAO.updateBrand(newBrand);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().closeModal();
                 } else {
-                    System.out.println("not edit");
                     BrandDAO.insertBrand(newBrand);
                     GUIController.getInstance().showRegisterAlert("Marca");
                     GUIController.getInstance().closeModal();
