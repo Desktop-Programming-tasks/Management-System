@@ -191,6 +191,7 @@ public class CustomerController implements Initializable {
                     GUIController.getInstance().backToPrevious();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
+                System.out.println(ex.getMessage());
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Cliente",isLegalPerson?"CPF":"CNPJ");
