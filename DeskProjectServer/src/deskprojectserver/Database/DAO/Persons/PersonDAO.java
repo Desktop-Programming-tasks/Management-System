@@ -17,6 +17,8 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,7 +44,16 @@ public abstract class PersonDAO {
         try {
             basicInsertPerson(p);
         } catch (DuplicatedEntryException e) {
-            throw e;
+            try {
+                Person aux = basicGetPerson(p.getDocumentId());
+                if (aux.isActive()) {
+                    throw new DuplicatedEntryException();
+                } else {
+                    p.setActive(true);
+                }
+            } catch (NoResultsException ex) {
+                //
+            }
         }
         if (p instanceof LegalPerson) {
             try {
@@ -86,21 +97,29 @@ public abstract class PersonDAO {
             LegalPerson lp = legalPersonDAO.getLegalPerson(id);
             try {
                 Employee emp = employeeDAO.getEmployee(id);
-                return new Employee(emp.getLogin(), emp.getPassword(),
+                Employee empAux = new Employee(emp.getLogin(), emp.getPassword(),
                         emp.getEmployeeType(), lp.getRG(), p.getId(), p.getName(),
                         p.getAddress(), p.getTelephones(), p.getDocumentId());
+                empAux.setActive(p.isActive());
+                return empAux;
             } catch (NoResultsException b) {
-                return new LegalPerson(lp.getRG(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(),
+                LegalPerson lpAux = new LegalPerson(lp.getRG(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(),
                         p.getDocumentId());
+                lpAux.setActive(p.isActive());
+                return lpAux;
             }
         } catch (NoResultsException c) {
             try {
                 juridicalDAO.getJuridicalPerson(id);
                 try {
                     Supplier supplier = supplierDAO.getSupplier(id);
-                    return new Supplier(supplier.getAvaliableBrands(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    Supplier supplierAux = new Supplier(supplier.getAvaliableBrands(), p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    supplierAux.setActive(p.isActive());
+                    return supplierAux;
                 } catch (NoResultsException d) {
-                    return new JuridicalPerson(p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    JuridicalPerson jpAux = new JuridicalPerson(p.getId(), p.getName(), p.getAddress(), p.getTelephones(), p.getDocumentId());
+                    jpAux.setActive(p.isActive());
+                    return jpAux;
                 }
             } catch (NoResultsException f) {
                 throw f;
