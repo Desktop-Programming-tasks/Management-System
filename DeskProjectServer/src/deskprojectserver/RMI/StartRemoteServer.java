@@ -5,6 +5,8 @@
  */
 package deskprojectserver.RMI;
 
+import Observable.Aggregator;
+import Observable.Observables.ObservablesHolder;
 import RMI.RemoteLogin;
 import RMI.RemoteMethods;
 import java.rmi.AlreadyBoundException;
@@ -33,6 +35,7 @@ public class StartRemoteServer {
         
         hostServer.openLoginServer();
         hostServer.openRemoteServer();
+        hostServer.setUpObservers();
     }
     
     private void openLoginServer() {
@@ -61,5 +64,11 @@ public class StartRemoteServer {
         } catch (RemoteException | AlreadyBoundException ex) {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void setUpObservers(){
+        Aggregator ag = new Aggregator();
+        ObservablesHolder.getBrand().addObserver(ag);
+        ObservablesHolder.getEmployee().addObserver(ag);
     }
 }
