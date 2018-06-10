@@ -48,6 +48,10 @@ public class MySqlProductDAO extends ProductDAO {
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE ((barCodeProduct=? OR idProduct=?) AND isActiveProduct)";
 
+    private static final String GET_ONE_SQL_INACTIVE = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
+            + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
+            + "FROM `Product` WHERE ((barCodeProduct=? OR idProduct=?)";
+
     private static final String GET_LIKE_SQL = "SELECT `idProduct`,`barCodeProduct`, `nameProduct`, "
             + "`priceProduct`, `quantityProduct`, `Brand_nameBrand` "
             + "FROM `Product` WHERE nameProduct LIKE ? AND isActiveProduct";
@@ -61,7 +65,7 @@ public class MySqlProductDAO extends ProductDAO {
     @Override
     public void updateProduct(Product product) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, UnavailableBrandException {
         try {
-            getProduct(Integer.toString(product.getId()));
+            getProduct(Integer.toString(product.getId()),false);
         } catch (NoResultsException e) {
             throw e;
         }
@@ -103,11 +107,18 @@ public class MySqlProductDAO extends ProductDAO {
     }
 
     @Override
-    public Product getProduct(String id) throws DatabaseErrorException, NoResultsException {
+    public Product getProduct(String id, boolean justActive) throws DatabaseErrorException, NoResultsException {
         Product product = null;
+        QueryResult qr;
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id,
-                    Integer.parseInt(id));
+
+            if (justActive) {
+                qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id,
+                        Integer.parseInt(id));
+            } else {
+                qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL_INACTIVE, id,
+                        Integer.parseInt(id));
+            }
             while (qr.getResultSet().next()) {
                 product = new Product(qr.getResultSet().getInt(ID),
                         qr.getResultSet().getString(BAR_CODE),

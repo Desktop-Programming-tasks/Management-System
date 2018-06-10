@@ -92,7 +92,7 @@ public class RemoteServer implements ServerMethods {
 
     @Override
     public Product queryProduct(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getProductDAO().getProduct(id);
+        return DAOBuilder.getInstance().getProductDAO().getProduct(id, true);
     }
 
     @Override

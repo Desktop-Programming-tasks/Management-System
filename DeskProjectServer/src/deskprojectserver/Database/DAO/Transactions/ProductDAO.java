@@ -25,9 +25,11 @@ public abstract class ProductDAO {
             insertProductBasic(product);
         } catch (DuplicatedEntryException e) {
             try {
-                if (getProduct(product.getBarCode()).isActive()) {
+                Product aux = getProduct(product.getBarCode(),false);
+                if (aux.isActive()) {
                     throw e;
                 } else {
+                    product.setId(aux.getId());
                     product.setActive(true);
                     updateProduct(product);
                 }
@@ -41,7 +43,7 @@ public abstract class ProductDAO {
 
     public abstract void updateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
 
-    public abstract Product getProduct(String id) throws DatabaseErrorException, NoResultsException;
+    public abstract Product getProduct(String id, boolean justActive) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Product> getAllProducts() throws DatabaseErrorException;
 

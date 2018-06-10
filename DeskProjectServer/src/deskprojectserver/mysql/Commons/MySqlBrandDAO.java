@@ -31,7 +31,9 @@ public class MySqlBrandDAO extends BrandDAO {
 
     private static final String NAME = "nameBrand";
     private static final String ID = "idBrand";
-
+    private static final String UPDATE_SQL = "UPDATE `Brand` "
+            + "SET `nameBrand`=?,`isActiveBrand`=?"
+            + " WHERE idBrand=?";
     private static final String CHECK_SQL = "SELECT `nameBrand` "
             + "FROM `Brand` WHERE nameBrand=?";
 
