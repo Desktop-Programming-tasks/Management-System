@@ -29,7 +29,7 @@ public class MySqlBrandDAO extends BrandDAO {
             = "INSERT INTO `Brand`(`nameBrand`, `isActiveBrand`)"
             + " VALUES (?,?)";
     private static final String GET_ALL_SQL = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
-            + "FROM `Brand` WHERE 1";
+            + "FROM `Brand` WHERE isActiveBrand";
 
     private static final String NAME = "nameBrand";
     private static final String ID = "idBrand";
@@ -65,11 +65,6 @@ public class MySqlBrandDAO extends BrandDAO {
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
         }
-    }
-
-    @Override
-    public void removeBrand(Brand brand) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
