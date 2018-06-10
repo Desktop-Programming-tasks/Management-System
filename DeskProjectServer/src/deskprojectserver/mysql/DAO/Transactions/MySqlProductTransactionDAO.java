@@ -9,7 +9,11 @@ import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.NoResultsException;
+import Exceptions.OutOfStockException;
+import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import deskprojectserver.Database.DAO.Transactions.ProductDAO;
 import deskprojectserver.Database.DAO.Transactions.TransactionProductDAO;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -28,6 +32,10 @@ public class MySqlProductTransactionDAO extends TransactionProductDAO {
             + "`Product_has_RegistryQuantity`, `Product_has_RegistryIndividualPrice`)"
             + " VALUES (?,?,?,?)";
 
+    public MySqlProductTransactionDAO() {
+        super(new MySqlProductDAO());
+    }
+
     @Override
     public void insertProductTransaction(Record record, Product product) throws DatabaseErrorException, DuplicatedEntryException {
         try {
@@ -38,6 +46,33 @@ public class MySqlProductTransactionDAO extends TransactionProductDAO {
             throw new DuplicatedEntryException();
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
+        }
+    }
+
+    @Override
+    public void checkIfAvailable(Product product) throws DatabaseErrorException, OutOfStockException {
+        try {
+            Product productAux = productDao.getProduct(product.getBarCode(), true);
+            System.out.println(productAux.getQuantityInStock());
+            if (product.getQuantity() > productAux.getQuantityInStock()) {
+                throw new OutOfStockException(product);
+            }
+        } catch (NoResultsException ex) {
+            throw new OutOfStockException(product);
+        }
+    }
+
+    @Override
+    public void updateStock(Product product, int quantity) throws DatabaseErrorException {
+        try {
+            Product productAux = productDao.getProduct(product.getBarCode(), true);
+            product.setQuantityInStock(productAux.getQuantityInStock()
+                    + quantity);
+            productDao.updateProduct(product);
+        } catch (NoResultsException ex) {
+            //
+        } catch (UnavailableBrandException | DuplicatedEntryException ex) {
+            Logger.getLogger(MySqlProductTransactionDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

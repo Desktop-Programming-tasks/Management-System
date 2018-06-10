@@ -16,7 +16,9 @@ import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
+import Exceptions.OutOfStockException;
 import deskprojectserver.Database.DAOBuilder;
+import deskprojectserver.Utils.RecordTypeConstants;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,8 +33,8 @@ public class DeskProjectServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException {
-        Product product = DAOBuilder.getInstance().getProductDAO().getProduct("00", true);
-        Product product2 = DAOBuilder.getInstance().getProductDAO().getProduct("01", true);
+        Product product = DAOBuilder.getInstance().getProductDAO().getProduct("01", true);
+        Product product2 = DAOBuilder.getInstance().getProductDAO().getProduct("02", true);
         product.setQuantity(2);
         product2.setQuantity(1);
         System.out.println(product);
@@ -48,9 +50,13 @@ public class DeskProjectServer {
         trasactions.add(product);
         trasactions.add(product2);
         
-        Record record = new Record(emp, p, trasactions, RecordType.SALE);
+        Record record = new Record(emp, p, trasactions, RecordTypeConstants.SALE);
         System.out.println(record);
-        DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
+        try {
+            DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
+        } catch (OutOfStockException ex) {
+           ex.printStackTrace();
+        }
         
     }
 

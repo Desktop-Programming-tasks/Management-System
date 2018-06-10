@@ -25,9 +25,9 @@ public class Record implements Serializable {
     private float totalprice;
     private Person customer;
     private ArrayList<Transaction> transactions;
-    private RecordType type;
+    private int type;
 
-    public Record(int id, Employee assignedEmployee, Date registerDate, float totalprice, Person customer, ArrayList<Transaction> transations, RecordType type) {
+    public Record(int id, Employee assignedEmployee, Date registerDate, float totalprice, Person customer, ArrayList<Transaction> transations, int type) {
         this.id = id;
         this.assignedEmployee = assignedEmployee;
         this.registerDate = registerDate;
@@ -37,7 +37,7 @@ public class Record implements Serializable {
         this.type = type;
     }
 
-    public Record(Employee assignedEmployee, Person customer, ArrayList<Transaction> transactions, RecordType type) {
+    public Record(Employee assignedEmployee, Person customer, ArrayList<Transaction> transactions, int type) {
         this.assignedEmployee = assignedEmployee;
         for (Transaction t : transactions) {
             System.out.println(t.getPrice());
@@ -96,6 +96,15 @@ public class Record implements Serializable {
     public void setTransations(ArrayList<Transaction> transations) {
         this.transactions = transations;
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+    
 
     @Override
     public String toString() {

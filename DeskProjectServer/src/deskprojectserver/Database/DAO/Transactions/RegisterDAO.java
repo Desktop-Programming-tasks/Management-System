@@ -11,6 +11,7 @@ import Classes.Transactions.Service;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
+import Exceptions.OutOfStockException;
 import java.util.ArrayList;
 
 /**
@@ -27,11 +28,11 @@ public abstract class RegisterDAO {
         this.tServiceDAO = tServiceDAO;
     }
 
-    public void insertFullRegisterAndTransactions(Record record) throws DuplicatedEntryException, DatabaseErrorException {
+    public void insertFullRegisterAndTransactions(Record record) throws DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
         basicInsertRecord(record);
         for (Transaction t : record.getTransations()) {
             if (t instanceof Product) {
-                tProductDAO.insertProductTransaction(record, (Product) t);
+                tProductDAO.completeInsertProductTransaction(record, (Product) t);
             } else if (t instanceof Service) {
                 tServiceDAO.insertServiceTransaction(record, (Service) t);
             }

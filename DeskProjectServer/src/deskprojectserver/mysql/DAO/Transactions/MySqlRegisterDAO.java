@@ -45,7 +45,7 @@ public class MySqlRegisterDAO extends RegisterDAO {
         record.setId(record.hashCode());
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
-                    record.getId(), record.getRegisterDate(), record.getTotalprice(), 1, record.getCustomer().getDocumentId(),
+                    record.getId(), record.getRegisterDate(), record.getTotalprice(), record.getType(), record.getCustomer().getDocumentId(),
                     record.getAssignedEmployee().getDocumentId());
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
