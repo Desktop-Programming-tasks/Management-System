@@ -33,6 +33,7 @@ public class MySqlPersonDAO extends PersonDAO {
     protected final static String NAME = "namePerson";
     protected final static String TEL_1 = "tel1Person";
     protected final static String TEL_2 = "tel2Person";
+    private final static String IS_ACTIVE = "isActivePerson";
 
     private final static String INSERT_SQL = "INSERT INTO "
             + "`Person`(`idDocumentPerson`, `namePerson`, `tel1Person`, `tel2Person`"
@@ -97,7 +98,7 @@ public class MySqlPersonDAO extends PersonDAO {
                 p.setDocumentId(id);
                 tels.add(qr.getResultSet().getString(TEL_1));
                 tels.add(qr.getResultSet().getString(TEL_2));
-                p.setActive(true);
+                p.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
                 p.setTelephones(tels);
             }
             qr.closeAll();

@@ -233,6 +233,16 @@ public abstract class PersonDAO {
 
     }
 
+    public void juridicalToSupplier(Supplier sp) throws DatabaseErrorException {
+        try {
+            insertPerson(sp);
+        } catch (DuplicatedEntryException ex) {
+            //getPerson(sp.getCNPJ());
+        } catch (DuplicatedLoginException ex) {
+            //
+        }
+    }
+
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
