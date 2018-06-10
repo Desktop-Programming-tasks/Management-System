@@ -15,6 +15,8 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +27,8 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
     private static final String INSERT_SQL = "INSERT INTO `JuridicalPerson`(`Person_idPerson`) VALUES (?)";
     private static final String GET_ONE_SQL = "SELECT `Person_idPerson` "
             + "FROM `JuridicalPerson` WHERE Person_idPerson=?";
+    private static final String REMOVE_SQL = "DELETE FROM `JuridicalPerson` WHERE "
+            + "Person_idPerson=?";
 
     @Override
     public void insertJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException, DuplicatedEntryException {
@@ -43,8 +47,12 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
     }
 
     @Override
-    public void removeJuridcalPerson(JuridicalPerson jp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeJuridcalPerson(JuridicalPerson jp) throws DatabaseErrorException {
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, jp.getCNPJ());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
