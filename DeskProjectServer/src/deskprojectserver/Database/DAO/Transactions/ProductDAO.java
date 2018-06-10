@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author gabriel
  */
 public abstract class ProductDAO {
-    
+
     public void insertProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException {
         try {
             insertProductBasic(product);
@@ -27,9 +27,9 @@ public abstract class ProductDAO {
             try {
                 Product aux = getProduct(product.getBarCode());
                 if (aux.isActive()) {
-                    product.setId(aux.getId());
                     throw e;
                 } else {
+                    product.setId(aux.getId());
                     product.setActive(true);
                     updateProduct(product);
                 }
@@ -38,20 +38,20 @@ public abstract class ProductDAO {
             }
         }
     }
-    
+
     protected abstract void insertProductBasic(Product product) throws UnavailableBrandException, DatabaseErrorException, DuplicatedEntryException;
-    
+
     public abstract void updateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
-    
+
     public abstract Product getProduct(String id) throws DatabaseErrorException, NoResultsException;
-    
+
     public abstract ArrayList<Product> getAllProducts() throws DatabaseErrorException;
-    
+
     public abstract ArrayList<Product> getLikeProducts(String id) throws DatabaseErrorException;
-    
+
     public void inactivateProduct(Product product) throws UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException {
         product.setActive(false);
         updateProduct(product);
-        
+
     }
 }
