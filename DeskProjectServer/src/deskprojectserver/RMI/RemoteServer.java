@@ -18,11 +18,14 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import Exceptions.OutOfStockException;
 import Exceptions.UnavailableBrandException;
 import RMI.RemoteMethods;
 import deskprojectserver.Database.DAOBuilder;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -150,8 +153,8 @@ public class RemoteServer implements RemoteMethods {
     }
 
     @Override
-    public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
+            DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
     }
 
     @Override

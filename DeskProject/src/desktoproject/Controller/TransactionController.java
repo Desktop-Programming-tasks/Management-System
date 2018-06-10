@@ -5,23 +5,31 @@
  */
 package desktoproject.Controller;
 
+import Classes.Constants.RecordTypeConstants;
 import Classes.Persons.Person;
 import Classes.Transactions.Record;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
+import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
+import Exceptions.OutOfStockException;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.TransactionType;
 import static desktoproject.Controller.Enums.TransactionType.BUY;
 import static desktoproject.Controller.Enums.TransactionType.SALE;
+import desktoproject.Globals;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Misc;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -245,7 +253,18 @@ public class TransactionController implements Initializable {
     @FXML
     private void register() {
         if(validate()){
-            
+            try {
+                Record newRecord = new Record(Globals.getInstance().getEmployee(), clientTable.getSelectionModel().getSelectedItem(), transactions, type==BUY?RecordTypeConstants.PURCHASE:RecordTypeConstants.SALE);
+                RecordDAO.insertRecord(newRecord);
+                GUIController.getInstance().showRegisterAlert("Transação");
+                GUIController.getInstance().backToPrevious();
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            } catch (DuplicatedEntryException ex) {
+                GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de servidor", "Tente novamente!");
+            }catch (OutOfStockException ex) {
+                GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro na transação", "Erro no produto "+ex.getOutProduct().getName()+", selecione uma quantidade menor");
+            }
         }
     }
 
@@ -255,6 +274,7 @@ public class TransactionController implements Initializable {
         if(service!=null){
             transactions.add(service);
             populateTable();
+            updatePrice();
         }
     }
 
@@ -264,6 +284,7 @@ public class TransactionController implements Initializable {
         if(product!=null){
             transactions.add(product);
             populateTable();
+            updatePrice();
         }
     }
 
@@ -275,6 +296,7 @@ public class TransactionController implements Initializable {
         }else{
             transactions.remove(transaction);
             populateTable();
+            updatePrice();
         }
     }
 
@@ -306,5 +328,13 @@ public class TransactionController implements Initializable {
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
             return false;
         }
+    }
+    
+    private void updatePrice(){
+        float total = 0.0f;
+        for(Transaction t : transactions){
+            total+=t.getPrice();
+        }
+        FinalPrice.setText(Misc.changeToComma(String.valueOf(total)));
     }
 }

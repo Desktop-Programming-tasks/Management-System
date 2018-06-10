@@ -107,8 +107,12 @@ public class AddProductController implements Initializable {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityInStock"));
 
         ProductQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            long quant = Long.valueOf(ProductQuantity.getText());
-            ProductPrice.setText(String.valueOf(quant * tmpProduct.getPrice()));
+            if(!ProductQuantity.getText().isEmpty()){
+                long quant = Long.valueOf(ProductQuantity.getText());
+                ProductPrice.setText(Misc.changeToComma(String.valueOf(quant * tmpProduct.getPrice())));
+            }else{
+                ProductPrice.setText("0");
+            }
         });
 
         Misc.setOnlyNumbers(ProductQuantity);
@@ -159,7 +163,7 @@ public class AddProductController implements Initializable {
                     tmpProduct = row.getItem();
                     blockFields(false);
                     ProductQuantity.setText(String.valueOf(1));
-                    ProductPrice.setText(String.valueOf((1 * tmpProduct.getPrice())));
+                    ProductPrice.setText(Misc.changeToComma(String.valueOf((1 * tmpProduct.getPrice()))));
                 } else {
                     blockFields(true);
                 }
@@ -173,7 +177,7 @@ public class AddProductController implements Initializable {
         if (validate()) {
             selectedProduct = tmpProduct;
             selectedProduct.setQuantity(Integer.valueOf(ProductQuantity.getText()));
-            selectedProduct.setPrice(Float.valueOf(priceColumn.getText()));
+            selectedProduct.setPrice(Float.valueOf(Misc.changeToDot(ProductPrice.getText())));
             GUIController.getInstance().closeModal();
         }
     }
@@ -189,8 +193,10 @@ public class AddProductController implements Initializable {
 
     private boolean validate() {
         Validate valObj = new Validate();
-        valObj.validateNumber(quantityColumn.getText());
-        valObj.validatePrice(priceColumn.getText());
+        if(valObj.validateEmpty("Quantidade",ProductQuantity.getText())){
+            valObj.validateNumber(ProductQuantity.getText());
+        }
+        valObj.validatePrice(ProductPrice.getText());
         valObj.emptyTableSelection(productTable," um produto");
 
         if (valObj.getErrorMessage().isEmpty()) {

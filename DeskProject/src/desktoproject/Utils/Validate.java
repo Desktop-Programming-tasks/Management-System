@@ -144,8 +144,10 @@ public class Validate {
         String pattern = PRICE_PATTERN;
         Pattern test = Pattern.compile(pattern);
         Matcher matcher = test.matcher(num);
-        if (!matcher.matches()) {
+        if(validateEmpty("Preço", num)){
+            if (!matcher.matches()) {
             errorMessage += ("Não é um preço válido!\n");
+            }
         }
     }
 
