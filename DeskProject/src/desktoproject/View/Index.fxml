@@ -106,6 +106,8 @@
                   <MenuItem mnemonicParsing="false" onAction="#showCreateBrand" text="Marcas" />
                 <MenuItem mnemonicParsing="false" onAction="#showCreateProduct" text="Produto" />
                   <MenuItem mnemonicParsing="false" onAction="#showCreateService" text="Serviço" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPromoteLegalPersons" text="Promover Pessoas Físicas" />
+                  <MenuItem mnemonicParsing="false" onAction="#showPromoteJuridicalPersons" text="Promover Pessoas Jurídicas" />
               </items>
                <graphic>
                   <ImageView fx:id="imageRegister" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

@@ -230,6 +230,16 @@ public class IndexController implements Initializable {
     private void showQueryBrand() {
         GUIController.getInstance().callScreen(ScreenType.QUERY_BRAND);
     }
+    
+    @FXML
+    private void showPromoteLegalPersons() {
+        GUIController.getInstance().callScreen(ScreenType.REGISTER_PROMOTE_LEGAL_PERSON);
+    }
+    
+    @FXML
+    private void showPromoteJuridicalPersons() {
+        GUIController.getInstance().callScreen(ScreenType.REGISTER_PROMOTE_JURIDICAL_PERSON);
+    }
 
     public void setStage(Stage stage) {
         this.stage = stage;

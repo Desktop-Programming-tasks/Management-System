@@ -24,8 +24,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +61,21 @@ public class SupplierController implements Initializable {
         return p;
     }
 
-    public static Parent call(Object supplier) throws IOException {
+//    public static Parent call(Object supplier) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//
+//        SupplierController controller = loader.getController();
+//        controller.setSupplier((Supplier) supplier);
+//        controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
+//        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
+//        controller.setAnchors(p);
+//        controller.setEdit(true);
+//        controller.setUpComponents();
+//        return p;
+//    }
+    public static Parent call(Object supplier, boolean promote) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
@@ -75,6 +87,7 @@ public class SupplierController implements Initializable {
         controller.setAnchors(p);
         controller.setEdit(true);
         controller.setUpComponents();
+        controller.setPromote(promote);
         return p;
     }
 
@@ -87,6 +100,7 @@ public class SupplierController implements Initializable {
 
     private Supplier supplier;
     private boolean edit;
+    private boolean promote;
     private ScreenObject addressComponent;
     private ScreenObject telephoneComponent;
 
@@ -104,6 +118,10 @@ public class SupplierController implements Initializable {
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Fornecedor");
+        }
+        if(promote) {
+            mainLabel.setText("Promover a fornecedor");
+            mainBtn.setText("Salvar");
         }
     }
 
@@ -254,4 +272,14 @@ public class SupplierController implements Initializable {
             return false;
         }
     }
+
+    private boolean isPromote() {
+        return promote;
+    }
+
+    private void setPromote(boolean promote) {
+        this.promote = promote;
+    }
+    
+    
 }
