@@ -35,6 +35,7 @@ public abstract class ControllerEdit extends Controller {
         ScreenData callReturn = super.call();
         ControllerEdit controller = (ControllerEdit) callReturn.getController();
         controller.setScreenObject(obj);
+        controller.setEdit(true);
         controller.setUpComponents();
         controller.fillScreen();
         return new ScreenData(callReturn.getParent(), controller);

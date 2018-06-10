@@ -143,19 +143,19 @@ public class GUIController {
                     break;
                 }
                 case TRANSACTION_BUY_CREATE: {
-                    //screenData = TransactionController.call(TransactionType.BUY, mainStage);
+                    screenData = new TransactionController().call(TransactionType.BUY);
                     break;
                 }
                 case TRANSACTION_SALE_CREATE: {
-                    //screenData = TransactionController.call(TransactionType.SALE, mainStage);
+                    screenData = new TransactionController().call(TransactionType.SALE);
                     break;
                 }
                 case TRANSACTION_BUY_DISPLAY: {
-                    //screenData = TransactionController.call(TransactionType.BUY, obj, mainStage);
+                    screenData = new TransactionController().call(TransactionType.BUY, obj);
                     break;
                 }
                 case TRANSACTION_SALE_DISPLAY: {
-                    //screenData = TransactionController.call(TransactionType.SALE, obj, mainStage);
+                    screenData = new TransactionController().call(TransactionType.SALE, obj);
                     break;
                 }
                 case QUERY_TRANSACTION_BUY: {
