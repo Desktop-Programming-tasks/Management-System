@@ -55,9 +55,9 @@ INSERT INTO City(nameCity,State_nameState) VALUES ('Acopiara','Ceará');
 INSERT INTO City(nameCity,State_nameState) VALUES ('Acorizal','Mato Grosso');
 INSERT INTO City(nameCity,State_nameState) VALUES ('Acrelândia','Acre');
 
-INSERT INTO Brand(nameBrand) VALUES ('AMD');
-INSERT INTO Brand(nameBrand) VALUES ('NVIDIA');
-INSERT INTO Brand(nameBrand) VALUES ('Intel');
+INSERT INTO Brand(nameBrand, isActiveBrand) VALUES ('AMD', 1);
+INSERT INTO Brand(nameBrand, isActiveBrand) VALUES ('NVIDIA', 1);
+INSERT INTO Brand(nameBrand, isActiveBrand) VALUES ('Intel', 1);
 
 INSERT INTO EmployeeType(idEmployeeType, nameEmployeeType) VALUES (1, 'MANAGER');
 INSERT INTO EmployeeType(idEmployeeType, nameEmployeeType) VALUES (2, 'COMMON');
