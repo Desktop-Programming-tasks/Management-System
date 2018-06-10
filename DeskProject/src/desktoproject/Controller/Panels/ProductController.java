@@ -224,6 +224,7 @@ public class ProductController implements Initializable {
             try {
                 if (edit) {
                     newProduct.setId(product.getId());
+                    newProduct.setActive(product.isActive());
                     ProductDAO.updateProduct(newProduct);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();                    

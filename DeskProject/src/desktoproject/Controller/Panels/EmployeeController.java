@@ -211,7 +211,7 @@ public class EmployeeController implements Initializable {
             Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
             
-            String password = "";
+            String password;
             
             if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
                 password = passwordFieldOficial.getText();
@@ -224,6 +224,7 @@ public class EmployeeController implements Initializable {
             try {
                 if (edit) {
                     newEmployee.setId(employee.getId());
+                    newEmployee.setActive(employee.isActive());
                     PersonDAO.updatePerson(newEmployee);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();

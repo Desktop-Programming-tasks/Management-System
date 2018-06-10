@@ -44,11 +44,11 @@ import javafx.scene.layout.AnchorPane;
  */
 public class CustomerController implements Initializable {
 
-    private static final String panelCustomerPath = "desktoproject/View/Panels/Customer.fxml";
+    private static final String PATH = "desktoproject/View/Panels/Customer.fxml";
 
     public static Parent call() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         CustomerController controller = loader.getController();
         controller.setEdit(false);
@@ -61,7 +61,7 @@ public class CustomerController implements Initializable {
 
     public static Parent call(Object person) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CustomerController.class.getClassLoader().getResource(panelCustomerPath));
+        loader.setLocation(CustomerController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
         CustomerController controller = loader.getController();
         controller.setPerson((Person) person);
@@ -181,6 +181,7 @@ public class CustomerController implements Initializable {
             try {
                 if(edit){
                     newPerson.setId(person.getId());
+                    newPerson.setActive(person.isActive());
                     PersonDAO.updatePerson(newPerson);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();

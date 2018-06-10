@@ -185,6 +185,7 @@ public class SupplierController implements Initializable {
             try {
                 if (edit) {
                     newSupplier.setId(supplier.getId());
+                    newSupplier.setActive(supplier.isActive());
                     PersonDAO.updatePerson(newSupplier);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().backToPrevious();
