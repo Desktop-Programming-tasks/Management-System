@@ -16,6 +16,8 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import deskprojectserver.Database.DAO.Transactions.RegisterDAO;
 import deskprojectserver.Database.DAO.Transactions.TransactionProductDAO;
 import deskprojectserver.Database.DAO.Transactions.TransactionServiceDAO;
+import deskprojectserver.Utils.FormatUtils;
+import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.MySqlHandler;
@@ -23,6 +25,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.function.Predicate;
+import java.util.logging.Filter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +49,10 @@ public class MySqlRegisterDAO extends RegisterDAO {
     private static final String GET_ONE_SQL = "SELECT `idRegistry`, `dateRegistry`, "
             + "`valueRegistry`, `typeRegistry`, `Person_customer`, "
             + "`Person_employee` FROM `Registry` WHERE idRegistry=?";
+
+    private static final String GET_ALL_ID_SQL = "SELECT `idRegistry`  FROM `Registry`";
+    private static final String GET_ALL_ID_LIKE_SQL = "SELECT `idRegistry`  FROM `Registry`"
+            + " WHERE Person_customer LIKE ?";
 
     public MySqlRegisterDAO() {
         super(new MySqlProductTransactionDAO(), null);
@@ -95,12 +103,44 @@ public class MySqlRegisterDAO extends RegisterDAO {
 
     @Override
     public ArrayList<Record> getAllRecords() throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getGenericRecords(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_ID_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
     }
 
     @Override
     public ArrayList<Record> getLikeRecords(String id) throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Record> records = getAllRecords();
+        records.removeIf((Record t) -> {
+            if (t.getCustomer().getName().contains(id)) {
+                return false;
+            }
+            return true;
+        });
+        return records;
     }
 
+    private ArrayList<Record> getGenericRecords(QueryExecuter executer) throws DatabaseErrorException {
+        ArrayList<Record> records = new ArrayList<>();
+        QueryResult qr = executer.execute();
+        try {
+            while (qr.getResultSet().next()) {
+                try {
+                    records.add(getRegister(qr.getResultSet().getString(ID)));
+                } catch (NoResultsException ex) {
+                    //
+                }
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseErrorException();
+        }
+        return records;
+    }
 }

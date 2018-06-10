@@ -34,9 +34,13 @@ public class DeskProjectServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException {
-        Record rc = DAOBuilder.getInstance().getRegisterDAO().getRegister("56349152");
-        System.out.println(rc);
-        
+        for(Record record : DAOBuilder.getInstance().getRegisterDAO().getLikeRecords("03")){
+            System.out.println(record);
+        }
+        System.out.println("dsadsada");
+        for(Record record : DAOBuilder.getInstance().getRegisterDAO().getAllRecords()){
+            System.out.println(record);
+        }
     }
 
 }
