@@ -16,6 +16,8 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -51,7 +53,12 @@ public class MySqlBrandDAO extends BrandDAO {
 
     @Override
     public void updateBrand(Brand brand) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
+                    brand.getName(), brand.isActive(), brand.getId());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
