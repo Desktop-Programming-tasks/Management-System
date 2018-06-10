@@ -9,6 +9,7 @@ import Classes.Persons.Person;
 import Classes.Transactions.Product;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
 import deskprojectserver.Database.DAOBuilder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,10 +25,12 @@ public class DeskProjectServer {
      */
     public static void main(String[] args) {
         try {
-            for(Person p : DAOBuilder.getInstance().getPersonDAO().getLikePersons("va")){
-                System.out.println(p);
-            }
+            Person p = DAOBuilder.getInstance().getPersonDAO().getPerson("844.125.000-98");
+            DAOBuilder.getInstance().getPersonDAO().inactivatePerson(p);
+            System.out.println(p);
         } catch (DatabaseErrorException ex) {
+            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoResultsException ex) {
             Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

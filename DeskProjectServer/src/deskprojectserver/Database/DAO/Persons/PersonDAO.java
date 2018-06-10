@@ -209,7 +209,9 @@ public abstract class PersonDAO {
             juridicalDAO.removeJuridcalPerson((JuridicalPerson) p);
         }
         addressDAO.removeAddress(p);
-        
+        p.setActive(false);
+        basicUpdatePerson(p);
+
     }
 
     protected abstract void basicInsertPerson(Person p) throws DatabaseErrorException, DuplicatedEntryException;
@@ -217,9 +219,7 @@ public abstract class PersonDAO {
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
     protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
-    
-    
-        
+
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 
     public abstract ArrayList<Person> getLikePersons(String id) throws DatabaseErrorException;

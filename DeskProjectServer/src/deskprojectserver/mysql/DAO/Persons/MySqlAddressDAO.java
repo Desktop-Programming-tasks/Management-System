@@ -14,6 +14,8 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +42,7 @@ public class MySqlAddressDAO extends AddressDAO {
             + "`numberAddress`=?,`districtAddress`=?,"
             + "`City_nameCity`=?,`City_State_nameState`=?"
             + "WHERE Person_idPerson=?";
+    private static final String REMOVE_SQL = "DELETE FROM `Address` WHERE Person_idPerson=?";
 
     @Override
     public void insertAddress(Person person) throws DatabaseErrorException {
@@ -54,7 +57,11 @@ public class MySqlAddressDAO extends AddressDAO {
 
     @Override
     public void removeAddress(Person person) throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, person.getId());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
@@ -64,7 +71,7 @@ public class MySqlAddressDAO extends AddressDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     temp.getStreet(), temp.getNumber(), temp.getDistrict(), temp.getCity(),
-                    temp.getState(),person.getDocumentId());
+                    temp.getState(), person.getDocumentId());
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
