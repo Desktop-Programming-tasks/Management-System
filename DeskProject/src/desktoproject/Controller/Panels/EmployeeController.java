@@ -76,7 +76,6 @@ public class EmployeeController implements Initializable {
 //        controller.setUpComponents();
 //        return p;
 //    }
-    
     public static Parent call(Object employee, boolean promote) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
@@ -89,8 +88,8 @@ public class EmployeeController implements Initializable {
         controller.setTelephoneComponent(TelephoneComponentController.call(controller.getEmployee().getTelephones()));
         controller.setAnchors(p);
         controller.setEdit(true);
-        controller.setUpComponents();
         controller.setPromote(promote);
+        controller.setUpComponents();
         return p;
     }
 
@@ -120,7 +119,7 @@ public class EmployeeController implements Initializable {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Funcionário");
         }
-        if(promote) {
+        if (promote) {
             mainLabel.setText("Promover a funcionário");
             mainBtn.setText("Salvar");
         }
@@ -135,7 +134,7 @@ public class EmployeeController implements Initializable {
         employeeTypeCombobox.setValue(employee.getEmployeeType());
         //dont set the password, only detect changes in password if anything new is writen in the password and confirm password fields
     }
-    
+
     @FXML
     private GridPane gridpaneBasicData;
 
@@ -178,16 +177,16 @@ public class EmployeeController implements Initializable {
         Animation.bindAnimation(passwordFieldOficial);
         Animation.bindAnimation(passwordFieldConfirm);
         Animation.bindAnimation(employeeTypeCombobox);
-        
+
         comboBoxSetup();
         loadComboBox();
     }
-    
-    private void comboBoxSetup(){
-        employeeTypeCombobox.setCellFactory(new Callback<ListView<EmployeeType>, ListCell<EmployeeType>>(){
+
+    private void comboBoxSetup() {
+        employeeTypeCombobox.setCellFactory(new Callback<ListView<EmployeeType>, ListCell<EmployeeType>>() {
             @Override
             public ListCell<EmployeeType> call(ListView<EmployeeType> param) {
-                return new ListCell<EmployeeType>(){
+                return new ListCell<EmployeeType>() {
                     @Override
                     protected void updateItem(EmployeeType item, boolean empty) {
                         super.updateItem(item, empty);
@@ -203,9 +202,9 @@ public class EmployeeController implements Initializable {
         employeeTypeCombobox.setConverter(new StringConverter<EmployeeType>() {
             @Override
             public String toString(EmployeeType object) {
-                if(object==null){
+                if (object == null) {
                     return null;
-                }else{
+                } else {
                     return EmployeeType.translateEnumToGUI(object);
                 }
             }
@@ -215,8 +214,8 @@ public class EmployeeController implements Initializable {
                 return null;
             }
         });
-    } 
-    
+    }
+
     private void loadComboBox() {
         employeeTypeCombobox.setItems(FXCollections.observableArrayList(EmployeeType.values()));
         employeeTypeCombobox.setValue(EmployeeType.COMMOM);
@@ -232,28 +231,36 @@ public class EmployeeController implements Initializable {
         if (validate()) {
             Address address = ((AddressComponentController) addressComponentObj.getController()).getAddress();
             ArrayList<String> telephones = ((TelephoneComponentController) telephoneComponent.getController()).getTelephones();
-            
+
             String password;
-            
-            if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+
+            if ((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)) {
                 password = passwordFieldOficial.getText();
-            }else{
+            } else {
                 password = employee.getPassword();
             }
-            
+
             Employee newEmployee = new Employee(userTextField.getText(), password, employeeTypeCombobox.getValue(), RGTextField.getText(), nameTextField.getText(), address, telephones, CPFTextField.getText());
 
             try {
-                if (edit) {
+                if (promote) {
                     newEmployee.setId(employee.getId());
                     newEmployee.setActive(employee.isActive());
-                    PersonDAO.updatePerson(newEmployee);
-                    GUIController.getInstance().showUpdateAlert();
+                    PersonDAO.promoteEmployee(newEmployee);
+                    GUIController.getInstance().showPromoteAlert("Funcionário");
                     GUIController.getInstance().backToPrevious();
                 } else {
-                    PersonDAO.insertPerson(newEmployee);
-                    GUIController.getInstance().showRegisterAlert("Funcionário");
-                    GUIController.getInstance().backToPrevious();
+                    if (edit) {
+                        newEmployee.setId(employee.getId());
+                        newEmployee.setActive(employee.isActive());
+                        PersonDAO.updatePerson(newEmployee);
+                        GUIController.getInstance().showUpdateAlert();
+                        GUIController.getInstance().backToPrevious();
+                    } else {
+                        PersonDAO.insertPerson(newEmployee);
+                        GUIController.getInstance().showRegisterAlert("Funcionário");
+                        GUIController.getInstance().backToPrevious();
+                    }
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
@@ -301,7 +308,7 @@ public class EmployeeController implements Initializable {
 
         valObj.validateNick(userTextField.getText());
 
-        if((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)){
+        if ((edit && (!passwordFieldOficial.getText().isEmpty() || !passwordFieldConfirm.getText().isEmpty())) || (!edit)) {
             if (valObj.validatePassword(passwordFieldOficial.getText()) && valObj.validateConfirmPassword(passwordFieldConfirm.getText())) {
                 valObj.passwordMatch(passwordFieldOficial.getText(), passwordFieldConfirm.getText());
             }

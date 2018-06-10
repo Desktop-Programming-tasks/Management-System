@@ -33,9 +33,12 @@ public interface ServerMethods extends Remote {
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
     public void updatePerson(Person person) throws RemoteException, DuplicatedLoginException, NoResultsException, DatabaseErrorException;
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed;
+    public void promoteEmployee(Employee employee) throws RemoteException, DatabaseErrorException, DuplicatedLoginException; 
+    public void promoteSupplier(Supplier supplier) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
     
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException;
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
+    public void updateBrand(Brand brand) throws RemoteException, DatabaseErrorException, NoResultsException;
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException;
     
     public Product queryProduct(String id) throws  RemoteException, NoResultsException, DatabaseErrorException;

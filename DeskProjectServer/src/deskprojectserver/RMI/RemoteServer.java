@@ -74,7 +74,17 @@ public class RemoteServer implements ServerMethods {
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
         DAOBuilder.getInstance().getPersonDAO().removePerson(person);
     }
-
+    
+    @Override
+    public void promoteEmployee(Employee employee) throws RemoteException, DatabaseErrorException, DuplicatedLoginException {
+        DAOBuilder.getInstance().getPersonDAO().legalToEmployee(employee);
+    }
+    
+    @Override
+    public void promoteSupplier(Supplier supplier) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
+        DAOBuilder.getInstance().getPersonDAO().juridicalToSupplier(supplier);
+    }
+    
     @Override
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getBrandDAO().getAllBrands();
@@ -88,6 +98,11 @@ public class RemoteServer implements ServerMethods {
     @Override
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException {
         DAOBuilder.getInstance().getBrandDAO().removeBrand(brand);
+    }
+    
+    @Override
+    public void updateBrand(Brand brand) throws RemoteException, DatabaseErrorException, NoResultsException {
+        DAOBuilder.getInstance().getBrandDAO().updateBrand(brand);
     }
 
     @Override
