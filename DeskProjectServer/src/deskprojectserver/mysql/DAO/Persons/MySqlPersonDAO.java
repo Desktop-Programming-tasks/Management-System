@@ -41,7 +41,7 @@ public class MySqlPersonDAO extends PersonDAO {
             + "VALUES (?,?,?,?,?)";
 
     private final static String GET_SINGLE_SQL = "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
-            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "`tel1Person`, `tel2Person`,`isActivePerson` FROM `Person` "
             + "WHERE idDocumentPerson=? AND isActivePerson";
 
     private final static String GET_SINGLE_SQL_INACT = ""
@@ -113,6 +113,7 @@ public class MySqlPersonDAO extends PersonDAO {
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
         if (p.getName() == null) {

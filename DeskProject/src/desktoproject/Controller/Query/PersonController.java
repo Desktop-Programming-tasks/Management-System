@@ -66,13 +66,11 @@ public class PersonController implements Initializable {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
-                deleteBtn.setVisible(false);
                 break;
             }
             case EMPLOYEE: {
                 mainLabel.setText("Consulta de Funcionários");
                 personDocColumn.setText("CPF");
-                deleteBtn.setVisible(true);
                 break;
             }
         }
@@ -211,6 +209,7 @@ public class PersonController implements Initializable {
             try {
                 if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
                     PersonDAO.deletePerson(person);
+                    populateTable();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
