@@ -11,12 +11,13 @@ import Classes.Persons.Person;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 /**
  *
  * @author gabriel
  */
-public class Record implements Serializable{
+public class Record implements Serializable {
 
     private int id;
     private Employee assignedEmployee;
@@ -33,6 +34,18 @@ public class Record implements Serializable{
         this.totalprice = totalprice;
         this.customer = customer;
         this.transactions = transations;
+        this.type = type;
+    }
+
+    public Record(Employee assignedEmployee, Person customer, ArrayList<Transaction> transactions, RecordType type) {
+        this.assignedEmployee = assignedEmployee;
+        for (Transaction t : transactions) {
+            System.out.println(t.getPrice());
+            System.out.println(t.getQuantity());
+            totalprice += (t.getPrice() * t.getQuantity());
+        }
+        this.customer = customer;
+        this.transactions = transactions;
         this.type = type;
     }
 
@@ -88,4 +101,17 @@ public class Record implements Serializable{
     public String toString() {
         return "Record{" + "id=" + id + ", assignedEmployee=" + assignedEmployee + ", registerDate=" + registerDate + ", totalprice=" + totalprice + ", customer=" + customer + ", transations=" + transactions + ", type=" + type + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = hash + (int) (31 * registerDate.getTime());
+        hash = hash + (31 * toString().hashCode());
+        hash = hash + (401 * assignedEmployee.getDocumentId().hashCode());
+        hash = hash + (73 * customer.getDocumentId().hashCode());
+        hash = hash + (71 * (int) totalprice);
+        hash = Math.abs(hash * (new Random().nextInt(9) + 1));
+        return hash;
+    }
+
 }
