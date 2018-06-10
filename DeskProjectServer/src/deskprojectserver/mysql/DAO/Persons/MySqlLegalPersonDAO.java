@@ -15,6 +15,8 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,6 +30,7 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
             + "FROM `LegalPerson` WHERE Person_idPerson=?";
     private static final String UPDATE_SQL = "UPDATE `LegalPerson` "
             + "SET `rgLegalPerson`=? WHERE Person_idPerson=?";
+    private static final String REMOVE_SQL = "DELETE FROM `LegalPerson` WHERE Person_idPerson=?";
     private static final String RG = "rgLegalPerson";
     private static final String ID = "Person_idPerson";
 
@@ -45,17 +48,20 @@ public class MySqlLegalPersonDAO extends LegalPersonDAO {
     @Override
     public void updateLegalPerson(LegalPerson lp) throws NoResultsException, DatabaseErrorException {
         getLegalPerson(lp.getDocumentId());
-        try{
-            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,lp.getRG(),lp.getDocumentId());
-        }
-        catch(ClassNotFoundException | SQLException e){
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, lp.getRG(), lp.getDocumentId());
+        } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
     }
-    
+
     @Override
-    public void removeLegalPerson(LegalPerson lp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeLegalPerson(LegalPerson lp) throws DatabaseErrorException {
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, lp.getCPF());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 
     @Override
