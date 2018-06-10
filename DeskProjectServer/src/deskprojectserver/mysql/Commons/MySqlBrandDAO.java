@@ -41,7 +41,7 @@ public class MySqlBrandDAO extends BrandDAO {
     private static final String GET_ONE_NAME = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE nameBrand=? AND isActiveBrand";
     private static final String GET_ONE_ID = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
-            + "FROM `Brand` WHERE idBrand=? AND isActiveBrand";
+            + "FROM `Brand` WHERE idBrand=?";
     private static final String GET_ONE_INACTIVE = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE nameBrand=?";
 
