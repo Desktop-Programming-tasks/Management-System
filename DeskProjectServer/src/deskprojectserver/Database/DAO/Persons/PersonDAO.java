@@ -45,7 +45,7 @@ public abstract class PersonDAO {
             basicInsertPerson(p);
         } catch (DuplicatedEntryException e) {
             try {
-                Person aux = basicGetPerson(p.getDocumentId());
+                Person aux = basicGetPerson(p.getDocumentId(),false);
                 if (aux.isActive()) {
                     throw new DuplicatedEntryException();
                 } else {
@@ -88,7 +88,7 @@ public abstract class PersonDAO {
     public Person getPerson(String id) throws DatabaseErrorException, NoResultsException {
         Person p;
         try {
-            p = basicGetPerson(id);
+            p = basicGetPerson(id,true);
             p.setAddress(addressDAO.getAddress(p));
         } catch (NoResultsException a) {
             throw a;
@@ -249,7 +249,7 @@ public abstract class PersonDAO {
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
-    protected abstract Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException;
+    protected abstract Person basicGetPerson(String id,boolean justActive) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 

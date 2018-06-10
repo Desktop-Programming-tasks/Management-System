@@ -44,6 +44,11 @@ public class MySqlPersonDAO extends PersonDAO {
             + "`tel1Person`, `tel2Person` FROM `Person` "
             + "WHERE idDocumentPerson=? AND isActivePerson";
 
+    private final static String GET_SINGLE_SQL_INACT = ""
+            + "SELECT `idPerson`,`idDocumentPerson`, `namePerson`, "
+            + "`tel1Person`, `tel2Person` FROM `Person` "
+            + "WHERE idDocumentPerson=?";
+
     private final static String GET_ALL_ID = "SELECT `idDocumentPerson` FROM `Person` "
             + "WHERE isActivePerson";
 
@@ -86,11 +91,16 @@ public class MySqlPersonDAO extends PersonDAO {
     }
 
     @Override
-    public Person basicGetPerson(String id) throws DatabaseErrorException, NoResultsException {
+    public Person basicGetPerson(String id, boolean justActive) throws DatabaseErrorException, NoResultsException {
         Person p = new Person(null, null, null, id) {
         };
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+            QueryResult qr;
+            if (justActive) {
+                qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL, id);
+            } else {
+                qr = MySqlHandler.getInstance().getDb().query(GET_SINGLE_SQL_INACT, id);
+            }
             ArrayList<String> tels = new ArrayList<>();
             while (qr.getResultSet().next()) {
                 p.setId(qr.getResultSet().getInt(ID));
