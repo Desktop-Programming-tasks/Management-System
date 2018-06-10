@@ -6,11 +6,9 @@
 package desktoproject.Controller.Query;
 
 import Classes.Persons.Person;
-import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
-import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;

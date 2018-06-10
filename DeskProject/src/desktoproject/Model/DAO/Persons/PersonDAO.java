@@ -6,6 +6,8 @@
 package desktoproject.Model.DAO.Persons;
 
 import Classes.Persons.Employee;
+import Classes.Persons.JuridicalPerson;
+import Classes.Persons.LegalPerson;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
@@ -60,5 +62,53 @@ public abstract class PersonDAO {
     
     public static ArrayList<Person> searchPersons(String id) throws RemoteException, DatabaseErrorException {
         return Globals.getInstance().getChannel().searchPersons(id);
+    }
+    
+    public static ArrayList<Person> queryAllLegalPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+        ArrayList<Person> allPersons = Globals.getInstance().getChannel().queryAllPersons();
+        ArrayList<Person> legalPersons = filterLegalPersons(allPersons);
+        return legalPersons;
+    }
+    
+    public static ArrayList<Person> queryAllJuridicalPersons() throws RemoteException, NoResultsException, DatabaseErrorException {
+        ArrayList<Person> allPersons = Globals.getInstance().getChannel().queryAllPersons();
+        ArrayList<Person> juridicalPersons = filterJuridicalPersons(allPersons);
+        return juridicalPersons;
+    }
+    
+    public static ArrayList<Person> searchLegalPersons(String id) throws RemoteException, DatabaseErrorException, DatabaseErrorException {
+        ArrayList<Person> allPersons = Globals.getInstance().getChannel().searchPersons(id);
+        ArrayList<Person> legalPersons = filterLegalPersons(allPersons);
+        return legalPersons;
+    }
+    
+    public static ArrayList<Person> searchJuridicalPersons(String id) throws RemoteException, DatabaseErrorException {
+        ArrayList<Person> allPersons = Globals.getInstance().getChannel().searchPersons(id);
+        ArrayList<Person> juridicalPersons = filterJuridicalPersons(allPersons);
+        return juridicalPersons;
+    }
+    
+    private static ArrayList<Person> filterLegalPersons(ArrayList<Person> persons) {
+        ArrayList<Person> legalPersons = new ArrayList<>();
+           
+        persons.forEach(person -> {
+            if(person.getClass().equals(LegalPerson.class)) {
+                legalPersons.add(person);
+            }
+        });
+       
+        return legalPersons;
+    }
+    
+    private static ArrayList<Person> filterJuridicalPersons(ArrayList<Person> persons) {
+        ArrayList<Person> juridicalPersons = new ArrayList<>();
+        
+        persons.forEach(person -> {
+            if(person.getClass().equals(JuridicalPerson.class)) {
+                juridicalPersons.add(person);
+            }
+        });
+        
+        return juridicalPersons;
     }
 }

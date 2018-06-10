@@ -61,7 +61,23 @@ public class EmployeeController implements Initializable {
         return p;
     }
 
-    public static Parent call(Object employee) throws IOException {
+//    public static Parent call(Object employee) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//
+//        EmployeeController controller = loader.getController();
+//        controller.setAnchors(p);
+//        controller.setEmployee((Employee) employee);
+//        controller.setAddressComponentObj(AddressComponentController.call(controller.getEmployee().getAddress()));
+//        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getEmployee().getTelephones()));
+//        controller.setAnchors(p);
+//        controller.setEdit(true);
+//        controller.setUpComponents();
+//        return p;
+//    }
+    
+    public static Parent call(Object employee, boolean promote) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
         Parent p = loader.load();
@@ -74,6 +90,7 @@ public class EmployeeController implements Initializable {
         controller.setAnchors(p);
         controller.setEdit(true);
         controller.setUpComponents();
+        controller.setPromote(promote);
         return p;
     }
 
@@ -86,6 +103,7 @@ public class EmployeeController implements Initializable {
 
     private Employee employee;
     private boolean edit;
+    private boolean promote;
     private ScreenObject addressComponentObj;
     private ScreenObject telephoneComponent;
 
@@ -101,6 +119,10 @@ public class EmployeeController implements Initializable {
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Funcionário");
+        }
+        if(promote) {
+            mainLabel.setText("Promover a funcionário");
+            mainBtn.setText("Salvar");
         }
     }
 
@@ -292,5 +314,11 @@ public class EmployeeController implements Initializable {
         }
     }
 
-    
+    private boolean isPromote() {
+        return promote;
+    }
+
+    private void setPromote(boolean promote) {
+        this.promote = promote;
+    }
 }

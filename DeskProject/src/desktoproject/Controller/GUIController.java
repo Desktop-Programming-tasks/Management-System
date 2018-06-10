@@ -5,6 +5,7 @@
  */
 package desktoproject.Controller;
 
+import desktoproject.Controller.Panels.PromotionPersonController;
 import Classes.Enums.*;
 import Classes.Persons.*;
 import Classes.Transactions.*;
@@ -195,6 +196,14 @@ public class GUIController {
                     setDynamicChild(QuerySupplierController.call());
                     break;
                 }
+                case REGISTER_PROMOTE_LEGAL_PERSON: {
+                    setDynamicChild(PromotionPersonController.call(PersonPromotion.LEGAL_PERSON));
+                    break;
+                }
+                case REGISTER_PROMOTE_JURIDICAL_PERSON: {
+                    setDynamicChild(PromotionPersonController.call(PersonPromotion.JURIDICAL_PERSON));
+                    break;
+                }
                 case CUSTOMER_CREATE: {
                     setDynamicChild(CustomerController.call());
                     break;
@@ -208,7 +217,11 @@ public class GUIController {
                     break;
                 }
                 case EMPLOYEE_DISPLAY: {
-                    setDynamicChild(EmployeeController.call(obj));
+                    setDynamicChild(EmployeeController.call(obj, false));
+                    break;
+                }
+                case EMPLOYEE_PROMOTE: {
+                    setDynamicChild(EmployeeController.call(obj, true));
                     break;
                 }
                 case PRODUCT_CREATE: {
@@ -224,7 +237,11 @@ public class GUIController {
                     break;
                 }
                 case SUPPLIER_DISPLAY: {
-                    setDynamicChild(SupplierController.call(obj));
+                    setDynamicChild(SupplierController.call(obj, false));
+                    break;
+                }
+                case SUPPLIER_PROMOTE: {
+                    setDynamicChild(SupplierController.call(obj, true));
                     break;
                 }
             }
