@@ -10,16 +10,50 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author gabriel
  */
 public abstract class ServiceTypeDAO {
-    public abstract void insertServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
-    public abstract void updateServiceType(ServiceType st) throws DatabaseErrorException,DuplicatedEntryException;
-    public abstract ServiceType getServiceType(String id) throws DatabaseErrorException,NoResultsException;
+
+    protected abstract void insertBasicServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException;
+
+    public abstract void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException;
+
+    public abstract ServiceType getServiceType(String id) throws DatabaseErrorException, NoResultsException;
+
     public abstract ArrayList<ServiceType> getAllServiceTypes() throws DatabaseErrorException;
+
     public abstract ArrayList<ServiceType> getLikeServiceTypes(String id) throws DatabaseErrorException;
-    
+
+    public void inactivateServiceType(ServiceType st) throws DatabaseErrorException {
+        st.setActive(false);
+        try {
+            updateServiceType(st);
+        } catch (DuplicatedEntryException e) {
+            throw new DatabaseErrorException();
+        }
+    }
+
+    public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
+        try {
+            insertBasicServiceType(st);
+        } catch (DuplicatedEntryException e) {
+            try {
+                ServiceType temp = getServiceType(st.getName());
+                if (temp.isActive()) {
+                    throw e;
+                } else {
+                    st.setId(temp.getId());
+                    st.setActive(true);
+                    updateServiceType(st);
+                }
+            } catch (NoResultsException ex) {
+                //
+            }
+        }
+    }
 }

@@ -28,27 +28,27 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     private static final String NAME = "nameServiceType";
     private static final String PRICE = "priceServiceType";
     private static final String ID = "idServiceType";
+    private static final String IS_ACTIVE = "isActiveServiceType";
     private static final String INSERT_SQL = "INSERT INTO "
             + "`ServiceType`(`nameServiceType`, `priceServiceType`,`isActiveServiceType`)"
             + "VALUES (?,?,?)";
     private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + "FROM `ServiceType` WHERE nameServiceType=?";
+            + ",`isActiveServiceType` FROM `ServiceType` WHERE nameServiceType=?";
     private static final String GET_ALL_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + "FROM `ServiceType`";
+            + "FROM `ServiceType` WHERE isActiveServiceType";
     private static final String UPDATE_SQL = "UPDATE `ServiceType` "
-            + "SET `nameServiceType`=?,`priceServiceType`=? WHERE idServiceType=?";
+            + "SET `nameServiceType`=?,`priceServiceType`=?,`isActiveServiceType`=? WHERE idServiceType=?";
     private static final String GET_LIKE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + "FROM `ServiceType` WHERE nameServiceType LIKE ?";
+            + "FROM `ServiceType` WHERE nameServiceType LIKE ? AND isActiveServiceType";
 
     @Override
-    public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
+    protected void insertBasicServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, st.getName(), st.getPrice(),
-                    ActivationStatus.ACTIVE_STATE);
+                    true);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
             throw new DatabaseErrorException();
         }
     }
@@ -57,7 +57,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     public void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(), st.getPrice(),
-                    st.getId());
+                    st.getId(), st.isActive());
         } catch (MySQLIntegrityConstraintViolationException ex) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -73,6 +73,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             while (qr.getResultSet().next()) {
                 st = new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
                         qr.getResultSet().getFloat(PRICE));
+                st.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
             }
             qr.closeAll();
         } catch (ClassNotFoundException | SQLException e) {

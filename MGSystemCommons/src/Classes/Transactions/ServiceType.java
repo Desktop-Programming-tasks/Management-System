@@ -16,6 +16,7 @@ public class ServiceType implements Serializable{
     private int id;
     private String name;
     private float price;
+    private boolean active;
     public ServiceType(int id, String name, float price) {
         this.id = id;
         this.name = name;
@@ -52,6 +53,14 @@ public class ServiceType implements Serializable{
         return id;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     @Override
     public String toString() {
         return "ServiceType{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
