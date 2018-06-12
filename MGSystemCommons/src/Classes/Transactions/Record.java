@@ -41,11 +41,7 @@ public class Record implements Serializable {
         for (Transaction t : transactions) {
             System.out.println(t.getPrice());
             System.out.println(t.getQuantity());
-            if (t instanceof Product) {
-                totalprice += (t.getPrice() * t.getQuantity());
-            } else if (t instanceof Service) {
-                totalprice += t.getPrice();
-            }
+            totalprice += (t.getPrice() * t.getQuantity());
         }
         this.customer = customer;
         this.transactions = transactions;

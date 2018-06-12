@@ -40,12 +40,6 @@ public abstract class TransactionProductDAO {
             checkIfAvailable(product);
         }
         insertProductTransaction(record, product);
-
-        if (record.getType() == RecordTypeConstants.PURCHASE) {
-            updateStock(product, (product.getQuantity()));
-        } else if (record.getType() == RecordTypeConstants.SALE) {
-            updateStock(product, (-product.getQuantity()));
-        }
     }
 
 }

@@ -416,10 +416,10 @@ public class GUIController {
         Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
         LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
         Employee employee = new Employee("login test", "password", EmployeeType.COMMOM, "87854", "employee of the month", address, telephones, "498431");
-        Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
+        //Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
         ArrayList<Transaction> transactions = new ArrayList<>();
         transactions.add(testProduct);
-        transactions.add(service);
+        //transactions.add(service);
 
         //Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
 //        callModal(ModalType.SERVICE_ADD);

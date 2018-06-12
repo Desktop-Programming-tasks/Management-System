@@ -25,11 +25,13 @@ public class Service extends Transaction implements Serializable{
 
     public Service(Date startDate, Date estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
+        super.setQuantity(1);
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
         this.status = status;
         this.assignedEmployee = assignedEmployee;
         this.serviceType = serviceType;
+        
     }
 
     public Date getStartDate() {

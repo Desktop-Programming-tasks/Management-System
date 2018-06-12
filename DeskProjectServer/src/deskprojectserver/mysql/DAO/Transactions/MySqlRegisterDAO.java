@@ -20,6 +20,8 @@ import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -42,8 +44,8 @@ public class MySqlRegisterDAO extends RegisterDAO {
             + "`Person_employee` FROM `Registry` WHERE idRegistry=?";
 
     private static final String GET_ALL_ID_SQL = "SELECT `idRegistry`  FROM `Registry`";
-    private static final String GET_ALL_ID_LIKE_SQL = "SELECT `idRegistry`  FROM `Registry`"
-            + " WHERE Person_customer LIKE ?";
+    private static final String REMOVE_SQL = "DELETE FROM `Registry` WHERE "
+            + "idRegistry=?";
 
     public MySqlRegisterDAO() {
         super(new MySqlProductTransactionDAO(), new MySqlServiceTransactionDAO());
@@ -131,5 +133,14 @@ public class MySqlRegisterDAO extends RegisterDAO {
             throw new DatabaseErrorException();
         }
         return records;
+    }
+
+    @Override
+    protected void removeRecord(Record record) throws DatabaseErrorException {
+        try {
+            MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, record.getId());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 }

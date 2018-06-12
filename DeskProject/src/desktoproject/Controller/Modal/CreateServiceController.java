@@ -86,8 +86,8 @@ public class CreateServiceController extends ControllerEdit implements Initializ
     @Override
     public void fillScreen() {
         valueTextField.setText(String.valueOf(service.getPrice()));
-        beginDate.setValue(service.getStartDate());
-        endDate.setValue(service.getEstimatedDate());
+        //beginDate.setValue(service.getStartDate());
+        //endDate.setValue(service.getEstimatedDate());
         //setar estado e employee
     }
     
@@ -253,15 +253,15 @@ public class CreateServiceController extends ControllerEdit implements Initializ
     
     @FXML
     private void mainAction(){
-        if(validate()){
-            Service newService = new Service(beginDate.getValue(),endDate.getValue(),comboBoxState.getValue(),comboBoxEmployee.getValue(),comboBoxService.getValue());
-            
-            if(isEdit()){
-            
-            }else{
-                newServiceReturn = newService;
-            }
-        }
+//        if(validate()){
+//            Service newService = new Service(beginDate.getValue(),endDate.getValue(),comboBoxState.getValue(),comboBoxEmployee.getValue(),comboBoxService.getValue());
+//            
+//            if(isEdit()){
+//            
+//            }else{
+//                newServiceReturn = newService;
+//            }
+//        }
     }
     
     @FXML

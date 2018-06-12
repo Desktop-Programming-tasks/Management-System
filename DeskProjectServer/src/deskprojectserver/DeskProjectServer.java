@@ -40,7 +40,7 @@ public class DeskProjectServer {
         ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("teste");
         System.out.println(st);
         Product product = DAOBuilder.getInstance().getProductDAO().getProduct("02", true);
-        product.setQuantity(1);
+        product.setQuantity(100);
         Service service = new Service(new Date(), new Date(), ServiceStatus.REFUSED, emp, st);
         ArrayList<Transaction> transactions = new ArrayList<>();
         transactions.add(service);
