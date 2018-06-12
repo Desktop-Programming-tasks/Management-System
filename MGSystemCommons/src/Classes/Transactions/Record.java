@@ -41,7 +41,11 @@ public class Record implements Serializable {
         for (Transaction t : transactions) {
             System.out.println(t.getPrice());
             System.out.println(t.getQuantity());
-            totalprice += (t.getPrice() * t.getQuantity());
+            if (t instanceof Product) {
+                totalprice += (t.getPrice() * t.getQuantity());
+            } else if (t instanceof Service) {
+                totalprice += t.getPrice();
+            }
         }
         this.customer = customer;
         this.transactions = transactions;
@@ -103,7 +107,6 @@ public class Record implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
-    
 
     @Override
     public String toString() {

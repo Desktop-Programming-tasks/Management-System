@@ -8,7 +8,7 @@ package Classes.Transactions;
 import Classes.Enums.ServiceStatus;
 import Classes.Persons.Employee;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -16,14 +16,14 @@ import java.time.LocalDate;
  */
 public class Service extends Transaction implements Serializable{
 
-    private LocalDate startDate;
-    private LocalDate estimatedDate;
-    private LocalDate finishDate;
+    private Date startDate;
+    private Date estimatedDate;
+    private Date finishDate;
     private ServiceStatus status;
     private Employee assignedEmployee;
     private ServiceType serviceType;
 
-    public Service(LocalDate startDate, LocalDate estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
+    public Service(Date startDate, Date estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
         this.startDate = startDate;
         this.estimatedDate = estimatedDate;
@@ -32,27 +32,27 @@ public class Service extends Transaction implements Serializable{
         this.serviceType = serviceType;
     }
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEstimatedDate() {
+    public Date getEstimatedDate() {
         return estimatedDate;
     }
 
-    public void setEstimatedDate(LocalDate estimatedDate) {
+    public void setEstimatedDate(Date estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
 
-    public LocalDate getFinishDate() {
+    public Date getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDate finishDate) {
+    public void setFinishDate(Date finishDate) {
         this.finishDate = finishDate;
     }
 

@@ -46,13 +46,11 @@ public class MySqlRegisterDAO extends RegisterDAO {
             + " WHERE Person_customer LIKE ?";
 
     public MySqlRegisterDAO() {
-        super(new MySqlProductTransactionDAO(), null);
+        super(new MySqlProductTransactionDAO(), new MySqlServiceTransactionDAO());
     }
 
     @Override
     protected void basicInsertRecord(Record record) throws DuplicatedEntryException, DatabaseErrorException {
-        record.setRegisterDate(Calendar.getInstance().getTime());
-        record.setId(record.hashCode());
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
                     record.getId(), record.getRegisterDate(), record.getTotalprice(), record.getType(), record.getCustomer().getDocumentId(),

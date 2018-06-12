@@ -11,6 +11,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
+import deskprojectserver.Utils.ActivationStatus;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -28,8 +29,8 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     private static final String PRICE = "priceServiceType";
     private static final String ID = "idServiceType";
     private static final String INSERT_SQL = "INSERT INTO "
-            + "`ServiceType`(`nameServiceType`, `priceServiceType`) "
-            + "VALUES (?,?)";
+            + "`ServiceType`(`nameServiceType`, `priceServiceType`,`isActiveServiceType`)"
+            + "VALUES (?,?,?)";
     private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + "FROM `ServiceType` WHERE nameServiceType=?";
     private static final String GET_ALL_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
@@ -42,10 +43,12 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     @Override
     public void insertServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
         try {
-            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, st.getName(), st.getPrice());
+            MySqlHandler.getInstance().getDb().execute(INSERT_SQL, st.getName(), st.getPrice(),
+                    ActivationStatus.ACTIVE_STATE);
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
             throw new DatabaseErrorException();
         }
     }

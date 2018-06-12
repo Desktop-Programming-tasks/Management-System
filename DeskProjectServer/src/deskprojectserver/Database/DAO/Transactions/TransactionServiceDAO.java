@@ -7,6 +7,7 @@ package deskprojectserver.Database.DAO.Transactions;
 
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
+import Exceptions.DatabaseErrorException;
 
 /**
  *
@@ -14,5 +15,5 @@ import Classes.Transactions.Service;
  */
 public abstract class TransactionServiceDAO {
 
-    public abstract void insertServiceTransaction(Record record, Service service);
+    public abstract void insertServiceTransaction(Record record, Service service) throws DatabaseErrorException;
 }

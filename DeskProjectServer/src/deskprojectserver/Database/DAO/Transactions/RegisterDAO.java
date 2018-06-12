@@ -14,6 +14,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -30,6 +31,8 @@ public abstract class RegisterDAO {
     }
 
     public void insertFullRegisterAndTransactions(Record record) throws DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
+        record.setRegisterDate(Calendar.getInstance().getTime());
+        record.setId(record.hashCode());
         basicInsertRecord(record);
         for (Transaction t : record.getTransations()) {
             if (t instanceof Product) {
@@ -46,7 +49,7 @@ public abstract class RegisterDAO {
         return record;
     }
 
-    protected abstract Record basicGetRecord(String id) throws DatabaseErrorException,NoResultsException;
+    protected abstract Record basicGetRecord(String id) throws DatabaseErrorException, NoResultsException;
 
     protected abstract void basicInsertRecord(Record record) throws DuplicatedEntryException, DatabaseErrorException;
 
