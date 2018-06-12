@@ -17,12 +17,8 @@ import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jdk.nashorn.internal.ir.ForNode;
 
 /**
  *

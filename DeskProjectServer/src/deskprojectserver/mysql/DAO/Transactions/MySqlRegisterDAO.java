@@ -8,27 +8,18 @@ package deskprojectserver.mysql.DAO.Transactions;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Classes.Transactions.Record;
-import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.RegisterDAO;
-import deskprojectserver.Database.DAO.Transactions.TransactionProductDAO;
-import deskprojectserver.Database.DAO.Transactions.TransactionServiceDAO;
-import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.MySqlHandler;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.function.Predicate;
-import java.util.logging.Filter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

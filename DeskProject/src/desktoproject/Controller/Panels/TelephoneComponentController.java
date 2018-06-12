@@ -5,60 +5,58 @@
  */
 package desktoproject.Controller.Panels;
 
+import desktoproject.Controller.ControllerEdit;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import desktoproject.Controller.FXMLPaths;
 
 /**
  * FXML Controller class
  *
  * @author noda
  */
-public class TelephoneComponentController implements Initializable {
+public class TelephoneComponentController extends ControllerEdit implements Initializable {
     
-    private static final String PATH = "desktoproject/View/Panels/TelephoneComponent.fxml";
-
-    public static ScreenObject call() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TelephoneComponentController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        TelephoneComponentController controller = loader.getController();
-        controller.setAnchors(p);
-        controller.setTelephones(new ArrayList<>());
-        return new ScreenObject(p, controller);
-    }
+//    private static final String PATH = "desktoproject/View/Panels/TelephoneComponent.fxml";
+//
+//    public static ScreenObject call() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(TelephoneComponentController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        TelephoneComponentController controller = loader.getController();
+//        controller.setAnchors(p);
+//        controller.setTelephones(new ArrayList<>());
+//        return new ScreenObject(p, controller);
+//    }
+//    
+//    public static ScreenObject call(Object obj) throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(TelephoneComponentController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        TelephoneComponentController controller = loader.getController();
+//        controller.setAnchors(p);
+//        controller.setTelephones((ArrayList<String>) obj);
+//        controller.fillScreen();
+//        return new ScreenObject(p, controller);
+//    }
     
-    public static ScreenObject call(Object obj) throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TelephoneComponentController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        TelephoneComponentController controller = loader.getController();
-        controller.setAnchors(p);
-        controller.setTelephones((ArrayList<String>) obj);
-        controller.fillScreen();
-        return new ScreenObject(p, controller);
-    }
-    
-    private void fillScreen() {
+    @Override
+    public void fillScreen() {
         setFields(telephones.get(0),((telephones.size()>1)?(telephones.get(1)):("")));
     }
     
-    private void setAnchors(Parent p){
-        AnchorPane.setTopAnchor(p,0.0);
-        AnchorPane.setLeftAnchor(p,0.0);
-        AnchorPane.setBottomAnchor(p,0.0);
-        AnchorPane.setRightAnchor(p,0.0);
-    }
+//    private void setAnchors(Parent p){
+//        AnchorPane.setTopAnchor(p,0.0);
+//        AnchorPane.setLeftAnchor(p,0.0);
+//        AnchorPane.setBottomAnchor(p,0.0);
+//        AnchorPane.setRightAnchor(p,0.0);
+//    }
     
     private void setFields(String primary, String secondary){
         telTextField.setText(primary);
@@ -112,5 +110,20 @@ public class TelephoneComponentController implements Initializable {
             valObj.validateTelephone(secTelTextField.getText());
         }
         return valObj.getErrorMessage();
+    }
+
+    @Override
+    public void setUpComponents() {
+        // nothing happen here
+    }
+
+    @Override
+    public void setScreenObject(Object obj) {
+        this.telephones = (ArrayList<String>) obj;
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.TELEFONE_COMPONENT;
     }
 }

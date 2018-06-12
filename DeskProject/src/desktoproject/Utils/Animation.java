@@ -7,17 +7,12 @@ package desktoproject.Utils;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 

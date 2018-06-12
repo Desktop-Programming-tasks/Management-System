@@ -9,22 +9,24 @@ import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -39,18 +41,26 @@ import javafx.scene.input.KeyCode;
  *
  * @author noda
  */
-public class PersonController implements Initializable {
+public class PersonController extends Controller implements Initializable, TableScreen {
 
-    private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
-
-    public static Parent call(PersonQueryType type) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(PersonController.class.getClassLoader().getResource(personControllerPath));
-        Parent p = loader.load();
-        PersonController controller = loader.getController();
+//    private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
+//
+//    public static Parent call(PersonQueryType type) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(PersonController.class.getClassLoader().getResource(personControllerPath));
+//        Parent p = loader.load();
+//        PersonController controller = loader.getController();
+//        controller.setType(type);
+//        controller.setUpComponents();
+//        return p;
+//    }
+    
+    public ScreenData call(PersonQueryType type) throws IOException {
+        ScreenData callReturn = super.call();
+        PersonController controller = (PersonController) callReturn.getController();
         controller.setType(type);
         controller.setUpComponents();
-        return p;
+        return new ScreenData(callReturn.getParent(), controller);
     }
 
     private PersonQueryType type;
@@ -111,7 +121,8 @@ public class PersonController implements Initializable {
         setUpSearch();
     }
 
-    private void setUpSearch(){
+    @Override
+    public void setUpSearch(){
         searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
             newValue = newValue.trim();
             if(newValue.isEmpty()){
@@ -130,7 +141,8 @@ public class PersonController implements Initializable {
         });
     }
     
-    private void setTableAction() {
+    @Override
+    public void setTableAction() {
         personTable.setOnKeyReleased((event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 Person item = personTable.getSelectionModel().getSelectedItem();
@@ -160,7 +172,8 @@ public class PersonController implements Initializable {
         });
     }
 
-    private void populateTable() {
+    @Override
+    public void populateTable() {
         try {
             if (type == PersonQueryType.CUSTOMER) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
@@ -222,5 +235,10 @@ public class PersonController implements Initializable {
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.PERSON_QUERY;
     }
 }

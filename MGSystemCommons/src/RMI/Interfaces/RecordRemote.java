@@ -19,8 +19,9 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public interface RecordRemote extends Remote {
-    public Record queryRecord() throws  RemoteException, NoResultsException, DatabaseErrorException;
+    public Record queryRecord(String id) throws  RemoteException, NoResultsException, DatabaseErrorException;
     public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException;
+    public ArrayList<Record> queryLikeRecords(String clientName) throws RemoteException, DatabaseErrorException;
     public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, OutOfStockException;
     public void deleteRecord(Record record) throws RemoteException, NoResultsException, DatabaseErrorException;
 }

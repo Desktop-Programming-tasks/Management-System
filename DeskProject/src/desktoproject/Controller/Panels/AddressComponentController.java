@@ -9,69 +9,65 @@ package desktoproject.Controller.Panels;
 import Classes.Persons.Address;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.ControllerEdit;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.LocationsDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
-import desktoproject.Utils.Pairs.ScreenObject;
 import desktoproject.Utils.Validate;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import desktoproject.Controller.FXMLPaths;
 
 /**
  * FXML Controller class
  *
  * @author noda
  */
-public class AddressComponentController implements Initializable {
+public class AddressComponentController extends ControllerEdit implements Initializable {
     
-    private static final String PATH = "desktoproject/View/Panels/addressComponent.fxml";
+    //private static final String PATH = "desktoproject/View/Panels/addressComponent.fxml";
     
-    public static ScreenObject call() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        AddressComponentController controller = loader.getController();
-        controller.setAnchors(p);
-        return new ScreenObject(p, controller);
-    }
-    
-    public static ScreenObject call(Object obj) throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        AddressComponentController controller = loader.getController();
-        controller.setAnchors(p);
-        controller.setAddress((Address) obj);
-        controller.fillScreen();
-        return new ScreenObject(p, controller);
-    }
-    
+//    public static ScreenObject call() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        AddressComponentController controller = loader.getController();
+//        controller.setAnchors(p);
+//        return new ScreenObject(p, controller);
+//    }
+//    
+//    public static ScreenObject call(Object obj) throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        AddressComponentController controller = loader.getController();
+//        controller.setAnchors(p);
+//        controller.setAddress((Address) obj);
+//        controller.fillScreen();
+//        return new ScreenObject(p, controller);
+//    }
+
     private Address address;
     
-    private void fillScreen() {
+    @Override
+    public void fillScreen() {
         setFields(address.getStreet(), String.valueOf(address.getNumber()), address.getDistrict(), address.getCity(), address.getState());
     }
     
-    private void setAnchors(Parent p){
-        AnchorPane.setTopAnchor(p,0.0);
-        AnchorPane.setLeftAnchor(p,0.0);
-        AnchorPane.setBottomAnchor(p,0.0);
-        AnchorPane.setRightAnchor(p,0.0);
-    }
+//    private void setAnchors(Parent p){
+//        AnchorPane.setTopAnchor(p,0.0);
+//        AnchorPane.setLeftAnchor(p,0.0);
+//        AnchorPane.setBottomAnchor(p,0.0);
+//        AnchorPane.setRightAnchor(p,0.0);
+//    }
     
     @FXML
     private TextField streetTextField;
@@ -175,5 +171,20 @@ public class AddressComponentController implements Initializable {
     
     private void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public void setUpComponents() {
+        // nothing happen here
+    }
+
+    @Override
+    public void setScreenObject(Object obj) {
+        this.address = (Address) obj;
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.ADDRESS_COMPONENT;
     }
 }

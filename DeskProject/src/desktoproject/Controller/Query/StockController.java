@@ -5,29 +5,24 @@
  */
 package desktoproject.Controller.Query;
 
-import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.Controller;
 import desktoproject.Controller.Enums.ScreenType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Controller.TableScreen;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -43,15 +38,15 @@ import javafx.util.Callback;
  *
  * @author noda
  */
-public class StockController implements Initializable {
+public class StockController extends Controller implements Initializable, TableScreen {
 
-    private static final String stockPath = "desktoproject/View/Query/Stock.fxml";
-
-    public static Parent call() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(StockController.class.getClassLoader().getResource(stockPath));
-        return loader.load();
-    }
+//    private static final String stockPath = "desktoproject/View/Query/Stock.fxml";
+//
+//    public static Parent call() throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(StockController.class.getClassLoader().getResource(stockPath));
+//        return loader.load();
+//    }
 
     @FXML
     private TableView<Product> StockTable;
@@ -103,7 +98,8 @@ public class StockController implements Initializable {
         setUpSearch();
     }
     
-    private void setUpSearch(){
+    @Override
+    public void setUpSearch(){
         searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
             newValue = newValue.trim();
             if(newValue.isEmpty()){
@@ -118,7 +114,8 @@ public class StockController implements Initializable {
         });
     }
     
-    private void populateTable(){
+    @Override
+    public void populateTable(){
         try {
             StockTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
         } catch (RemoteException | DatabaseErrorException ex) {
@@ -129,7 +126,8 @@ public class StockController implements Initializable {
         }
     }
     
-    private void setTableAction(){
+    @Override
+    public void setTableAction(){
         StockTable.setOnKeyReleased((event) -> {
             if(event.getCode() == KeyCode.ENTER){
                 Product item = StockTable.getSelectionModel().getSelectedItem();
@@ -188,5 +186,10 @@ public class StockController implements Initializable {
                 System.out.println("ops - no result in stock controller");
             }
         }
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.STOCK_QUERY;
     }
 }

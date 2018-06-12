@@ -36,15 +36,15 @@ import javafx.scene.control.TextField;
  *
  * @author ecsanchesjr
  */
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
-    private static final String path = "desktoproject/View/Login.fxml";
-    
-    public static Parent call() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(LoginController.class.getClassLoader().getResource(path));
-        return loader.load();
-    }
+//    private static final String path = "desktoproject/View/Login.fxml";
+//    
+//    public static Parent call() throws IOException{
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(LoginController.class.getClassLoader().getResource(path));
+//        return loader.load();
+//    }
     
     @FXML
     TextField passTextField;
@@ -122,10 +122,9 @@ public class LoginController implements Initializable {
             RemoteLogin loginChannel = (RemoteLogin) rmiRegistry.lookup(RemoteLogin.RMI_LOGIN);
             
             return loginChannel.tryLogin(login, password);
-        } catch (RemoteException | NotBoundException ex) {
+        } catch (RemoteException | NotBoundException | DatabaseErrorException ex) {
             ex.printStackTrace();
             GUIController.getInstance().showConnectionErrorAlert();
-        } catch (DatabaseErrorException ex) {
         }
         return Autentication.ERROR_ON_LOGIN;
     }
@@ -142,5 +141,10 @@ public class LoginController implements Initializable {
         } catch (NoResultsException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.LOGIN_SCREEN;
     }
 }

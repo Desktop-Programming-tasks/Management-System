@@ -41,7 +41,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="FinalPrice" text="000,000">
+                        <Label fx:id="FinalPrice" alignment="CENTER_RIGHT" minWidth="100.0" prefWidth="100.0" text="000,0">
                            <font>
                               <Font size="20.0" />
                            </font>

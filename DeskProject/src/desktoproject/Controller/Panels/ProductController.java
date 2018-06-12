@@ -11,7 +11,9 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.UnavailableBrandException;
+import desktoproject.Controller.ControllerEdit;
 import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,57 +50,53 @@ import javafx.stage.Stage;
  *
  * @author ecaanchesjr
  */
-public class ProductController implements Initializable {
+public class ProductController extends ControllerEdit implements Initializable {
 
-    private static final String panelProductPath = "desktoproject/View/Panels/Product.fxml";
-    private Stage stage;
-
-    public static Parent call(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(ProductController.class.getClassLoader().getResource(panelProductPath));
-        Parent p = loader.load();
-        ProductController controller = loader.getController();
-        controller.setStage(stage);
-        controller.setUpComponents();
-        controller.setEdit(false);
-        return p;
-    }
-
-    public static Parent call(Object product, Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelProductPath));
-        Parent p = loader.load();
-
-        ProductController controller = loader.getController();
-        controller.setStage(stage);
-        controller.setProduct((Product) product);
-        controller.setEdit(true);
-        controller.setUpComponents();
-
-        return p;
-    }
+//    private static final String panelProductPath = "desktoproject/View/Panels/Product.fxml";
+//    private Stage stage;
+//
+//    public static Parent call(Stage stage) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(ProductController.class.getClassLoader().getResource(panelProductPath));
+//        Parent p = loader.load();
+//        ProductController controller = loader.getController();
+//        controller.setStage(stage);
+//        controller.setUpComponents();
+//        controller.setEdit(false);
+//        return p;
+//    }
+//
+//    public static Parent call(Object product, Stage stage) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelProductPath));
+//        Parent p = loader.load();
+//
+//        ProductController controller = loader.getController();
+//        controller.setStage(stage);
+//        controller.setProduct((Product) product);
+//        controller.setEdit(true);
+//        controller.setUpComponents();
+//
+//        return p;
+//    }
 
     private Product product;
-    private boolean edit;
-    private Brand brand;
+    private Stage stage;
 
-    private void setUpComponents() {
-        if (edit) {
+    @Override
+    public void setUpComponents() {
+        if (isEdit()) {
             mainBtn.setText("Alterar");
             mainLabel.setText("Editar Produto");
-            brand = product.getBrand();
             fillScreen();
         } else {
             mainBtn.setText("Cadastrar");
             mainLabel.setText("Cadastrar Produto");
-            brand = null;
         }
         
-        quantityGroup.setVisible(edit);
+        quantityGroup.setVisible(isEdit());
         //barCodeTextField.setDisable(edit);
-        
-        setStageBreak();
-        adjustComponents();
+
     }
 
     private void setStageBreak() {
@@ -125,7 +124,7 @@ public class ProductController implements Initializable {
             }
     }
 
-    private void fillScreen() {
+    public void fillScreen() {
         nameTextField.setText(product.getName());
         priceTextField.setText(changeToComma(String.valueOf(product.getPrice())));
         barCodeTextField.setText(product.getBarCode());
@@ -193,6 +192,12 @@ public class ProductController implements Initializable {
         Misc.setOnlyNumbers(barCodeTextField);
         setTableListeners();
         populateTable();
+        
+        Platform.runLater(() -> {
+            stage = (Stage) brandsTable.getScene().getWindow();
+            setStageBreak();
+            adjustComponents();
+        });
     }
 
     private void populateTable() {
@@ -222,7 +227,7 @@ public class ProductController implements Initializable {
             Product newProduct = new Product(barCodeTextField.getText(), brandsTable.getSelectionModel().getSelectedItem(), Float.valueOf(Misc.changeToDot(priceTextField.getText())), nameTextField.getText());
 
             try {
-                if (edit) {
+                if (isEdit()) {
                     newProduct.setId(product.getId());
                     newProduct.setActive(product.isActive());
                     ProductDAO.updateProduct(newProduct);
@@ -251,14 +256,6 @@ public class ProductController implements Initializable {
         populateTable();
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -280,5 +277,15 @@ public class ProductController implements Initializable {
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de validação", valObj.getErrorMessage());
             return false;
         }
+    }
+
+    @Override
+    public void setScreenObject(Object obj) {
+        this.product = (Product) obj;
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.PRODUCT_SCREEN;
     }
 }

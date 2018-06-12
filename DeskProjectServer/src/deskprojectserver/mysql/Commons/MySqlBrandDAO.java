@@ -9,6 +9,7 @@ import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
+import Observable.Observables.ObservablesHolder;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Utils.ActivationStatus;
@@ -16,8 +17,6 @@ import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +49,7 @@ public class MySqlBrandDAO extends BrandDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, brand.getName(),
                     ActivationStatus.ACTIVE_STATE);
+            ObservablesHolder.getBrand().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -63,6 +63,7 @@ public class MySqlBrandDAO extends BrandDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     brand.getName(), brand.isActive(), brand.getId());
+            ObservablesHolder.getBrand().setChanged();
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
         }

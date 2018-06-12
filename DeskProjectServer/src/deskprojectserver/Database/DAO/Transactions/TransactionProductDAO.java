@@ -5,10 +5,8 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
-import Classes.Enums.RecordType;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
-import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.OutOfStockException;

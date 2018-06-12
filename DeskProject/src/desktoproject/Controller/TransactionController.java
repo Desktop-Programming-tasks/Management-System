@@ -22,21 +22,19 @@ import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
+import desktoproject.Utils.Pairs.ScreenData;
 import desktoproject.Utils.Validate;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,40 +52,55 @@ import javafx.stage.Stage;
  *
  * @author noda
  */
-public class TransactionController implements Initializable {
-    private static final String PATH = "desktoproject/View/Transaction.fxml";
-    private Stage stage;
-    //call to create a new transaction
-    public static Parent call(TransactionType type,Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        TransactionController controller = loader.getController();
-        controller.setStage(stage);
+public class TransactionController extends ControllerEdit implements Initializable, TableScreen {
+//    private static final String PATH = "desktoproject/View/Transaction.fxml";
+//    private Stage stage;
+//    //call to create a new transaction
+//    public static Parent call(TransactionType type) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        TransactionController controller = loader.getController();
+//        controller.setTransactionType(type);
+//        controller.setEdit(false);
+//        controller.setComponents();
+//        return p;
+//    }
+//
+//    //call to display information about an existing transaction
+//    public static Parent call(TransactionType type, Object obj) throws IOException {
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
+//        Parent p = loader.load();
+//        TransactionController controller = loader.getController();
+//        controller.setRecord((Record) obj);
+//        controller.setTransactionType(type);
+//        controller.setEdit(true);
+//        controller.setComponents();
+//        return p;
+//    }
+
+    public ScreenData call(TransactionType type) throws IOException {
+        ScreenData callReturn = super.call();
+        TransactionController controller = (TransactionController) callReturn.getController();
         controller.setTransactionType(type);
-        controller.setEdit(false);
-        controller.setComponents();
-        return p;
+        controller.setTypeComponents();
+        return new ScreenData(callReturn.getParent(), controller);
     }
 
-    //call to display information about an existing transaction
-    public static Parent call(TransactionType type, Object obj,Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
-        Parent p = loader.load();
-        TransactionController controller = loader.getController();
-        controller.setStage(stage);
-        controller.setRecord((Record) obj);
+    public ScreenData call(TransactionType type, Object obj) throws IOException {
+        ScreenData callReturn = super.call(obj);
+        TransactionController controller = (TransactionController) callReturn.getController();
+        controller.setScreenObject(obj);
         controller.setTransactionType(type);
-        controller.setEdit(true);
-        controller.setComponents();
-        return p;
+        controller.setTypeComponents();
+        return new ScreenData(callReturn.getParent(), controller);
     }
 
     private TransactionType type;
-    private boolean edit;
     private Record record;
     private ArrayList<Transaction> transactions;
+    private Stage stage;
 
     @FXML
     private Button primaryBtn;
@@ -113,22 +126,22 @@ public class TransactionController implements Initializable {
     private VBox vBox;
     @FXML
     private HBox hBox;
-    
+
     @FXML
     private TableView<Transaction> transactionsTable;
     @FXML
-    private TableColumn<Transaction,String> nameColumn;
+    private TableColumn<Transaction, String> nameColumn;
     @FXML
-    private TableColumn<Transaction,Float> priceColumn;
+    private TableColumn<Transaction, Float> priceColumn;
     @FXML
-    private TableColumn<Transaction,Integer> quantityColumn;
-    
+    private TableColumn<Transaction, Integer> quantityColumn;
+
     @FXML
     private TableView<Person> clientTable;
     @FXML
-    private TableColumn<Person,String> clientDocumentColumn;
+    private TableColumn<Person, String> clientDocumentColumn;
     @FXML
-    private TableColumn<Person,String> clientNameColumn;
+    private TableColumn<Person, String> clientNameColumn;
 
     /**
      * Initializes the controller class.
@@ -141,107 +154,141 @@ public class TransactionController implements Initializable {
         Animation.bindShadowAnimation(deleteEntry);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindAnimation(searchTextField);
-        
-        
+
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        
-        
+
         clientDocumentColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        
+
         transactions = new ArrayList<>();
-        
-        populatePersonTable();
+
+        Platform.runLater(() -> {
+            stage = (Stage) tableLabel.getScene().getWindow();
+            setStageBreak();
+            adjustComponents();
+        });
+
         populateTable();
+        setUpSearch();
     }
-    
-    private void populatePersonTable(){
+
+    @Override
+    public void setUpSearch() {
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            newValue = newValue.trim();
+            if (newValue.isEmpty()) {
+                populatePersonTable();
+            } else {
+                try {
+                    if (type == BUY) {
+                        clientTable.setItems(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue)));
+                    } else {
+                        clientTable.setItems(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue)));
+                    }
+                } catch (RemoteException | DatabaseErrorException ex) {
+
+                }
+            }
+        });
+    }
+
+    private void populatePersonTable() {
         try {
-            clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
-        } catch (RemoteException|DatabaseErrorException ex) {
+            if (type == BUY) {
+                clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
+            } else {
+                clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
+            }
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
-            
+
         }
     }
 
-    private void populateTable() {
+    @Override
+    public void populateTable() {
         transactionsTable.setItems(FXCollections.observableArrayList(transactions));
     }
-    
 
-    private void setComponents() {
-        String mainLabelString = "",primaryBtnString = "Finalizar ";
-        
-        if (edit) {
+    @Override
+    public void setTableAction() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void setTypeComponents() {
+        String mainLabelString = "", primaryBtnString = "Finalizar ";
+
+        if (isEdit()) {
             mainLabelString += "Consultar ";
             primaryBtn.setVisible(false);
             clientTable.setDisable(true);
-            transactionsTable.setDisable(true);
+//            transactionsTable.setDisable(true);
             addProductBtn.setVisible(false);
             addServiceBtn.setVisible(false);
             deleteEntry.setVisible(false);
+            searchTextField.setDisable(true);
             this.transactions = record.getTransations();
             fillScreen();
-        }else{
+        } else {
             primaryBtn.setVisible(true);
             this.transactions = new ArrayList<>();
         }
-        
+
         switch (type) {
             case BUY: {
                 tableLabel.setText("Fornecedor");
                 mainLabelString += "Compra ";
                 primaryBtnString += "Compra ";
-                searchTextField.setText("Pesquisar fornecedor");
+                searchTextField.setPromptText("Pesquisar fornecedor");
                 break;
             }
             case SALE: {
                 tableLabel.setText("Cliente");
                 mainLabelString += "Venda ";
                 primaryBtnString += "Venda ";
-                searchTextField.setText("Pesquisar cliente");
+                searchTextField.setPromptText("Pesquisar cliente");
                 break;
             }
         }
-        
+
         mainActionScreenTitle.setText(mainLabelString);
         primaryBtn.setText(primaryBtnString);
-        setStageBreak();
-        adjustComponents();
+        populatePersonTable();
     }
-    
-    private void setStageBreak(){
+
+    private void setStageBreak() {
         stage.widthProperty().addListener((observable) -> {
             adjustComponents();
         });
     }
-    
-    private void adjustComponents(){
-        if(stage.getWidth()>1056){
-                ObservableList<Node> workingCollection = FXCollections.observableArrayList(vBox.getChildren());
-                vBox.getChildren().clear();
-                for(Node n : workingCollection){
-                    hBox.getChildren().add(n);
-                    hBox.setHgrow(n, Priority.ALWAYS);
-                }
-                hBox.toFront();
-            }else{
-                ObservableList<Node> workingCollection = FXCollections.observableArrayList(hBox.getChildren());
-                hBox.getChildren().clear();
-                for(Node n : workingCollection){
-                    vBox.getChildren().add(n);
-                }
-                vBox.toFront();
+
+    private void adjustComponents() {
+        if (stage.getWidth() > 1056) {
+            ObservableList<Node> workingCollection = FXCollections.observableArrayList(vBox.getChildren());
+            vBox.getChildren().clear();
+            for (Node n : workingCollection) {
+                hBox.getChildren().add(n);
+                hBox.setHgrow(n, Priority.ALWAYS);
             }
+            hBox.toFront();
+        } else {
+            ObservableList<Node> workingCollection = FXCollections.observableArrayList(hBox.getChildren());
+            hBox.getChildren().clear();
+            for (Node n : workingCollection) {
+                vBox.getChildren().add(n);
+            }
+            vBox.toFront();
+        }
     }
-    
-    private void fillScreen() {
+
+    @Override
+    public void fillScreen() {
         FinalPrice.setText(String.valueOf(record.getTotalprice()));
 //        customerOrSupplier.setText(record.getCustomer().getName());
-        
+
         populateTable();
     }
 
@@ -252,18 +299,18 @@ public class TransactionController implements Initializable {
 
     @FXML
     private void register() {
-        if(validate()){
+        if (validate()) {
             try {
-                Record newRecord = new Record(Globals.getInstance().getEmployee(), clientTable.getSelectionModel().getSelectedItem(), transactions, type==BUY?RecordTypeConstants.PURCHASE:RecordTypeConstants.SALE);
+                Record newRecord = new Record(Globals.getInstance().getEmployee(), clientTable.getSelectionModel().getSelectedItem(), transactions, type == BUY ? RecordTypeConstants.PURCHASE : RecordTypeConstants.SALE);
                 RecordDAO.insertRecord(newRecord);
                 GUIController.getInstance().showRegisterAlert("Transação");
                 GUIController.getInstance().backToPrevious();
-            } catch (RemoteException|DatabaseErrorException ex) {
+            } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro de servidor", "Tente novamente!");
-            }catch (OutOfStockException ex) {
-                GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro na transação", "Erro no produto "+ex.getOutProduct().getName()+", selecione uma quantidade menor");
+            } catch (OutOfStockException ex) {
+                GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro", "Erro na transação", "Erro no produto " + ex.getOutProduct().getName() + ", selecione uma quantidade menor");
             }
         }
     }
@@ -271,7 +318,7 @@ public class TransactionController implements Initializable {
     @FXML
     private void showModalAddService() {
         Transaction service = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW);
-        if(service!=null){
+        if (service != null) {
             transactions.add(service);
             populateTable();
             updatePrice();
@@ -281,7 +328,7 @@ public class TransactionController implements Initializable {
     @FXML
     private void showModalAddProduct() {
         Transaction product = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD);
-        if(product!=null){
+        if (product != null) {
             transactions.add(product);
             populateTable();
             updatePrice();
@@ -291,37 +338,25 @@ public class TransactionController implements Initializable {
     @FXML
     private void deleteEntry() {
         Transaction transaction = transactionsTable.getSelectionModel().getSelectedItem();
-        if(transaction==null){
+        if (transaction == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             transactions.remove(transaction);
             populateTable();
             updatePrice();
         }
     }
 
-    private void setRecord(Record record) {
-        this.record = record;
-    }
-
     private void setTransactionType(TransactionType type) {
         this.type = type;
     }
 
-    private void setEdit(boolean edit) {
-        this.edit = edit;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-    
-    private boolean validate(){
+    private boolean validate() {
         Validate valObj = new Validate();
-        
-        valObj.emptyTableSelection(clientTable, type==BUY?"Fornecedor":"Cliente");
+
+        valObj.emptyTableSelection(clientTable, type == BUY ? "Fornecedor" : "Cliente");
         valObj.emptyTransactionTable(transactionsTable);
-        
+
         if (valObj.getErrorMessage().isEmpty()) {
             return true;
         } else {
@@ -329,12 +364,27 @@ public class TransactionController implements Initializable {
             return false;
         }
     }
-    
-    private void updatePrice(){
+
+    private void updatePrice() {
         float total = 0.0f;
-        for(Transaction t : transactions){
-            total+=t.getPrice();
+        for (Transaction t : transactions) {
+            total += t.getPrice();
         }
         FinalPrice.setText(Misc.changeToComma(String.valueOf(total)));
+    }
+
+    @Override
+    public void setUpComponents() {
+        // nothing happen here
+    }
+
+    @Override
+    public void setScreenObject(Object obj) {
+        this.record = (Record) obj;
+    }
+
+    @Override
+    public void setPath() {
+        this.path = FXMLPaths.TRANSACTION_SCREEN;
     }
 }
