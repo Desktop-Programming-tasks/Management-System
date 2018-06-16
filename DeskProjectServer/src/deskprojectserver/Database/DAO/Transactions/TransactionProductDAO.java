@@ -5,12 +5,12 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
+import Classes.Constants.RecordTypeConstants;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.OutOfStockException;
-import Classes.Constants.RecordTypeConstants;
 import java.util.ArrayList;
 
 /**

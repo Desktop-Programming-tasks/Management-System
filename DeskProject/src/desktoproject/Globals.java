@@ -21,6 +21,7 @@ public class Globals {
     private Employee employee;
     private RemoteMethods rmiChannel;
     private static Globals INSTANCE;
+    private ObserverThread observerServer;
 
     public Employee getEmployee() {
         return employee;
@@ -30,12 +31,17 @@ public class Globals {
         this.employee = employee;
     }
     
+    public ObserverThread getObserverThread() {
+        return observerServer;
+    }
+    
     public RemoteMethods getChannel() {
         return rmiChannel;
     }
 
     private Globals() throws RemoteException {
         try {
+            observerServer = new ObserverThread();
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteMethods.RMI_PORT);
             this.rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD);
         } catch (NotBoundException | RemoteException ex) {

@@ -5,7 +5,6 @@
  */
 package desktoproject.Controller;
 
-import desktoproject.Controller.Panels.PromotionPersonController;
 import Classes.Enums.*;
 import Classes.Persons.*;
 import Classes.Transactions.*;
@@ -15,9 +14,7 @@ import desktoproject.Controller.Panels.*;
 import desktoproject.Controller.Query.*;
 import desktoproject.Utils.Pairs.ScreenCall;
 import desktoproject.Utils.Pairs.ScreenData;
-import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Stack;

@@ -6,9 +6,13 @@
 package deskprojectserver.RMI;
 
 import Observable.Aggregator;
+import Observable.ObservableThread;
 import Observable.Observables.ObservablesHolder;
 import RMI.RemoteLogin;
 import RMI.RemoteMethods;
+import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -30,12 +34,17 @@ public class StartRemoteServer {
     
     private Registry rmiRegistry;
     
+    private ServerSocket observableServer;
+    private Aggregator agregator;
+    private ObservableThread observableThread;
+    
     public static void main(String[] args) {
         StartRemoteServer hostServer = new StartRemoteServer();
         
         hostServer.openLoginServer();
         hostServer.openRemoteServer();
         hostServer.setUpObservers();
+        hostServer.openObservableServer();
     }
     
     private void openLoginServer() {
@@ -66,9 +75,20 @@ public class StartRemoteServer {
         }
     }
     
+    private void openObservableServer() {
+        try {
+            observableServer = new ServerSocket(9000);
+            observableThread = new ObservableThread("Observable", agregator, observableServer);
+            observableThread.start();
+        } catch (IOException ex) {
+            Logger.getLogger(StartRemoteServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     private void setUpObservers(){
-        Aggregator ag = new Aggregator();
-        ObservablesHolder.getBrand().addObserver(ag);
-        ObservablesHolder.getEmployee().addObserver(ag);
+        agregator = new Aggregator();
+        ObservablesHolder.getBrand().addObserver(agregator);
+        ObservablesHolder.getEmployee().addObserver(agregator);
     }
 }

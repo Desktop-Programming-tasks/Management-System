@@ -14,6 +14,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.ControllerPromotion;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
@@ -37,7 +38,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import desktoproject.Controller.FXMLPaths;
 
 /**
  * FXML Controller class

@@ -19,7 +19,6 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import deskprojectserver.Database.DAOBuilder;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;

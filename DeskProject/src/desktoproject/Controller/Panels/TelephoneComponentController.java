@@ -6,6 +6,7 @@
 package desktoproject.Controller.Panels;
 
 import desktoproject.Controller.ControllerEdit;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Validate;
 import java.net.URL;
@@ -14,7 +15,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import desktoproject.Controller.FXMLPaths;
 
 /**
  * FXML Controller class

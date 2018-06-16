@@ -19,9 +19,6 @@ import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

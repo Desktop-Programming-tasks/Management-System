@@ -4,7 +4,6 @@ package desktoproject.Controller;
 import desktoproject.Controller.Panels.AddressComponentController;
 import desktoproject.Controller.Panels.TelephoneComponentController;
 import desktoproject.Utils.Pairs.ScreenData;
-import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 
 /*

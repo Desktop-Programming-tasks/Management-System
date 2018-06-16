@@ -182,7 +182,7 @@ INSERT INTO `LegalPerson` (`rgLegalPerson`, `Person_idPerson`) VALUES
 --
 
 INSERT INTO `Employee` (`loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson`) VALUES
-('func01', '123456', 2, '000.000.000-03'),
+('func01', '123456', 1, '000.000.000-03'),
 ('func02', '123456', 2, '000.000.000-04'),
 ('func03', '123456', 2, '000.000.000-05');
 

@@ -14,7 +14,6 @@ import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Globals;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Validate;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,9 +23,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -70,11 +67,12 @@ public class LoginController extends Controller implements Initializable {
         
         String login = userTextField.getText();
         String pass = passTextField.getText();
-        
+        System.out.println("?????????");
         valLogin.validateEmpty("Campo de usuário", pass);
         valLogin.validateEmpty("Campo de senha", login);
         
         if(valLogin.getErrorMessage().isEmpty()) {
+            System.out.println("????????");
             validateLogin(login, pass);
         } else {
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro de login", "Campos não foram validados!", valLogin.getErrorMessage().toString());
@@ -117,10 +115,11 @@ public class LoginController extends Controller implements Initializable {
     }
     
     private Autentication remoteValidationLogin(String login, String password) {
+        System.out.println("pq vc não tá aparecendo");
         try {
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteLogin.RMI_PORT);
             RemoteLogin loginChannel = (RemoteLogin) rmiRegistry.lookup(RemoteLogin.RMI_LOGIN);
-            
+            System.out.println("?");
             return loginChannel.tryLogin(login, password);
         } catch (RemoteException | NotBoundException | DatabaseErrorException ex) {
             ex.printStackTrace();
@@ -131,15 +130,20 @@ public class LoginController extends Controller implements Initializable {
     
     private void loginSuccess(String login) {
         try {
-            Employee logged = Globals.getInstance().getChannel().queryEmployeeByLogin(login);
-            
-            System.out.println(logged);
-            Globals.getInstance().setEmployee(logged);
+            getEmployeeData(login);
+            Globals.getInstance().getObserverThread().start();
             GUIController.getInstance().callScreen(ScreenType.INDEX);
-        } catch (RemoteException | DatabaseErrorException ex) {
+        } catch (RemoteException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoResultsException ex) {
-            ex.printStackTrace();
+        }
+    }
+    
+    private void getEmployeeData(String login) {
+        try {
+            Employee logged = Globals.getInstance().getChannel().queryEmployeeByLogin(login);
+            Globals.getInstance().setEmployee(logged);
+        } catch (RemoteException | DatabaseErrorException | NoResultsException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

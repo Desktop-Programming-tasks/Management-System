@@ -14,6 +14,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import desktoproject.Controller.ControllerPersons;
+import desktoproject.Controller.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
@@ -31,7 +32,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import desktoproject.Controller.FXMLPaths;
 
 
 
