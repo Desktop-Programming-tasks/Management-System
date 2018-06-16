@@ -28,12 +28,12 @@ public interface FXMLPaths {
     public final String CREATE_SERVICE_MODAL = "desktoproject/View/Modal/CreateService.fxml";
     public final String SERVICE_TYPE_MODAL = "desktoproject/View/Modal/ServiceType.fxml";
     
-    // QUery
+    // Query
     public final String BRAND_QUERY = "desktoproject/View/Query/Brand.fxml";
     public final String GENERIC_TRANSACTION_QUERY = "desktoproject/View/Query/GenericTransaction.fxml";
     public final String PERSON_QUERY = "desktoproject/View/Query/Person.fxml";
     public final String SUPPLIER_QUERY = "desktoproject/View/Query/QuerySupplier.fxml";
     public final String SERVICE_QUERY = "desktoproject/View/Query/Service.fxml";
     public final String STOCK_QUERY = "desktoproject/View/Query/Stock.fxml";
-    public final String SERVICE_TYPE_QUERY = "desktoproject/View/Query/QuerySupplier.fxml";
+    public final String SERVICE_TYPE_QUERY = "desktoproject/View/Query/ServiceTypeQuery.fxml";
 }
