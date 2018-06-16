@@ -34,7 +34,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + ",`isActiveServiceType` FROM `ServiceType` WHERE nameServiceType=?";
     private static final String GET_ALL_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + "FROM `ServiceType` WHERE isActiveServiceType";
+            + ",`isActiveServiceType` FROM `ServiceType` WHERE isActiveServiceType";
     private static final String UPDATE_SQL = "UPDATE `ServiceType` "
             + "SET `nameServiceType`=?,`priceServiceType`=?,`isActiveServiceType`=? WHERE idServiceType=?";
     private static final String GET_LIKE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
@@ -56,7 +56,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     public void updateServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(), st.getPrice(),
-                    st.getId(), st.isActive());
+                    st.isActive(), st.getId());
         } catch (MySQLIntegrityConstraintViolationException ex) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException ex) {
@@ -71,7 +71,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
             while (qr.getResultSet().next()) {
                 st = new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
-                        qr.getResultSet().getFloat(PRICE));
+                        qr.getResultSet().getFloat(PRICE),qr.getResultSet().getBoolean(IS_ACTIVE));
                 st.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
             }
             qr.closeAll();
@@ -119,7 +119,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
                 services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
-                        qr.getResultSet().getFloat(PRICE)));
+                        qr.getResultSet().getFloat(PRICE),qr.getResultSet().getBoolean(IS_ACTIVE)));
             }
             qr.closeAll();
         } catch (SQLException e) {

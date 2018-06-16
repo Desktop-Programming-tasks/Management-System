@@ -72,8 +72,6 @@ public class ServiceTypeController extends ControllerEdit implements Initializab
     @Override
     public void fillScreen() {
         nameTextField.setText(serviceType.getName());
-        System.out.println(serviceType.getPrice());
-        System.out.println(String.valueOf(serviceType.getPrice()));
         valueTextField.setText(changeToComma(String.valueOf(serviceType.getPrice())));
     }
 
@@ -112,6 +110,9 @@ public class ServiceTypeController extends ControllerEdit implements Initializab
             try {
                 if (isEdit()) {
                     newServiceType.setId(serviceType.getId());
+                    newServiceType.setActive(serviceType.isActive());
+                    System.out.println("new "+newServiceType.toString());
+                    System.out.println("old "+serviceType.toString());
                     ServiceTypeDAO.updateServiceType(newServiceType);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().closeModal();
@@ -121,6 +122,7 @@ public class ServiceTypeController extends ControllerEdit implements Initializab
                     GUIController.getInstance().closeModal();
                 }
             } catch (RemoteException|DatabaseErrorException ex) {
+                ex.printStackTrace();
                 GUIController.getInstance().showConnectionErrorAlert();
             }catch (DuplicatedEntryException ex) {
                 GUIController.getInstance().showDupplicatedAlert("Tipo de serviço", newServiceType.getName());
