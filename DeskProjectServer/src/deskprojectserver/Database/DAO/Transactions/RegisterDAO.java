@@ -5,6 +5,7 @@
  */
 package deskprojectserver.Database.DAO.Transactions;
 
+import Classes.Constants.RecordTypeConstants;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
@@ -14,6 +15,8 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Filter;
 
 /**
  *
@@ -30,12 +33,28 @@ public abstract class RegisterDAO {
     }
 
     public void insertFullRegisterAndTransactions(Record record) throws DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
+        record.setRegisterDate(Calendar.getInstance().getTime());
+        record.setId(record.hashCode());
         basicInsertRecord(record);
+        try {
+            for (Transaction t : record.getTransations()) {
+                if (t instanceof Product) {
+                    tProductDAO.completeInsertProductTransaction(record, (Product) t);
+                } else if (t instanceof Service) {
+                    tServiceDAO.insertServiceTransaction(record, (Service) t);
+                }
+            }
+        } catch (DatabaseErrorException | DuplicatedEntryException | OutOfStockException e) {
+            removeRecord(record);
+            throw e;
+        }
         for (Transaction t : record.getTransations()) {
             if (t instanceof Product) {
-                tProductDAO.completeInsertProductTransaction(record, (Product) t);
-            } else if (t instanceof Service) {
-                tServiceDAO.insertServiceTransaction(record, (Service) t);
+                if (record.getType() == RecordTypeConstants.PURCHASE) {
+                    tProductDAO.updateStock((Product) t, (t.getQuantity()));
+                } else if (record.getType() == RecordTypeConstants.SALE) {
+                    tProductDAO.updateStock((Product) t, (-t.getQuantity()));
+                }
             }
         }
     }
@@ -46,9 +65,11 @@ public abstract class RegisterDAO {
         return record;
     }
 
-    protected abstract Record basicGetRecord(String id) throws DatabaseErrorException,NoResultsException;
+    protected abstract Record basicGetRecord(String id) throws DatabaseErrorException, NoResultsException;
 
     protected abstract void basicInsertRecord(Record record) throws DuplicatedEntryException, DatabaseErrorException;
+
+    protected abstract void removeRecord(Record record) throws DatabaseErrorException;
 
     public abstract ArrayList<Record> getAllRecords() throws DatabaseErrorException;
 

@@ -103,7 +103,6 @@ public class Record implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
-    
 
     @Override
     public String toString() {
