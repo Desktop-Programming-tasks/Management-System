@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desktoproject.Controller;
+package Observable;
+
+import Classes.Enums.ObservableType;
 
 /**
  *
- * @author ecsanchesjr
+ * @author viniciusmn
  */
-public interface TableScreen {
-    public void populateTable();
-    public void setTableAction();
-    public void setUpSearch();
+public interface ServerObserver{
+    public abstract void update(ObservableType type);
 }

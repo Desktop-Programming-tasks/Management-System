@@ -5,6 +5,9 @@
  */
 package desktoproject.Controller;
 
+import desktoproject.Controller.Interfaces.FXMLPaths;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Interfaces.ControllerEdit;
 import Classes.Constants.RecordTypeConstants;
 import Classes.Persons.Person;
 import Classes.Transactions.Record;
@@ -17,6 +20,8 @@ import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.TransactionType;
 import static desktoproject.Controller.Enums.TransactionType.BUY;
 import static desktoproject.Controller.Enums.TransactionType.SALE;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Globals;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
@@ -52,7 +57,7 @@ import javafx.stage.Stage;
  *
  * @author noda
  */
-public class TransactionController extends ControllerEdit implements Initializable, TableScreen {
+public class TransactionController extends ControllerEdit implements Initializable, TableScreen, AppObserver {
 //    private static final String PATH = "desktoproject/View/Transaction.fxml";
 //    private Stage stage;
 //    //call to create a new transaction
@@ -172,6 +177,8 @@ public class TransactionController extends ControllerEdit implements Initializab
 
         populateTable();
         setUpSearch();
+
+        subscribe();
     }
 
     @Override
@@ -196,15 +203,36 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     private void populatePersonTable() {
         try {
+            Person selectedPerson = clientTable.getSelectionModel().getSelectedItem();
             if (type == BUY) {
                 clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
             } else {
                 clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
             }
+//            if (selectedPerson != null) {
+//                for (Person p : clientTable.getItems()) {
+//                    if (p.getId() == selectedPerson.getId()) {
+//                        clientTable.getSelectionModel().select(p);
+//                    }
+//                }
+//            }
+            selectTable(selectedPerson);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
 
+        }
+    }
+
+    @Override
+    public void selectTable(Object o) {
+        if (o != null) {
+            Person cp = (Person)o;
+            for (Person p : clientTable.getItems()) {
+                if (p.getId() == cp.getId()) {
+                    clientTable.getSelectionModel().select(p);
+                }
+            }
         }
     }
 
@@ -317,12 +345,13 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @FXML
     private void showModalAddService() {
-        Transaction service = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW);
-        if (service != null) {
-            transactions.add(service);
-            populateTable();
-            updatePrice();
-        }
+//        Transaction service = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW);
+//        if (service != null) {
+//            transactions.add(service);
+//            populateTable();
+//            updatePrice();
+//        }
+        update();
     }
 
     @FXML
@@ -386,5 +415,19 @@ public class TransactionController extends ControllerEdit implements Initializab
     @Override
     public void setPath() {
         this.path = FXMLPaths.TRANSACTION_SCREEN;
+    }
+
+    @Override
+    public void update() {
+        populatePersonTable();
+    }
+
+    @Override
+    public void subscribe() {
+        if (type == BUY) {
+            ObservableServer.getClient().addObserver(this);
+        } else {
+            ObservableServer.getSupplier().addObserver(this);
+        }
     }
 }

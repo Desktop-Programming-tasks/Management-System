@@ -46,7 +46,7 @@ public class StartRemoteServer {
             rmiRegistry = LocateRegistry.createRegistry(RemoteLogin.RMI_PORT);
             rmiRegistry.bind(RemoteLogin.RMI_LOGIN, loginChannel);
             
-            System.out.println("LoginServer already to receive connections...");
+            System.out.println("LoginServer ready to receive connections...");
         } catch(RemoteException | AlreadyBoundException ex) {
             ex.printStackTrace();
         }
@@ -60,15 +60,19 @@ public class StartRemoteServer {
             rmiRegistry = LocateRegistry.createRegistry(RemoteMethods.RMI_PORT);
             rmiRegistry.bind(RemoteMethods.RMI_BD, methodsChannel);
 
-            System.out.println("RemoteServer already to receive connections...");
+            System.out.println("RemoteServer ready to receive connections...");
         } catch (RemoteException | AlreadyBoundException ex) {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     private void setUpObservers(){
+        System.out.println("===Observable system===");
+        System.out.println("Creating aggregator");
+        
         Aggregator ag = new Aggregator();
-        ObservablesHolder.getBrand().addObserver(ag);
-        ObservablesHolder.getEmployee().addObserver(ag);
+        ObservablesHolder.subscribeToAll(ag);
+        
+        System.out.println("Observer aggregator ready....");
     }
 }

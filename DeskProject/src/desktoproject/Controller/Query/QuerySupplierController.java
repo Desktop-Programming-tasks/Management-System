@@ -10,11 +10,13 @@ import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
 import java.net.URL;
@@ -38,7 +40,7 @@ import javafx.scene.input.KeyCode;
  *
  * @author ecaanchesjr
  */
-public class QuerySupplierController extends Controller implements Initializable, TableScreen {
+public class QuerySupplierController extends Controller implements Initializable, TableScreen,AppObserver {
 
 //    private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
 //
@@ -94,6 +96,7 @@ public class QuerySupplierController extends Controller implements Initializable
         populateTable();
         setTableAction();
         setUpSearch();
+        subscribe();
     }
 
     @Override
@@ -116,13 +119,26 @@ public class QuerySupplierController extends Controller implements Initializable
     @Override
     public void populateTable() {
         try {
+            Supplier p = suppliersTable.getSelectionModel().getSelectedItem();
             suppliersTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllSuppliers()));
+            selectTable(p);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
         }
+    }
 
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            Supplier cp = (Supplier)o;
+            for(Supplier p : suppliersTable.getItems()){
+                if(p.getId() == cp.getId()){
+                    suppliersTable.getSelectionModel().select(p);
+                }
+            }
+        }
     }
 
     @Override
@@ -191,5 +207,15 @@ public class QuerySupplierController extends Controller implements Initializable
     @Override
     public void setPath() {
         this.path = FXMLPaths.SUPPLIER_QUERY;
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getSupplier().addObserver(this);
     }
 }

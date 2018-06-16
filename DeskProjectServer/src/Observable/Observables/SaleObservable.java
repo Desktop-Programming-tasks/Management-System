@@ -6,13 +6,13 @@
 package Observable.Observables;
 
 import Classes.Enums.ObservableType;
-import Observable.MyObservable;
+import Observable.ServerObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public class SaleObservable extends MyObservable{
+public class SaleObservable extends ServerObservable{
 
     protected SaleObservable() {
     }

@@ -6,13 +6,12 @@
 package Observable;
 
 import Classes.Enums.ObservableType;
-import Observable.Observables.BrandObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public class Aggregator implements MyObserver{
+public class Aggregator implements ServerObserver{
 
     @Override
     public void update(ObservableType type) {

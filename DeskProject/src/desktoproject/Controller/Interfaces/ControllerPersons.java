@@ -1,10 +1,10 @@
-package desktoproject.Controller;
+package desktoproject.Controller.Interfaces;
 
 
+import Classes.Persons.Person;
 import desktoproject.Controller.Panels.AddressComponentController;
 import desktoproject.Controller.Panels.TelephoneComponentController;
 import desktoproject.Utils.Pairs.ScreenData;
-import desktoproject.Utils.Pairs.ScreenObject;
 import java.io.IOException;
 
 /*
@@ -25,7 +25,7 @@ public abstract class ControllerPersons extends ControllerEdit {
     public ScreenData call() throws IOException {
         ScreenData callReturn = super.call();
         ControllerPersons controller = (ControllerPersons) callReturn.getController();
-        controller.setSecondaryComponents();
+        controller.setSecondaryComponents(null);
         controller.setDynamicSecondary();
         return new ScreenData(callReturn.getParent(), controller);
     }
@@ -34,14 +34,19 @@ public abstract class ControllerPersons extends ControllerEdit {
     public ScreenData call(Object obj) throws IOException {
         ScreenData callReturn = super.call(obj);
         ControllerPersons controller = (ControllerPersons) callReturn.getController();
-        controller.setSecondaryComponents();
+        controller.setSecondaryComponents((Person) obj);
         controller.setDynamicSecondary();
         return new ScreenData(callReturn.getParent(), controller);
     }
     
-    private void setSecondaryComponents() throws IOException {
-        setAddressComponent(new AddressComponentController().call());
-        setTelephoneComponent(new TelephoneComponentController().call());
+    private void setSecondaryComponents(Person person) throws IOException {
+        if(person == null) {
+            setAddressComponent(new AddressComponentController().call());
+            setTelephoneComponent(new TelephoneComponentController().call());
+        } else {    
+            setAddressComponent(new AddressComponentController().call(person.getAddress()));
+            setTelephoneComponent(new TelephoneComponentController().call(person.getTelephones()));
+        }
     }
     
     public abstract void setDynamicSecondary();

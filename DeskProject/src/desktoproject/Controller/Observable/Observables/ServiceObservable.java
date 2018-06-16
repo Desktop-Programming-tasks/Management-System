@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observable;
+package desktoproject.Controller.Observable.Observables;
 
-import Classes.Enums.ObservableType;
+import desktoproject.Controller.Observable.AppObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public interface MyObserver {
-    public void update(ObservableType type);
+public class ServiceObservable extends AppObservable{
+    protected ServiceObservable(){};
 }

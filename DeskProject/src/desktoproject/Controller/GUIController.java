@@ -11,6 +11,7 @@ import Classes.Persons.*;
 import Classes.Transactions.*;
 import desktoproject.Controller.Enums.*;
 import desktoproject.Controller.Modal.*;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Controller.Panels.*;
 import desktoproject.Controller.Query.*;
 import desktoproject.Utils.Pairs.ScreenCall;
@@ -99,6 +100,7 @@ public class GUIController {
             mainStage.show();
             isMenu = false;
             this.dynamic = null;
+            ObservableServer.clearAll();
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,6 +136,8 @@ public class GUIController {
             setMenuScreen();
         }
         ScreenData screenData = null;
+        ObservableServer.clearAll();
+        
         try {
             dynamic.setMaxWidth(1280);
             switch (type) {

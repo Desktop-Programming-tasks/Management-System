@@ -13,7 +13,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.ControllerPromotion;
+import desktoproject.Controller.Interfaces.ControllerPromotion;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
@@ -40,14 +40,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 
 /**
  * FXML Controller class
  *
  * @author noda
  */
-public class SupplierController extends ControllerPromotion implements Initializable {
+public class SupplierController extends ControllerPromotion implements Initializable,TableScreen,AppObserver {
 //
 //    private static final String PATH = "desktoproject/View/Panels/Supplier.fxml";
 //
@@ -140,12 +143,8 @@ public class SupplierController extends ControllerPromotion implements Initializ
     }
 
     private void selectSupplierBrands() {
-        for (Brand tableBrand : brandsTable.getItems()) {
-            for (Brand supplierBrand : supplier.getAvaliableBrands()) {
-                if (tableBrand.getName().equals(supplierBrand.getName())) {
-                    brandsTable.getSelectionModel().select(tableBrand);
-                }
-            }
+        for(Brand b : supplier.getAvaliableBrands()){
+            selectTable(b);
         }
     }
 
@@ -165,16 +164,32 @@ public class SupplierController extends ControllerPromotion implements Initializ
         brandsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         populateTable();
+        subscribe();
     }
 
     //return all brands from database
-    private void populateTable() {
+    @Override
+    public void populateTable() {
         try {
+            Brand selectedBrand = brandsTable.getSelectionModel().getSelectedItem();
             brandsTable.setItems(FXCollections.observableArrayList(BrandDAO.queryAllBrands()));
+            selectTable(selectedBrand);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
+        }
+    }
+    
+    @Override
+    public void selectTable(Object o) {
+        if (o != null) {
+            Brand cb = (Brand)o;
+            for (Brand b : brandsTable.getItems()) {
+                if (b.getId() == cb.getId()) {
+                    brandsTable.getSelectionModel().select(b);
+                }
+            }
         }
     }
 
@@ -270,4 +285,23 @@ public class SupplierController extends ControllerPromotion implements Initializ
         this.path = FXMLPaths.SUPPLIER_SCREEN;
     }
 
+    @Override
+    public void setTableAction() {
+        //
+    }
+
+    @Override
+    public void setUpSearch() {
+        //
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getBrand().addObserver(this);
+    }
 }

@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observable.Observables;
-
-import Observable.ServerObserver;
+package desktoproject.Controller.Observable.Observables;
+import Classes.Enums.ObservableType;
+import desktoproject.Controller.Observable.AppObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public abstract class ObservablesHolder {
+public class ObservableServer extends AppObservable{
     private static BrandObservable BRAND_INSTANCE; 
     private static BuyObservable BUY_INSTANCE;
     private static ClientObservable CLIENT_INSTANCE;
@@ -25,32 +25,72 @@ public abstract class ObservablesHolder {
     private static SupplierObservable SUPPLIER_INSTANCE;
     private static TransactionObservable TRANSACTION_INSTANCE;
     
-    public static void subscribeToAll(ServerObserver observer){
-        System.out.println("---Subscribe all---");
-        getBrand().addObserver(observer);
-        System.out.println("Watching Brand observable...");
-        getBuy().addObserver(observer);
-        System.out.println("Watching Buy observable...");
-        getClient().addObserver(observer);
-        System.out.println("Watching Client observable...");
-        getEmployee().addObserver(observer);
-        System.out.println("Watching Employee observable...");
-        getJuridical().addObserver(observer);
-        System.out.println("Watching Juridical observable...");
-        getLegal().addObserver(observer);
-        System.out.println("Watching Legal observable...");
-        getProduct().addObserver(observer);
-        System.out.println("Watching Product observable...");
-        getSale().addObserver(observer);
-        System.out.println("Watching Sale observable...");
-        getService().addObserver(observer);
-        System.out.println("Watching Service observable...");
-        getServiceType().addObserver(observer);
-        System.out.println("Watching ServiceType observable...");
-        getSupplier().addObserver(observer);
-        System.out.println("Watching Supplier observable...");
-        getTransaction().addObserver(observer);
-        System.out.println("Watching Transaction observable...");
+    public static void clearAll(){
+        getBrand().removeAll();
+        getBuy().removeAll();
+        getClient().removeAll();
+        getEmployee().removeAll();
+        getJuridical().removeAll();
+        getLegal().removeAll();
+        getProduct().removeAll();
+        getSale().removeAll();
+        getService().removeAll();
+        getServiceType().removeAll();
+        getSupplier().removeAll();
+        getTransaction().removeAll();
+    }
+    
+    public static void trigger(ObservableType type){
+        switch(type){
+            case BRAND:{
+                getBrand().setChanged();
+                break;
+            }
+            case BUY:{
+                getBuy().setChanged();
+                break;
+            }
+            case CLIENT:{
+                getClient().setChanged();
+                break;
+            }
+            case EMPLOYEE:{
+                getEmployee().setChanged();
+                break;
+            }
+            case JURIDICAL:{
+                getJuridical().setChanged();
+                break;
+            }
+            case LEGAL:{
+                getLegal().setChanged();
+                break;
+            }
+            case PRODUCT:{
+                getProduct().setChanged();
+                break;
+            }
+            case SALE:{
+                getSale().setChanged();
+                break;
+            }
+            case SERVICE:{
+                getService().setChanged();
+                break;
+            }
+            case SERVICE_TYPE:{
+                getServiceType().setChanged();
+                break;
+            }
+            case SUPPLIER:{
+                getSupplier().setChanged();
+                break;
+            }
+            case TRANSACTION:{
+                getTransaction().setChanged();
+                break;
+            }
+        }
     }
     
     public static BrandObservable getBrand(){

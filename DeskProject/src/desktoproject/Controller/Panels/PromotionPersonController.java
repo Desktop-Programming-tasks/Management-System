@@ -12,12 +12,14 @@ import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.PersonPromotion;
 import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenData;
@@ -42,7 +44,7 @@ import javafx.scene.input.KeyCode;
  *
  * @author ecsanchesjr
  */
-public class PromotionPersonController extends Controller implements Initializable, TableScreen {
+public class PromotionPersonController extends Controller implements Initializable, TableScreen,AppObserver{
 
 //    private static final String promotionFXMLPath = "desktoproject/View/Panels/PromotionPerson.fxml";
 //
@@ -107,6 +109,7 @@ public class PromotionPersonController extends Controller implements Initializab
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
         setUpSearch();
+        subscribe();
     }
 
     @FXML
@@ -182,16 +185,30 @@ public class PromotionPersonController extends Controller implements Initializab
     @Override
     public void populateTable() {
         try {
+            Person p = personTable.getSelectionModel().getSelectedItem();
             if (type == PersonPromotion.LEGAL_PERSON) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllLegalPersons()));
             } else {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllJuridicalPersons()));
             }
+            selectTable(p);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
         } catch (NoResultsException ex) {
             //
+        }
+    }
+
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            Person cp = (Person)o;
+            for(Person p : personTable.getItems()){
+                if(p.getId() == cp.getId()){
+                    personTable.getSelectionModel().select(p);
+                }
+            }
         }
     }
 
@@ -203,5 +220,19 @@ public class PromotionPersonController extends Controller implements Initializab
     @Override
     public void setPath() {
         this.path = FXMLPaths.PROMOTION_SCREEN;
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        if(type==PersonPromotion.JURIDICAL_PERSON){
+            ObservableServer.getJuridical().addObserver(this); 
+        }else{
+            ObservableServer.getLegal().addObserver(this);
+        }
     }
 }

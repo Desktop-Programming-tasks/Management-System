@@ -5,7 +5,7 @@
  */
 package desktoproject.Controller.Panels;
 
-import desktoproject.Controller.ControllerEdit;
+import desktoproject.Controller.Interfaces.ControllerEdit;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Validate;
 import java.net.URL;
@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 
 /**
  * FXML Controller class
@@ -78,6 +78,7 @@ public class TelephoneComponentController extends ControllerEdit implements Init
         // TODO
         Animation.bindAnimation(telTextField);
         Animation.bindAnimation(secTelTextField);
+        telephones = new ArrayList<>();
     }    
 
     private void setTelephones(ArrayList<String> telephones) {
