@@ -92,7 +92,7 @@ public class ServiceTypeQueryController extends Controller implements Initializa
                 try {
                     ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.searchServiceTypes(newValue)));
                 } catch (RemoteException|DatabaseErrorException ex) {
-                    
+                    //
                 }
             }
         });

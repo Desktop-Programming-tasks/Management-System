@@ -17,10 +17,11 @@ public class ServiceType implements Serializable{
     private String name;
     private float price;
     private boolean active;
-    public ServiceType(int id, String name, float price) {
+    public ServiceType(int id, String name, float price, boolean active) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.active = active;
     }
 
     
@@ -60,9 +61,9 @@ public class ServiceType implements Serializable{
     public void setActive(boolean active) {
         this.active = active;
     }
-    
+
     @Override
     public String toString() {
-        return "ServiceType{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
+        return "ServiceType{" + "id=" + id + ", name=" + name + ", price=" + price + ", active=" + active + '}';
     }
 }
