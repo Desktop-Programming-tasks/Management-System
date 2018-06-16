@@ -5,11 +5,11 @@
  */
 package deskprojectserver.RMI;
 
-import Observable.Aggregator;
-import Observable.ObservableThread;
-import Observable.Observables.ObservablesHolder;
 import RMI.RemoteLogin;
 import RMI.RemoteMethods;
+import deskprojectserver.Observable.Aggregator;
+import deskprojectserver.Observable.ObservableThread;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.rmi.AlreadyBoundException;

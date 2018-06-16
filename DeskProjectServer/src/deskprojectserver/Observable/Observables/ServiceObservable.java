@@ -3,21 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observable.Observables;
+package deskprojectserver.Observable.Observables;
 
 import Classes.Enums.ObservableType;
-import Observable.ServerObservable;
+import deskprojectserver.Observable.ServerObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public class BrandObservable extends ServerObservable{
-    protected BrandObservable(){
-    }
+public class ServiceObservable extends ServerObservable{
+
+    protected ServiceObservable() {}
 
     @Override
     public void setType() {
-        this.type = ObservableType.BRAND;
+        this.type = ObservableType.SERVICE;
     }
+    
 }

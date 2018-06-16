@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observable.Observables;
+package deskprojectserver.Observable.Observables;
 
-import Observable.ServerObserver;
+import deskprojectserver.Observable.ServerObserver;
 
 /**
  *
