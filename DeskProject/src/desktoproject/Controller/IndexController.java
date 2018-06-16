@@ -30,16 +30,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class IndexController extends Controller implements Initializable {
 
-//    private static final String indexPath = "desktoproject/View/Index.fxml";
-//
-//    public static ScreenData call(Stage stage) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(IndexController.class.getClassLoader().getResource(indexPath));
-//        Parent p = loader.load();
-//        IndexController controller = loader.getController();
-//
-//        return new ScreenData(p, controller);
-//    }
     @FXML
     private AnchorPane overPanel;
     @FXML

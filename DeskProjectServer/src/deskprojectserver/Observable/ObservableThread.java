@@ -36,7 +36,7 @@ public class ObservableThread extends Thread {
             try {
                 clientConnection = server.accept();
                 aggregator.addClient(clientConnection);
-                System.out.println("connected");
+                System.out.println("Currently exists "+aggregator.getClients().size()+" clients connected.");
             } catch (IOException ex) {
                 Logger.getLogger(ObservableThread.class.getName()).log(Level.SEVERE, null, ex);
             }

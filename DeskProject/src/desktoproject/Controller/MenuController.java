@@ -27,16 +27,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class MenuController extends Controller implements Initializable {
 
-//    private static final String PATH = "desktoproject/View/Menu.fxml";
-//    
-//    public static ScreenObject call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(LoginController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        MenuController controller = loader.getController();
-//        return new ScreenObject(p, controller);
-//    }
-
     @FXML
     private AnchorPane dynamic;
     
