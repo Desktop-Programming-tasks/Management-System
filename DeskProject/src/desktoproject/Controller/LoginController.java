@@ -36,14 +36,6 @@ import javafx.scene.control.TextField;
  * @author ecsanchesjr
  */
 public class LoginController extends Controller implements Initializable {
-
-//    private static final String path = "desktoproject/View/Login.fxml";
-//    
-//    public static Parent call() throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(LoginController.class.getClassLoader().getResource(path));
-//        return loader.load();
-//    }
     
     @FXML
     TextField passTextField;
@@ -69,29 +61,14 @@ public class LoginController extends Controller implements Initializable {
         
         String login = userTextField.getText();
         String pass = passTextField.getText();
-        System.out.println("?????????");
         valLogin.validateEmpty("Campo de usuário", pass);
         valLogin.validateEmpty("Campo de senha", login);
         
         if(valLogin.getErrorMessage().isEmpty()) {
-            System.out.println("????????");
             validateLogin(login, pass);
         } else {
             GUIController.getInstance().showAlert(Alert.AlertType.ERROR, "Erro de login", "Campos não foram validados!", valLogin.getErrorMessage().toString());
         }
-        
-//        try {
-//            ArrayList<String> telephones = new ArrayList<>();
-//            telephones.add("9955999599");
-//            telephones.add("6845465465465");
-//            Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
-//            Employee employee = new Employee("login test", "password", EmployeeType.MANAGER, "87854", "employee of the month", address, telephones, "498431");
-//            Globals.getInstance().setEmployee(employee);
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        GUIController.getInstance().callScreen(ScreenType.INDEX);
     }
     
     private void validateLogin(String login, String password) {
@@ -117,14 +94,11 @@ public class LoginController extends Controller implements Initializable {
     }
     
     private Autentication remoteValidationLogin(String login, String password) {
-        System.out.println("pq vc não tá aparecendo");
         try {
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteLogin.RMI_PORT);
             RemoteLogin loginChannel = (RemoteLogin) rmiRegistry.lookup(RemoteLogin.RMI_LOGIN);
-            System.out.println("?");
             return loginChannel.tryLogin(login, password);
         } catch (RemoteException | NotBoundException | DatabaseErrorException ex) {
-            ex.printStackTrace();
             GUIController.getInstance().showConnectionErrorAlert();
         }
         return Autentication.ERROR_ON_LOGIN;

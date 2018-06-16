@@ -85,7 +85,8 @@ public class Aggregator implements ServerObserver{
                 output = new DataOutputStream(client.getOutputStream());
                 output.writeUTF(type.name());
             } catch (IOException ex) {
-                Logger.getLogger(Aggregator.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Update all: "+ex.getMessage());
+                clients.remove(client);
             }
         });
     }
