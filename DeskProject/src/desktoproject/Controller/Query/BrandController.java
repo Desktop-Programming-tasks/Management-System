@@ -8,11 +8,13 @@ package desktoproject.Controller.Query;
 import Classes.Transactions.Brand;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.ModalType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
 import desktoproject.Utils.Animation;
 import java.net.URL;
@@ -33,7 +35,7 @@ import javafx.scene.input.KeyCode;
  *
  * @author noda
  */
-public class BrandController extends Controller implements Initializable, TableScreen {
+public class BrandController extends Controller implements Initializable, TableScreen, AppObserver {
 //
 //    private static final String PATH = "desktoproject/View/Query/Brand.fxml";
 //
@@ -70,6 +72,7 @@ public class BrandController extends Controller implements Initializable, TableS
         
         setTableAction();
         populateTable();
+        subscribe();
     }
     
     @Override
@@ -101,11 +104,24 @@ public class BrandController extends Controller implements Initializable, TableS
     @Override
     public void populateTable() {
         try {
+            Brand selectedBrand = brandTable.getSelectionModel().getSelectedItem();
             brandTable.setItems(FXCollections.observableArrayList(BrandDAO.queryAllBrands()));
+            selectTable(selectedBrand);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
+        }
+    }
+    @Override
+    public void selectTable(Object o) {
+        if (o != null) {
+            Brand cb = (Brand)o;
+            for (Brand b : brandTable.getItems()) {
+                if (b.getId() == cb.getId()) {
+                    brandTable.getSelectionModel().select(b);
+                }
+            }
         }
     }
 
@@ -158,5 +174,15 @@ public class BrandController extends Controller implements Initializable, TableS
     @Override
     public void setUpSearch() {
         // nothing happen here
+    }
+    
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getBrand().addObserver(this);
     }
 }

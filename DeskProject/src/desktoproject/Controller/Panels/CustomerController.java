@@ -13,8 +13,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.ControllerPersons;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.ControllerPersons;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
@@ -32,6 +31,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 
 
 
@@ -232,7 +232,7 @@ public class CustomerController extends ControllerPersons implements Initializab
 
         valObj.appendErrorMessage(((TelephoneComponentController) getTelephoneComponent().getController()).validateFields());
 
-        valObj.appendErrorMessage(((AddressComponentController) getTelephoneComponent().getController()).validateFields());
+        valObj.appendErrorMessage(((AddressComponentController) getAddressComponent().getController()).validateFields());
 
         if (valObj.getErrorMessage().isEmpty()) {
             return true;

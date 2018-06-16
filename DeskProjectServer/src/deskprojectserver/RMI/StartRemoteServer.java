@@ -10,7 +10,6 @@ import Observable.ObservableThread;
 import Observable.Observables.ObservablesHolder;
 import RMI.RemoteLogin;
 import RMI.RemoteMethods;
-import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.rmi.AlreadyBoundException;
@@ -35,7 +34,7 @@ public class StartRemoteServer {
     private Registry rmiRegistry;
     
     private ServerSocket observableServer;
-    private Aggregator agregator;
+    private Aggregator aggregator;
     private ObservableThread observableThread;
     
     public static void main(String[] args) {
@@ -55,7 +54,7 @@ public class StartRemoteServer {
             rmiRegistry = LocateRegistry.createRegistry(RemoteLogin.RMI_PORT);
             rmiRegistry.bind(RemoteLogin.RMI_LOGIN, loginChannel);
             
-            System.out.println("LoginServer already to receive connections...");
+            System.out.println("LoginServer ready to receive connections...");
         } catch(RemoteException | AlreadyBoundException ex) {
             ex.printStackTrace();
         }
@@ -69,7 +68,7 @@ public class StartRemoteServer {
             rmiRegistry = LocateRegistry.createRegistry(RemoteMethods.RMI_PORT);
             rmiRegistry.bind(RemoteMethods.RMI_BD, methodsChannel);
 
-            System.out.println("RemoteServer already to receive connections...");
+            System.out.println("RemoteServer ready to receive connections...");
         } catch (RemoteException | AlreadyBoundException ex) {
             Logger.getLogger(RemoteServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -78,7 +77,7 @@ public class StartRemoteServer {
     private void openObservableServer() {
         try {
             observableServer = new ServerSocket(9000);
-            observableThread = new ObservableThread("Observable", agregator, observableServer);
+            observableThread = new ObservableThread("Observable", aggregator, observableServer);
             observableThread.start();
         } catch (IOException ex) {
             Logger.getLogger(StartRemoteServer.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,8 +86,12 @@ public class StartRemoteServer {
     }
     
     private void setUpObservers(){
-        agregator = new Aggregator();
-        ObservablesHolder.getBrand().addObserver(agregator);
-        ObservablesHolder.getEmployee().addObserver(agregator);
+        System.out.println("===Observable system===");
+        System.out.println("Creating aggregator");
+        
+        aggregator = new Aggregator();
+        ObservablesHolder.subscribeToAll(aggregator);
+        
+        System.out.println("Observer aggregator ready....");
     }
 }

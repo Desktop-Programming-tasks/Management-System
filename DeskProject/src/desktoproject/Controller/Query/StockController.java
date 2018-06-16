@@ -8,11 +8,13 @@ package desktoproject.Controller.Query;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import java.net.URL;
@@ -38,7 +40,7 @@ import javafx.util.Callback;
  *
  * @author noda
  */
-public class StockController extends Controller implements Initializable, TableScreen {
+public class StockController extends Controller implements Initializable, TableScreen, AppObserver {
 
 //    private static final String stockPath = "desktoproject/View/Query/Stock.fxml";
 //
@@ -117,12 +119,26 @@ public class StockController extends Controller implements Initializable, TableS
     @Override
     public void populateTable(){
         try {
+            Product p = StockTable.getSelectionModel().getSelectedItem();
             StockTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
+            selectTable(p);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
         } catch (NoResultsException ex) {
             //
+        }
+    }
+    
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            Product cp = (Product) o;
+            for(Product p : StockTable.getItems()){
+                if(p.getId() == cp.getId()){
+                    StockTable.getSelectionModel().select(p);
+                }
+            }
         }
     }
     
@@ -191,5 +207,15 @@ public class StockController extends Controller implements Initializable, TableS
     @Override
     public void setPath() {
         this.path = FXMLPaths.STOCK_QUERY;
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getProduct().addObserver(this);
     }
 }

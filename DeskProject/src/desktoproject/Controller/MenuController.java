@@ -5,6 +5,8 @@
  */
 package desktoproject.Controller;
 
+import desktoproject.Controller.Interfaces.FXMLPaths;
+import desktoproject.Controller.Interfaces.Controller;
 import Classes.Enums.EmployeeType;
 import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;

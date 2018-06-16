@@ -8,10 +8,12 @@ package desktoproject.Controller.Modal;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Controller;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.Controller;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
@@ -38,7 +40,7 @@ import javafx.util.Callback;
  *
  * @author noda
  */
-public class AddProductController extends Controller implements Initializable, TableScreen {
+public class AddProductController extends Controller implements Initializable, TableScreen, AppObserver {
 
 //    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
 //    
@@ -120,6 +122,7 @@ public class AddProductController extends Controller implements Initializable, T
         blockFields(true);
         setTableAction();
         setUpSearch();
+        subscribe();
     }
     
     @Override
@@ -141,12 +144,26 @@ public class AddProductController extends Controller implements Initializable, T
     @Override
     public void populateTable() {
         try {
+            Product selectedTableProduct = productTable.getSelectionModel().getSelectedItem();
             productTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
+            selectTable(selectedTableProduct);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
         } catch (NoResultsException ex) {
             //
+        }
+    }
+    
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            Product cp = (Product) o;
+            for(Product p : productTable.getItems()){
+                if(p.getId() == cp.getId()){
+                    productTable.getSelectionModel().select(p);
+                }
+            }
         }
     }
 
@@ -214,4 +231,16 @@ public class AddProductController extends Controller implements Initializable, T
     public void setPath() {
         this.path = FXMLPaths.ADD_PRODUCT_MODAL;
     }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getProduct().addObserver(this);
+    }
+
+    
 }

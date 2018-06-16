@@ -3,20 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Observable.Observables;
+package desktoproject.Controller.Observable.Observables;
 
-import Classes.Enums.ObservableType;
-import Observable.ServerObservable;
+import desktoproject.Controller.Observable.AppObservable;
 
 /**
  *
  * @author viniciusmn
  */
-public class ClientObservable extends ServerObservable{
+public class ClientObservable extends AppObservable{
     protected ClientObservable(){}
-
-    @Override
-    public void setType() {
-        this.type = ObservableType.CLIENT;
-    }
 }

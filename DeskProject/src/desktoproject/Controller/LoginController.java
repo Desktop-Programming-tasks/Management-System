@@ -5,6 +5,8 @@
  */
 package desktoproject.Controller;
 
+import desktoproject.Controller.Interfaces.FXMLPaths;
+import desktoproject.Controller.Interfaces.Controller;
 import Classes.Enums.Autentication;
 import Classes.Persons.Employee;
 import Exceptions.DatabaseErrorException;

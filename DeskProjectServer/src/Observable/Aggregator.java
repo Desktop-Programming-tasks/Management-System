@@ -17,10 +17,10 @@ import java.util.logging.Logger;
  *
  * @author viniciusmn
  */
-public class Aggregator implements MyObserver{
+public class Aggregator implements ServerObserver{
     
-    private ArrayList<Socket> clients;
     private DataOutputStream output;
+    private ArrayList<Socket> clients;
 
     public Aggregator() {
         this.clients = new ArrayList<>();

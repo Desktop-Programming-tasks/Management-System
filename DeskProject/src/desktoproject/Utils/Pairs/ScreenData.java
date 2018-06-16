@@ -5,7 +5,7 @@
  */
 package desktoproject.Utils.Pairs;
 
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import javafx.scene.Parent;
 
 /**

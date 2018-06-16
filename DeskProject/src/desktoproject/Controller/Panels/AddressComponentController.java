@@ -9,8 +9,7 @@ package desktoproject.Controller.Panels;
 import Classes.Persons.Address;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.ControllerEdit;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.ControllerEdit;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.LocationsDAO;
 import desktoproject.Utils.Animation;
@@ -25,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 
 /**
  * FXML Controller class

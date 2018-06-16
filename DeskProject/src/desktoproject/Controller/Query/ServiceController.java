@@ -5,10 +5,12 @@
  */
 package desktoproject.Controller.Query;
 
-import desktoproject.Controller.Controller;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.Controller;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Utils.Animation;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author noda
  */
-public class ServiceController extends Controller implements Initializable, TableScreen {
+public class ServiceController extends Controller implements Initializable, TableScreen, AppObserver {
     
 //    private static final String PATH = "desktoproject/View/Query/Service.fxml";
 //    
@@ -68,6 +70,8 @@ public class ServiceController extends Controller implements Initializable, Tabl
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        subscribe();
     }    
     
     @FXML
@@ -102,5 +106,20 @@ public class ServiceController extends Controller implements Initializable, Tabl
     @Override
     public void setUpSearch() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void selectTable(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getService().addObserver(this);
     }
 }

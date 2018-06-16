@@ -7,11 +7,13 @@ package desktoproject.Controller.Query;
 
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.ModalType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
 import java.net.URL;
@@ -33,7 +35,7 @@ import javafx.scene.input.KeyCode;
  *
  * @author viniciusmn
  */
-public class ServiceTypeQueryController extends Controller implements Initializable, TableScreen {
+public class ServiceTypeQueryController extends Controller implements Initializable, TableScreen, AppObserver {
 
 //    private static final String PATH = "desktoproject/View/Query/ServiceTypeQuery.fxml";
 //    
@@ -77,6 +79,7 @@ public class ServiceTypeQueryController extends Controller implements Initializa
         populateTable();
         setTableAction();
         setUpSearch();
+        subscribe();
     }    
     
     @Override
@@ -98,12 +101,24 @@ public class ServiceTypeQueryController extends Controller implements Initializa
     @Override
     public void populateTable(){
         try {
+            ServiceType selectedService = ServiceTable.getSelectionModel().getSelectedItem();
             ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
+            selectTable(selectedService);
         }catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         }
-        //
-        
+    }
+
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            ServiceType cst = (ServiceType)o;
+            for(ServiceType st : ServiceTable.getItems()){
+                if(st.getId() == cst.getId()){
+                    ServiceTable.getSelectionModel().select(st);
+                }
+            }
+        }
     }
     
     @Override
@@ -155,5 +170,15 @@ public class ServiceTypeQueryController extends Controller implements Initializa
     @Override
     public void setPath() {
         this.path = FXMLPaths.SERVICE_TYPE_QUERY;
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        ObservableServer.getServiceType().addObserver(this);
     }
 }

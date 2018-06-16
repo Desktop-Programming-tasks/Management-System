@@ -5,12 +5,14 @@
  */
 package desktoproject.Controller.Query;
 
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.TransactionQueryType;
 import static desktoproject.Controller.Enums.TransactionQueryType.ALL;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
@@ -30,7 +32,7 @@ import javafx.scene.control.TextField;
  *
  * @author ecaanchesjr
  */
-public class GenericTransactionController extends Controller implements Initializable, TableScreen {
+public class GenericTransactionController extends Controller implements Initializable, TableScreen, AppObserver {
 
 //    private static final String genericTransactionPath = "desktoproject/View/Query/GenericTransaction.fxml";
 //    
@@ -140,5 +142,20 @@ public class GenericTransactionController extends Controller implements Initiali
     @Override
     public void setUpSearch() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void selectTable(Object o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        
     }
 }

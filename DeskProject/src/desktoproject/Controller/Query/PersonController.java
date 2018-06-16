@@ -9,14 +9,16 @@ import Classes.Persons.Person;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import Exceptions.OperationNotAllowed;
-import desktoproject.Controller.Controller;
+import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Enums.PersonQueryType;
 import static desktoproject.Controller.Enums.PersonQueryType.CUSTOMER;
 import static desktoproject.Controller.Enums.PersonQueryType.EMPLOYEE;
 import desktoproject.Controller.Enums.ScreenType;
-import desktoproject.Controller.FXMLPaths;
+import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
-import desktoproject.Controller.TableScreen;
+import desktoproject.Controller.Interfaces.TableScreen;
+import desktoproject.Controller.Observable.AppObserver;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenData;
@@ -41,7 +43,7 @@ import javafx.scene.input.KeyCode;
  *
  * @author noda
  */
-public class PersonController extends Controller implements Initializable, TableScreen {
+public class PersonController extends Controller implements Initializable, TableScreen, AppObserver {
 
 //    private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
 //
@@ -119,6 +121,7 @@ public class PersonController extends Controller implements Initializable, Table
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
         setUpSearch();
+        subscribe();
     }
 
     @Override
@@ -175,16 +178,30 @@ public class PersonController extends Controller implements Initializable, Table
     @Override
     public void populateTable() {
         try {
+            Person p = personTable.getSelectionModel().getSelectedItem();
             if (type == PersonQueryType.CUSTOMER) {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
             } else {
                 personTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
             }
+            selectTable(p);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
             System.out.println(ex.getMessage());
         } catch (NoResultsException ex) {
             //
+        }
+    }
+    
+    @Override
+    public void selectTable(Object o) {
+        if(o!=null){
+            Person cp = (Person)o;
+            for(Person p : personTable.getItems()){
+                if(p.getId() == cp.getId()){
+                    personTable.getSelectionModel().select(p);
+                }
+            }
         }
     }
 
@@ -240,5 +257,19 @@ public class PersonController extends Controller implements Initializable, Table
     @Override
     public void setPath() {
         this.path = FXMLPaths.PERSON_QUERY;
+    }
+
+    @Override
+    public void update() {
+        populateTable();
+    }
+
+    @Override
+    public void subscribe() {
+        if(type==CUSTOMER){
+            ObservableServer.getClient().addObserver(this);
+        }else{
+            ObservableServer.getEmployee().addObserver(this);
+        }
     }
 }
