@@ -10,8 +10,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -79,7 +77,6 @@ public class Aggregator implements ServerObserver{
 //            }
 //        }
 
-        System.out.println(type.name());
         clients.forEach(client -> {
             try {
                 output = new DataOutputStream(client.getOutputStream());

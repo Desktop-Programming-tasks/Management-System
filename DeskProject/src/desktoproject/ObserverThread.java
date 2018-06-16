@@ -5,6 +5,8 @@
  */
 package desktoproject;
 
+import Classes.Enums.ObservableType;
+import desktoproject.Controller.Observable.Observables.ObservableServer;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -18,6 +20,11 @@ import java.util.logging.Logger;
 public class ObserverThread extends Thread {
     private Socket connection;
     private DataInputStream notification;
+
+    public ObserverThread(String name) {
+        super(name);
+        this.setDaemon(true);
+    }
     
     @Override
     public void run() {
@@ -26,7 +33,8 @@ public class ObserverThread extends Thread {
             notification = new DataInputStream(connection.getInputStream());
             
             while(true) {
-                System.out.println(notification.readUTF());
+                String serverAtt = notification.readUTF();
+                ObservableServer.trigger(ObservableType.valueOf(serverAtt));
             }
         } catch (IOException ex) {
             Logger.getLogger(ObserverThread.class.getName()).log(Level.SEVERE, null, ex);

@@ -41,7 +41,7 @@ public class Globals {
 
     private Globals() throws RemoteException {
         try {
-            observerServer = new ObserverThread();
+            observerServer = new ObserverThread("Observer");
             Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteMethods.RMI_PORT);
             this.rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD);
         } catch (NotBoundException | RemoteException ex) {

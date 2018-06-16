@@ -24,6 +24,7 @@ public class ObservableThread extends Thread {
         super(name);
         this.aggregator = aggregator;
         this.server = server;
+        this.setDaemon(true);
     }
 
     @Override
