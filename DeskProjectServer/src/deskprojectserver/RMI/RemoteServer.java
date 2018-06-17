@@ -103,17 +103,17 @@ public class RemoteServer implements RemoteMethods {
     
     @Override
     public void unpromotePerson(Person person) throws RemoteException, DatabaseErrorException, NoResultsException{
-        DAOBuilder.getInstance().getPersonDAO().inactivatePerson(person);
+        //DAOBuilder.getInstance().getPersonDAO().inactivatePerson(person);
     }
 
     @Override
     public void promoteEmployee(Employee employee) throws RemoteException, DatabaseErrorException, DuplicatedLoginException {
-        DAOBuilder.getInstance().getPersonDAO().legalToEmployee(employee);
+        //DAOBuilder.getInstance().getPersonDAO().legalToEmployee(employee);
     }
 
     @Override
     public void promoteSupplier(Supplier supplier) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
-        DAOBuilder.getInstance().getPersonDAO().juridicalToSupplier(supplier);
+        //DAOBuilder.getInstance().getPersonDAO().juridicalToSupplier(supplier);
     }
 
     @Override
