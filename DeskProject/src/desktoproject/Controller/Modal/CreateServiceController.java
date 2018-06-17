@@ -113,7 +113,7 @@ public class CreateServiceController extends ControllerEdit implements Initializ
         valueTextField.setText(String.valueOf(service.getPrice()));
         beginDate.setValue(Misc.dateToLocal(service.getStartDate()));
         endDate.setValue(Misc.dateToLocal(service.getEstimatedDate()));
-        selectComboBoxEmployee(service.getAssignedEmployee());
+        selectComboBoxEmployee((Employee) service.getAssignedEmployee());
         selectComboBoxServiceType(service.getServiceType());
         comboBoxState.getSelectionModel().select(service.getStatus());
     }

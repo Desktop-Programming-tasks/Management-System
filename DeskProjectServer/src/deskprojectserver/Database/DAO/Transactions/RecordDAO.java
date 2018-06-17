@@ -61,6 +61,7 @@ public abstract class RecordDAO {
     public Record getRegister(String id) throws NoResultsException, DatabaseErrorException {
         Record record = basicGetRecord(id);
         record.getTransations().addAll(tProductDAO.getAllRecordProducts(record));
+        record.getTransations().addAll(tServiceDAO.getAllRecordServices(record));
         return record;
     }
 

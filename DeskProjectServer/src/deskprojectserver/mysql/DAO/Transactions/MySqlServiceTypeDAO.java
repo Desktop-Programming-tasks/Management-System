@@ -33,7 +33,8 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             + "`ServiceType`(`nameServiceType`, `priceServiceType`,`isActiveServiceType`)"
             + "VALUES (?,?,?)";
     private static final String GET_ONE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + ",`isActiveServiceType` FROM `ServiceType` WHERE nameServiceType=?";
+            + ",`isActiveServiceType` FROM `ServiceType` WHERE nameServiceType=?"
+            + " OR idServiceType=?";
     private static final String GET_ALL_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
             + ",`isActiveServiceType` FROM `ServiceType` WHERE isActiveServiceType";
     private static final String UPDATE_SQL = "UPDATE `ServiceType` "
@@ -71,10 +72,10 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
     public ServiceType getServiceType(String id) throws DatabaseErrorException, NoResultsException {
         ServiceType st = null;
         try {
-            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id);
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ONE_SQL, id,id);
             while (qr.getResultSet().next()) {
                 st = new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
-                        qr.getResultSet().getFloat(PRICE),qr.getResultSet().getBoolean(IS_ACTIVE));
+                        qr.getResultSet().getFloat(PRICE), qr.getResultSet().getBoolean(IS_ACTIVE));
                 st.setActive(qr.getResultSet().getBoolean(IS_ACTIVE));
             }
             qr.closeAll();
@@ -122,7 +123,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             QueryResult qr = exec.execute();
             while (qr.getResultSet().next()) {
                 services.add(new ServiceType(qr.getResultSet().getInt(ID), qr.getResultSet().getString(NAME),
-                        qr.getResultSet().getFloat(PRICE),qr.getResultSet().getBoolean(IS_ACTIVE)));
+                        qr.getResultSet().getFloat(PRICE), qr.getResultSet().getBoolean(IS_ACTIVE)));
             }
             qr.closeAll();
         } catch (SQLException e) {

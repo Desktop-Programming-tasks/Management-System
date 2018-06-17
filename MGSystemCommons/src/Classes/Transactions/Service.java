@@ -6,7 +6,7 @@
 package Classes.Transactions;
 
 import Classes.Enums.ServiceStatus;
-import Classes.Persons.Employee;
+import Classes.Persons.Person;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,16 +14,16 @@ import java.util.Date;
  *
  * @author gabriel
  */
-public class Service extends Transaction implements Serializable{
+public class Service extends Transaction implements Serializable {
 
     private Date startDate;
     private Date estimatedDate;
     private Date finishDate;
     private ServiceStatus status;
-    private Employee assignedEmployee;
+    private Person assignedEmployee;
     private ServiceType serviceType;
 
-    public Service(Date startDate, Date estimatedDate, ServiceStatus status, Employee assignedEmployee, ServiceType serviceType) {
+    public Service(Date startDate, Date estimatedDate, ServiceStatus status, Person assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
         super.setQuantity(1);
         this.startDate = startDate;
@@ -31,7 +31,7 @@ public class Service extends Transaction implements Serializable{
         this.status = status;
         this.assignedEmployee = assignedEmployee;
         this.serviceType = serviceType;
-        
+
     }
 
     public Date getStartDate() {
@@ -66,11 +66,11 @@ public class Service extends Transaction implements Serializable{
         this.status = status;
     }
 
-    public Employee getAssignedEmployee() {
+    public Person getAssignedEmployee() {
         return assignedEmployee;
     }
 
-    public void setAssignedEmployee(Employee assignedEmployee) {
+    public void setAssignedEmployee(Person assignedEmployee) {
         this.assignedEmployee = assignedEmployee;
     }
 
@@ -81,4 +81,10 @@ public class Service extends Transaction implements Serializable{
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", assignedEmployee=" + assignedEmployee + ", serviceType=" + serviceType + '}';
+    }
+    
 }
