@@ -14,6 +14,7 @@ import Exceptions.OutOfStockException;
 import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.TransactionProductDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -78,6 +79,7 @@ public class MySqlProductTransactionDAO extends TransactionProductDAO {
             product.setQuantityInStock(productAux.getQuantityInStock()
                     + quantity);
             productDao.updateProduct(product);
+            ObservablesHolder.getProduct().setChanged();
         } catch (NoResultsException ex) {
             //
         } catch (UnavailableBrandException | DuplicatedEntryException ex) {

@@ -11,6 +11,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -45,6 +46,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, st.getName(), st.getPrice(),
                     true);
+            ObservablesHolder.getServiceType().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -57,6 +59,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL, st.getName(), st.getPrice(),
                     st.isActive(), st.getId());
+            ObservablesHolder.getServiceType().setChanged();
         } catch (MySQLIntegrityConstraintViolationException ex) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException ex) {

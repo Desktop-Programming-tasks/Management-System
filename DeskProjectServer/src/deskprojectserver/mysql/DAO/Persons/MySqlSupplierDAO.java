@@ -12,6 +12,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.SupplierDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -51,6 +52,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
     public void insertSupplier(Supplier supplier) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, supplier.getDocumentId());
+            ObservablesHolder.getSupplier().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -75,6 +77,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
                 MySqlHandler.getInstance().getDb().
                         execute(INSERT_SUPPLIER_BRAND_SQL, supplier.getDocumentId(), brand.getName());
             }
+            ObservablesHolder.getSupplier().setChanged();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }
@@ -86,6 +89,7 @@ public class MySqlSupplierDAO extends SupplierDAO {
         getSupplier(supplier.getDocumentId());
         try {
             MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, supplier.getDocumentId());
+            ObservablesHolder.getSupplier().setChanged();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }

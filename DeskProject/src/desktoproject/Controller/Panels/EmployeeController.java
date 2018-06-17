@@ -258,9 +258,9 @@ public class EmployeeController extends ControllerPromotion implements Initializ
         valObj.validateRG(RGTextField.getText());
         valObj.validateCPF(CPFTextField.getText());
 
-        valObj.appendErrorMessage(((TelephoneComponentController) getAddressComponent().getController()).validateFields());
+        valObj.appendErrorMessage(((AddressComponentController) getAddressComponent().getController()).validateFields());
 
-        valObj.appendErrorMessage(((AddressComponentController) getTelephoneComponent().getController()).validateFields());
+        valObj.appendErrorMessage(((TelephoneComponentController) getTelephoneComponent().getController()).validateFields());
 
         valObj.validateNick(userTextField.getText());
 

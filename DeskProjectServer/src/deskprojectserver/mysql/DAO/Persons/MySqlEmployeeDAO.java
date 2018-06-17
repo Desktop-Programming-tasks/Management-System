@@ -13,6 +13,7 @@ import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.EmployeeDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -64,6 +65,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
                         employee.getLogin(), employee.getPassword(),
                         1, employee.getCPF());
             }
+            ObservablesHolder.getEmployee().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -77,6 +79,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
                     employee.getLogin(), employee.getPassword(), employee.getDocumentId());
+            ObservablesHolder.getEmployee().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedLoginException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -89,6 +92,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
         getEmployee(employee.getDocumentId());
         try {
             MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, employee.getDocumentId());
+            ObservablesHolder.getEmployee().setChanged();
         } catch (ClassNotFoundException | SQLException e) {
             throw new DatabaseErrorException();
         }

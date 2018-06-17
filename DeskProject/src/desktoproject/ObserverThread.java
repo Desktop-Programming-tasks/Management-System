@@ -34,6 +34,7 @@ public class ObserverThread extends Thread {
             
             while(true) {
                 String serverAtt = notification.readUTF();
+                System.out.println("Changed: "+serverAtt);
                 ObservableServer.trigger(ObservableType.valueOf(serverAtt));
             }
         } catch (IOException ex) {

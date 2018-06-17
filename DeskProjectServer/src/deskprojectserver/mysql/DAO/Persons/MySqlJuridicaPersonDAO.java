@@ -11,6 +11,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.JuridicalPersonDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
     public void insertJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException, DuplicatedEntryException {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, jp.getCNPJ());
+            ObservablesHolder.getJuridical().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -43,12 +45,14 @@ public class MySqlJuridicaPersonDAO extends JuridicalPersonDAO {
     @Override
     public void updateJuridicalPerson(JuridicalPerson jp) throws DatabaseErrorException, NoResultsException {
         getJuridicalPerson(jp.getDocumentId());
+        ObservablesHolder.getJuridical().setChanged();
     }
 
     @Override
     public void removeJuridcalPerson(JuridicalPerson jp) throws DatabaseErrorException {
         try {
             MySqlHandler.getInstance().getDb().execute(REMOVE_SQL, jp.getCNPJ());
+            ObservablesHolder.getJuridical().setChanged();
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
         }

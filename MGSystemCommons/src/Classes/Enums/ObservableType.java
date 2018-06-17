@@ -20,6 +20,7 @@ public enum ObservableType {
     TRANSACTION,
     SALE,
     BUY,
+    REGISTER,
     LEGAL,
     JURIDICAL
 }

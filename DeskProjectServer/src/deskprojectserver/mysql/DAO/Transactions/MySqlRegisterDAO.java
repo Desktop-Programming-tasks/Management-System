@@ -13,6 +13,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.RegisterDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
@@ -54,6 +55,7 @@ public class MySqlRegisterDAO extends RegisterDAO {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL,
                     record.getId(), record.getRegisterDate(), record.getTotalprice(), record.getType(), record.getCustomer().getDocumentId(),
                     record.getAssignedEmployee().getDocumentId());
+            ObservablesHolder.getRegister().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (SQLException | ClassNotFoundException ex) {

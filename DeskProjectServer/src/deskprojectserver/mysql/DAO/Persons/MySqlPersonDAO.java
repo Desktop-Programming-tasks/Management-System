@@ -11,6 +11,7 @@ import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import static deskprojectserver.Utils.ActivationStatus.ACTIVE_STATE;
 import static deskprojectserver.Utils.ActivationStatus.INACTIVE_STATE;
 import deskprojectserver.Utils.FormatUtils;
@@ -68,6 +69,7 @@ public class MySqlPersonDAO extends PersonDAO {
         try {
             MySqlHandler.getInstance().getDb().execute(INSERT_SQL, p.getDocumentId(), p.getName(),
                     p.getTelephones().get(0), p.getTelephones().get(1), ACTIVE_STATE);
+            ObservablesHolder.getClient().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {
@@ -83,6 +85,7 @@ public class MySqlPersonDAO extends PersonDAO {
                     p.getTelephones().get(0), p.getTelephones().get(1),
                     p.isActive() ? ACTIVE_STATE : INACTIVE_STATE,
                     p.getId());
+            ObservablesHolder.getClient().setChanged();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new DatabaseErrorException();

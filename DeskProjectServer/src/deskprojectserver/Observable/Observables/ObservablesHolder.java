@@ -18,6 +18,7 @@ public abstract class ObservablesHolder {
     private static EmployeeObservable EMPLOYEE_INSTANCE;
     private static JuridicalObservable JURIDICAL_INSTANCE;
     private static LegalObservable LEGAL_INSTANCE;
+    private static RegisterObservable REGISTER_INSTANCE;
     private static ProductObservable PRODUCT_INSTANCE;
     private static SaleObservable SALE_INSTANCE;
     private static ServiceObservable SERVICE_INSTANCE;
@@ -99,5 +100,9 @@ public abstract class ObservablesHolder {
 
     public static TransactionObservable getTransaction(){
         return TRANSACTION_INSTANCE==null?TRANSACTION_INSTANCE = new TransactionObservable():TRANSACTION_INSTANCE;
+    }
+
+    public static RegisterObservable getRegister() {
+        return REGISTER_INSTANCE==null?REGISTER_INSTANCE = new RegisterObservable():REGISTER_INSTANCE;
     }
 }

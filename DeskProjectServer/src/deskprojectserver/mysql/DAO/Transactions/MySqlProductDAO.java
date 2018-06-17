@@ -14,6 +14,7 @@ import Exceptions.UnavailableBrandException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Database.DAO.Transactions.ProductDAO;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.ActivationStatus;
 import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryExecuter;
@@ -81,6 +82,7 @@ public class MySqlProductDAO extends ProductDAO {
                     product.getName(), product.getPrice(), product.getQuantityInStock(),
                     product.getBrand().getName(), product.isActive() ? ActivationStatus.ACTIVE_STATE
                     : ActivationStatus.INACTIVE_STATE, product.getId());
+            ObservablesHolder.getProduct().setChanged();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new DatabaseErrorException();
@@ -100,6 +102,7 @@ public class MySqlProductDAO extends ProductDAO {
                     product.getBarCode(), product.getName(), product.getPrice(),
                     product.getQuantityInStock(), product.getBrand().getName(),
                     ActivationStatus.ACTIVE_STATE);
+            ObservablesHolder.getProduct().setChanged();
         } catch (MySQLIntegrityConstraintViolationException e) {
             throw new DuplicatedEntryException();
         } catch (ClassNotFoundException | SQLException e) {

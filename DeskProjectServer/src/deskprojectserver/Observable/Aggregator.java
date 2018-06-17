@@ -77,12 +77,13 @@ public class Aggregator implements ServerObserver{
 //            }
 //        }
 
+        System.out.println("Changed: "+type.name());
         clients.forEach(client -> {
             try {
                 output = new DataOutputStream(client.getOutputStream());
                 output.writeUTF(type.name());
             } catch (IOException ex) {
-                System.out.println("Update all: "+ex.getMessage());
+                System.out.println("Socket lost: "+ex.getMessage());
                 clients.remove(client);
             }
         });

@@ -44,18 +44,6 @@ import javafx.scene.input.KeyCode;
  * @author noda
  */
 public class PersonController extends Controller implements Initializable, TableScreen, AppObserver {
-
-//    private static final String personControllerPath = "desktoproject/View/Query/Person.fxml";
-//
-//    public static Parent call(PersonQueryType type) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(PersonController.class.getClassLoader().getResource(personControllerPath));
-//        Parent p = loader.load();
-//        PersonController controller = loader.getController();
-//        controller.setType(type);
-//        controller.setUpComponents();
-//        return p;
-//    }
     
     public ScreenData call(PersonQueryType type) throws IOException {
         ScreenData callReturn = super.call();
@@ -68,10 +56,12 @@ public class PersonController extends Controller implements Initializable, Table
     private PersonQueryType type;
 
     private void setType(PersonQueryType type) {
+        System.out.println("set type "+type.name());
         this.type = type;
     }
 
     private void setUpComponents() {
+        System.out.println("SetUpComponents "+type.name());
         switch (type) {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
@@ -85,6 +75,7 @@ public class PersonController extends Controller implements Initializable, Table
             }
         }
         populateTable();
+        subscribe();
     }
 
     @FXML
@@ -121,7 +112,6 @@ public class PersonController extends Controller implements Initializable, Table
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
         setUpSearch();
-        subscribe();
     }
 
     @Override
@@ -261,14 +251,18 @@ public class PersonController extends Controller implements Initializable, Table
 
     @Override
     public void update() {
+        System.out.println("pq vc não tá workando?");
         populateTable();
     }
 
     @Override
     public void subscribe() {
-        if(type==CUSTOMER){
+        System.out.println("whats happen "+(type == null));
+        if(type == PersonQueryType.CUSTOMER){
+            System.out.println("observable customer");
             ObservableServer.getClient().addObserver(this);
         }else{
+            System.out.println("observable employee");
             ObservableServer.getEmployee().addObserver(this);
         }
     }

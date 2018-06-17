@@ -41,6 +41,7 @@ public class ObservableServer extends AppObservable{
     }
     
     public static void trigger(ObservableType type){
+        System.out.println("tá no trigger " + type.name());
         switch(type){
             case BRAND:{
                 getBrand().setChanged();
