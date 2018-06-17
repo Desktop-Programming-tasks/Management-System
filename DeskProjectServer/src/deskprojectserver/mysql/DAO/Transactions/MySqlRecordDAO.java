@@ -12,7 +12,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import deskprojectserver.Database.DAO.Transactions.RegisterDAO;
+import deskprojectserver.Database.DAO.Transactions.RecordDAO;
 import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.QueryExecuter;
 import deskprojectserver.Utils.QueryResult;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  *
  * @author gabriel
  */
-public class MySqlRegisterDAO extends RegisterDAO {
+public class MySqlRecordDAO extends RecordDAO {
 
     private static final String ID = "idRegistry";
     private static final String DATE = "dateRegistry";
@@ -45,7 +45,7 @@ public class MySqlRegisterDAO extends RegisterDAO {
     private static final String REMOVE_SQL = "DELETE FROM `Registry` WHERE "
             + "idRegistry=?";
 
-    public MySqlRegisterDAO() {
+    public MySqlRecordDAO() {
         super(new MySqlProductTransactionDAO(), new MySqlServiceTransactionDAO());
     }
 

@@ -97,8 +97,13 @@ public class RemoteServer implements RemoteMethods {
     }
 
     @Override
-    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed {
+    public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException {
         DAOBuilder.getInstance().getPersonDAO().removePerson(person);
+    }
+    
+    @Override
+    public void inactivatePerson(Person person) throws RemoteException, DatabaseErrorException, NoResultsException{
+        DAOBuilder.getInstance().getPersonDAO().inactivatePerson(person);
     }
 
     @Override
