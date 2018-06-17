@@ -16,12 +16,14 @@ import java.util.Date;
  */
 public class Service extends Transaction implements Serializable {
 
+    private int id;
     private Date startDate;
     private Date estimatedDate;
     private Date finishDate;
     private ServiceStatus status;
     private Person assignedEmployee;
     private ServiceType serviceType;
+    private String message;
 
     public Service(Date startDate, Date estimatedDate, ServiceStatus status, Person assignedEmployee, ServiceType serviceType) {
         super(serviceType.getPrice(), serviceType.getName());
@@ -32,6 +34,18 @@ public class Service extends Transaction implements Serializable {
         this.assignedEmployee = assignedEmployee;
         this.serviceType = serviceType;
 
+    }
+
+    public Service(int id, Date startDate, Date estimatedDate, Date finishDate, ServiceStatus status, Person assignedEmployee, ServiceType serviceType, String message) {
+        super(serviceType.getPrice(), serviceType.getName());
+        this.id = id;
+        this.startDate = startDate;
+        this.estimatedDate = estimatedDate;
+        this.finishDate = finishDate;
+        this.status = status;
+        this.assignedEmployee = assignedEmployee;
+        this.serviceType = serviceType;
+        this.message = message;
     }
 
     public Date getStartDate() {
@@ -82,9 +96,21 @@ public class Service extends Transaction implements Serializable {
         this.serviceType = serviceType;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Service{" + "startDate=" + startDate + ", estimatedDate=" + estimatedDate + ", finishDate=" + finishDate + ", status=" + status + ", assignedEmployee=" + assignedEmployee + ", serviceType=" + serviceType + '}';
     }
-    
+
 }

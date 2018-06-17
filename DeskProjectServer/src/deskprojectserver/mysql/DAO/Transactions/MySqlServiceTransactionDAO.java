@@ -25,7 +25,6 @@ import java.util.logging.Logger;
  */
 public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
     
-    private static final String RECORD_ID = "Registry_idRegistry";
     private static final String ST_ID = "ServiceType_idServiceType";
     private static final String ST_STATUS_ID = "ServiceStatus_idServiceStatus";
     private static final String START_DATE = "startDateSt_has_Registry";
@@ -33,19 +32,20 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
     private static final String FINAL_DATE = "finalDateSt_has_Registry";
     private static final String EMPLOYEE_ID = "Person_idEmployee";
     private static final String PRICE = "IndividualPrice_St_has_Registry";
-    
+    private static final String MESSAGE = "messageSt_has_Registry";
+    private static final String SERVICE_ID = "idSt_has_Registry";
     private static final String INSERT_SQL = "INSERT INTO `St_has_Registry`"
             + "(`ServiceType_idServiceType`, `Registry_idRegistry`, "
             + "`ServiceStatus_idServiceStatus`, `startDateSt_has_Registry`, "
             + "`estimatedDateSt_has_Registry`, `finalDateSt_has_Registry`, "
-            + "`Person_idEmployee`,`IndividualPrice_St_has_Registry`) "
-            + "VALUES (?,?,?,?,?,?,?,?)";
-    private static final String GET_ALL_REG_SQL = "SELECT `ServiceType_idServiceType`,"
+            + "`Person_idEmployee`,`IndividualPrice_St_has_Registry`,`messageSt_has_Registry`) "
+            + "VALUES (?,?,?,?,?,?,?,?,?)";
+    private static final String GET_ALL_REG_SQL = "SELECT `idSt_has_Registry`,`ServiceType_idServiceType`,"
             + " `Registry_idRegistry`, `ServiceStatus_idServiceStatus`,"
             + " `startDateSt_has_Registry`, `estimatedDateSt_has_Registry`,"
             + " `finalDateSt_has_Registry`,"
             + " `Person_idEmployee`,"
-            + " `IndividualPrice_St_has_Registry` "
+            + " `IndividualPrice_St_has_Registry`, `messageSt_has_Registry` "
             + "FROM `St_has_Registry` WHERE Registry_idRegistry=?";
     
     @Override
@@ -56,7 +56,7 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
                     record.getId(), ServiceStatus.enumToInt(ServiceStatus.ON_ESTIMATE),
                     service.getStartDate(), service.getEstimatedDate(),
                     service.getFinishDate(), service.getAssignedEmployee().getId(),
-                    service.getPrice());
+                    service.getPrice(),service.getMessage());
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
             throw new DatabaseErrorException();
@@ -69,12 +69,15 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_REG_SQL, record.getId());
             while (qr.getResultSet().next()) {
-                Service sv = new Service(
+                Service sv = new Service(qr.getResultSet().getInt(SERVICE_ID),
                         qr.getResultSet().getDate(START_DATE), qr.getResultSet().getDate(ESTIMATED_DATE),
+                        qr.getResultSet().getDate(FINAL_DATE),
                         ServiceStatus.intToEnum(qr.getResultSet().getInt(ST_STATUS_ID)),
                         new MySqlPersonDAO().getPerson(getEmployeeId(qr.getResultSet().getString(EMPLOYEE_ID))),
                         new MySqlServiceTypeDAO().getServiceType(
-                                qr.getResultSet().getString(ST_ID)));
+                                qr.getResultSet().getString(ST_ID)),
+                        qr.getResultSet().getString(MESSAGE));
+                sv.setPrice(qr.getResultSet().getFloat(PRICE));
                 services.add(sv);
             }
             qr.closeAll();
@@ -104,7 +107,7 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         
         return null;
     }
-
+    
     @Override
     public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

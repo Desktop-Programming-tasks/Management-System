@@ -33,30 +33,28 @@ public class DeskProjectServer {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws DatabaseErrorException, NoResultsException {
-        Record record = DAOBuilder.getInstance().getRegisterDAO().getRegister("796298712");
-        Service service = (Service) record.getTransations().get(1);
-        DAOBuilder.getInstance().getTransactionServiceDAO().updateService(service);
+    public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException {
+//        Record record = DAOBuilder.getInstance().getRegisterDAO().getRegister("796298712");
+//        Service service = (Service) record.getTransations().get(1);
+//        DAOBuilder.getInstance().getTransactionServiceDAO().updateService(service);
 
-//        Employee emp = (Employee) DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-03");
-//        Person cust = DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-00");
-//        ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("teste");
-//        System.out.println(st);
-//        Product product = DAOBuilder.getInstance().getProductDAO().getProduct("02", true);
-//        product.setQuantity(100);
-//        Service service = new Service(new Date(), new Date(), ServiceStatus.REFUSED, emp, st);
-//        ArrayList<Transaction> transactions = new ArrayList<>();
-//        transactions.add(service);
-//        transactions.add(product);
-//        //transactions
-//        Record record = new Record(emp, cust, transactions, RecordTypeConstants.SALE);
-//        try {
-//            DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
-//        } catch (DuplicatedEntryException ex) {
-//            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (OutOfStockException ex) {
-//            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        Employee emp = (Employee) DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-03");
+        Person cust = DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-00");
+        ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("teste");
+        System.out.println(st);
+        Service service = new Service(new Date(), new Date(), ServiceStatus.REFUSED, emp, st);
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        service.setMessage("batata");
+        transactions.add(service);
+        //transactions
+        Record record = new Record(emp, cust, transactions, RecordTypeConstants.SALE);
+        try {
+            DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
+        } catch (DuplicatedEntryException ex) {
+            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (OutOfStockException ex) {
+            Logger.getLogger(DeskProjectServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
