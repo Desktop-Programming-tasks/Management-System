@@ -26,6 +26,10 @@ public abstract class ServiceTypeDAO {
         Globals.getInstance().getChannel().updateServiceType(st);
     }
     
+    public static void inactivateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException {
+        Globals.getInstance().getChannel().inactivateServiceType(st);
+    }
+    
     public static ServiceType queryServiceType(String id) throws RemoteException, DatabaseErrorException, NoResultsException {
         return Globals.getInstance().getChannel().queryServiceType(id);
     }
