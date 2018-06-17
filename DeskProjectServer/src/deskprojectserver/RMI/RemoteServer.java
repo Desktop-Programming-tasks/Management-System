@@ -102,7 +102,7 @@ public class RemoteServer implements RemoteMethods {
     }
     
     @Override
-    public void inactivatePerson(Person person) throws RemoteException, DatabaseErrorException, NoResultsException{
+    public void unpromotePerson(Person person) throws RemoteException, DatabaseErrorException, NoResultsException{
         DAOBuilder.getInstance().getPersonDAO().inactivatePerson(person);
     }
 

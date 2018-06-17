@@ -53,7 +53,7 @@ public abstract class PersonDAO {
     }
     
     public static void inactivatePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException {
-        Globals.getInstance().getChannel().inactivatePerson(person);
+        Globals.getInstance().getChannel().unpromotePerson(person);
     }
     
     public static ArrayList<Employee> searchEmployees(String id) throws RemoteException, DatabaseErrorException {

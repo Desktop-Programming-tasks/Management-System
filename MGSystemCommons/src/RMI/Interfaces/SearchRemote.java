@@ -25,4 +25,5 @@ public interface SearchRemote extends Remote {
     public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException;
     public ArrayList<Person> searchPersons(String id) throws RemoteException, DatabaseErrorException;
     public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException;
+    
 }

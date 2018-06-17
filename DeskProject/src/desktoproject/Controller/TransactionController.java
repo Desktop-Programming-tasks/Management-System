@@ -386,6 +386,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         if (validate()) {
             try {
                 Record newRecord = new Record(Globals.getInstance().getEmployee(), clientTable.getSelectionModel().getSelectedItem(), transactions, type == BUY ? RecordTypeConstants.PURCHASE : RecordTypeConstants.SALE);
+                System.out.println(newRecord.getTransations().toString());
                 RecordDAO.insertRecord(newRecord);
                 GUIController.getInstance().showRegisterAlert("Transação");
                 GUIController.getInstance().backToPrevious();
