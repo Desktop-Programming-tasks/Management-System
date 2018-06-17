@@ -47,47 +47,6 @@ import desktoproject.Controller.Observable.Observables.ObservableServer;
  * @author noda
  */
 public class SupplierController extends ControllerPromotion implements Initializable,TableScreen,AppObserver {
-//
-//    private static final String PATH = "desktoproject/View/Panels/Supplier.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(SupplierController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        SupplierController controller = loader.getController();
-//        controller.setAddressComponentObj(AddressComponentController.call());
-//        controller.setTelephoneComponent(TelephoneComponentController.call());
-//        controller.setAnchors(p);
-//        controller.setEdit(false);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    public static Parent call(Object supplier, boolean promote) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//
-//        SupplierController controller = loader.getController();
-//        if (supplier == null) {
-//            System.out.println("mas pq?");
-//        }
-//        controller.setSupplier((Supplier) supplier);
-//        controller.setAddressComponentObj(AddressComponentController.call(controller.getSupplier().getAddress()));
-//        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getSupplier().getTelephones()));
-//        controller.setAnchors(p);
-//        controller.setEdit(true);
-//        controller.setPromote(promote);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    private void setAnchors(Parent p) {
-//        AnchorPane.setTopAnchor(p, 0.0);
-//        AnchorPane.setLeftAnchor(p, 0.0);
-//        AnchorPane.setBottomAnchor(p, 0.0);
-//        AnchorPane.setRightAnchor(p, 0.0);
-//    }
 
     @FXML
     private TextField nameTextField;
