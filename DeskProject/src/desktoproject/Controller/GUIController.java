@@ -134,7 +134,7 @@ public class GUIController {
         }
         ScreenData screenData = null;
         ObservableServer.clearAll();
-        
+
         try {
             dynamic.setMaxWidth(1280);
             switch (type) {
@@ -243,14 +243,22 @@ public class GUIController {
     }
 
     public Transaction callModalForResult(ModalType type) {
-        return callModalForResult(type,null);
+        return callModalForResult(type, null);
     }
     
-    public Transaction callModalForResult(ModalType type,Object o) {
+    public Transaction callModalForResult(ModalType type, Object o) {
+        return callModalForResult(type, o, null);
+    }
+
+    public Transaction callModalForResult(ModalType type, TransactionType transactionType) {
+        return callModalForResult(type, null, transactionType);
+    }
+    
+    public Transaction callModalForResult(ModalType type, Object o, TransactionType transactionType) {
         try {
             switch (type) {
                 case PRODUCT_ADD: {
-                    ScreenData screenData = new AddProductController().call();
+                    ScreenData screenData = new AddProductController().call(transactionType);
                     setUpModal(screenData.getParent());
                     return ((AddProductController) screenData.getController()).getSelectedProduct();
                 }
@@ -259,12 +267,12 @@ public class GUIController {
                     setUpModal(screenData.getParent());
                     return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
                 }
-                case PRODUCT_ADD_EDIT:{
-                    ScreenData screenData = new AddProductController().call(o);
+                case PRODUCT_ADD_EDIT: {
+                    ScreenData screenData = new AddProductController().call(transactionType, o);
                     setUpModal(screenData.getParent());
                     return ((AddProductController) screenData.getController()).getSelectedProduct();
                 }
-                case SERVICE_NEW_EDIT:{
+                case SERVICE_NEW_EDIT: {
                     ScreenData screenData = new CreateServiceController().call(o, true);
                     setUpModal(screenData.getParent());
                     return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
@@ -297,7 +305,7 @@ public class GUIController {
                     break;
                 }
                 case SERVICE_UPDATE: {
-                    screenData = new CreateServiceController().call(obj,false);
+                    screenData = new CreateServiceController().call(obj, false);
                     break;
                 }
             }

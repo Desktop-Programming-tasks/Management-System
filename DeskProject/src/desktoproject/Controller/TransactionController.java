@@ -411,7 +411,7 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @FXML
     private void showModalAddProduct() {
-        Transaction product = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD);
+        Transaction product = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD, type);
         if (product != null) {
             transactions.add(product);
             populateTable();
