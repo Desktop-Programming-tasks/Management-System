@@ -32,28 +32,6 @@ import desktoproject.Controller.Interfaces.FXMLPaths;
  * @author noda
  */
 public class AddressComponentController extends ControllerEdit implements Initializable {
-    
-    //private static final String PATH = "desktoproject/View/Panels/addressComponent.fxml";
-    
-//    public static ScreenObject call() throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        AddressComponentController controller = loader.getController();
-//        controller.setAnchors(p);
-//        return new ScreenObject(p, controller);
-//    }
-//    
-//    public static ScreenObject call(Object obj) throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(AddressComponentController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        AddressComponentController controller = loader.getController();
-//        controller.setAnchors(p);
-//        controller.setAddress((Address) obj);
-//        controller.fillScreen();
-//        return new ScreenObject(p, controller);
-//    }
 
     private Address address;
     
@@ -61,13 +39,6 @@ public class AddressComponentController extends ControllerEdit implements Initia
     public void fillScreen() {
         setFields(address.getStreet(), String.valueOf(address.getNumber()), address.getDistrict(), address.getCity(), address.getState());
     }
-    
-//    private void setAnchors(Parent p){
-//        AnchorPane.setTopAnchor(p,0.0);
-//        AnchorPane.setLeftAnchor(p,0.0);
-//        AnchorPane.setBottomAnchor(p,0.0);
-//        AnchorPane.setRightAnchor(p,0.0);
-//    }
     
     @FXML
     private TextField streetTextField;

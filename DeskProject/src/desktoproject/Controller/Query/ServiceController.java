@@ -30,14 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class ServiceController extends Controller implements Initializable, TableScreen, AppObserver {
     
-//    private static final String PATH = "desktoproject/View/Query/Service.fxml";
-//    
-//    public static Parent call() throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
-//        return loader.load();
-//    }
-    
     @FXML
     private TableView ServiceTable;
     @FXML

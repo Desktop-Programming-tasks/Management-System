@@ -48,18 +48,7 @@ import javafx.util.StringConverter;
  * @author ecaanchesjr
  */
 public class GenericTransactionController extends Controller implements Initializable, TableScreen, AppObserver {
-
-//    private static final String genericTransactionPath = "desktoproject/View/Query/GenericTransaction.fxml";
-//    
-//    public static Parent call(TransactionQueryType type) throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(GenericTransactionController.class.getClassLoader().getResource(genericTransactionPath));
-//        Parent p = loader.load();
-//        GenericTransactionController controller = loader.getController();
-//        controller.setType(type);
-//        controller.setUpComponents();
-//        return p;
-//    }
+    
     @FXML
     private Label mainLabel;
     @FXML

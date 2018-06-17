@@ -42,42 +42,6 @@ import desktoproject.Controller.Interfaces.FXMLPaths;
  */
 public class CustomerController extends ControllerPersons implements Initializable {
 
-//    private static final String PATH = "desktoproject/View/Panels/Customer.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(CustomerController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        CustomerController controller = loader.getController();
-//        controller.setEdit(false);
-//        controller.setAddressComponentObj(AddressComponentController.call());
-//        controller.setTelephoneComponent(TelephoneComponentController.call());
-//        controller.setAnchors(p);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    public static Parent call(Object person) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(CustomerController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        CustomerController controller = loader.getController();
-//        controller.setPerson((Person) person);
-//        controller.setAddressComponentObj(AddressComponentController.call(controller.getPerson().getAddress()));
-//        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getPerson().getTelephones()));
-//        controller.setAnchors(p);
-//        controller.setEdit(true);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    private void setAnchors(Parent p) {
-//        AnchorPane.setTopAnchor(p, 0.0);
-//        AnchorPane.setLeftAnchor(p, 0.0);
-//        AnchorPane.setBottomAnchor(p, 0.0);
-//        AnchorPane.setRightAnchor(p, 0.0);
-//    }
-
     @FXML
     private TextField nameTextField;
     @FXML

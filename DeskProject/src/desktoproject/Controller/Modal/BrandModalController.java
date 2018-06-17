@@ -32,31 +32,6 @@ import javafx.scene.control.TextField;
  */
 public class BrandModalController extends ControllerEdit implements Initializable {
 
-//    private static final String PATH = "desktoproject/View/Modal/BrandModal.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(BrandModalController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        BrandModalController controller = loader.getController();
-//        controller.setEdit(false);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    public static Parent call(Object brand) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(BrandModalController.class.getClassLoader().getResource(PATH));
-//
-//        Parent p = loader.load();
-//        BrandModalController controller = loader.getController();
-//        controller.setBrand((Brand) brand);
-//        controller.setEdit(true);
-//        controller.setUpComponents();
-//
-//        return p;
-//    }
-
     private Brand brand;
 
     public void setUpComponents() {

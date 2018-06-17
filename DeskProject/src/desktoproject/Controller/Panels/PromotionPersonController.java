@@ -46,18 +46,6 @@ import javafx.scene.input.KeyCode;
  */
 public class PromotionPersonController extends Controller implements Initializable, TableScreen,AppObserver{
 
-//    private static final String promotionFXMLPath = "desktoproject/View/Panels/PromotionPerson.fxml";
-//
-//    public static Parent call(PersonPromotion type) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(PromotionPersonController.class.getClassLoader().getResource(promotionFXMLPath));
-//        Parent p = loader.load();
-//        PromotionPersonController controller = loader.getController();
-//        controller.setType(type);
-//        controller.setUpComponents();
-//        return p;
-//    }
-
     public ScreenData call(PersonPromotion type) throws IOException {
         ScreenData callReturn = super.call();
         PromotionPersonController controller = (PromotionPersonController) callReturn.getController();

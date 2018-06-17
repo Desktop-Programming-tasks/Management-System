@@ -45,44 +45,7 @@ import desktoproject.Controller.Interfaces.FXMLPaths;
  * @author ecaanchesjr
  */
 public class EmployeeController extends ControllerPromotion implements Initializable {
-
-//    private static final String PATH = "desktoproject/View/Panels/Employee.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        EmployeeController controller = loader.getController();
-//        controller.setAddressComponentObj(AddressComponentController.call());
-//        controller.setTelephoneComponent(TelephoneComponentController.call());
-//        controller.setAnchors(p);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    public static Parent call(Object employee, boolean promote) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//
-//        EmployeeController controller = loader.getController();
-//        controller.setAnchors(p);
-//        controller.setEmployee((Employee) employee);
-//        controller.setAddressComponentObj(AddressComponentController.call(controller.getEmployee().getAddress()));
-//        controller.setTelephoneComponent(TelephoneComponentController.call(controller.getEmployee().getTelephones()));
-//        controller.setAnchors(p);
-//        controller.setEdit(true);
-//        controller.setPromote(promote);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    private void setAnchors(Parent p) {
-//        AnchorPane.setTopAnchor(p, 0.0);
-//        AnchorPane.setLeftAnchor(p, 0.0);
-//        AnchorPane.setBottomAnchor(p, 0.0);
-//        AnchorPane.setRightAnchor(p, 0.0);
-//    }
+    
     @FXML
     private GridPane gridpaneBasicData;
     @FXML

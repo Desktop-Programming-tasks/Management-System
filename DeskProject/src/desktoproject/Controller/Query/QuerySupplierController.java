@@ -42,16 +42,6 @@ import javafx.scene.input.KeyCode;
  */
 public class QuerySupplierController extends Controller implements Initializable, TableScreen,AppObserver {
 
-//    private static final String querySupplierPath = "desktoproject/View/Query/QuerySupplier.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(QuerySupplierController.class.getClassLoader().getResource(querySupplierPath));
-//        return loader.load();
-//    }
-    
-    
-
     @FXML
     private TableView<Supplier> suppliersTable;
     @FXML

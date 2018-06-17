@@ -65,13 +65,7 @@ public class GUIController {
         mainStage.setMinHeight(500);
         mainStage.setTitle("Gerenciador");
         callLogin();
-//        callScreen(ScreenType.INDEX);
         setUpModalStage();
-//        callScreen(ScreenType.EMPLOYEE_CREATE);
-//        callModalForResult(ModalType.PRODUCT_ADD);
-//        callScreen(ScreenType.CUSTOMER_CREATE);
-//        testScreen();
-//        callModal(ModalType.BRAND_NEW);
     }
 
     private void setUpModalStage() {
@@ -424,42 +418,5 @@ public class GUIController {
     public void backToIndex() {
         executionStack.clear();
         callScreen(ScreenType.INDEX);
-    }
-
-    public void testScreen() {
-        Brand testBrand = new Brand("Batata");
-        Brand testBrand2 = new Brand("Batata1");
-        ArrayList<Brand> brands = new ArrayList<>();
-        brands.add(testBrand);
-        brands.add(testBrand2);
-        Product testProduct = new Product("123456789", testBrand, 1100, "Escova de Dente");
-        Address address = new Address("Rua Da batata quente", 13, "Seu cu", "Fodase", "E o caralho");
-        ArrayList<String> telephones = new ArrayList<>();
-        telephones.add("9955999599");
-        telephones.add("6845465465465");
-
-        JuridicalPerson juridicalPerson = new JuridicalPerson("Pessoa juridica", address, telephones, "87745456454");
-        Supplier supplierTest = new Supplier(brands, "Fornecedor de porra", address, telephones, "1");
-        LegalPerson legalPerson = new LegalPerson("88888", "Batata", address, telephones, "887456423");
-        Employee employee = new Employee("login test", "password", EmployeeType.COMMOM, "87854", "employee of the month", address, telephones, "498431");
-        //Service service = new Service(LocalDate.MAX, LocalDate.MAX, ServiceStatus.REFUSED, employee, new ServiceType("serviço test", 1564));
-        ArrayList<Transaction> transactions = new ArrayList<>();
-        transactions.add(testProduct);
-        //transactions.add(service);
-
-        //Record record = new Record(0, employee, new Date(), (float) 4651.0, legalPerson, transactions, RecordType.BUY);
-//        callModal(ModalType.SERVICE_ADD);
-//        callModal(ModalType.SERVICE_UPDATE,service);
-//        callScreen(ScreenType.TRANSACTION_BUY_DISPLAY,record);
-//        callScreen(ScreenType.TRANSACTION_BUY_CREATE);
-//        callScreen(ScreenType.EMPLOYEE_CREATE);
-//        callScreen(ScreenType.EMPLOYEE_DISPLAY,employee);
-//        callScreen(ScreenType.CUSTOMER_CREATE);
-//        callScreen(ScreenType.CUSTOMER_DISPLAY, legalPerson);
-//        callScreen(ScreenType.CUSTOMER_DISPLAY, juridicalPerson);
-//        callModal(ModalType.BRAND_UPDATE, testBrand);
-//        callScreen(ScreenType.PRODUCT_DISPLAY, testProduct);
-//        callScreen(ScreenType.SUPPLIER_CREATE);
-//        callScreen(ScreenType.SUPPLIER_DISPLAY, supplierTest);
     }
 }

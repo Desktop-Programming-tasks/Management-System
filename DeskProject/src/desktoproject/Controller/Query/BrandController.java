@@ -37,14 +37,6 @@ import javafx.scene.input.KeyCode;
  * @author noda
  */
 public class BrandController extends Controller implements Initializable, TableScreen, AppObserver {
-//
-//    private static final String PATH = "desktoproject/View/Query/Brand.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(BrandController.class.getClassLoader().getResource(PATH));
-//        return loader.load();
-//    }
 
     @FXML
     private TableView<Brand> brandTable;

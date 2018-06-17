@@ -49,34 +49,6 @@ import javafx.stage.Stage;
  */
 public class ProductController extends ControllerEdit implements Initializable {
 
-//    private static final String panelProductPath = "desktoproject/View/Panels/Product.fxml";
-//    private Stage stage;
-//
-//    public static Parent call(Stage stage) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(ProductController.class.getClassLoader().getResource(panelProductPath));
-//        Parent p = loader.load();
-//        ProductController controller = loader.getController();
-//        controller.setStage(stage);
-//        controller.setUpComponents();
-//        controller.setEdit(false);
-//        return p;
-//    }
-//
-//    public static Parent call(Object product, Stage stage) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(EmployeeController.class.getClassLoader().getResource(panelProductPath));
-//        Parent p = loader.load();
-//
-//        ProductController controller = loader.getController();
-//        controller.setStage(stage);
-//        controller.setProduct((Product) product);
-//        controller.setEdit(true);
-//        controller.setUpComponents();
-//
-//        return p;
-//    }
-
     private Product product;
     private Stage stage;
 
