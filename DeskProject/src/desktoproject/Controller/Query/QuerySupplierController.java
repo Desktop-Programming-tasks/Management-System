@@ -190,8 +190,8 @@ public class QuerySupplierController extends Controller implements Initializable
             GUIController.getInstance().showSelectionErrorAlert();
         } else {
             try {
-                if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
-                    PersonDAO.deletePerson(person);
+                if (GUIController.getInstance().showUmpromoteConfirmationAlert(person.getName())) {
+                    PersonDAO.umpromotePerson(person);
                     populateTable();
                 }
             } catch (RemoteException | DatabaseErrorException ex) {

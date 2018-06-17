@@ -245,7 +245,7 @@ public class GUIController {
     public Transaction callModalForResult(ModalType type) {
         return callModalForResult(type, null);
     }
-    
+
     public Transaction callModalForResult(ModalType type, Object o) {
         return callModalForResult(type, o, null);
     }
@@ -253,7 +253,7 @@ public class GUIController {
     public Transaction callModalForResult(ModalType type, TransactionType transactionType) {
         return callModalForResult(type, null, transactionType);
     }
-    
+
     public Transaction callModalForResult(ModalType type, Object o, TransactionType transactionType) {
         try {
             switch (type) {
@@ -332,6 +332,18 @@ public class GUIController {
         return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
     }
 
+    public boolean showUmpromoteConfirmationAlert(String msg) {
+        Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDelete.setTitle("Confirme a operação.");
+        confirmDelete.setHeaderText("Deseja realmente desabilitar " + msg + "?");
+        confirmDelete.setContentText(" ");
+
+        DialogPane diagPanel = confirmDelete.getDialogPane();
+        diagPanel.getStylesheets().add(getClass().getClassLoader().getResource(cssAlertPath).toExternalForm());
+
+        return (((Optional<ButtonType>) confirmDelete.showAndWait()).get() == ButtonType.OK);
+    }
+
     public void showAlert(Alert.AlertType type, String title, String header, String content) {
         Alert informationDiag;
 
@@ -369,7 +381,6 @@ public class GUIController {
 
     public void showDupplicatedAlert(String type, String idName) {
         showAlert(Alert.AlertType.ERROR, "Erro no cadastro", type + " já cadastrado", idName + " já utilizado");
-//        showRegisterAlert(personType, idName+" já utilizado");
     }
 
     public void showSelectionErrorAlert() {

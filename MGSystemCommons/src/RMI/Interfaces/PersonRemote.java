@@ -30,9 +30,8 @@ public interface PersonRemote extends Remote {
     
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException;
     public void updatePerson(Person person) throws RemoteException, DuplicatedLoginException, NoResultsException, DatabaseErrorException;
-    public void unpromotePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException;
+    public void unpromotePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException, OperationNotAllowed;
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException;
     
-    public void promoteEmployee(Employee employee) throws RemoteException, DatabaseErrorException, DuplicatedLoginException; 
-    public void promoteSupplier(Supplier supplier) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
+    public void promotePerson(Person person) throws RemoteException, DatabaseErrorException, DuplicatedLoginException, DuplicatedEntryException; 
 }

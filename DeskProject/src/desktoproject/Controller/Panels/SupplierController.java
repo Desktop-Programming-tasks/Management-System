@@ -160,7 +160,7 @@ public class SupplierController extends ControllerPromotion implements Initializ
                 if (isPromote()) {
                     newSupplier.setId(supplier.getId());
                     newSupplier.setActive(supplier.isActive());
-                    PersonDAO.promoteSupplier(supplier);
+                    PersonDAO.promotePerson(supplier);
                     GUIController.getInstance().showPromoteAlert("Fornecedor");
                     GUIController.getInstance().backToPrevious();
                 } else {

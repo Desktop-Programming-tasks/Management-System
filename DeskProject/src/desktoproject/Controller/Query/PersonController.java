@@ -225,10 +225,18 @@ public class PersonController extends Controller implements Initializable, Table
             GUIController.getInstance().showSelectionErrorAlert();
         } else {
             try {
-                if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
-                    PersonDAO.deletePerson(person);
-                    populateTable();
+                if(type==CUSTOMER){
+                    if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
+                        PersonDAO.deletePerson(person);
+                        populateTable();
+                    }
+                }else{
+                    if(GUIController.getInstance().showUmpromoteConfirmationAlert(person.getName())){
+                        PersonDAO.umpromotePerson(person);
+                        populateTable();
+                    }
                 }
+                
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {

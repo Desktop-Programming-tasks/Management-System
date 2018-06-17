@@ -67,6 +67,7 @@ public class BrandController extends Controller implements Initializable, TableS
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        Animation.bindAnimation(searchTextField);
 
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(createBtn);
