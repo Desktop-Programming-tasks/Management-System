@@ -14,6 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.DuplicatedLoginException;
 import Exceptions.NoResultsException;
+import Exceptions.OperationNotAllowed;
 import java.util.ArrayList;
 
 /**
@@ -41,12 +42,12 @@ public abstract class PersonDAO {
             basicInsertPerson(p);
         } catch (DuplicatedEntryException e) {
             try {
-                Person aux = basicGetPerson(p.getDocumentId(),false);
+                Person aux = basicGetPerson(p.getDocumentId(), false);
                 p.setId(aux.getId());
                 if (aux.isActive()) {
                     throw new DuplicatedEntryException();
                 } else {
-                    p.setActive(true); 
+                    p.setActive(true);
                     basicUpdatePerson(p);
                 }
             } catch (NoResultsException ex) {
@@ -86,7 +87,7 @@ public abstract class PersonDAO {
     public Person getPerson(String id) throws DatabaseErrorException, NoResultsException {
         Person p;
         try {
-            p = basicGetPerson(id,true);
+            p = basicGetPerson(id, true);
             p.setAddress(addressDAO.getAddress(p));
         } catch (NoResultsException a) {
             throw a;
@@ -130,9 +131,8 @@ public abstract class PersonDAO {
             employeeDAO.removeEmployee((Employee) p);
         } else if (p instanceof Supplier) {
             supplierDAO.removeSupplier((Supplier) p);
-        } else {
-            inactivatePerson(p);
         }
+        inactivatePerson(p);
     }
 
     private ArrayList<Employee> getEmployeesGeneric(EmployeeRequester requester) throws DatabaseErrorException {
@@ -219,7 +219,7 @@ public abstract class PersonDAO {
         }
     }
 
-    public void inactivatePerson(Person p) throws DatabaseErrorException, NoResultsException {
+    private void inactivatePerson(Person p) throws DatabaseErrorException, NoResultsException {
         if (p instanceof LegalPerson) {
             legalPersonDAO.removeLegalPerson((LegalPerson) p);
         } else if (p instanceof JuridicalPerson) {
@@ -231,11 +231,29 @@ public abstract class PersonDAO {
 
     }
 
-    public void juridicalToSupplier(Supplier sp) throws DatabaseErrorException, DuplicatedEntryException {
+    public void promotePerson(Person p) throws DatabaseErrorException, DuplicatedLoginException, DuplicatedEntryException {
+        if (p instanceof Employee) {
+            legalToEmployee((Employee) (LegalPerson) p);
+        } else if (p instanceof Supplier) {
+            juridicalToSupplier((Supplier) p);
+        }
+    }
+
+    public void unPromotePerson(Person p) throws OperationNotAllowed, DatabaseErrorException, NoResultsException {
+        if (p instanceof Employee) {
+            employeeDAO.removeEmployee((Employee) p);
+        } else if (p instanceof Supplier) {
+            supplierDAO.removeSupplier((Supplier) p);
+        } else {
+            throw new OperationNotAllowed();
+        }
+    }
+
+    private void juridicalToSupplier(Supplier sp) throws DatabaseErrorException, DuplicatedEntryException {
         supplierDAO.insertSupplier(sp);
     }
 
-    public void legalToEmployee(Employee emp) throws DatabaseErrorException, DuplicatedLoginException {
+    private void legalToEmployee(Employee emp) throws DatabaseErrorException, DuplicatedLoginException {
         try {
             employeeDAO.insertEmployee(emp);
         } catch (DuplicatedEntryException e) {
@@ -247,7 +265,7 @@ public abstract class PersonDAO {
 
     protected abstract void basicUpdatePerson(Person p) throws DatabaseErrorException, NoResultsException;
 
-    protected abstract Person basicGetPerson(String id,boolean justActive) throws DatabaseErrorException, NoResultsException;
+    protected abstract Person basicGetPerson(String id, boolean justActive) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Person> getAllPersons() throws DatabaseErrorException;
 
@@ -266,7 +284,7 @@ public abstract class PersonDAO {
 
         public abstract ArrayList<Supplier> request() throws DatabaseErrorException;
     }
-    
+
     public Employee getEmployeeWithLogin(String login) throws DatabaseErrorException, NoResultsException {
         Employee newEmp = employeeDAO.getEmployeeByLogin(login);
         return (Employee) getPerson(newEmp.getCPF());
