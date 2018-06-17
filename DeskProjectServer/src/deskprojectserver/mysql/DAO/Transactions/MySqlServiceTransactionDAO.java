@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * @author gabriel
  */
 public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
-    
+
     private static final String ST_ID = "ServiceType_idServiceType";
     private static final String ST_STATUS_ID = "ServiceStatus_idServiceStatus";
     private static final String START_DATE = "startDateSt_has_Registry";
@@ -47,7 +47,16 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             + " `Person_idEmployee`,"
             + " `IndividualPrice_St_has_Registry`, `messageSt_has_Registry` "
             + "FROM `St_has_Registry` WHERE Registry_idRegistry=?";
-    
+    private static final String UPDATE_SQL = "UPDATE `St_has_Registry` SET "
+            + "`ServiceType_idServiceType`=?,"
+            + "`ServiceStatus_idServiceStatus`=?,"
+            + "`startDateSt_has_Registry`=?,"
+            + "`estimatedDateSt_has_Registry`=?,"
+            + "`finalDateSt_has_Registry`=?,"
+            + "`Person_idEmployee`=?,"
+            + "`IndividualPrice_St_has_Registry`=?,"
+            + "`messageSt_has_Registry`=? WHERE idSt_has_Registry=?";
+
     @Override
     public void insertServiceTransaction(Record record, Service service) throws DatabaseErrorException {
         try {
@@ -56,13 +65,13 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
                     record.getId(), ServiceStatus.enumToInt(ServiceStatus.ON_ESTIMATE),
                     service.getStartDate(), service.getEstimatedDate(),
                     service.getFinishDate(), service.getAssignedEmployee().getId(),
-                    service.getPrice(),service.getMessage());
+                    service.getPrice(), service.getMessage());
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
             throw new DatabaseErrorException();
         }
     }
-    
+
     @Override
     public ArrayList<Service> getAllRecordServices(Record record) throws DatabaseErrorException {
         ArrayList<Service> services = new ArrayList<>();
@@ -89,12 +98,12 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         }
         return services;
     }
-    
+
     private String getEmployeeId(String id) throws DatabaseErrorException {
         final String GET_CPF = "SELECT `idPerson`, `idDocumentPerson`"
                 + " FROM `Person` WHERE idPerson=?";
         final String CPF = "idDocumentPerson";
-        
+
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_CPF, id);
             while (qr.getResultSet().next()) {
@@ -104,12 +113,20 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             e.printStackTrace();
             throw new DatabaseErrorException();
         }
-        
+
         return null;
     }
-    
+
     @Override
     public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
+                    service.getServiceType().getId(),ServiceStatus.enumToInt(service.getStatus())
+                    ,service.getStartDate(),service.getEstimatedDate(),service.getFinishDate(),
+                    service.getAssignedEmployee().getId(),service.getPrice(),service.getMessage(),
+                    service.getId());
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new DatabaseErrorException();
+        }
     }
 }
