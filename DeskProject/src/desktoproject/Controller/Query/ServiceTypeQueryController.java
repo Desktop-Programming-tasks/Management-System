@@ -36,14 +36,6 @@ import javafx.scene.input.KeyCode;
  * @author viniciusmn
  */
 public class ServiceTypeQueryController extends Controller implements Initializable, TableScreen, AppObserver {
-
-//    private static final String PATH = "desktoproject/View/Query/ServiceTypeQuery.fxml";
-//    
-//    public static Parent call() throws IOException{
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(ServiceController.class.getClassLoader().getResource(PATH));        
-//        return loader.load();
-//    }
     
     /**
      * Initializes the controller class.
@@ -63,12 +55,15 @@ public class ServiceTypeQueryController extends Controller implements Initializa
     private Button newBtn;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button deleteBtn;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Animation.bindShadowAnimation(newBtn);
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(deleteBtn);
         
         Animation.bindAnimation(searchTextField);
         ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -143,6 +138,17 @@ public class ServiceTypeQueryController extends Controller implements Initializa
             });
             return row;
         });
+    }
+    
+    @FXML
+    private void delete(){
+        ServiceType st = ServiceTable.getSelectionModel().getSelectedItem();
+        if(st==null){
+            GUIController.getInstance().showSelectionErrorAlert();
+        }else{
+            //call database method
+            populateTable();
+        }
     }
     
     @FXML
