@@ -8,7 +8,7 @@ package desktoproject.Controller.Modal;
 import Classes.Transactions.Product;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Interfaces.Controller;
+import desktoproject.Controller.Enums.TransactionType;
 import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Controller.Interfaces.ControllerEdit;
@@ -18,12 +18,13 @@ import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
+import desktoproject.Utils.Pairs.ScreenData;
 import desktoproject.Utils.Validate;
+import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -45,21 +46,24 @@ import javafx.util.Callback;
  */
 public class AddProductController extends ControllerEdit implements Initializable, TableScreen, AppObserver {
 
-//    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
-//    
-//
-//    public static ScreenObject call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(AddProductController.class.getClassLoader().getResource(addProductPath));
-//        Parent p = loader.load();
-//        AddProductController controller = loader.getController();
-//
-//        return new ScreenObject(p, controller);
-//    }
+    public ScreenData call(TransactionType type) throws IOException {
+        ScreenData callReturn = super.call();
+        AddProductController controller = (AddProductController) callReturn.getController();
+        controller.type = type;
+        controller.setUpProductQuantityListener();
+        controller.populateTable();
+        return new ScreenData(callReturn.getParent(), controller);
+    }
 
-    private Product tmpProduct;
-    private Product selectedProduct;
-    
+    public ScreenData call(TransactionType type, Object obj) throws IOException {
+        ScreenData callReturn = super.call(obj);
+        AddProductController controller = (AddProductController) callReturn.getController();
+        controller.type = type;
+        controller.setUpProductQuantityListener();
+        controller.populateTable();
+        return new ScreenData(callReturn.getParent(), controller);
+    }
+
     @FXML
     private TextField searchTextField;
     @FXML
@@ -83,6 +87,10 @@ public class AddProductController extends ControllerEdit implements Initializabl
     @FXML
     private Button backBtn;
 
+    private Product tmpProduct;
+    private Product selectedProduct;
+    private TransactionType type;
+
     /**
      * Initializes the controller class.
      */
@@ -94,9 +102,9 @@ public class AddProductController extends ControllerEdit implements Initializabl
         Animation.bindAnimation(ProductQuantity);
         Animation.bindShadowAnimation(addBtn);
         Animation.bindShadowAnimation(backBtn);
-        
+
         productTable.requestFocus();
-        
+
         tmpProduct = null;
         selectedProduct = null;
 
@@ -111,34 +119,24 @@ public class AddProductController extends ControllerEdit implements Initializabl
         codColumn.setCellValueFactory(new PropertyValueFactory<>("barCode"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantityInStock"));
 
-        ProductQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!ProductQuantity.getText().isEmpty()){
-                long quant = Long.valueOf(ProductQuantity.getText());
-                ProductPrice.setText(Misc.changeToComma(String.valueOf(quant * tmpProduct.getPrice())));
-            }else{
-                ProductPrice.setText("0");
-            }
-        });
-
         Misc.setOnlyNumbers(ProductQuantity);
-        populateTable();
         blockFields(true);
         setTableAction();
         setUpSearch();
         subscribe();
     }
-    
+
     @Override
-    public void setUpSearch(){
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+    public void setUpSearch() {
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             newValue = newValue.trim();
-            if(newValue.isEmpty()){
+            if (newValue.isEmpty()) {
                 populateTable();
-            }else{
+            } else {
                 try {
                     productTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
-                } catch (RemoteException|DatabaseErrorException ex) {
-                    
+                } catch (RemoteException | DatabaseErrorException ex) {
+
                 }
             }
         });
@@ -148,7 +146,11 @@ public class AddProductController extends ControllerEdit implements Initializabl
     public void populateTable() {
         try {
             Product selectedTableProduct = productTable.getSelectionModel().getSelectedItem();
-            productTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
+            ArrayList<Product> allProducts = ProductDAO.queryAllProducts();
+            if(type == TransactionType.SALE) {
+                allProducts.removeIf(p -> p.getQuantityInStock() == 0);
+            }
+            productTable.setItems(FXCollections.observableArrayList(allProducts));
             selectTable(selectedTableProduct);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
@@ -157,13 +159,13 @@ public class AddProductController extends ControllerEdit implements Initializabl
             //
         }
     }
-    
+
     @Override
     public void selectTable(Object o) {
-        if(o!=null){
+        if (o != null) {
             Product cp = (Product) o;
-            for(Product p : productTable.getItems()){
-                if(p.getId() == cp.getId()){
+            for (Product p : productTable.getItems()) {
+                if (p.getId() == cp.getId()) {
                     productTable.getSelectionModel().select(p);
                 }
             }
@@ -216,11 +218,11 @@ public class AddProductController extends ControllerEdit implements Initializabl
 
     private boolean validate() {
         Validate valObj = new Validate();
-        if(valObj.validateEmpty("Quantidade",ProductQuantity.getText())){
+        if (valObj.validateEmpty("Quantidade", ProductQuantity.getText())) {
             valObj.validateNumber(ProductQuantity.getText());
         }
         valObj.validatePrice(ProductPrice.getText());
-        valObj.emptyTableSelection(productTable," um produto");
+        valObj.emptyTableSelection(productTable, " um produto");
 
         if (valObj.getErrorMessage().isEmpty()) {
             return true;
@@ -250,6 +252,24 @@ public class AddProductController extends ControllerEdit implements Initializabl
         //
     }
 
+    private void setUpProductQuantityListener() {
+        ProductQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!ProductQuantity.getText().isEmpty()) {
+                Product p = productTable.getSelectionModel().getSelectedItem();
+                long quant = Long.valueOf(ProductQuantity.getText());
+                if (type == TransactionType.SALE) {
+                    if (quant > p.getQuantityInStock()) {
+                        ProductQuantity.setText(String.valueOf(p.getQuantityInStock()));
+                        quant = p.getQuantityInStock();
+                    }
+                }
+                ProductPrice.setText(Misc.changeToComma(String.valueOf(quant * tmpProduct.getPrice())));
+            } else {
+                ProductPrice.setText("0");
+            }
+        });
+    }
+
     @Override
     public void fillScreen() {
         selectTable(tmpProduct);
@@ -257,20 +277,18 @@ public class AddProductController extends ControllerEdit implements Initializabl
         int quantity = tmpProduct.getQuantity();
         try {
             tmpProduct.setPrice(ProductDAO.queryProduct(tmpProduct.getBarCode()).getPrice());
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
         }
-        ProductPrice.setText(Misc.changeToComma(String.valueOf(price*quantity)));
+        ProductPrice.setText(Misc.changeToComma(String.valueOf(price * quantity)));
         ProductQuantity.setText(String.valueOf(quantity));
         ProductQuantity.setDisable(false);
     }
 
     @Override
     public void setScreenObject(Object obj) {
-        tmpProduct = (Product)obj;
+        tmpProduct = (Product) obj;
     }
-
-    
 }
