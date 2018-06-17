@@ -17,6 +17,7 @@ import desktoproject.Controller.GUIController;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTransactionDAO;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
@@ -312,16 +313,26 @@ public class CreateServiceController extends ControllerEdit implements Initializ
     private void mainAction() {
         if (validate()) {
             String message = descriptionTextArea.getText();
+            if(message==null){
+                message="";
+            }
             if (isEdit() && !newEdit) {
                 service.setStartDate(Misc.localToDate(beginDate.getValue()));
                 service.setEstimatedDate(Misc.localToDate(endDate.getValue()));
                 service.setStatus(comboBoxState.getValue());
                 service.setAssignedEmployee(comboBoxEmployee.getValue());
                 service.setServiceType(comboBoxService.getValue());
-                if(!message.isEmpty()){
-                    service.setMessage(message);
+                service.setMessage(message);
+                
+                try {
+                    //save update in database
+                    ServiceTransactionDAO.updateService(service);
+                    GUIController.getInstance().closeModal();
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    GUIController.getInstance().showConnectionErrorAlert();
+                } catch (NoResultsException ex) {
+                    GUIController.getInstance().showUpdateErrorAlert();
                 }
-                //save update in database
             } else {
                 newServiceReturn = new Service(
                         Misc.localToDate(beginDate.getValue()),
@@ -330,9 +341,8 @@ public class CreateServiceController extends ControllerEdit implements Initializ
                         comboBoxEmployee.getValue(),
                         comboBoxService.getValue()
                 );
-                if(!message.isEmpty()){
-                    newServiceReturn.setMessage(message);
-                }
+                newServiceReturn.setMessage(message);
+                
                 GUIController.getInstance().closeModal();
             }
         }

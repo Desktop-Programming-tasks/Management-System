@@ -122,7 +122,6 @@ public class GenericTransactionController extends Controller implements Initiali
     @Override
     public void setUpSearch() {
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("entrou na search");
             newValue = newValue.trim();
             if (newValue.isEmpty()) {
                 populateTable();
@@ -131,17 +130,14 @@ public class GenericTransactionController extends Controller implements Initiali
                     System.out.println(newValue);
                    switch (typeComboBox.getSelectionModel().getSelectedItem()) {
                         case ALL: {
-                            System.out.println("entrou no all");
                             transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecords(newValue)));
                             break;
                         }
                         case PURCHASES: {
-                            System.out.println("entrou no purchases");
                             transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsBuy(newValue)));
                             break;
                         }
                         case SALES: {
-                            System.out.println("entrou no sales");
                             transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsSale(newValue)));
                             break;
                         }
