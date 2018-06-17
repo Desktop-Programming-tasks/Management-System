@@ -18,9 +18,12 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public interface ServiceRemote extends Remote {
-    public Service queryService() throws  RemoteException, NoResultsException, DatabaseErrorException;
-    public ArrayList<Service> querryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException;
+
+    public Service queryService() throws RemoteException, NoResultsException, DatabaseErrorException;
+
+    public ArrayList<Service> queryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
-    public void deleteService(Service service) throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public void updateService(Service service) throws RemoteException;
 }

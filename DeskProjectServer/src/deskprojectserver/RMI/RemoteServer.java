@@ -80,11 +80,11 @@ public class RemoteServer implements RemoteMethods {
     public ArrayList<Employee> queryAllEmployees() throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getAllEmployees();
     }
-    
+
     @Override
     public Employee queryEmployeeByLogin(String login) throws RemoteException, NoResultsException, DatabaseErrorException {
         return DAOBuilder.getInstance().getPersonDAO().getEmployeeWithLogin(login);
-    } 
+    }
 
     @Override
     public void insertPerson(Person person) throws RemoteException, DuplicatedEntryException, DuplicatedLoginException, DatabaseErrorException {
@@ -100,12 +100,12 @@ public class RemoteServer implements RemoteMethods {
     public void deletePerson(Person person) throws RemoteException, NoResultsException, DatabaseErrorException {
         DAOBuilder.getInstance().getPersonDAO().removePerson(person);
     }
-    
+
     @Override
     public void unpromotePerson(Person person) throws RemoteException, DatabaseErrorException, NoResultsException, OperationNotAllowed {
         DAOBuilder.getInstance().getPersonDAO().unPromotePerson(person);
     }
-    
+
     @Override
     public void promotePerson(Person person) throws RemoteException, DatabaseErrorException, DuplicatedLoginException, DuplicatedEntryException {
         DAOBuilder.getInstance().getPersonDAO().promotePerson(person);
@@ -142,27 +142,27 @@ public class RemoteServer implements RemoteMethods {
 
     @Override
     public Record queryRecord(String id) throws RemoteException, NoResultsException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getRegisterDAO().getRegister(id);
-    }
-
-    @Override
-    public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException {
-       return DAOBuilder.getInstance().getRegisterDAO().getAllRecords();
-    }
-    
-    @Override
-    public ArrayList<Record> queryLikeRecords(String clientName) throws RemoteException, DatabaseErrorException {
-        return DAOBuilder.getInstance().getRegisterDAO().getLikeRecords(clientName);
+        return DAOBuilder.getInstance().getRecordDAO().getRegister(id);
     }
 
     @Override
     public void insertRecord(Record record) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, OutOfStockException {
-            DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
+        DAOBuilder.getInstance().getRecordDAO().insertFullRegisterAndTransactions(record);
     }
 
     @Override
-    public void deleteRecord(Record record) throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Record> queryAllRecords() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getAllRecords();
+    }
+
+    @Override
+    public ArrayList<Record> queryRecordsSale() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getAllSaleRecords();
+    }
+
+    @Override
+    public ArrayList<Record> queryRecordsBuy() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getAllPurchaseRecords();
     }
 
     @Override
@@ -191,12 +191,27 @@ public class RemoteServer implements RemoteMethods {
     }
 
     @Override
+    public ArrayList<Record> searchRecords(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getLikeRecords(id);
+    }
+
+    @Override
+    public ArrayList<Record> searchRecordsSale(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getLikeSaleRecords(id);
+    }
+
+    @Override
+    public ArrayList<Record> searchRecordsBuy(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getRecordDAO().getLikePurchaseRecords(id);
+    }
+
+    @Override
     public Service queryService() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Service> querryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException {
+    public ArrayList<Service> queryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -205,11 +220,6 @@ public class RemoteServer implements RemoteMethods {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void deleteService(Service service) throws RemoteException, NoResultsException, DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     @Override
     public void updateService(Service service) throws RemoteException {
         throw new UnsupportedOperationException("não tá feito");
@@ -224,7 +234,7 @@ public class RemoteServer implements RemoteMethods {
     public void updateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
         DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
     }
-    
+
     @Override
     public void inactivateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException {
         DAOBuilder.getInstance().getServiceTypeDAO().inactivateServiceType(st);

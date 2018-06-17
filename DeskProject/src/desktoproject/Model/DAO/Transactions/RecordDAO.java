@@ -31,7 +31,23 @@ public abstract class RecordDAO {
         return Globals.getInstance().getChannel().queryAllRecords();
     }
     
-    public static ArrayList<Record> queryLikeRecords(String clientName) throws RemoteException, DatabaseErrorException {
-        return Globals.getInstance().getChannel().queryLikeRecords(clientName);
+    public static ArrayList<Record> queryRecodsSale() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().queryRecordsSale();
+    }
+    
+    public static ArrayList<Record> queryRecodsBuy() throws RemoteException, NoResultsException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().queryRecordsBuy();
+    }
+    
+    public static ArrayList<Record> searchRecords(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchRecords(id);
+    }
+    
+    public static ArrayList<Record> searchRecordsSale(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchRecordsSale(id);
+    }
+    
+    public static ArrayList<Record> searchRecordsBuy(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchRecordsBuy(id);
     }
 }

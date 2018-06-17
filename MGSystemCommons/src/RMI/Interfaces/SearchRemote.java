@@ -9,6 +9,7 @@ import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
+import Classes.Transactions.Record;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import java.rmi.Remote;
@@ -19,11 +20,21 @@ import java.util.ArrayList;
  *
  * @author ecsanchesjr
  */
-public interface SearchRemote extends Remote { 
+public interface SearchRemote extends Remote {
+
     public ArrayList<Employee> searchEmployees(String id) throws RemoteException, DatabaseErrorException;
+
     public ArrayList<Supplier> searchSupliers(String id) throws RemoteException, DatabaseErrorException;
+
     public ArrayList<Product> searchProduct(String id) throws RemoteException, DatabaseErrorException;
+
     public ArrayList<Person> searchPersons(String id) throws RemoteException, DatabaseErrorException;
+
     public ArrayList<ServiceType> searchServiceTypes(String id) throws RemoteException, DatabaseErrorException;
-    
+
+    public ArrayList<Record> searchRecords(String id) throws RemoteException, DatabaseErrorException;
+
+    public ArrayList<Record> searchRecordsSale(String id) throws RemoteException, DatabaseErrorException;
+
+    public ArrayList<Record> searchRecordsBuy(String id) throws RemoteException, DatabaseErrorException;
 }

@@ -42,7 +42,7 @@ public class DeskProjectServer {
 //        transactions.add(product);
 //        Record record = new Record(emp, cust, transactions, RecordTypeConstants.PURCHASE);
 //        DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
-        ArrayList<Record> records = DAOBuilder.getInstance().getRegisterDAO().getAllSaleRecords();
+        ArrayList<Record> records = DAOBuilder.getInstance().getRecordDAO().getAllSaleRecords();
         for(Record r : records){
             System.out.println(r);
         }
