@@ -42,14 +42,6 @@ import javafx.util.Callback;
  */
 public class StockController extends Controller implements Initializable, TableScreen, AppObserver {
 
-//    private static final String stockPath = "desktoproject/View/Query/Stock.fxml";
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(StockController.class.getClassLoader().getResource(stockPath));
-//        return loader.load();
-//    }
-
     @FXML
     private TableView<Product> StockTable;
     @FXML
@@ -98,6 +90,7 @@ public class StockController extends Controller implements Initializable, TableS
         populateTable();
         setTableAction();
         setUpSearch();
+        subscribe();
     }
     
     @Override

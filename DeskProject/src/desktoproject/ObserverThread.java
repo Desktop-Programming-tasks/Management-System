@@ -6,6 +6,7 @@
 package desktoproject;
 
 import Classes.Enums.ObservableType;
+import Observables.SocketData;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class ObserverThread extends Thread {
     @Override
     public void run() {
         try {
-            connection = new Socket("localhost", 9000);
+            connection = new Socket(SocketData.SERVER_HOST, SocketData.SERVER_PORT);
             notification = new DataInputStream(connection.getInputStream());
             
             while(true) {

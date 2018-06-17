@@ -56,12 +56,10 @@ public class PersonController extends Controller implements Initializable, Table
     private PersonQueryType type;
 
     private void setType(PersonQueryType type) {
-        System.out.println("set type "+type.name());
         this.type = type;
     }
 
     private void setUpComponents() {
-        System.out.println("SetUpComponents "+type.name());
         switch (type) {
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
@@ -251,18 +249,14 @@ public class PersonController extends Controller implements Initializable, Table
 
     @Override
     public void update() {
-        System.out.println("pq vc não tá workando?");
         populateTable();
     }
 
     @Override
     public void subscribe() {
-        System.out.println("whats happen "+(type == null));
         if(type == PersonQueryType.CUSTOMER){
-            System.out.println("observable customer");
             ObservableServer.getClient().addObserver(this);
         }else{
-            System.out.println("observable employee");
             ObservableServer.getEmployee().addObserver(this);
         }
     }

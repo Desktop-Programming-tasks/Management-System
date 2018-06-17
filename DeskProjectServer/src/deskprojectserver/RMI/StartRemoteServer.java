@@ -5,6 +5,7 @@
  */
 package deskprojectserver.RMI;
 
+import Observables.SocketData;
 import RMI.RemoteLogin;
 import RMI.RemoteMethods;
 import deskprojectserver.Observable.Aggregator;
@@ -42,7 +43,6 @@ public class StartRemoteServer {
         
         hostServer.openLoginServer();
         hostServer.openRemoteServer();
-        hostServer.setUpObservers();
         hostServer.openObservableServer();
     }
     
@@ -75,9 +75,10 @@ public class StartRemoteServer {
     }
     
     private void openObservableServer() {
+        setUpObservers();
         try {
-            observableServer = new ServerSocket(9000);
-            observableThread = new ObservableThread("Observable", aggregator, observableServer);
+            observableServer = new ServerSocket(SocketData.SERVER_PORT);
+            observableThread = new ObservableThread(SocketData.THREAD_NAME, aggregator, observableServer);
             observableThread.start();
         } catch (IOException ex) {
             Logger.getLogger(StartRemoteServer.class.getName()).log(Level.SEVERE, null, ex);
