@@ -6,14 +6,10 @@
 package desktoproject.Controller.Query;
 
 import Classes.Constants.RecordTypeConstants;
-import Classes.Enums.RecordType;
-import Classes.Enums.ServiceStatus;
-import Classes.Persons.Supplier;
 import Classes.Transactions.Record;
-import Classes.Transactions.ServiceType;
+import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
-import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.Enums.TransactionScreenMode;
 import desktoproject.Controller.Interfaces.Controller;
@@ -24,17 +20,11 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.Pairs.ScreenData;
-import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -126,7 +116,7 @@ public class GenericTransactionController extends Controller implements Initiali
             return new SimpleStringProperty(p.getValue().getCustomer().getName());
         });
         typeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
-            return new SimpleStringProperty(String.valueOf(p.getValue().getType()));
+            return new SimpleStringProperty(p.getValue().getType()==RecordTypeConstants.PURCHASE?("Compra"):("Venda"));
         });
     }
     
