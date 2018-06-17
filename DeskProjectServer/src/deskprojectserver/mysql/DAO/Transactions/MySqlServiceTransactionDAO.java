@@ -104,4 +104,9 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         
         return null;
     }
+
+    @Override
+    public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -34,10 +34,10 @@ public class DeskProjectServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException {
-          Record record = DAOBuilder.getInstance().getRegisterDAO().getRegister("796298712");
-          for(Transaction t : record.getTransations()){
-              System.out.println(t);
-          }
+        Record record = DAOBuilder.getInstance().getRegisterDAO().getRegister("796298712");
+        Service service = (Service) record.getTransations().get(1);
+        DAOBuilder.getInstance().getTransactionServiceDAO().updateService(service);
+
 //        Employee emp = (Employee) DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-03");
 //        Person cust = DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-00");
 //        ServiceType st = DAOBuilder.getInstance().getServiceTypeDAO().getServiceType("teste");
