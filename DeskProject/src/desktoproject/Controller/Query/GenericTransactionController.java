@@ -94,7 +94,6 @@ public class GenericTransactionController extends Controller implements Initiali
         Animation.bindShadowAnimation(detailsBtn);
         Animation.bindShadowAnimation(backBtn);
 
-
         setUpTable();
         comboBoxSetup();
         loadComboBox();
@@ -103,8 +102,8 @@ public class GenericTransactionController extends Controller implements Initiali
         setUpSearch();
         setTableAction();
     }
-    
-    private void setUpTable(){
+
+    private void setUpTable() {
         transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
@@ -116,36 +115,39 @@ public class GenericTransactionController extends Controller implements Initiali
             return new SimpleStringProperty(p.getValue().getCustomer().getName());
         });
         typeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
-            return new SimpleStringProperty(p.getValue().getType()==RecordTypeConstants.PURCHASE?("Compra"):("Venda"));
+            return new SimpleStringProperty(p.getValue().getType() == RecordTypeConstants.PURCHASE ? ("Compra") : ("Venda"));
         });
     }
-    
+
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("entrou na search");
             newValue = newValue.trim();
-            if(newValue.isEmpty()){
+            if (newValue.isEmpty()) {
                 populateTable();
-            }else{
+            } else {
                 try {
-                    switch(typeComboBox.getSelectionModel().getSelectedItem()){
-                        case ALL:{
-                            transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryRecord(newValue)));
+                    System.out.println(newValue);
+                   switch (typeComboBox.getSelectionModel().getSelectedItem()) {
+                        case ALL: {
+                            System.out.println("entrou no all");
+                            transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecords(newValue)));
                             break;
                         }
-                        case PURCHASES:{
-                            //
+                        case PURCHASES: {
+                            System.out.println("entrou no purchases");
+                            transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsBuy(newValue)));
                             break;
                         }
-                        case SALES:{
-                            //
+                        case SALES: {
+                            System.out.println("entrou no sales");
+                            transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsSale(newValue)));
                             break;
                         }
                     }
-                } catch (RemoteException|DatabaseErrorException ex) {
+                } catch (RemoteException | DatabaseErrorException ex) {
                     GUIController.getInstance().showConnectionErrorAlert();
-                } catch (NoResultsException ex) {
-                    
                 }
             }
         });
@@ -160,15 +162,15 @@ public class GenericTransactionController extends Controller implements Initiali
                     break;
                 }
                 case PURCHASES: {
-                    System.out.println("Carrega com as compras");
+                    transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryRecodsBuy()));
                     break;
                 }
                 case SALES: {
-                    System.out.println("Carrega com as vendas");
+                    transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryRecodsSale()));
                     break;
                 }
             }
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
@@ -193,7 +195,7 @@ public class GenericTransactionController extends Controller implements Initiali
                 };
             }
         });
-        
+
         typeComboBox.setConverter(new StringConverter<TransactionScreenMode>() {
             @Override
             public String toString(TransactionScreenMode object) {
@@ -209,8 +211,8 @@ public class GenericTransactionController extends Controller implements Initiali
                 return null;
             }
         });
-        
-        typeComboBox.selectionModelProperty().addListener((observable) -> {
+
+        typeComboBox.valueProperty().addListener((observable) -> {
             subscribe();
             populateTable();
             searchTextField.setText("");
@@ -228,9 +230,9 @@ public class GenericTransactionController extends Controller implements Initiali
         if (record == null) {
             GUIController.getInstance().showSelectionErrorAlert();
         } else {
-            if(record.getType()==RecordTypeConstants.PURCHASE){
+            if (record.getType() == RecordTypeConstants.PURCHASE) {
                 GUIController.getInstance().callScreen(ScreenType.TRANSACTION_BUY_DISPLAY, record);
-            }else{
+            } else {
                 GUIController.getInstance().callScreen(ScreenType.TRANSACTION_SALE_DISPLAY, record);
             }
         }
@@ -259,8 +261,6 @@ public class GenericTransactionController extends Controller implements Initiali
         });
     }
 
-    
-
     @Override
     public void selectTable(Object o) {
         //
@@ -274,16 +274,16 @@ public class GenericTransactionController extends Controller implements Initiali
     @Override
     public void subscribe() {
         ObservableServer.clearAll();
-        switch(typeComboBox.getSelectionModel().getSelectedItem()){
-            case ALL:{
+        switch (typeComboBox.getSelectionModel().getSelectedItem()) {
+            case ALL: {
                 ObservableServer.getTransaction().addObserver(this);
                 break;
             }
-            case PURCHASES:{
-                ObservableServer.getBuy().addObserver(this); 
+            case PURCHASES: {
+                ObservableServer.getBuy().addObserver(this);
                 break;
             }
-            case SALES:{
+            case SALES: {
                 ObservableServer.getSale().addObserver(this);
                 break;
             }
