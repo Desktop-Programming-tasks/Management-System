@@ -69,12 +69,8 @@ public abstract class PersonDAO {
         return Globals.getInstance().getChannel().searchPersons(id);
     }
 
-    public static void promoteEmployee(Employee employee) throws RemoteException, DatabaseErrorException, DuplicatedLoginException {
-        Globals.getInstance().getChannel().promoteEmployee(employee);
-    }
-
-    public static void promoteSupplier(Supplier supplier) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
-        Globals.getInstance().getChannel().promoteSupplier(supplier);
+    public static void promotePerson(Person person) throws RemoteException, DatabaseErrorException, DuplicatedLoginException, DuplicatedEntryException {
+        Globals.getInstance().getChannel().promotePerson(person);
     }
 
     public static ArrayList<Person> queryAllLegalPersons() throws RemoteException, NoResultsException, DatabaseErrorException {

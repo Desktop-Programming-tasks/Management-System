@@ -222,7 +222,7 @@ public class EmployeeController extends ControllerPromotion implements Initializ
                 if (isPromote()) {
                     newEmployee.setId(employee.getId());
                     newEmployee.setActive(employee.isActive());
-                    PersonDAO.promoteEmployee(newEmployee);
+                    PersonDAO.promotePerson(newEmployee);
                     GUIController.getInstance().showPromoteAlert("Funcionário");
                     GUIController.getInstance().backToPrevious();
                 } else {
