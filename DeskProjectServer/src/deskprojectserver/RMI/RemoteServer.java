@@ -24,6 +24,8 @@ import RMI.RemoteMethods;
 import deskprojectserver.Database.DAOBuilder;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -221,8 +223,8 @@ public class RemoteServer implements RemoteMethods {
     }
 
     @Override
-    public void updateService(Service service) throws RemoteException {
-        throw new UnsupportedOperationException("não tá feito");
+    public void updateService(Service service) throws RemoteException, DatabaseErrorException, NoResultsException {
+        DAOBuilder.getInstance().getTransactionServiceDAO().updateService(service);
     }
 
     @Override
