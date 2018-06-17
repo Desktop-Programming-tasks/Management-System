@@ -260,10 +260,14 @@ public class GUIController {
                     return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
                 }
                 case PRODUCT_ADD_EDIT:{
-                    
+                    ScreenData screenData = new AddProductController().call(o);
+                    setUpModal(screenData.getParent());
+                    return ((AddProductController) screenData.getController()).getSelectedProduct();
                 }
                 case SERVICE_NEW_EDIT:{
-                    
+                    ScreenData screenData = new CreateServiceController().call(o, true);
+                    setUpModal(screenData.getParent());
+                    return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
                 }
             }
         } catch (IOException ex) {
@@ -293,7 +297,7 @@ public class GUIController {
                     break;
                 }
                 case SERVICE_UPDATE: {
-                    screenData = new CreateServiceController().call(obj);
+                    screenData = new CreateServiceController().call(obj,false);
                     break;
                 }
             }

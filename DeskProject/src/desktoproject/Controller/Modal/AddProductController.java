@@ -22,6 +22,8 @@ import desktoproject.Utils.Validate;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -196,7 +198,7 @@ public class AddProductController extends ControllerEdit implements Initializabl
     @FXML
     public void selectProduct() {
         if (validate()) {
-            selectedProduct = tmpProduct;
+            selectedProduct = productTable.getSelectionModel().getSelectedItem();
             selectedProduct.setQuantity(Integer.valueOf(ProductQuantity.getText()));
             selectedProduct.setPrice(Float.valueOf(Misc.changeToDot(ProductPrice.getText())));
             GUIController.getInstance().closeModal();
@@ -253,8 +255,16 @@ public class AddProductController extends ControllerEdit implements Initializabl
         selectTable(tmpProduct);
         Float price = tmpProduct.getPrice();
         int quantity = tmpProduct.getQuantity();
+        try {
+            tmpProduct.setPrice(ProductDAO.queryProduct(tmpProduct.getBarCode()).getPrice());
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } catch (NoResultsException ex) {
+            //
+        }
         ProductPrice.setText(Misc.changeToComma(String.valueOf(price*quantity)));
         ProductQuantity.setText(String.valueOf(quantity));
+        ProductQuantity.setDisable(false);
     }
 
     @Override

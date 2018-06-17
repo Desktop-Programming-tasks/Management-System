@@ -7,6 +7,7 @@ package desktoproject.Controller.Query;
 
 import Classes.Enums.RecordType;
 import Classes.Enums.ServiceStatus;
+import Classes.Persons.Supplier;
 import Classes.Transactions.Record;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
@@ -23,9 +24,14 @@ import desktoproject.Utils.Pairs.ScreenData;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,6 +43,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -92,12 +99,28 @@ public class GenericTransactionController extends Controller implements Initiali
         Animation.bindShadowAnimation(detailsBtn);
         Animation.bindShadowAnimation(backBtn);
 
-        transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        setUpTable();
         comboBoxSetup();
         loadComboBox();
         subscribe();
         populateTable();
+    }
+    
+    private void setUpTable(){
+        transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        codeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        dateColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
+            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+            return new SimpleStringProperty(formatter.format(p.getValue().getRegisterDate()));
+        });
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("totalprice"));
+        nameColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
+            return new SimpleStringProperty(p.getValue().getCustomer().getName());
+        });
+        typeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
+            return new SimpleStringProperty(String.valueOf(p.getValue().getType()));
+        });
     }
     
     @Override

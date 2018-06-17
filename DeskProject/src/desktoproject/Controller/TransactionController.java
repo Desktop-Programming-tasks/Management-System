@@ -257,21 +257,25 @@ public class TransactionController extends ControllerEdit implements Initializab
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     int position = row.getIndex();
                     Transaction transaction = transactions.get(position);
-                    if(transaction.getClass() == Product.class){
-                        if(isEdit()){
+                    if (transaction.getClass() == Product.class) {
+                        if (isEdit()) {
                             //do nothing
-                        }else{
-                            transaction = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD_EDIT,transaction);
-                            transactions.remove(position);
-                            transactions.add(transaction);
+                        } else {
+                            transaction = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD_EDIT, transaction);
+                            if (transaction != null) {
+                                transactions.remove(position);
+                                transactions.add(transaction);
+                            }
                         }
-                    }else{
-                        if(isEdit()){
+                    } else {
+                        if (isEdit()) {
                             GUIController.getInstance().callModal(ModalType.SERVICE_UPDATE, transaction);
-                        }else{
+                        } else {
                             transaction = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW_EDIT, transaction);
-                            transactions.remove(position);
-                            transactions.add(transaction);
+                            if (transaction != null) {
+                                transactions.remove(position);
+                                transactions.add(transaction);
+                            }
                         }
                     }
                     populateTable();
@@ -308,6 +312,8 @@ public class TransactionController extends ControllerEdit implements Initializab
                 mainLabelString += "Compra ";
                 primaryBtnString += "Compra ";
                 searchTextField.setPromptText("Pesquisar fornecedor");
+                addServiceBtn.setVisible(false);
+                
                 break;
             }
             case SALE: {
