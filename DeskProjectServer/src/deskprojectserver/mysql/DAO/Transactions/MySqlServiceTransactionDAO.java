@@ -129,4 +129,9 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             throw new DatabaseErrorException();
         }
     }
+
+    @Override
+    public ArrayList<Service> getAllServices() throws DatabaseErrorException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -116,6 +116,11 @@ public class DAOBuilder {
         public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
             tServiceDao.updateService(service);
         }
+
+        @Override
+        public ArrayList<Service> getAllServices() throws DatabaseErrorException {
+            return tServiceDao.getAllServices();
+        }
     }
 
 }
