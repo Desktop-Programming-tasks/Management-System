@@ -15,12 +15,16 @@ import desktoproject.Controller.Interfaces.ControllerEdit;
 import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Misc;
 import desktoproject.Utils.Validate;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,6 +70,7 @@ public class CreateServiceController extends ControllerEdit implements Initializ
 //            return p;
 //    }
     
+    
     private Service service;
     private Service newServiceReturn;
     
@@ -79,7 +84,7 @@ public class CreateServiceController extends ControllerEdit implements Initializ
         }else{
             mainLabel.setText("Adicionar Serviço");
             primaryBtn.setText("Adicionar");
-//            comboBoxState.setVisible(false);
+            comboBoxState.setVisible(false);
         }
     }
 
@@ -243,25 +248,49 @@ public class CreateServiceController extends ControllerEdit implements Initializ
             }else{
                 comboBoxEmployee.setItems(FXCollections.observableArrayList(employees));
             }
+            
         } catch (RemoteException|DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             comboBoxEmployee.setPromptText("Nenhum empregado");
             comboBoxEmployee.setDisable(true);
         }
+        
+        try {
+            ArrayList<ServiceType> serviceTypes = ServiceTypeDAO.queryAllServiceTypes();
+            
+            if(serviceTypes.isEmpty()){
+                comboBoxService.setPromptText("Nenhum serviço cadastrado");
+                comboBoxService.setDisable(true);
+            }else{
+                comboBoxService.setItems(FXCollections.observableArrayList(serviceTypes));
+            }
+        } catch (RemoteException|DatabaseErrorException ex) {
+            Logger.getLogger(CreateServiceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
     private void mainAction(){
-//        if(validate()){
-//            Service newService = new Service(beginDate.getValue(),endDate.getValue(),comboBoxState.getValue(),comboBoxEmployee.getValue(),comboBoxService.getValue());
-//            
-//            if(isEdit()){
-//            
-//            }else{
-//                newServiceReturn = newService;
-//            }
-//        }
+        if(validate()){
+            if(isEdit()){
+                service.setStartDate(Misc.localToDate(beginDate.getValue()));
+                service.setEstimatedDate(Misc.localToDate(endDate.getValue()));
+                service.setStatus(comboBoxState.getValue());
+                service.setAssignedEmployee(comboBoxEmployee.getValue());
+                service.setServiceType(comboBoxService.getValue());
+                
+                //save update in database
+            }else{
+                newServiceReturn = new Service(
+                        Misc.localToDate(beginDate.getValue()), 
+                        Misc.localToDate(endDate.getValue()), 
+                        ServiceStatus.ON_ESTIMATE, 
+                        comboBoxEmployee.getValue(), 
+                        comboBoxService.getValue()
+                );
+            }
+        }
     }
     
     @FXML

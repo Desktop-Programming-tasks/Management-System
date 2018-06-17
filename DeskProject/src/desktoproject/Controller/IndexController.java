@@ -90,19 +90,9 @@ public class IndexController extends Controller implements Initializable {
 
     @FXML
     private void showQueryTransactionAll() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_ALL);
+        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION);
     }
-
-    @FXML
-    private void showQuerySell() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_SALE);
-    }
-
-    @FXML
-    private void showQueryBuy() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_BUY);
-    }
-
+    
     @FXML
     private void showCreateClient() {
         GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);

@@ -69,7 +69,7 @@ public class MenuController extends Controller implements Initializable {
 
     @FXML
     private void showQueryTransactionAll() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_ALL);
+        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION);
     }
 
     @FXML
@@ -78,18 +78,8 @@ public class MenuController extends Controller implements Initializable {
     }
 
     @FXML
-    private void showQuerySell() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_SALE);
-    }
-
-    @FXML
     private void showCreateBuy() {
         GUIController.getInstance().callScreen(ScreenType.TRANSACTION_BUY_CREATE);
-    }
-
-    @FXML
-    private void showQueryBuy() {
-        GUIController.getInstance().callScreen(ScreenType.QUERY_TRANSACTION_BUY);
     }
 
     @FXML

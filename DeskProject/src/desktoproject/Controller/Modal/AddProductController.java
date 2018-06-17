@@ -11,6 +11,7 @@ import Exceptions.NoResultsException;
 import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
+import desktoproject.Controller.Interfaces.ControllerEdit;
 import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
@@ -40,7 +41,7 @@ import javafx.util.Callback;
  *
  * @author noda
  */
-public class AddProductController extends Controller implements Initializable, TableScreen, AppObserver {
+public class AddProductController extends ControllerEdit implements Initializable, TableScreen, AppObserver {
 
 //    private static final String addProductPath = "desktoproject/View/Modal/AddProduct.fxml";
 //    
@@ -240,6 +241,25 @@ public class AddProductController extends Controller implements Initializable, T
     @Override
     public void subscribe() {
         ObservableServer.getProduct().addObserver(this);
+    }
+
+    @Override
+    public void setUpComponents() {
+        //
+    }
+
+    @Override
+    public void fillScreen() {
+        selectTable(tmpProduct);
+        Float price = tmpProduct.getPrice();
+        int quantity = tmpProduct.getQuantity();
+        ProductPrice.setText(Misc.changeToComma(String.valueOf(price*quantity)));
+        ProductQuantity.setText(String.valueOf(quantity));
+    }
+
+    @Override
+    public void setScreenObject(Object obj) {
+        tmpProduct = (Product)obj;
     }
 
     

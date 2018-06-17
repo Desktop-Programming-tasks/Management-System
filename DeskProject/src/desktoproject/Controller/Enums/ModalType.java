@@ -11,10 +11,12 @@ package desktoproject.Controller.Enums;
  */
 public enum ModalType {
     PRODUCT_ADD,
+    PRODUCT_ADD_EDIT,
     BRAND_NEW,
     BRAND_UPDATE,
     SERVICE_TYPE_CREATE,
     SERVICE_TYPE_EDIT,
     SERVICE_NEW,
+    SERVICE_NEW_EDIT,
     SERVICE_UPDATE
 }
