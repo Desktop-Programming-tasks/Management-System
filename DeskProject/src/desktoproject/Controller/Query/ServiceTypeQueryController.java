@@ -19,6 +19,8 @@ import desktoproject.Utils.Animation;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -146,8 +148,14 @@ public class ServiceTypeQueryController extends Controller implements Initializa
         if(st==null){
             GUIController.getInstance().showSelectionErrorAlert();
         }else{
-            //call database method
-            populateTable();
+            try {
+                if(GUIController.getInstance().showEraseConfirmationAlert(st.getName())){
+                    ServiceTypeDAO.inactivateServiceType(st);
+                    populateTable();
+                }
+            } catch (RemoteException|DatabaseErrorException ex) {
+                GUIController.getInstance().showConnectionErrorAlert();
+            }
         }
     }
     

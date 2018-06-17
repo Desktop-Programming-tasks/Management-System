@@ -33,31 +33,6 @@ import javafx.scene.control.TextField;
  */
 public class ServiceTypeController extends ControllerEdit implements Initializable {
 
-//    private static final String PATH = "desktoproject/View/Modal/ServiceType.fxml";
-//    
-//
-//    public static Parent call() throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(ServiceTypeController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        ServiceTypeController controller = loader.getController();
-//        controller.setEDIT(false);
-//        controller.setUpComponents();
-//        return p;
-//    }
-//
-//    public static Parent call(Object serviceType) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(ServiceTypeController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        ServiceTypeController controller = loader.getController();
-//        controller.setEDIT(true);
-//        controller.setServiceType((ServiceType) serviceType);
-//        controller.setUpComponents();
-//
-//        return p;
-//    }
-
     public void setUpComponents() {
         if (isEdit()) {
             mainLabel.setText("Editar Serviço");
@@ -109,11 +84,9 @@ public class ServiceTypeController extends ControllerEdit implements Initializab
             ServiceType newServiceType = new ServiceType(nameTextField.getText(), Float.valueOf(Misc.changeToDot(valueTextField.getText())));
             try {
                 if (isEdit()) {
-                    newServiceType.setId(serviceType.getId());
-                    newServiceType.setActive(serviceType.isActive());
-                    System.out.println("new "+newServiceType.toString());
-                    System.out.println("old "+serviceType.toString());
-                    ServiceTypeDAO.updateServiceType(newServiceType);
+                    serviceType.setName(nameTextField.getText());
+                    serviceType.setPrice(Float.valueOf(Misc.changeToDot(valueTextField.getText())));
+                    ServiceTypeDAO.updateServiceType(serviceType);
                     GUIController.getInstance().showUpdateAlert();
                     GUIController.getInstance().closeModal();
                 } else {
