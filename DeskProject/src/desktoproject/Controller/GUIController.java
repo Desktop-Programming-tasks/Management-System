@@ -159,16 +159,8 @@ public class GUIController {
                     screenData = new TransactionController().call(TransactionType.SALE, obj);
                     break;
                 }
-                case QUERY_TRANSACTION_BUY: {
-                    screenData = new GenericTransactionController().call(TransactionQueryType.BUY);
-                    break;
-                }
-                case QUERY_TRANSACTION_SALE: {
-                    screenData = new GenericTransactionController().call(TransactionQueryType.SALE);
-                    break;
-                }
-                case QUERY_TRANSACTION_ALL: {
-                    screenData = new GenericTransactionController().call(TransactionQueryType.ALL);
+                case QUERY_TRANSACTION: {
+                    screenData = new GenericTransactionController().call();
                     break;
                 }
                 case QUERY_BRAND: {
@@ -251,6 +243,10 @@ public class GUIController {
     }
 
     public Transaction callModalForResult(ModalType type) {
+        return callModalForResult(type,null);
+    }
+    
+    public Transaction callModalForResult(ModalType type,Object o) {
         try {
             switch (type) {
                 case PRODUCT_ADD: {
@@ -262,6 +258,12 @@ public class GUIController {
                     ScreenData screenData = new CreateServiceController().call();
                     setUpModal(screenData.getParent());
                     return ((CreateServiceController) screenData.getController()).getNewServiceReturn();
+                }
+                case PRODUCT_ADD_EDIT:{
+                    
+                }
+                case SERVICE_NEW_EDIT:{
+                    
                 }
             }
         } catch (IOException ex) {

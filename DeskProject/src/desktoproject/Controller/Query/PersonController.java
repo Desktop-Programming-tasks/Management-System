@@ -138,7 +138,7 @@ public class PersonController extends Controller implements Initializable, Table
                         personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
                     }
                 } catch (RemoteException|DatabaseErrorException ex) {
-                    
+                    GUIController.getInstance().showConnectionErrorAlert();
                 }
             }
         });

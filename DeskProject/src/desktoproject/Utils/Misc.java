@@ -5,6 +5,10 @@
  */
 package desktoproject.Utils;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javafx.scene.control.TextField;
@@ -48,5 +52,15 @@ public abstract class Misc {
     
     public static String changeToComma(String num) {
         return num.replace(".", ",");
+    }
+    
+    public static Date localToDate(LocalDate local){
+        Instant instant = Instant.from(local.atStartOfDay(ZoneId.systemDefault()));
+        return Date.from(instant);
+    }
+    
+    public static LocalDate dateToLocal(Date date){
+        Instant instant = date.toInstant();
+        return instant.atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }

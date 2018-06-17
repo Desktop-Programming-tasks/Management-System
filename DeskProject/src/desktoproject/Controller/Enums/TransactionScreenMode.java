@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Classes.Enums;
+package desktoproject.Controller.Enums;
 
 /**
  *
- * @author noda
+ * @author viniciusmn
  */
-public enum RecordType {
-    SALE,
-    BUY;
+public enum TransactionScreenMode {
+    ALL,
+    SALES,
+    PURCHASES;
     
     public String translateEnumToGUI(){
         switch(this){
-            case BUY:{
-                return "Compra";
+            case ALL:{
+                return "Todas";
             }
-            case SALE:{
-                return "Venda";
+            case PURCHASES:{
+                return "Compras";
+            }
+            case SALES:{
+                return "Vendas";
             }
         }
         return "";

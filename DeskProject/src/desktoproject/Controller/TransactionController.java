@@ -9,8 +9,11 @@ import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Interfaces.ControllerEdit;
 import Classes.Constants.RecordTypeConstants;
+import Classes.Persons.Employee;
 import Classes.Persons.Person;
+import Classes.Transactions.Product;
 import Classes.Transactions.Record;
+import Classes.Transactions.ServiceType;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
@@ -44,9 +47,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -90,6 +95,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         TransactionController controller = (TransactionController) callReturn.getController();
         controller.setTransactionType(type);
         controller.setTypeComponents();
+        controller.subscribe();
         return new ScreenData(callReturn.getParent(), controller);
     }
 
@@ -99,6 +105,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         controller.setScreenObject(obj);
         controller.setTransactionType(type);
         controller.setTypeComponents();
+        controller.subscribe();
         return new ScreenData(callReturn.getParent(), controller);
     }
 
@@ -126,6 +133,8 @@ public class TransactionController extends ControllerEdit implements Initializab
     private Label tableLabel;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private Label employeeLabel;
 
     @FXML
     private VBox vBox;
@@ -176,9 +185,8 @@ public class TransactionController extends ControllerEdit implements Initializab
         });
 
         populateTable();
+        setTableAction();
         setUpSearch();
-
-        subscribe();
     }
 
     @Override
@@ -227,7 +235,7 @@ public class TransactionController extends ControllerEdit implements Initializab
     @Override
     public void selectTable(Object o) {
         if (o != null) {
-            Person cp = (Person)o;
+            Person cp = (Person) o;
             for (Person p : clientTable.getItems()) {
                 if (p.getId() == cp.getId()) {
                     clientTable.getSelectionModel().select(p);
@@ -243,7 +251,34 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @Override
     public void setTableAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        transactionsTable.setRowFactory(tv -> {
+            TableRow<Transaction> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    int position = row.getIndex();
+                    Transaction transaction = transactions.get(position);
+                    if(transaction.getClass() == Product.class){
+                        if(isEdit()){
+                            //do nothing
+                        }else{
+                            transaction = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD_EDIT,transaction);
+                            transactions.remove(position);
+                            transactions.add(transaction);
+                        }
+                    }else{
+                        if(isEdit()){
+                            GUIController.getInstance().callModal(ModalType.SERVICE_UPDATE, transaction);
+                        }else{
+                            transaction = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW_EDIT, transaction);
+                            transactions.remove(position);
+                            transactions.add(transaction);
+                        }
+                    }
+                    populateTable();
+                }
+            });
+            return row;
+        });
     }
 
     private void setTypeComponents() {
@@ -251,6 +286,7 @@ public class TransactionController extends ControllerEdit implements Initializab
 
         if (isEdit()) {
             mainLabelString += "Consultar ";
+            employeeLabel.setVisible(true);
             primaryBtn.setVisible(false);
             clientTable.setDisable(true);
 //            transactionsTable.setDisable(true);
@@ -261,6 +297,7 @@ public class TransactionController extends ControllerEdit implements Initializab
             this.transactions = record.getTransations();
             fillScreen();
         } else {
+            employeeLabel.setVisible(false);
             primaryBtn.setVisible(true);
             this.transactions = new ArrayList<>();
         }
@@ -314,10 +351,12 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @Override
     public void fillScreen() {
-        FinalPrice.setText(String.valueOf(record.getTotalprice()));
-//        customerOrSupplier.setText(record.getCustomer().getName());
-
+        FinalPrice.setText(Misc.changeToComma(String.valueOf(record.getTotalprice())));
+        transactions = record.getTransations();
         populateTable();
+        selectTable(record.getCustomer());
+        Employee assigned = record.getAssignedEmployee();
+        employeeLabel.setText("Funcionário: " + assigned.getName() + " cpf: " + assigned.getCPF());
     }
 
     @FXML
@@ -345,13 +384,12 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @FXML
     private void showModalAddService() {
-//        Transaction service = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW);
-//        if (service != null) {
-//            transactions.add(service);
-//            populateTable();
-//            updatePrice();
-//        }
-        update();
+        Transaction service = GUIController.getInstance().callModalForResult(ModalType.SERVICE_NEW);
+        if (service != null) {
+            transactions.add(service);
+            populateTable();
+            updatePrice();
+        }
     }
 
     @FXML
@@ -404,7 +442,7 @@ public class TransactionController extends ControllerEdit implements Initializab
 
     @Override
     public void setUpComponents() {
-        // nothing happen here
+        // nothing happens here
     }
 
     @Override

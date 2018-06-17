@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="520.0" prefWidth="520.0" stylesheets="@css/index.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.TransactionController">
+<AnchorPane minWidth="520.0" prefWidth="520.0" stylesheets="@css/index.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.TransactionController">
    <children>
       <Label fx:id="mainActionScreenTitle" layoutY="6.0" text="Main Label" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -96,5 +96,6 @@
       </VBox>
       <Button fx:id="primaryBtn" defaultButton="true" layoutX="971.0" layoutY="621.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="primaryButton" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-5.0" />
       <Button fx:id="backBtn" cancelButton="true" layoutX="46.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Label fx:id="employeeLabel" layoutY="30.0" text="Label" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>
