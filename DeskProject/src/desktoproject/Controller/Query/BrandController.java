@@ -27,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 
@@ -57,6 +58,8 @@ public class BrandController extends Controller implements Initializable, TableS
     private Button backBtn;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private TextField searchTextField;
     
     /**
      * Initializes the controller class.
@@ -173,7 +176,18 @@ public class BrandController extends Controller implements Initializable, TableS
 
     @Override
     public void setUpSearch() {
-        // nothing happen here
+        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+            newValue = newValue.trim();
+            if(newValue.isEmpty()){
+                populateTable();
+            }else{
+//                try {
+//                    brandTable.setItems(FXCollections.observableArrayList(BrandDAO.));
+//                } catch (RemoteException|DatabaseErrorException ex) {
+//                    GUIController.getInstance().showConnectionErrorAlert();
+//                }
+            }
+        });
     }
     
     @Override
