@@ -25,5 +25,5 @@ public interface ServiceRemote extends Remote {
 
     public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
 
-    public void updateService(Service service) throws RemoteException;
+    public void updateService(Service service) throws RemoteException, DatabaseErrorException, NoResultsException;
 }
