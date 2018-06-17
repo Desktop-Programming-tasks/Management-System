@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public interface ServiceTypeRemote extends Remote {
     public void insertServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
     public void updateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException;
+    public void inactivateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException ;
     public ServiceType queryServiceType(String id) throws RemoteException, DatabaseErrorException, NoResultsException;
     public ArrayList<ServiceType> queryAllServiceTypes() throws RemoteException, DatabaseErrorException;
 }

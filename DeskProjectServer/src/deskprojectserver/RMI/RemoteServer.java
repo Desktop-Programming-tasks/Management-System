@@ -209,6 +209,11 @@ public class RemoteServer implements RemoteMethods {
     public void deleteService(Service service) throws RemoteException, NoResultsException, DatabaseErrorException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void updateService(Service service) throws RemoteException {
+        throw new UnsupportedOperationException("não tá feito");
+    }
 
     @Override
     public void insertServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
@@ -218,6 +223,11 @@ public class RemoteServer implements RemoteMethods {
     @Override
     public void updateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException, DuplicatedEntryException {
         DAOBuilder.getInstance().getServiceTypeDAO().updateServiceType(st);
+    }
+    
+    @Override
+    public void inactivateServiceType(ServiceType st) throws RemoteException, DatabaseErrorException {
+        DAOBuilder.getInstance().getServiceTypeDAO().inactivateServiceType(st);
     }
 
     @Override
