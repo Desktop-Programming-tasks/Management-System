@@ -64,11 +64,13 @@ public class PersonController extends Controller implements Initializable, Table
             case CUSTOMER: {
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
+                deleteBtn.setText("Excluir");
                 break;
             }
             case EMPLOYEE: {
                 mainLabel.setText("Consulta de Funcionários");
                 personDocColumn.setText("CPF");
+                deleteBtn.setText("Desativar");
                 break;
             }
         }
