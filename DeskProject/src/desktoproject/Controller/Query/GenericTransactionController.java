@@ -5,12 +5,16 @@
  */
 package desktoproject.Controller.Query;
 
+import Classes.Constants.RecordTypeConstants;
 import Classes.Enums.RecordType;
 import Classes.Enums.ServiceStatus;
 import Classes.Persons.Supplier;
 import Classes.Transactions.Record;
+import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
+import desktoproject.Controller.Enums.ScreenType;
 import desktoproject.Controller.Enums.TransactionScreenMode;
 import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Interfaces.FXMLPaths;
@@ -41,6 +45,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -105,6 +110,8 @@ public class GenericTransactionController extends Controller implements Initiali
         loadComboBox();
         subscribe();
         populateTable();
+        setUpSearch();
+        setTableAction();
     }
     
     private void setUpTable(){
@@ -227,7 +234,16 @@ public class GenericTransactionController extends Controller implements Initiali
 
     @FXML
     private void details() {
-
+        Record record = transactionTable.getSelectionModel().getSelectedItem();
+        if (record == null) {
+            GUIController.getInstance().showSelectionErrorAlert();
+        } else {
+            if(record.getType()==RecordTypeConstants.PURCHASE){
+                GUIController.getInstance().callScreen(ScreenType.TRANSACTION_BUY_DISPLAY, record);
+            }else{
+                GUIController.getInstance().callScreen(ScreenType.TRANSACTION_SALE_DISPLAY, record);
+            }
+        }
     }
 
     @FXML
@@ -242,7 +258,15 @@ public class GenericTransactionController extends Controller implements Initiali
 
     @Override
     public void setTableAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        transactionTable.setRowFactory(tv -> {
+            TableRow<Record> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    details();
+                }
+            });
+            return row;
+        });
     }
 
     

@@ -52,6 +52,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -134,12 +135,24 @@ public class TransactionController extends ControllerEdit implements Initializab
     @FXML
     private TextField searchTextField;
     @FXML
-    private Label employeeLabel;
+    private Label clientName;
+    @FXML
+    private Label clientDocument;
+    @FXML
+    private Label employeeName;
+    @FXML
+    private Label employeeDocument;
 
     @FXML
     private VBox vBox;
     @FXML
     private HBox hBox;
+    @FXML
+    private HBox hBoxContainer;
+    @FXML
+    private AnchorPane clientPane;
+    @FXML
+    private AnchorPane clientPaneDisplay;
 
     @FXML
     private TableView<Transaction> transactionsTable;
@@ -179,7 +192,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         transactions = new ArrayList<>();
 
         Platform.runLater(() -> {
-            stage = (Stage) tableLabel.getScene().getWindow();
+            stage = (Stage) mainActionScreenTitle.getScene().getWindow();
             setStageBreak();
             adjustComponents();
         });
@@ -217,13 +230,6 @@ public class TransactionController extends ControllerEdit implements Initializab
             } else {
                 clientTable.setItems(FXCollections.observableArrayList(PersonDAO.queryAllPersons()));
             }
-//            if (selectedPerson != null) {
-//                for (Person p : clientTable.getItems()) {
-//                    if (p.getId() == selectedPerson.getId()) {
-//                        clientTable.getSelectionModel().select(p);
-//                    }
-//                }
-//            }
             selectTable(selectedPerson);
         } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
@@ -290,7 +296,6 @@ public class TransactionController extends ControllerEdit implements Initializab
 
         if (isEdit()) {
             mainLabelString += "Consultar ";
-            employeeLabel.setVisible(true);
             primaryBtn.setVisible(false);
             clientTable.setDisable(true);
 //            transactionsTable.setDisable(true);
@@ -299,11 +304,14 @@ public class TransactionController extends ControllerEdit implements Initializab
             deleteEntry.setVisible(false);
             searchTextField.setDisable(true);
             this.transactions = record.getTransations();
+            clientPane.setVisible(false);
+            clientPaneDisplay.setVisible(true);
             fillScreen();
-        } else {
-            employeeLabel.setVisible(false);
+        } else { 
             primaryBtn.setVisible(true);
             this.transactions = new ArrayList<>();
+            clientPane.setVisible(true);
+            clientPaneDisplay.setVisible(false);
         }
 
         switch (type) {
@@ -313,7 +321,7 @@ public class TransactionController extends ControllerEdit implements Initializab
                 primaryBtnString += "Compra ";
                 searchTextField.setPromptText("Pesquisar fornecedor");
                 addServiceBtn.setVisible(false);
-                
+                hBoxContainer.getChildren().remove(addServiceBtn);
                 break;
             }
             case SALE: {
@@ -360,9 +368,12 @@ public class TransactionController extends ControllerEdit implements Initializab
         FinalPrice.setText(Misc.changeToComma(String.valueOf(record.getTotalprice())));
         transactions = record.getTransations();
         populateTable();
-        selectTable(record.getCustomer());
         Employee assigned = record.getAssignedEmployee();
-        employeeLabel.setText("Funcionário: " + assigned.getName() + " cpf: " + assigned.getCPF());
+        Person person = record.getCustomer();
+        clientName.setText(person.getName());
+        clientDocument.setText(person.getDocumentId());
+        employeeName.setText(assigned.getName());
+        employeeDocument.setText(assigned.getDocumentId());
     }
 
     @FXML
