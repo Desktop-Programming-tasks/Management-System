@@ -10,14 +10,14 @@ import deskprojectserver.Database.DAO.Persons.LocationsDAO;
 import deskprojectserver.Database.DAO.Persons.PersonDAO;
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Database.DAO.Transactions.ProductDAO;
-import deskprojectserver.Database.DAO.Transactions.RegisterDAO;
+import deskprojectserver.Database.DAO.Transactions.RecordDAO;
 import deskprojectserver.Database.DAO.Transactions.ServiceTypeDAO;
 import deskprojectserver.mysql.Commons.MySqlBrandDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlAutenticationDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlLocationsDAO;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.DAO.Transactions.MySqlProductDAO;
-import deskprojectserver.mysql.DAO.Transactions.MySqlRegisterDAO;
+import deskprojectserver.mysql.DAO.Transactions.MySqlRecordDAO;
 import deskprojectserver.mysql.DAO.Transactions.MySqlServiceTypeDAO;
 
 /**
@@ -32,7 +32,7 @@ public class DAOBuilder {
     private final ProductDAO productDAO;
     private final ServiceTypeDAO serviceTypeDAO;
     private final AutenticationDAO autenticationDAO;
-    private final RegisterDAO registerDAO;
+    private final RecordDAO registerDAO;
 
     private DAOBuilder() {
         pDAO = new MySqlPersonDAO();
@@ -41,7 +41,7 @@ public class DAOBuilder {
         productDAO = new MySqlProductDAO();
         serviceTypeDAO = new MySqlServiceTypeDAO();
         autenticationDAO = new MySqlAutenticationDAO();
-        registerDAO = new MySqlRegisterDAO();
+        registerDAO = new MySqlRecordDAO();
     }
 
     public PersonDAO getPersonDAO() {
@@ -67,7 +67,7 @@ public class DAOBuilder {
     public AutenticationDAO getAutenticationDAO() {
         return autenticationDAO;
     }
-    public RegisterDAO getRegisterDAO() {
+    public RecordDAO getRegisterDAO() {
         return registerDAO;
     }
     

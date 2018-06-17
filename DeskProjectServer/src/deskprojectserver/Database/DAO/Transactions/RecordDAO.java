@@ -21,12 +21,12 @@ import java.util.Calendar;
  *
  * @author gabriel
  */
-public abstract class RegisterDAO {
+public abstract class RecordDAO {
 
     TransactionProductDAO tProductDAO;
     TransactionServiceDAO tServiceDAO;
 
-    public RegisterDAO(TransactionProductDAO tProductDAO, TransactionServiceDAO tServiceDAO) {
+    public RecordDAO(TransactionProductDAO tProductDAO, TransactionServiceDAO tServiceDAO) {
         this.tProductDAO = tProductDAO;
         this.tServiceDAO = tServiceDAO;
     }
