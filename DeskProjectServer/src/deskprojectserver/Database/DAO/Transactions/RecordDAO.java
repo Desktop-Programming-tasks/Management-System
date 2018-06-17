@@ -75,4 +75,11 @@ public abstract class RecordDAO {
 
     public abstract ArrayList<Record> getLikeRecords(String id) throws DatabaseErrorException;
 
+    public abstract ArrayList<Record> getAllSaleRecords() throws DatabaseErrorException;
+
+    public abstract ArrayList<Record> getLikeSaleRecords(String id) throws DatabaseErrorException;
+
+    public abstract ArrayList<Record> getAllPurchaseRecords() throws DatabaseErrorException;
+
+    public abstract ArrayList<Record> getLikePurchaseRecords(String id) throws DatabaseErrorException;
 }

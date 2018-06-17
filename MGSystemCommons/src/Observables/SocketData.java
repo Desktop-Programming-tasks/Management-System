@@ -10,6 +10,7 @@ package Observables;
  * @author ecsanchesjr
  */
 public interface SocketData {
+
     public final static String SERVER_HOST = "localhost";
     public final static int SERVER_PORT = 9000;
     public final static String THREAD_NAME = "ObservableThread";

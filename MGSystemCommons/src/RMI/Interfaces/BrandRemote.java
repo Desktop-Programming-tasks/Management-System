@@ -18,8 +18,12 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public interface BrandRemote extends Remote {
+
     public ArrayList<Brand> queryAllBrands() throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public void insertBrand(Brand brand) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
+
     public void updateBrand(Brand brand) throws RemoteException, DatabaseErrorException, NoResultsException;
+
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException;
 }

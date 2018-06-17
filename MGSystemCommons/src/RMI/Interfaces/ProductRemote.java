@@ -19,9 +19,14 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public interface ProductRemote extends Remote {
-    public Product queryProduct(String id) throws  RemoteException, NoResultsException, DatabaseErrorException;
+
+    public Product queryProduct(String id) throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public ArrayList<Product> queryAllProducts() throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public void insertProduct(Product product) throws RemoteException, DuplicatedEntryException, DatabaseErrorException, UnavailableBrandException;
+
     public void updateProduct(Product product) throws RemoteException, UnavailableBrandException, DatabaseErrorException, NoResultsException, DuplicatedEntryException;
+
     public void deleteProduct(Product product) throws RemoteException, NoResultsException, DatabaseErrorException;
 }

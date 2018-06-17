@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * @author ecsanchesjr
  */
 public interface LocationRemote {
-    public ArrayList<String> queryStates() throws  RemoteException, NoResultsException, DatabaseErrorException;
+
+    public ArrayList<String> queryStates() throws RemoteException, NoResultsException, DatabaseErrorException;
+
     public ArrayList<String> queryCities(String state) throws RemoteException, NoResultsException, DatabaseErrorException;
 }

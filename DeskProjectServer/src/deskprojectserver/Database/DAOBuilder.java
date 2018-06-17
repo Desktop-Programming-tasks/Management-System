@@ -39,7 +39,7 @@ public class DAOBuilder {
     private final ProductDAO productDAO;
     private final ServiceTypeDAO serviceTypeDAO;
     private final AutenticationDAO autenticationDAO;
-    private final RecordDAO registerDAO;
+    private final RecordDAO recordDAO;
     private final TransactionServiceDAO transactionServiceDAO;
 
     private DAOBuilder() {
@@ -49,7 +49,7 @@ public class DAOBuilder {
         productDAO = new MySqlProductDAO();
         serviceTypeDAO = new MySqlServiceTypeDAO();
         autenticationDAO = new MySqlAutenticationDAO();
-        registerDAO = new MySqlRecordDAO();
+        recordDAO = new MySqlRecordDAO();
         transactionServiceDAO = new ServiceTransactionHolder(new MySqlServiceTransactionDAO());
     }
 
@@ -77,8 +77,8 @@ public class DAOBuilder {
         return autenticationDAO;
     }
 
-    public RecordDAO getRegisterDAO() {
-        return registerDAO;
+    public RecordDAO getRecordDAO() {
+        return recordDAO;
     }
 
     public static DAOBuilder getInstance() {
@@ -115,6 +115,11 @@ public class DAOBuilder {
         @Override
         public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
             tServiceDao.updateService(service);
+        }
+
+        @Override
+        public ArrayList<Service> getAllServices() throws DatabaseErrorException {
+            return tServiceDao.getAllServices();
         }
     }
 

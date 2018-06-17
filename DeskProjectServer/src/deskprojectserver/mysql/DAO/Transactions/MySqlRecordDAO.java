@@ -5,6 +5,7 @@
  */
 package deskprojectserver.mysql.DAO.Transactions;
 
+import Classes.Constants.RecordTypeConstants;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Classes.Transactions.Record;
@@ -20,6 +21,8 @@ import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +47,10 @@ public class MySqlRecordDAO extends RecordDAO {
     private static final String GET_ALL_ID_SQL = "SELECT `idRegistry`  FROM `Registry`";
     private static final String REMOVE_SQL = "DELETE FROM `Registry` WHERE "
             + "idRegistry=?";
+    private static final String GET_ALL_SALES_ID_SQL = "SELECT `idRegistry`  FROM `Registry`"
+            + " WHERE typeRegistry=" + RecordTypeConstants.SALE;
+    private static final String GET_ALL_PURCHASES_ID_SQL = "SELECT `idRegistry`  FROM `Registry`"
+            + " WHERE typeRegistry=" + RecordTypeConstants.PURCHASE;
 
     public MySqlRecordDAO() {
         super(new MySqlProductTransactionDAO(), new MySqlServiceTransactionDAO());
@@ -128,6 +135,7 @@ public class MySqlRecordDAO extends RecordDAO {
                     //
                 }
             }
+            qr.closeAll();
         } catch (SQLException ex) {
             throw new DatabaseErrorException();
         }
@@ -141,5 +149,57 @@ public class MySqlRecordDAO extends RecordDAO {
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
         }
+    }
+
+    @Override
+    public ArrayList<Record> getAllSaleRecords() throws DatabaseErrorException {
+        return getGenericRecords(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_SALES_ID_SQL);
+                } catch (ClassNotFoundException | SQLException e) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Record> getLikeSaleRecords(String id) throws DatabaseErrorException {
+        ArrayList<Record> records = getAllSaleRecords();
+        records.removeIf((Record r) -> {
+            if (r.getCustomer().getName().contains(id)) {
+                return false;
+            }
+            return true;
+        });
+        return records;
+    }
+
+    @Override
+    public ArrayList<Record> getAllPurchaseRecords() throws DatabaseErrorException {
+        return getGenericRecords(new QueryExecuter() {
+            @Override
+            public QueryResult execute() throws DatabaseErrorException {
+                try {
+                    return MySqlHandler.getInstance().getDb().query(GET_ALL_PURCHASES_ID_SQL);
+                } catch (SQLException | ClassNotFoundException ex) {
+                    throw new DatabaseErrorException();
+                }
+            }
+        });
+    }
+
+    @Override
+    public ArrayList<Record> getLikePurchaseRecords(String id) throws DatabaseErrorException {
+        ArrayList<Record> records = getAllPurchaseRecords();
+        records.removeIf((Record r) -> {
+            if (r.getCustomer().getName().contains(id)) {
+                return false;
+            }
+            return true;
+        });
+        return records;
     }
 }
