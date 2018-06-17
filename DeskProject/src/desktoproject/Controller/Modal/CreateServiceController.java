@@ -39,6 +39,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
@@ -49,29 +50,7 @@ import javafx.util.StringConverter;
  * @author noda
  */
 public class CreateServiceController extends ControllerEdit implements Initializable, AppObserver {
-
-//    private static final String PATH = "desktoproject/View/Modal/CreateService.fxml";
-//    
-//    public static ScreenObject call() throws IOException{
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(CreateServiceController.class.getClassLoader().getResource(PATH));
-//            Parent p = loader.load();
-//            CreateServiceController controller = loader.getController();
-//            controller.setEdit(false);
-//            controller.setUpComponents();
-//            return new ScreenObject(p, controller); 
-//    }
-//    
-//    public static Parent call(Object obj) throws IOException{
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(CreateServiceController.class.getClassLoader().getResource(PATH));
-//            Parent p = loader.load();
-//            CreateServiceController controller = loader.getController();
-//            controller.setService((Service) obj);
-//            controller.setEdit(true);
-//            controller.setUpComponents();
-//            return p;
-//    }
+    
     public ScreenData call(Object obj, boolean newEdit) throws IOException {
         ScreenData callReturn = super.call(obj);
         CreateServiceController c = ((CreateServiceController) callReturn.getController());
@@ -116,6 +95,7 @@ public class CreateServiceController extends ControllerEdit implements Initializ
         selectComboBoxEmployee((Employee) service.getAssignedEmployee());
         selectComboBoxServiceType(service.getServiceType());
         comboBoxState.getSelectionModel().select(service.getStatus());
+        descriptionTextArea.setText(service.getMessage());
     }
 
     @FXML
@@ -136,6 +116,8 @@ public class CreateServiceController extends ControllerEdit implements Initializ
     private Button primaryBtn;
     @FXML
     private Button backBtn;
+    @FXML
+    private TextArea descriptionTextArea;
 
     /**
      * Initializes the controller class.
@@ -150,8 +132,10 @@ public class CreateServiceController extends ControllerEdit implements Initializ
         Animation.bindAnimation(comboBoxEmployee);
         Animation.bindAnimation(comboBoxState);
         Animation.bindAnimation(comboBoxService);
+        Animation.bindAnimation(descriptionTextArea);
         Animation.bindShadowAnimation(primaryBtn);
         Animation.bindShadowAnimation(backBtn);
+        
 
         comboBoxSetup();
         loadComboBox();
@@ -327,13 +311,16 @@ public class CreateServiceController extends ControllerEdit implements Initializ
     @FXML
     private void mainAction() {
         if (validate()) {
+            String message = descriptionTextArea.getText();
             if (isEdit() && !newEdit) {
                 service.setStartDate(Misc.localToDate(beginDate.getValue()));
                 service.setEstimatedDate(Misc.localToDate(endDate.getValue()));
                 service.setStatus(comboBoxState.getValue());
                 service.setAssignedEmployee(comboBoxEmployee.getValue());
                 service.setServiceType(comboBoxService.getValue());
-
+                if(!message.isEmpty()){
+                    service.setMessage(message);
+                }
                 //save update in database
             } else {
                 newServiceReturn = new Service(
@@ -343,6 +330,9 @@ public class CreateServiceController extends ControllerEdit implements Initializ
                         comboBoxEmployee.getValue(),
                         comboBoxService.getValue()
                 );
+                if(!message.isEmpty()){
+                    newServiceReturn.setMessage(message);
+                }
                 GUIController.getInstance().closeModal();
             }
         }

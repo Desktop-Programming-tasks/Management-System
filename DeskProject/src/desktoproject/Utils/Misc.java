@@ -60,7 +60,6 @@ public abstract class Misc {
     }
     
     public static LocalDate dateToLocal(Date date){
-        Instant instant = date.toInstant();
-        return instant.atZone(ZoneId.systemDefault()).toLocalDate();
+        return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
     }
 }

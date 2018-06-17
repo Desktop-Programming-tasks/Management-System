@@ -11,8 +11,10 @@ import desktoproject.Controller.Interfaces.ControllerEdit;
 import Classes.Constants.RecordTypeConstants;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
+import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
+import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
@@ -36,8 +38,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -161,7 +166,7 @@ public class TransactionController extends ControllerEdit implements Initializab
     @FXML
     private TableColumn<Transaction, Float> priceColumn;
     @FXML
-    private TableColumn<Transaction, Integer> quantityColumn;
+    private TableColumn<Transaction, String> quantityColumn;
 
     @FXML
     private TableView<Person> clientTable;
@@ -184,7 +189,9 @@ public class TransactionController extends ControllerEdit implements Initializab
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityColumn.setCellValueFactory((TableColumn.CellDataFeatures<Transaction, String> p) -> {
+            return new SimpleStringProperty(p.getValue().getClass()==Service.class?("---"):(String.valueOf(p.getValue().getQuantity())));
+        });
 
         clientDocumentColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         clientNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
