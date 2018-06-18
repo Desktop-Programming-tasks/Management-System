@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,15 +32,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class ServiceController extends Controller implements Initializable, TableScreen, AppObserver {
     
     @FXML
-    private TableView ServiceTable;
+    private TableView serviceTable;
     @FXML
-    private TableColumn statusColumn;
+    private TableColumn dateColumn;
     @FXML
-    private TableColumn nameColumn;
+    private TableColumn serviceTypeColumn;
     @FXML
-    private TableColumn priceColumn;
+    private TableColumn messageColumn;
     @FXML
-    private TextField searchTextField;
+    private ComboBox stateComboBox;
+    @FXML
+    private ComboBox serviceTypeComboBox;
+    @FXML
+    private ComboBox employeeComboBox;
     @FXML
     private Button cancelBtn;
     @FXML
@@ -56,12 +61,15 @@ public class ServiceController extends Controller implements Initializable, Tabl
         Animation.bindShadowAnimation(cancelBtn);
         Animation.bindShadowAnimation(backBtn);
         
-        Animation.bindAnimation(searchTextField);
-        ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        Animation.bindAnimation(stateComboBox);
+        Animation.bindAnimation(serviceTypeComboBox);
+        Animation.bindAnimation(employeeComboBox);
         
-        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        serviceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        serviceTypeColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        messageColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         subscribe();
     }    
