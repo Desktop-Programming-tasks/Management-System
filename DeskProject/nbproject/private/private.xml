@@ -5,25 +5,16 @@
             <url>src/desktoproject/Controller/Query/PersonController.java</url>
             <bookmark id="1">
                 <name/>
-                <line>45</line>
+                <line>44</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group/>
+        <group/>
         <group>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/GUIController.java</file>
-        </group>
-        <group>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/TransactionController.java</file>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/Query/GenericTransactionController.java</file>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/Panels/PromotionPersonController.java</file>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/Interfaces/TableScreen.java</file>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/Query/PersonController.java</file>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/Modal/AddProductController.java</file>
-        </group>
-        <group>
-            <file>file:/home/viniciusmn/Documentos/git/Management-System/DeskProject/src/desktoproject/Controller/TransactionController.java</file>
+            <file>file:/home/ecsanchesjr/gitRepos/Management-System/DeskProject/src/desktoproject/Reports/Report.java</file>
         </group>
     </open-files>
 </project-private>
