@@ -20,6 +20,7 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.Misc;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.Format;
@@ -96,8 +97,7 @@ public class GenericTransactionController extends Controller implements Initiali
         transactionTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {
-            Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-            return new SimpleStringProperty(formatter.format(p.getValue().getRegisterDate()));
+            return new SimpleStringProperty(Misc.dateToString(p.getValue().getRegisterDate()));
         });
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("totalprice"));
         nameColumn.setCellValueFactory((TableColumn.CellDataFeatures<Record, String> p) -> {

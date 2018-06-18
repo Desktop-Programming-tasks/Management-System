@@ -5,10 +5,16 @@
  */
 package desktoproject.Utils;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
+import java.util.Locale;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javafx.scene.control.TextField;
@@ -61,5 +67,10 @@ public abstract class Misc {
     
     public static LocalDate dateToLocal(Date date){
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+    
+    public static String dateToString(Date date){
+//        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return DateFormat.getDateInstance(DateFormat.MEDIUM,Locale.getDefault()).format(date);
     }
 }

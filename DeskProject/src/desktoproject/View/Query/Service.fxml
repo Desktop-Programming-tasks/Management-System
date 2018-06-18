@@ -10,28 +10,28 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minWidth="520.0" prefWidth="520.0" stylesheets="@../css/index.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktoproject.Controller.Query.ServiceController">
-   <children>
-      <Label layoutY="6.0" text="Consulta de Serviços" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="stateComboBox" layoutY="54.0" prefWidth="160.0" promptText="Estado" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0" />
-      <ComboBox fx:id="serviceTypeComboBox" prefWidth="160.0" promptText="Serviço" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="50.0" />
-      <TableView fx:id="serviceTable" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <columns>
-            <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="128.0" prefWidth="128.0" text="Término" />
-            <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="168.0" prefWidth="168.0" text="Serviço" />
-            <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="224.0" prefWidth="224.0" text="Mensagem" />
-         </columns>
-      </TableView>
-      <HBox alignment="CENTER" layoutX="875.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Button fx:id="updateBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" onAction="#showModalUpdateService" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Atualizar serviço" />
-            <Button fx:id="cancelBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Cancelar serviço" />
-         </children>
-      </HBox>
-      <Button fx:id="backBtn" cancelButton="true" layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-      <ComboBox fx:id="employeeComboBox" layoutX="345.0" layoutY="56.0" prefWidth="160.0" promptText="Funcionário" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
-   </children>
+    <children>
+        <Label layoutY="6.0" text="Consulta de Serviços" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font size="25.0" />
+            </font>
+        </Label>
+        <ComboBox fx:id="stateComboBox" layoutY="54.0" prefWidth="160.0" promptText="Estado" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0" />
+        <ComboBox fx:id="serviceTypeComboBox" prefWidth="160.0" promptText="Serviço" AnchorPane.leftAnchor="168.0" AnchorPane.topAnchor="50.0" />
+        <TableView fx:id="serviceTable" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+            <columns>
+                <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="128.0" prefWidth="${serviceTable.width*0.20}" resizable="false" text="Término" />
+                <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="168.0" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Serviço" />
+                <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="224.0" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Mensagem" />
+            </columns>
+        </TableView>
+        <HBox alignment="CENTER" layoutX="875.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Button fx:id="updateBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" onAction="#showModalUpdateService" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Atualizar serviço" />
+                <Button fx:id="cancelBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Cancelar serviço" />
+            </children>
+        </HBox>
+        <Button fx:id="backBtn" cancelButton="true" layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+        <ComboBox fx:id="employeeComboBox" layoutX="345.0" layoutY="56.0" prefWidth="160.0" promptText="Funcionário" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+    </children>
 </AnchorPane>
