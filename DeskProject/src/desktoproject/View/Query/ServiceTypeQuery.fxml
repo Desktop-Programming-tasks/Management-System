@@ -17,12 +17,9 @@
          </font></Label>
       <TableView fx:id="ServiceTable" layoutX="20.0" layoutY="64.0" minWidth="520.0" prefWidth="520.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="nameColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="260.0" prefWidth="260.0" sortable="false" text="Nome" />
-            <TableColumn fx:id="priceColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="260.0" prefWidth="260.0" sortable="false" text="Valor" />
+            <TableColumn fx:id="nameColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${ServiceTable.width*0.7475}" sortable="false" text="Nome" resizable="false" />
+            <TableColumn fx:id="priceColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${ServiceTable.width*0.25}" sortable="false" text="Valor" resizable="false" />
          </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <HBox alignment="CENTER" layoutX="875.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

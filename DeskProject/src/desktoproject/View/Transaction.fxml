@@ -33,12 +33,9 @@
                         <TextField fx:id="searchTextField" layoutX="270.046875" layoutY="20.0" prefWidth="250.0" promptText="Pesquisar cliente/fornecedor" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
                         <TableView fx:id="clientTable" layoutX="0.046875" layoutY="64.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
                           <columns>
-                            <TableColumn fx:id="clientDocumentColumn" prefWidth="75.0" text="Documento" />
-                            <TableColumn fx:id="clientNameColumn" prefWidth="75.0" text="Nome" />
+                            <TableColumn fx:id="clientDocumentColumn" prefWidth="${clientTable.width * 0.35}" resizable="false" text="Documento" />
+                            <TableColumn fx:id="clientNameColumn" prefWidth="${clientTable.width * 0.645}" resizable="false" text="Nome" />
                           </columns>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
                         </TableView>
                         <HBox layoutX="385.046875" layoutY="455.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
@@ -101,9 +98,9 @@
                <children>
                   <TableView fx:id="transactionsTable" layoutX="69.0" layoutY="50.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
                     <columns>
-                      <TableColumn fx:id="nameColumn" minWidth="-1.0" prefWidth="250.0" resizable="false" text="Nome" />
-                      <TableColumn fx:id="priceColumn" prefWidth="100.0" resizable="false" text="Valor" />
-                        <TableColumn fx:id="quantityColumn" prefWidth="200.0" resizable="false" text="Quantidade" />
+                      <TableColumn fx:id="nameColumn" prefWidth="${transactionsTable.width * 0.595}" resizable="false" text="Nome" />
+                      <TableColumn fx:id="priceColumn" prefWidth="${transactionsTable.width * 0.20}" resizable="false" text="Valor" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="${transactionsTable.width * 20}" resizable="false" text="Quantidade" />
                     </columns>
                   </TableView>
                   <Label layoutX="5.0" text="Registro de transações" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
