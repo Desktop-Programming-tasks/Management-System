@@ -9,6 +9,7 @@ import Classes.Enums.ObservableType;
 import Observables.SocketData;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -35,8 +36,13 @@ public class ObserverThread extends Thread {
             
             while(true) {
                 String serverAtt = notification.readUTF();
-                System.out.println("Changed: "+serverAtt);
-                ObservableServer.trigger(ObservableType.valueOf(serverAtt));
+                if(serverAtt.equals(".")) {
+                    DataOutputStream output = new DataOutputStream(connection.getOutputStream());
+                    output.writeBoolean(true);
+                } else {
+                    System.out.println("Changed: "+serverAtt);
+                    ObservableServer.trigger(ObservableType.valueOf(serverAtt));
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(ObserverThread.class.getName()).log(Level.SEVERE, null, ex);

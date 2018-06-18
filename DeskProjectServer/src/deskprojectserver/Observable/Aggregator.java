@@ -6,11 +6,14 @@
 package deskprojectserver.Observable;
 
 import Classes.Enums.ObservableType;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,64 +22,17 @@ import java.util.ConcurrentModificationException;
 public class Aggregator implements ServerObserver {
 
     private DataOutputStream output;
-    private ArrayList<Socket> clients;
+    private final ArrayList<Socket> clients;
+    private final VerifyClientSockets verify;
 
     public Aggregator() {
         this.clients = new ArrayList<>();
+        verify = new VerifyClientSockets(this);
+        verify.start();
     }
 
     @Override
     public void update(ObservableType type) {
-//        switch(type){
-//            case BRAND:{
-//                System.out.println("brand changed");
-//                break;
-//            }
-//            case BUY:{
-//                System.out.println("buy changed");
-//                break;
-//            }
-//            case CLIENT:{
-//                System.out.println("client changed");
-//                break;
-//            }
-//            case EMPLOYEE:{
-//                System.out.println("employee changed");
-//                break;
-//            }
-//            case JURIDICAL:{
-//                System.out.println("juridical changed");
-//                break;
-//            }
-//            case LEGAL:{
-//                System.out.println("legal changed");
-//                break;
-//            }
-//            case PRODUCT:{
-//                System.out.println("product changed");
-//                break;
-//            }
-//            case SALE:{
-//                System.out.println("sale changed");
-//                break;
-//            }
-//            case SERVICE:{
-//                System.out.println("service changed");
-//                break;
-//            }
-//            case SERVICE_TYPE:{
-//                System.out.println("service type changed");
-//                break;
-//            }
-//            case SUPPLIER:{
-//                System.out.println("supplier changed");
-//                break;
-//            }
-//            case TRANSACTION:{
-//                System.out.println("transaction changed");
-//                break;
-//            }
-//        }
 
         System.out.println("Changed: " + type.name());
         try {
@@ -85,8 +41,6 @@ public class Aggregator implements ServerObserver {
                     output = new DataOutputStream(client.getOutputStream());
                     output.writeUTF(type.name());
                 } catch (IOException ex) {
-                    System.out.println("Socket lost: " + ex.getMessage());
-                    clients.remove(client);
                 }
             });
         } catch (ConcurrentModificationException ex) {
@@ -102,5 +56,42 @@ public class Aggregator implements ServerObserver {
 
     public void addClient(Socket client) {
         clients.add(client);
+    }
+
+    private class VerifyClientSockets extends Thread {
+
+        private final Aggregator aggregator;
+        private DataOutputStream output;
+        private DataInputStream response;
+
+        public VerifyClientSockets(Aggregator aggregator) {
+            this.aggregator = aggregator;
+            this.setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            ArrayList<Socket> toRemove = new ArrayList<>();
+            while (true) {
+                toRemove.clear();
+                try {
+                    sleep(10 * 1000);
+                    aggregator.clients.forEach(client -> {
+                        try {
+                            output = new DataOutputStream(client.getOutputStream());
+                            output.writeUTF(".");
+                            response = new DataInputStream(client.getInputStream());
+                            client.setSoTimeout(500);
+                            response.read();
+                        } catch (IOException ex) {
+                            toRemove.add(client);
+                        }
+                    });
+                    toRemove.forEach(client -> aggregator.clients.remove(client));
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Aggregator.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 }
