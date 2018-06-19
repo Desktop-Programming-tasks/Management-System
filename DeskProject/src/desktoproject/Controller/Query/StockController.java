@@ -17,6 +17,8 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.ChangeListenerRunnable;
+import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -72,9 +74,9 @@ public class StockController extends Controller implements Initializable, TableS
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
-        
+
         Animation.bindAnimation(searchTextField);
-        
+
         StockTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("barCode"));
@@ -86,31 +88,47 @@ public class StockController extends Controller implements Initializable, TableS
                 return new SimpleStringProperty(p.getValue().getBrand().getName());
             }
         });
-        
+
         populateTable();
         setTableAction();
         setUpSearch();
         subscribe();
     }
-    
+
     @Override
-    public void setUpSearch(){
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
-            newValue = newValue.trim();
-            if(newValue.isEmpty()){
-                populateTable();
-            }else{
-                try {
-                    StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
-                } catch (RemoteException|DatabaseErrorException ex) {
-                    
+    public void setUpSearch() {
+        searchTextField.textProperty().addListener(new TextChangeListener(
+                new ChangeListenerRunnable() {
+            @Override
+            public void run() {
+                newValue = newValue.trim();
+                if (newValue.isEmpty()) {
+                    populateTable();
+                } else {
+                    try {
+                        StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+                    } catch (RemoteException | DatabaseErrorException ex) {
+
+                    }
                 }
             }
-        });
+        }));
+//        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            newValue = newValue.trim();
+//            if (newValue.isEmpty()) {
+//                populateTable();
+//            } else {
+//                try {
+//                    StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+//                } catch (RemoteException | DatabaseErrorException ex) {
+//
+//                }
+//            }
+//        });
     }
-    
+
     @Override
-    public void populateTable(){
+    public void populateTable() {
         try {
             Product p = StockTable.getSelectionModel().getSelectedItem();
             StockTable.setItems(FXCollections.observableArrayList(ProductDAO.queryAllProducts()));
@@ -122,25 +140,25 @@ public class StockController extends Controller implements Initializable, TableS
             //
         }
     }
-    
+
     @Override
     public void selectTable(Object o) {
-        if(o!=null){
+        if (o != null) {
             Product cp = (Product) o;
-            for(Product p : StockTable.getItems()){
-                if(p.getId() == cp.getId()){
+            for (Product p : StockTable.getItems()) {
+                if (p.getId() == cp.getId()) {
                     StockTable.getSelectionModel().select(p);
                 }
             }
         }
     }
-    
+
     @Override
-    public void setTableAction(){
+    public void setTableAction() {
         StockTable.setOnKeyReleased((event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 Product item = StockTable.getSelectionModel().getSelectedItem();
-                if(item!=null){
+                if (item != null) {
                     GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, item);
                 }
             }
@@ -161,37 +179,37 @@ public class StockController extends Controller implements Initializable, TableS
     private void back() {
         GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
-    private void create(){
+    private void create() {
         GUIController.getInstance().callScreen(ScreenType.PRODUCT_CREATE);
     }
 
     @FXML
     private void detailsProduct() {
         Product product = StockTable.getSelectionModel().getSelectedItem();
-        if(product==null){
+        if (product == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             GUIController.getInstance().callScreen(ScreenType.PRODUCT_DISPLAY, product);
             populateTable();
         }
     }
-    
+
     @FXML
-    private void delete(){
+    private void delete() {
         Product product = StockTable.getSelectionModel().getSelectedItem();
-        if(product==null){
+        if (product == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             try {
                 if (GUIController.getInstance().showEraseConfirmationAlert(product.getName())) {
                     ProductDAO.deleteProduct(product);
                     populateTable();
                 }
-            } catch (RemoteException|DatabaseErrorException ex) {
+            } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
-            }catch (NoResultsException ex) {
+            } catch (NoResultsException ex) {
                 System.out.println("ops - no result in stock controller");
             }
         }
