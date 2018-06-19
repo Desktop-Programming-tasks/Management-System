@@ -11,6 +11,7 @@ import Classes.Transactions.Service;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import deskprojectserver.Database.DAO.Transactions.TransactionServiceDAO;
+import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.DAO.Persons.MySqlPersonDAO;
 import deskprojectserver.mysql.MySqlHandler;
@@ -56,6 +57,18 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             + "`Person_idEmployee`=?,"
             + "`IndividualPrice_St_has_Registry`=?,"
             + "`messageSt_has_Registry`=? WHERE idSt_has_Registry=?";
+    private static final String GET_ALL_SQL = "SELECT Person.namePerson,`idSt_has_Registry`, "
+            + "`ServiceType_idServiceType`, `Registry_idRegistry`,"
+            + " `ServiceStatus_idServiceStatus`,"
+            + "`startDateSt_has_Registry`, `estimatedDateSt_has_Registry`,"
+            + " `finalDateSt_has_Registry`, `Person_idEmployee`, "
+            + "`IndividualPrice_St_has_Registry`, `messageSt_has_Registry` "
+            + "FROM `St_has_Registry`,`ServiceType`,`Person` "
+            + "WHERE Person.idPerson=Person_idEmployee "
+            + "AND ServiceType_idServiceType=ServiceType.idServiceType "
+            + "AND ServiceStatus_idServiceStatus=? "
+            + "AND Person.namePerson LIKE ? "
+            + "AND ServiceType.nameServiceType LIKE ?";
 
     @Override
     public void insertServiceTransaction(Record record, Service service) throws DatabaseErrorException {
@@ -121,9 +134,9 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
     public void updateService(Service service) throws DatabaseErrorException, NoResultsException {
         try {
             MySqlHandler.getInstance().getDb().execute(UPDATE_SQL,
-                    service.getServiceType().getId(),ServiceStatus.enumToInt(service.getStatus())
-                    ,service.getStartDate(),service.getEstimatedDate(),service.getFinishDate(),
-                    service.getAssignedEmployee().getId(),service.getPrice(),service.getMessage(),
+                    service.getServiceType().getId(), ServiceStatus.enumToInt(service.getStatus()),
+                    service.getStartDate(), service.getEstimatedDate(), service.getFinishDate(),
+                    service.getAssignedEmployee().getId(), service.getPrice(), service.getMessage(),
                     service.getId());
         } catch (SQLException | ClassNotFoundException ex) {
             throw new DatabaseErrorException();
@@ -131,7 +144,32 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
     }
 
     @Override
-    public ArrayList<Service> getAllServices() throws DatabaseErrorException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Service> getAllServices(String funcName, int statusID, String serviceName) throws DatabaseErrorException {
+        ArrayList<Service> services = new ArrayList<>();
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL,
+                    statusID,
+                    FormatUtils.setLikeParam(funcName),
+                    FormatUtils.setLikeParam(serviceName));
+            while (qr.getResultSet().next()) {
+                Service sv = new Service(
+                        qr.getResultSet().getInt(SERVICE_ID),
+                        qr.getResultSet().getDate(START_DATE),
+                        qr.getResultSet().getDate(ESTIMATED_DATE),
+                        qr.getResultSet().getDate(FINAL_DATE),
+                        ServiceStatus.intToEnum(qr.getResultSet().getInt(ST_ID)),
+                        new MySqlPersonDAO().getPerson(getEmployeeId(qr.getResultSet().getString(EMPLOYEE_ID))),
+                        new MySqlServiceTypeDAO().getServiceType(
+                                qr.getResultSet().getString(ST_ID)),
+                        qr.getResultSet().getString(MESSAGE));
+                services.add(sv);
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException | NoResultsException e) {
+            e.printStackTrace();
+            throw new DatabaseErrorException();
+        }
+        return services;
     }
+
 }
