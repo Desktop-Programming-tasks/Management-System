@@ -10,6 +10,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
 import desktoproject.Globals;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,5 +19,9 @@ import java.rmi.RemoteException;
 public abstract class ServiceTransactionDAO {
     public static void updateService(Service service) throws RemoteException, DatabaseErrorException, NoResultsException {
         Globals.getInstance().getChannel().updateService(service);
+    }
+    
+    public static ArrayList<Service> queryServices(String employeeName, int status, String serviceTypeName) throws RemoteException, NoResultsException, DatabaseErrorException{
+        return Globals.getInstance().getChannel().queryServices(employeeName, status, serviceTypeName);
     }
 }

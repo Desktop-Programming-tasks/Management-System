@@ -85,6 +85,9 @@ public class CreateServiceController extends ControllerEdit implements Initializ
             comboBoxState.setVisible(true);
             comboBoxEmployee.setDisable(true);
             comboBoxService.setDisable(true);
+            if(service.getStatus()==ServiceStatus.REFUSED || service.getStatus()==ServiceStatus.DONE ){
+                comboBoxState.setDisable(true);
+            }
         }
     }
 

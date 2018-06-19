@@ -32,10 +32,14 @@ public class DeskProjectServer {
 
     /**
      * @param args the command line arguments
+     * @throws Exceptions.DatabaseErrorException
+     * @throws Exceptions.NoResultsException
+     * @throws Exceptions.DuplicatedEntryException
+     * @throws Exceptions.OutOfStockException
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, OutOfStockException {
         ArrayList<Service> services = DAOBuilder.getInstance().getTransactionServiceDAO().
-                getAllServices("Fu", 1, "teste");
+                getAllServices("Funcionário", 1, "");
         for(Service sv : services){
             System.out.println(sv);
         }

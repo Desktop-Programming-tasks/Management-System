@@ -11,6 +11,7 @@ import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
 import Exceptions.DatabaseErrorException;
 import Exceptions.NoResultsException;
+import desktoproject.Controller.Enums.ModalType;
 import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
@@ -18,12 +19,12 @@ import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTransactionDAO;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,8 +37,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -56,6 +59,8 @@ public class ServiceController extends Controller implements Initializable, Tabl
     private TableColumn<Service, String> serviceTypeColumn;
     @FXML
     private TableColumn<Service, String> messageColumn;
+    @FXML
+    private TableColumn<Service, String> idColumn;
     @FXML
     private ComboBox<ServiceStatus> stateComboBox;
     @FXML
@@ -96,6 +101,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
             return new SimpleStringProperty(p.getValue().getServiceType().getName());
         });
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
 
     private void comboBoxSetup() {
@@ -109,7 +115,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
-                        } else if(item == null){
+                        } else if (item == null) {
                             setText("Todos");
                         } else {
                             setText(ServiceStatus.translateEnumToGUI(item));
@@ -149,7 +155,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
-                        }else if(item == null){
+                        } else if (item == null) {
                             setText("Todos");
                         } else {
                             setText(item.getName());
@@ -189,7 +195,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
-                        } else if(item == null){
+                        } else if (item == null) {
                             setText("Todos");
                         } else {
                             setText(item.getLogin());
@@ -227,14 +233,14 @@ public class ServiceController extends Controller implements Initializable, Tabl
         try {
             serviceTypeComboBox.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
             serviceTypeComboBox.getItems().add(null);
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         }
-        
-        try{
+
+        try {
             employeeComboBox.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
             employeeComboBox.getItems().add(null);
-        } catch (RemoteException|DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         } catch (NoResultsException ex) {
             //
@@ -248,12 +254,43 @@ public class ServiceController extends Controller implements Initializable, Tabl
 
     @FXML
     public void showModalUpdateService() {
+        Service s = serviceTable.getSelectionModel().getSelectedItem();
 
+        if (s == null) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } else {
+            GUIController.getInstance().callModal(ModalType.SERVICE_UPDATE, s);
+        }
     }
 
     @FXML
-    private void detailsProduct() {
+    private void cancelService() {
+        Service s = serviceTable.getSelectionModel().getSelectedItem();
 
+        if (s == null) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } else {
+            System.out.println("status "+s.getStatus().name());
+            switch (s.getStatus()) {
+                case DONE:
+                case REFUSED: {
+                    System.out.println("done or refused");
+                    GUIController.getInstance().showCancelErrorAlert();
+                    break;
+                }
+                default: {
+                    System.out.println("default");
+                    try {
+                        s.setStatus(ServiceStatus.REFUSED);
+                        ServiceTransactionDAO.updateService(s);
+                        GUIController.getInstance().showCancelAlert(String.valueOf(s.getId()));
+                    } catch (RemoteException | DatabaseErrorException ex) {
+                        GUIController.getInstance().showConnectionErrorAlert();
+                    } catch (NoResultsException ex) {
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -263,22 +300,55 @@ public class ServiceController extends Controller implements Initializable, Tabl
 
     @Override
     public void populateTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Employee e = employeeComboBox.getSelectionModel().getSelectedItem();
+        ServiceType st = serviceTypeComboBox.getSelectionModel().getSelectedItem();
+
+        int status = ServiceStatus.enumToInt(stateComboBox.getValue());
+        String employeeLogin = e != null ? e.getLogin() : "";
+        String serviceTypeName = st != null ? st.getName() : "";
+
+        try {
+            serviceTable.setItems(FXCollections.observableArrayList(ServiceTransactionDAO.queryServices(employeeLogin, status, serviceTypeName)));
+            ServiceTransactionDAO.queryServices(employeeLogin, status, serviceTypeName).forEach((t) -> {
+                System.out.println("service: "+t.getId()+" status: "+t.getStatus());
+            });
+        } catch (RemoteException | DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } catch (NoResultsException ex) {
+            //
+        }
     }
 
     @Override
     public void setTableAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        serviceTable.setOnKeyReleased((event) -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                Service item = serviceTable.getSelectionModel().getSelectedItem();
+                if (item != null) {
+                    GUIController.getInstance().callModal(ModalType.SERVICE_UPDATE, item);
+                }
+            }
+        });
+        serviceTable.setRowFactory(tv -> {
+            TableRow<Service> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    Service service = row.getItem();
+                    GUIController.getInstance().callModal(ModalType.SERVICE_UPDATE, service);
+                }
+            });
+            return row;
+        });
     }
 
     @Override
     public void setUpSearch() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //no search in this table
     }
 
     @Override
     public void selectTable(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //no need to select
     }
 
     @Override

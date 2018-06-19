@@ -404,6 +404,14 @@ public class GUIController {
     public void showPromoteAlert(String promote) {
         showAlert(Alert.AlertType.INFORMATION, "Promoção de " + promote, "Pessoa promovida com sucesso", "");
     }
+    
+    public void showCancelErrorAlert(){
+        showAlert(Alert.AlertType.ERROR, "Erro", "Erro ao cancelar serviço", "Não é possivel cancelar um serviço já cancelado ou terminado");
+    }
+    
+    public void showCancelAlert(String id){
+        showAlert(Alert.AlertType.INFORMATION, "Alteração", "Serviço cancelado", "Serviço de id: "+id+" cancelado!");
+    }
 
     public void closeModal() {
         modalStage.close();

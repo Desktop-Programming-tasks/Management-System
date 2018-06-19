@@ -16,20 +16,25 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <ComboBox fx:id="stateComboBox" layoutY="54.0" prefWidth="180.0" promptText="Estado" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0" />
-        <ComboBox fx:id="serviceTypeComboBox" prefWidth="160.0" promptText="Serviço" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="50.0" />
-        <ComboBox fx:id="employeeComboBox" layoutX="345.0" layoutY="56.0" prefWidth="160.0" promptText="Funcionário" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <HBox alignment="CENTER_RIGHT" layoutY="50.0" spacing="8.0" styleClass="gridpane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <children>
+              <ComboBox fx:id="stateComboBox" maxWidth="1.7976931348623157E308" prefWidth="180.0" promptText="Estado" HBox.hgrow="ALWAYS" />
+              <ComboBox fx:id="serviceTypeComboBox" maxWidth="1.7976931348623157E308" prefWidth="160.0" promptText="Serviço" HBox.hgrow="ALWAYS" />
+              <ComboBox fx:id="employeeComboBox" maxWidth="200.0" prefWidth="160.0" promptText="Funcionário" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
         <TableView fx:id="serviceTable" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <columns>
-                <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.1975}" resizable="false" text="Término" />
-                <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Serviço" />
-                <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Mensagem" />
+            <TableColumn fx:id="idColumn" editable="false" prefWidth="${serviceTable.width*0.1}" resizable="false" text="ID" />
+                <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.196}" resizable="false" text="Término" />
+                <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.35}" resizable="false" text="Serviço" />
+                <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.35}" resizable="false" text="Mensagem" />
             </columns>
         </TableView>
         <HBox alignment="CENTER" layoutX="875.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Button fx:id="updateBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" onAction="#showModalUpdateService" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Atualizar serviço" />
-                <Button fx:id="cancelBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Cancelar serviço" />
+                <Button fx:id="cancelBtn" minHeight="35.0" minWidth="200.0" mnemonicParsing="false" onAction="#cancelService" prefHeight="35.0" prefWidth="200.0" styleClass="table-button" text="Cancelar serviço" />
             </children>
         </HBox>
         <Button fx:id="backBtn" cancelButton="true" layoutY="621.0" minHeight="35.0" minWidth="125.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="125.0" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
