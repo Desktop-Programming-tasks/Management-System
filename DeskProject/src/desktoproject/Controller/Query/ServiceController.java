@@ -9,17 +9,26 @@ import Classes.Enums.ServiceStatus;
 import Classes.Persons.Employee;
 import Classes.Transactions.Service;
 import Classes.Transactions.ServiceType;
+import Exceptions.DatabaseErrorException;
+import Exceptions.NoResultsException;
 import desktoproject.Controller.Interfaces.Controller;
 import desktoproject.Controller.Interfaces.FXMLPaths;
 import desktoproject.Controller.GUIController;
 import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
+import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -32,22 +41,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
-
 /**
  * FXML Controller class
  *
  * @author noda
  */
 public class ServiceController extends Controller implements Initializable, TableScreen, AppObserver {
-    
+
     @FXML
     private TableView<Service> serviceTable;
     @FXML
-    private TableColumn<Service,String> dateColumn;
+    private TableColumn<Service, String> dateColumn;
     @FXML
-    private TableColumn<Service,String> serviceTypeColumn;
+    private TableColumn<Service, String> serviceTypeColumn;
     @FXML
-    private TableColumn<Service,String> messageColumn;
+    private TableColumn<Service, String> messageColumn;
     @FXML
     private ComboBox<ServiceStatus> stateComboBox;
     @FXML
@@ -60,7 +68,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
     private Button updateBtn;
     @FXML
     private Button backBtn;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -69,27 +77,27 @@ public class ServiceController extends Controller implements Initializable, Tabl
         Animation.bindShadowAnimation(updateBtn);
         Animation.bindShadowAnimation(cancelBtn);
         Animation.bindShadowAnimation(backBtn);
-        
+
         Animation.bindAnimation(stateComboBox);
         Animation.bindAnimation(serviceTypeComboBox);
         Animation.bindAnimation(employeeComboBox);
-        
+
         subscribe();
         setUpTable();
         comboBoxSetup();
         loadComboBox();
     }
-    
+
     private void setUpTable() {
         dateColumn.setCellValueFactory((TableColumn.CellDataFeatures<Service, String> p) -> {
             return new SimpleStringProperty(Misc.dateToString(p.getValue().getEstimatedDate()));
         });
-        serviceTypeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Service,String> p) -> {
+        serviceTypeColumn.setCellValueFactory((TableColumn.CellDataFeatures<Service, String> p) -> {
             return new SimpleStringProperty(p.getValue().getServiceType().getName());
         });
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
     }
-    
+
     private void comboBoxSetup() {
         //Service state combo box setup
         stateComboBox.setCellFactory(new Callback<ListView<ServiceStatus>, ListCell<ServiceStatus>>() {
@@ -99,10 +107,12 @@ public class ServiceController extends Controller implements Initializable, Tabl
                     @Override
                     protected void updateItem(ServiceStatus item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item == null || empty) {
+                        if (empty) {
                             setGraphic(null);
+                        } else if(item == null){
+                            setText("Todos");
                         } else {
-                            setText(item.name());
+                            setText(ServiceStatus.translateEnumToGUI(item));
                         }
                     }
                 };
@@ -128,7 +138,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
         stateComboBox.valueProperty().addListener((observable) -> {
             populateTable();
         });
-        
+
         //Service type combo box
         serviceTypeComboBox.setCellFactory(new Callback<ListView<ServiceType>, ListCell<ServiceType>>() {
             @Override
@@ -137,8 +147,10 @@ public class ServiceController extends Controller implements Initializable, Tabl
                     @Override
                     protected void updateItem(ServiceType item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item == null || empty) {
+                        if (empty) {
                             setGraphic(null);
+                        }else if(item == null){
+                            setText("Todos");
                         } else {
                             setText(item.getName());
                         }
@@ -166,7 +178,7 @@ public class ServiceController extends Controller implements Initializable, Tabl
         serviceTypeComboBox.valueProperty().addListener((observable) -> {
             populateTable();
         });
-        
+
         //Employee combo box
         employeeComboBox.setCellFactory(new Callback<ListView<Employee>, ListCell<Employee>>() {
             @Override
@@ -175,8 +187,10 @@ public class ServiceController extends Controller implements Initializable, Tabl
                     @Override
                     protected void updateItem(Employee item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item == null || empty) {
+                        if (empty) {
                             setGraphic(null);
+                        } else if(item == null){
+                            setText("Todos");
                         } else {
                             setText(item.getLogin());
                         }
@@ -207,22 +221,39 @@ public class ServiceController extends Controller implements Initializable, Tabl
     }
 
     private void loadComboBox() {
+        stateComboBox.setItems(FXCollections.observableArrayList(ServiceStatus.values()));
+        stateComboBox.getSelectionModel().selectFirst();
+
+        try {
+            serviceTypeComboBox.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
+            serviceTypeComboBox.getItems().add(null);
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        }
         
+        try{
+            employeeComboBox.setItems(FXCollections.observableArrayList(PersonDAO.queryAllEmployees()));
+            employeeComboBox.getItems().add(null);
+        } catch (RemoteException|DatabaseErrorException ex) {
+            GUIController.getInstance().showConnectionErrorAlert();
+        } catch (NoResultsException ex) {
+            //
+        }
     }
-    
+
     @FXML
     public void back() {
         GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
     public void showModalUpdateService() {
-        
+
     }
-    
+
     @FXML
-    private void detailsProduct(){
-        
+    private void detailsProduct() {
+
     }
 
     @Override

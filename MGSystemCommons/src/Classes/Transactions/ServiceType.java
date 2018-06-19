@@ -17,6 +17,7 @@ public class ServiceType implements Serializable{
     private String name;
     private float price;
     private boolean active;
+    
     public ServiceType(int id, String name, float price, boolean active) {
         this.id = id;
         this.name = name;
