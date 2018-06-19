@@ -17,7 +17,6 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.ChangeListenerRunnable;
 import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -97,22 +96,21 @@ public class StockController extends Controller implements Initializable, TableS
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener(new TextChangeListener(
-                new ChangeListenerRunnable() {
+        searchTextField.textProperty().addListener(new TextChangeListener() {
             @Override
-            public void run() {
-                newValue = newValue.trim();
-                if (newValue.isEmpty()) {
+            public void runLogic(ObservableValue observable, Object oldValue, Object newValue) {
+                newValue = ((String) newValue).trim();
+                if (((String) newValue).isEmpty()) {
                     populateTable();
                 } else {
                     try {
-                        StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct(newValue)));
+                        StockTable.setItems(FXCollections.observableArrayList(ProductDAO.searchProduct((String) newValue)));
                     } catch (RemoteException | DatabaseErrorException ex) {
 
                     }
                 }
             }
-        }));
+        });
 //        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 //            newValue = newValue.trim();
 //            if (newValue.isEmpty()) {

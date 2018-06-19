@@ -19,7 +19,6 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.ChangeListenerRunnable;
 import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -27,6 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -94,23 +94,22 @@ public class QuerySupplierController extends Controller implements Initializable
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener(new TextChangeListener(
-                new ChangeListenerRunnable() {
+        searchTextField.textProperty().addListener(new TextChangeListener() {
             @Override
-            public void run() {
-                newValue = newValue.trim();
-                if (newValue.isEmpty()) {
+            public void runLogic(ObservableValue observable, Object oldValue, Object newValue) {
+                newValue = ((String) newValue).trim();
+                if (((String) newValue).isEmpty()) {
                     populateTable();
                 } else {
                     try {
-                        suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue))));
+                        suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers((String) newValue))));
 
                     } catch (RemoteException | DatabaseErrorException ex) {
 
                     }
                 }
             }
-        }));
+        });
 //        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 //            newValue = newValue.trim();
 //            if (newValue.isEmpty()) {

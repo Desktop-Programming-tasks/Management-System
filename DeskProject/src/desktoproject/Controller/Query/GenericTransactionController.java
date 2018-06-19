@@ -20,7 +20,6 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.ChangeListenerRunnable;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
@@ -29,6 +28,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -112,27 +112,25 @@ public class GenericTransactionController extends Controller implements Initiali
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener(new TextChangeListener(
-                new ChangeListenerRunnable() {
+        searchTextField.textProperty().addListener(new TextChangeListener() {
             @Override
-            public void run() {
-                newValue = newValue.trim();
-                if (newValue.isEmpty()) {
+            public void runLogic(ObservableValue observable, Object oldValue, Object newValue) {
+                newValue = ((String) newValue).trim();
+                if (((String) newValue).isEmpty()) {
                     populateTable();
                 } else {
                     try {
-                        System.out.println(newValue);
                         switch (typeComboBox.getSelectionModel().getSelectedItem()) {
                             case ALL: {
-                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecords(newValue)));
+                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecords((String) newValue)));
                                 break;
                             }
                             case PURCHASES: {
-                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsBuy(newValue)));
+                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsBuy((String) newValue)));
                                 break;
                             }
                             case SALES: {
-                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsSale(newValue)));
+                                transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.searchRecordsSale((String) newValue)));
                                 break;
                             }
                         }
@@ -141,7 +139,7 @@ public class GenericTransactionController extends Controller implements Initiali
                     }
                 }
             }
-        }));
+        });
 //        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 //            newValue = newValue.trim();
 //            if (newValue.isEmpty()) {

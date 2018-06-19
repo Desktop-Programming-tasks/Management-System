@@ -14,26 +14,25 @@ import javafx.beans.value.ObservableValue;
  *
  * @author gabriel
  */
-public class TextChangeListener implements ChangeListener {
+public abstract class TextChangeListener implements ChangeListener {
 
     Timer timer;
-    ChangeListenerRunnable runnable;
 
-    public TextChangeListener(ChangeListenerRunnable runnable) {
+    public TextChangeListener() {
         this.timer = new Timer();
-        this.runnable = runnable;
     }
 
     @Override
     public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-        runnable.newValue = (String) newValue;
         timer.cancel();
         timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                runnable.run();
+                runLogic(observable, oldValue, newValue);
             }
         }, 300);
     }
+
+    public abstract void runLogic(ObservableValue observable, Object oldValue, Object newValue);
 }

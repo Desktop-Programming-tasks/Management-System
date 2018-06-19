@@ -21,7 +21,6 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
-import desktoproject.Utils.ChangeListenerRunnable;
 import desktoproject.Utils.Pairs.ScreenData;
 import desktoproject.Utils.TextChangeListener;
 import java.io.IOException;
@@ -29,6 +28,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -119,25 +119,26 @@ public class PersonController extends Controller implements Initializable, Table
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener(new TextChangeListener(new ChangeListenerRunnable() {
+        searchTextField.textProperty().addListener(new TextChangeListener() {
             @Override
-            public void run() {
-                newValue = newValue.trim();
-                if (newValue.isEmpty()) {
+            public void runLogic(ObservableValue observable, Object oldValue, Object newValue) {
+                newValue = ((String) newValue).trim();
+                if (((String) newValue).isEmpty()) {
                     populateTable();
                 } else {
                     try {
                         if (type == EMPLOYEE) {
-                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
+                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(((String) newValue)))));
                         } else {
-                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
+                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(((String) newValue)))));
                         }
                     } catch (RemoteException | DatabaseErrorException ex) {
                         GUIController.getInstance().showConnectionErrorAlert();
                     }
                 }
             }
-        }));
+        });
+
 //        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
 //            newValue = newValue.trim();
 //            if(newValue.isEmpty()){
