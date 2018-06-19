@@ -33,4 +33,8 @@ public abstract class BrandDAO {
     public static void updateBrand(Brand brand) throws RemoteException, DatabaseErrorException, NoResultsException {
         Globals.getInstance().getChannel().updateBrand(brand);
     }
+    
+    public static ArrayList<Brand> searchBrands(String id) throws RemoteException, DatabaseErrorException {
+        return Globals.getInstance().getChannel().searchBrands(id);
+    }
 }

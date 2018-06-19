@@ -16,10 +16,13 @@ import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.BrandDAO;
+import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,6 +71,7 @@ public class BrandController extends Controller implements Initializable, TableS
         
         setTableAction();
         populateTable();
+        setUpSearch();
         subscribe();
     }
     
@@ -169,18 +173,33 @@ public class BrandController extends Controller implements Initializable, TableS
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
-            newValue = newValue.trim();
-            if(newValue.isEmpty()){
-                populateTable();
-            }else{
-//                try {
-//                    brandTable.setItems(FXCollections.observableArrayList(BrandDAO.));
-//                } catch (RemoteException|DatabaseErrorException ex) {
-//                    GUIController.getInstance().showConnectionErrorAlert();
-//                }
+        searchTextField.textProperty().addListener(new TextChangeListener() {
+            @Override
+            public void runLogic(ObservableValue observable, Object oldValue, Object newValue) {
+                newValue = ((String) newValue).trim();
+                if (((String) newValue).isEmpty()) {
+                    populateTable();
+                } else {
+                    try {
+                        brandTable.setItems(FXCollections.observableArrayList(BrandDAO.searchBrands((String) newValue)));
+                    } catch (RemoteException | DatabaseErrorException ex) {
+                        GUIController.getInstance().showConnectionErrorAlert();
+                    }
+                }
             }
         });
+//        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+//            newValue = newValue.trim();
+//            if(newValue.isEmpty()){
+//                populateTable();
+//            }else{
+//                  try {
+//                      brandTable.setItems(FXCollections.observableArrayList(BrandDAO.));
+//                  } catch (RemoteException|DatabaseErrorException ex) {
+//                      GUIController.getInstance().showConnectionErrorAlert();
+//                  }
+//            }
+//        });
     }
     
     @Override

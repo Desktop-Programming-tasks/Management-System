@@ -52,6 +52,11 @@ public class RemoteServer implements RemoteMethods {
     public void deleteBrand(Brand brand) throws RemoteException, NoResultsException, DatabaseErrorException {
         DAOBuilder.getInstance().getBrandDAO().removeBrand(brand);
     }
+    
+    @Override
+    public ArrayList<Brand> searchBrands(String id) throws RemoteException, DatabaseErrorException {
+        return DAOBuilder.getInstance().getBrandDAO().getLikeBrands(id);
+    }
 
     @Override
     public ArrayList<String> queryStates() throws RemoteException, NoResultsException, DatabaseErrorException {

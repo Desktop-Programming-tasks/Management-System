@@ -8,6 +8,7 @@ package RMI.Interfaces;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
 import Classes.Persons.Supplier;
+import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.ServiceType;
@@ -37,4 +38,6 @@ public interface SearchRemote extends Remote {
     public ArrayList<Record> searchRecordsSale(String id) throws RemoteException, DatabaseErrorException;
 
     public ArrayList<Record> searchRecordsBuy(String id) throws RemoteException, DatabaseErrorException;
+    
+    public ArrayList<Brand> searchBrands(String id) throws RemoteException, DatabaseErrorException;
 }
