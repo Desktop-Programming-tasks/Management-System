@@ -21,11 +21,14 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.ChangeListenerRunnable;
 import desktoproject.Utils.Pairs.ScreenData;
+import desktoproject.Utils.TextChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,7 +47,7 @@ import javafx.scene.input.KeyCode;
  * @author noda
  */
 public class PersonController extends Controller implements Initializable, TableScreen, AppObserver {
-    
+
     public ScreenData call(PersonQueryType type) throws IOException {
         ScreenData callReturn = super.call();
         PersonController controller = (PersonController) callReturn.getController();
@@ -107,7 +110,7 @@ public class PersonController extends Controller implements Initializable, Table
         Animation.bindShadowAnimation(createBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
-        
+
         personDocColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         setTableAction();
@@ -115,31 +118,50 @@ public class PersonController extends Controller implements Initializable, Table
     }
 
     @Override
-    public void setUpSearch(){
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
-            newValue = newValue.trim();
-            if(newValue.isEmpty()){
-                populateTable();
-            }else{
-                try {
-                    if(type==EMPLOYEE){
-                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
-                    }else{
-                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
+    public void setUpSearch() {
+        searchTextField.textProperty().addListener(new TextChangeListener(new ChangeListenerRunnable() {
+            @Override
+            public void run() {
+                newValue = newValue.trim();
+                if (newValue.isEmpty()) {
+                    populateTable();
+                } else {
+                    try {
+                        if (type == EMPLOYEE) {
+                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
+                        } else {
+                            personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
+                        }
+                    } catch (RemoteException | DatabaseErrorException ex) {
+                        GUIController.getInstance().showConnectionErrorAlert();
                     }
-                } catch (RemoteException|DatabaseErrorException ex) {
-                    GUIController.getInstance().showConnectionErrorAlert();
                 }
             }
-        });
+        }));
+//        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
+//            newValue = newValue.trim();
+//            if(newValue.isEmpty()){
+//                populateTable();
+//            }else{
+//                try {
+//                    if(type==EMPLOYEE){
+//                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchEmployees(newValue))));
+//                    }else{
+//                        personTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchPersons(newValue))));
+//                    }
+//                } catch (RemoteException|DatabaseErrorException ex) {
+//                    GUIController.getInstance().showConnectionErrorAlert();
+//                }
+//            }
+//        });
     }
-    
+
     @Override
     public void setTableAction() {
         personTable.setOnKeyReleased((event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 Person item = personTable.getSelectionModel().getSelectedItem();
-                if(item!=null){
+                if (item != null) {
                     if (type == PersonQueryType.CUSTOMER) {
                         GUIController.getInstance().callScreen(ScreenType.CUSTOMER_DISPLAY, item);
                     } else {
@@ -148,7 +170,7 @@ public class PersonController extends Controller implements Initializable, Table
                 }
             }
         });
-        
+
         personTable.setRowFactory(tv -> {
             TableRow<Person> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -182,13 +204,13 @@ public class PersonController extends Controller implements Initializable, Table
             //
         }
     }
-    
+
     @Override
     public void selectTable(Object o) {
-        if(o!=null){
-            Person cp = (Person)o;
-            for(Person p : personTable.getItems()){
-                if(p.getId() == cp.getId()){
+        if (o != null) {
+            Person cp = (Person) o;
+            for (Person p : personTable.getItems()) {
+                if (p.getId() == cp.getId()) {
                     personTable.getSelectionModel().select(p);
                 }
             }
@@ -197,9 +219,9 @@ public class PersonController extends Controller implements Initializable, Table
 
     @FXML
     private void createNew() {
-        if(type == PersonQueryType.CUSTOMER){
+        if (type == PersonQueryType.CUSTOMER) {
             GUIController.getInstance().callScreen(ScreenType.CUSTOMER_CREATE);
-        }else{
+        } else {
             GUIController.getInstance().callScreen(ScreenType.EMPLOYEE_CREATE);
         }
     }
@@ -225,18 +247,18 @@ public class PersonController extends Controller implements Initializable, Table
             GUIController.getInstance().showSelectionErrorAlert();
         } else {
             try {
-                if(type==CUSTOMER){
+                if (type == CUSTOMER) {
                     if (GUIController.getInstance().showEraseConfirmationAlert(person.getName())) {
                         PersonDAO.deletePerson(person);
                         populateTable();
                     }
-                }else{
-                    if(GUIController.getInstance().showUmpromoteConfirmationAlert(person.getName())){
+                } else {
+                    if (GUIController.getInstance().showUmpromoteConfirmationAlert(person.getName())) {
                         PersonDAO.umpromotePerson(person);
                         populateTable();
                     }
                 }
-                
+
             } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             } catch (NoResultsException ex) {
@@ -264,9 +286,9 @@ public class PersonController extends Controller implements Initializable, Table
 
     @Override
     public void subscribe() {
-        if(type == PersonQueryType.CUSTOMER){
+        if (type == PersonQueryType.CUSTOMER) {
             ObservableServer.getClient().addObserver(this);
-        }else{
+        } else {
             ObservableServer.getEmployee().addObserver(this);
         }
     }
