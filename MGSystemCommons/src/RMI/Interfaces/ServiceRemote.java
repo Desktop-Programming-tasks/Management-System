@@ -21,7 +21,7 @@ public interface ServiceRemote extends Remote {
 
     public Service queryService() throws RemoteException, NoResultsException, DatabaseErrorException;
 
-    public ArrayList<Service> queryAllServices() throws RemoteException, NoResultsException, DatabaseErrorException;
+    public ArrayList<Service> queryServices(String employeeName, int status, String serviceTypeName) throws RemoteException, NoResultsException, DatabaseErrorException;
 
     public void insertService(Service service) throws RemoteException, DuplicatedEntryException, DatabaseErrorException;
 
