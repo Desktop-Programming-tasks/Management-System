@@ -63,12 +63,13 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             + "`startDateSt_has_Registry`, `estimatedDateSt_has_Registry`,"
             + " `finalDateSt_has_Registry`, `Person_idEmployee`, "
             + "`IndividualPrice_St_has_Registry`, `messageSt_has_Registry` "
-            + "FROM `St_has_Registry`,`ServiceType`,`Person` "
+            + "FROM `St_has_Registry`,`ServiceType`,`Employee`,`Person` "
             + "WHERE Person.idPerson=Person_idEmployee "
+            + "AND Person.idDocumentPerson=Employee.LegalPerson_Person_idPerson "
             + "AND ServiceType_idServiceType=ServiceType.idServiceType "
-            + "AND ServiceStatus_idServiceStatus=? "
-            + "AND Person.namePerson LIKE ? "
-            + "AND ServiceType.nameServiceType LIKE ?";
+            + "AND ServiceStatus_idServiceStatus= ? "
+            + "AND Employee.loginEmployee = ? "
+            + "AND ServiceType.nameServiceType = ?";
 
     @Override
     public void insertServiceTransaction(Record record, Service service) throws DatabaseErrorException {
@@ -149,15 +150,15 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL,
                     statusID,
-                    FormatUtils.setLikeParam(funcName),
-                    FormatUtils.setLikeParam(serviceName));
+                    funcName,
+                    serviceName);
             while (qr.getResultSet().next()) {
                 Service sv = new Service(
                         qr.getResultSet().getInt(SERVICE_ID),
                         qr.getResultSet().getDate(START_DATE),
                         qr.getResultSet().getDate(ESTIMATED_DATE),
                         qr.getResultSet().getDate(FINAL_DATE),
-                        ServiceStatus.intToEnum(qr.getResultSet().getInt(ST_ID)),
+                        ServiceStatus.intToEnum(qr.getResultSet().getInt(ST_STATUS_ID)),
                         new MySqlPersonDAO().getPerson(getEmployeeId(qr.getResultSet().getString(EMPLOYEE_ID))),
                         new MySqlServiceTypeDAO().getServiceType(
                                 qr.getResultSet().getString(ST_ID)),
