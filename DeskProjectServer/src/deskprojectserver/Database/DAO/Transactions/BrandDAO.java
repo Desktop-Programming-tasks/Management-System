@@ -47,4 +47,6 @@ public abstract class BrandDAO {
     public abstract void checkIfExists(Brand brand) throws DatabaseErrorException, NoResultsException;
 
     public abstract ArrayList<Brand> getAllBrands() throws DatabaseErrorException;
+
+    public abstract ArrayList<Brand> getLikeBrands(String id) throws DatabaseErrorException;
 }

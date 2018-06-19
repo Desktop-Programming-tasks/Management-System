@@ -13,6 +13,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import deskprojectserver.Database.DAO.Transactions.BrandDAO;
 import deskprojectserver.Observable.Observables.ObservablesHolder;
 import deskprojectserver.Utils.ActivationStatus;
+import deskprojectserver.Utils.FormatUtils;
 import deskprojectserver.Utils.QueryResult;
 import deskprojectserver.mysql.MySqlHandler;
 import java.sql.SQLException;
@@ -43,6 +44,8 @@ public class MySqlBrandDAO extends BrandDAO {
             + "FROM `Brand` WHERE idBrand=?";
     private static final String GET_ONE_INACTIVE = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
             + "FROM `Brand` WHERE nameBrand=?";
+    private static final String GET_LIKE_SQL = "SELECT `idBrand`, `nameBrand`, `isActiveBrand` "
+            + "FROM `Brand` WHERE isActiveBrand AND nameBrand LIKE ?";
 
     @Override
     public void insertBrandBasic(Brand brand) throws DatabaseErrorException, DuplicatedEntryException {
@@ -154,6 +157,25 @@ public class MySqlBrandDAO extends BrandDAO {
         }
         return brand;
 
+    }
+
+    @Override
+    public ArrayList<Brand> getLikeBrands(String id) throws DatabaseErrorException {
+        ArrayList<Brand> brands = new ArrayList<>();
+        try {
+            QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_LIKE_SQL, 
+                    FormatUtils.setLikeParam(id));
+            while (qr.getResultSet().next()) {
+                Brand brand = new Brand(
+                        qr.getResultSet().getInt(ID),
+                        qr.getResultSet().getString(NAME), true);
+                brands.add(brand);
+            }
+            qr.closeAll();
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DatabaseErrorException();
+        }
+        return brands;
     }
 
 }

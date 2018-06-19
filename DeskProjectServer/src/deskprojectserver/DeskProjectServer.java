@@ -9,6 +9,7 @@ import Classes.Constants.RecordTypeConstants;
 import Classes.Enums.ServiceStatus;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
+import Classes.Transactions.Brand;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
@@ -38,10 +39,9 @@ public class DeskProjectServer {
      * @throws Exceptions.OutOfStockException
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, OutOfStockException {
-        ArrayList<Service> services = DAOBuilder.getInstance().getTransactionServiceDAO().
-                getAllServices("Funcionário", 1, "");
-        for(Service sv : services){
-            System.out.println(sv);
+        ArrayList<Brand> brands = DAOBuilder.getInstance().getBrandDAO().getLikeBrands("AM");
+        for(Brand brand : brands){
+            System.out.println(brand);
         }
     }
 
