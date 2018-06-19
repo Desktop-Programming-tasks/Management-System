@@ -68,8 +68,8 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
             + "AND Person.idDocumentPerson=Employee.LegalPerson_Person_idPerson "
             + "AND ServiceType_idServiceType=ServiceType.idServiceType "
             + "AND ServiceStatus_idServiceStatus= ? "
-            + "AND Employee.loginEmployee = ? "
-            + "AND ServiceType.nameServiceType = ?";
+            + "AND Employee.loginEmployee LIKE ? "
+            + "AND ServiceType.nameServiceType LIKE ?";
 
     @Override
     public void insertServiceTransaction(Record record, Service service) throws DatabaseErrorException {
@@ -150,8 +150,8 @@ public class MySqlServiceTransactionDAO extends TransactionServiceDAO {
         try {
             QueryResult qr = MySqlHandler.getInstance().getDb().query(GET_ALL_SQL,
                     statusID,
-                    funcName,
-                    serviceName);
+                    FormatUtils.setLikeParam(funcName),
+                    FormatUtils.setLikeParam(serviceName));
             while (qr.getResultSet().next()) {
                 Service sv = new Service(
                         qr.getResultSet().getInt(SERVICE_ID),
