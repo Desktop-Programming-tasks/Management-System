@@ -18,12 +18,9 @@
       </Label>
       <TableView fx:id="personTable" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="personNameColumn" maxWidth="-1.0" minWidth="260.0" prefWidth="260.0" resizable="false" text="Nome" />
-            <TableColumn fx:id="personDocColumn" maxWidth="-1.0" minWidth="260.0" prefWidth="260.0" resizable="false" text="CPF/CNPJ" />
+            <TableColumn fx:id="personNameColumn" prefWidth="${personTable.width*0.745}" resizable="false" text="Nome" />
+            <TableColumn fx:id="personDocColumn" prefWidth="${personTable.width*0.25}" resizable="false" text="CPF/CNPJ" />
          </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <HBox alignment="CENTER" layoutX="615.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>

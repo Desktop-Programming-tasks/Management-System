@@ -21,9 +21,9 @@
         <ComboBox fx:id="employeeComboBox" layoutX="345.0" layoutY="56.0" prefWidth="160.0" promptText="Funcionário" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
         <TableView fx:id="serviceTable" layoutX="20.0" layoutY="64.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <columns>
-                <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="128.0" prefWidth="${serviceTable.width*0.20}" resizable="false" text="Término" />
-                <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="168.0" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Serviço" />
-                <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" minWidth="224.0" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Mensagem" />
+                <TableColumn fx:id="dateColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.1975}" resizable="false" text="Término" />
+                <TableColumn fx:id="serviceTypeColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Serviço" />
+                <TableColumn fx:id="messageColumn" editable="false" maxWidth="1.7976931348623157E308" prefWidth="${serviceTable.width*0.40}" resizable="false" text="Mensagem" />
             </columns>
         </TableView>
         <HBox alignment="CENTER" layoutX="875.0" layoutY="551.0" spacing="16.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

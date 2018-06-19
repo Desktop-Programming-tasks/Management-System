@@ -34,17 +34,10 @@ public class DeskProjectServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, OutOfStockException {
-//        Employee emp = (Employee) DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-03");
-//        Person cust = DAOBuilder.getInstance().getPersonDAO().getPerson("000.000.000-00");
-//        Product product = DAOBuilder.getInstance().getProductDAO().getProduct("00", true);
-//        product.setQuantity(200);
-//        ArrayList<Transaction> transactions = new ArrayList<>();
-//        transactions.add(product);
-//        Record record = new Record(emp, cust, transactions, RecordTypeConstants.PURCHASE);
-//        DAOBuilder.getInstance().getRegisterDAO().insertFullRegisterAndTransactions(record);
-        ArrayList<Record> records = DAOBuilder.getInstance().getRecordDAO().getAllSaleRecords();
-        for(Record r : records){
-            System.out.println(r);
+        ArrayList<Service> services = DAOBuilder.getInstance().getTransactionServiceDAO().
+                getAllServices("Fu", 1, "teste");
+        for(Service sv : services){
+            System.out.println(sv);
         }
     }
 

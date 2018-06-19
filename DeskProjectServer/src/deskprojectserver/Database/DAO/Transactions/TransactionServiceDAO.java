@@ -23,5 +23,5 @@ public abstract class TransactionServiceDAO {
 
     public abstract void updateService(Service service) throws DatabaseErrorException, NoResultsException;
 
-    public abstract ArrayList<Service> getAllServices() throws DatabaseErrorException;
+    public abstract ArrayList<Service> getAllServices(String funcName,int statusID,String serviceName) throws DatabaseErrorException;
 }

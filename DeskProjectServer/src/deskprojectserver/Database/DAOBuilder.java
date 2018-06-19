@@ -118,9 +118,10 @@ public class DAOBuilder {
         }
 
         @Override
-        public ArrayList<Service> getAllServices() throws DatabaseErrorException {
-            return tServiceDao.getAllServices();
+        public ArrayList<Service> getAllServices(String funcName, int statusID, String serviceName) throws DatabaseErrorException {
+            return tServiceDao.getAllServices(funcName, statusID, serviceName);
         }
+
     }
 
 }

@@ -30,11 +30,8 @@
       <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0" />
       <TableView fx:id="brandsTable" layoutX="756.0" layoutY="30.0" prefHeight="400.0" prefWidth="470.0" AnchorPane.bottomAnchor="105.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="520.0">
         <columns>
-          <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Marcas" />
+          <TableColumn fx:id="nameColumn" maxWidth="1.7976931348623157E308" prefWidth="${brandsTable.width * 0.995}" resizable="false" text="Marcas" />
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <VBox alignment="CENTER" layoutX="1075.0" layoutY="801.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
