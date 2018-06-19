@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @author gabriel
  */
 public class MySqlEmployeeDAO extends EmployeeDAO {
-    
+
     private static final String LOGIN = "loginEmployee";
     private static final String PASSWORD = "passwordEmployee";
     private static final String EMP_TYPE = "EmployeeType_idEmployeeType";
@@ -41,18 +41,18 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
     private static final String GET_ALL_SQL = "SELECT `loginEmployee`, `passwordEmployee`, "
             + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
             + "`Employee`";
-    private static final String GET_LIKE_SQL = "SELECT `loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM `Employee`,`Person` WHERE Employee.LegalPerson_Person_idPerson =\n"
-            + "Person.idPerson AND Person.namePerson LIKE ?";
+    private static final String GET_LIKE_SQL = "SELECT `loginEmployee`, `passwordEmployee`, `EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM `Employee`,`Person` WHERE Employee.LegalPerson_Person_idPerson ="
+            + "Person.idDocumentPerson AND Person.namePerson LIKE ?";
     private static final String REMOVE_SQL = "DELETE FROM `Employee` "
             + "WHERE LegalPerson_Person_idPerson=?";
     private static final String UPDATE_SQL = "UPDATE `Employee` "
             + "SET `loginEmployee`=?,`passwordEmployee`=?"
             + " WHERE LegalPerson_Person_idPerson=?";
-    
+
     private static final String GET_ONE_LOGIN_SQL = "SELECT `loginEmployee`, `passwordEmployee`, "
             + "`EmployeeType_idEmployeeType`, `LegalPerson_Person_idPerson` FROM "
             + "`Employee` WHERE loginEmployee=?";
-    
+
     @Override
     public void insertEmployee(Employee employee) throws DatabaseErrorException, DuplicatedEntryException {
         try {
@@ -72,7 +72,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
     }
-    
+
     @Override
     public void updateEmployee(Employee employee) throws DatabaseErrorException, NoResultsException, DuplicatedLoginException {
         getEmployee(employee.getDocumentId());
@@ -86,7 +86,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
     }
-    
+
     @Override
     public void removeEmployee(Employee employee) throws NoResultsException, DatabaseErrorException {
         getEmployee(employee.getDocumentId());
@@ -97,7 +97,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
     }
-    
+
     @Override
     public Employee getEmployee(String id) throws DatabaseErrorException, NoResultsException {
         try {
@@ -113,9 +113,9 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             throw new DatabaseErrorException();
         }
         throw new NoResultsException();
-        
+
     }
-    
+
     private ArrayList<Employee> getEmployeesGeneric(QueryExecuter executer) throws DatabaseErrorException {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
@@ -144,7 +144,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
         }
         return employees;
     }
-    
+
     @Override
     public ArrayList<Employee> getAllEmployees() throws DatabaseErrorException {
         return getEmployeesGeneric(new QueryExecuter() {
@@ -158,7 +158,7 @@ public class MySqlEmployeeDAO extends EmployeeDAO {
             }
         });
     }
-    
+
     @Override
     public ArrayList<Employee> getLikeEmployees(String id) throws DatabaseErrorException {
         return getEmployeesGeneric(new QueryExecuter() {

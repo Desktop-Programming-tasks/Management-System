@@ -16,6 +16,8 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Transactions.ServiceTypeDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.ChangeListenerRunnable;
+import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
@@ -38,17 +40,16 @@ import javafx.scene.input.KeyCode;
  * @author viniciusmn
  */
 public class ServiceTypeQueryController extends Controller implements Initializable, TableScreen, AppObserver {
-    
+
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private TableView<ServiceType> ServiceTable;
     @FXML
-    private TableColumn<ServiceType,String> nameColumn;
+    private TableColumn<ServiceType, String> nameColumn;
     @FXML
-    private TableColumn<ServiceType,String> priceColumn;
+    private TableColumn<ServiceType, String> priceColumn;
     @FXML
     private TextField searchTextField;
     @FXML
@@ -59,71 +60,87 @@ public class ServiceTypeQueryController extends Controller implements Initializa
     private Button backBtn;
     @FXML
     private Button deleteBtn;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Animation.bindShadowAnimation(newBtn);
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
-        
+
         Animation.bindAnimation(searchTextField);
         ServiceTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
+
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
+
         populateTable();
         setTableAction();
         setUpSearch();
         subscribe();
-    }    
-    
+    }
+
     @Override
-    public void setUpSearch(){
-        searchTextField.textProperty().addListener((observable,oldValue,newValue) -> {
-            newValue = newValue.trim();
-            if(newValue.isEmpty()){
-                populateTable();
-            }else{
-                try {
-                    ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.searchServiceTypes(newValue)));
-                } catch (RemoteException|DatabaseErrorException ex) {
-                    //
+    public void setUpSearch() {
+        searchTextField.textProperty().addListener(new TextChangeListener(
+                new ChangeListenerRunnable() {
+            @Override
+            public void run() {
+                newValue = newValue.trim();
+                if (newValue.isEmpty()) {
+                    populateTable();
+                } else {
+                    try {
+                        ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.searchServiceTypes(newValue)));
+                    } catch (RemoteException | DatabaseErrorException ex) {
+                        //
+                    }
                 }
             }
-        });
+        }));
+//        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            newValue = newValue.trim();
+//            if (newValue.isEmpty()) {
+//                populateTable();
+//            } else {
+//                try {
+//                    ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.searchServiceTypes(newValue)));
+//                } catch (RemoteException | DatabaseErrorException ex) {
+//                    //
+//                }
+//            }
+//        });
     }
-    
+
     @Override
-    public void populateTable(){
+    public void populateTable() {
         try {
             ServiceType selectedService = ServiceTable.getSelectionModel().getSelectedItem();
             ServiceTable.setItems(FXCollections.observableArrayList(ServiceTypeDAO.queryAllServiceTypes()));
             selectTable(selectedService);
-        }catch (RemoteException | DatabaseErrorException ex) {
+        } catch (RemoteException | DatabaseErrorException ex) {
             GUIController.getInstance().showConnectionErrorAlert();
         }
     }
 
     @Override
     public void selectTable(Object o) {
-        if(o!=null){
-            ServiceType cst = (ServiceType)o;
-            for(ServiceType st : ServiceTable.getItems()){
-                if(st.getId() == cst.getId()){
+        if (o != null) {
+            ServiceType cst = (ServiceType) o;
+            for (ServiceType st : ServiceTable.getItems()) {
+                if (st.getId() == cst.getId()) {
                     ServiceTable.getSelectionModel().select(st);
                 }
             }
         }
     }
-    
+
     @Override
-    public void setTableAction(){
+    public void setTableAction() {
         ServiceTable.setOnKeyReleased((event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 ServiceType item = ServiceTable.getSelectionModel().getSelectedItem();
-                if(item!=null){
+                if (item != null) {
                     GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT, item);
                     populateTable();
                 }
@@ -141,42 +158,42 @@ public class ServiceTypeQueryController extends Controller implements Initializa
             return row;
         });
     }
-    
+
     @FXML
-    private void delete(){
+    private void delete() {
         ServiceType st = ServiceTable.getSelectionModel().getSelectedItem();
-        if(st==null){
+        if (st == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
+        } else {
             try {
-                if(GUIController.getInstance().showEraseConfirmationAlert(st.getName())){
+                if (GUIController.getInstance().showEraseConfirmationAlert(st.getName())) {
                     ServiceTypeDAO.inactivateServiceType(st);
                     populateTable();
                 }
-            } catch (RemoteException|DatabaseErrorException ex) {
+            } catch (RemoteException | DatabaseErrorException ex) {
                 GUIController.getInstance().showConnectionErrorAlert();
             }
         }
     }
-    
+
     @FXML
     private void back() {
         GUIController.getInstance().backToPrevious();
     }
-    
+
     @FXML
-    private void newServiceType(){
+    private void newServiceType() {
         GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_CREATE);
         populateTable();
     }
-    
+
     @FXML
-    private void editServiceType(){
+    private void editServiceType() {
         ServiceType serviceType = ServiceTable.getSelectionModel().getSelectedItem();
-        if(serviceType==null){
+        if (serviceType == null) {
             GUIController.getInstance().showSelectionErrorAlert();
-        }else{
-            GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT,serviceType);
+        } else {
+            GUIController.getInstance().callModal(ModalType.SERVICE_TYPE_EDIT, serviceType);
             populateTable();
         }
     }

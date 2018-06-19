@@ -19,6 +19,8 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Utils.Animation;
+import desktoproject.Utils.ChangeListenerRunnable;
+import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -35,12 +37,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+
 /**
  * FXML Controller class
  *
  * @author ecaanchesjr
  */
-public class QuerySupplierController extends Controller implements Initializable, TableScreen,AppObserver {
+public class QuerySupplierController extends Controller implements Initializable, TableScreen, AppObserver {
 
     @FXML
     private TableView<Supplier> suppliersTable;
@@ -91,19 +94,36 @@ public class QuerySupplierController extends Controller implements Initializable
 
     @Override
     public void setUpSearch() {
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            newValue = newValue.trim();
-            if (newValue.isEmpty()) {
-                populateTable();
-            } else {
-                try {
-                    suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue))));
+        searchTextField.textProperty().addListener(new TextChangeListener(
+                new ChangeListenerRunnable() {
+            @Override
+            public void run() {
+                newValue = newValue.trim();
+                if (newValue.isEmpty()) {
+                    populateTable();
+                } else {
+                    try {
+                        suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue))));
 
-                } catch (RemoteException | DatabaseErrorException ex) {
+                    } catch (RemoteException | DatabaseErrorException ex) {
 
+                    }
                 }
             }
-        });
+        }));
+//        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            newValue = newValue.trim();
+//            if (newValue.isEmpty()) {
+//                populateTable();
+//            } else {
+//                try {
+//                    suppliersTable.setItems(FXCollections.observableArrayList(FXCollections.observableArrayList(PersonDAO.searchSuppliers(newValue))));
+//
+//                } catch (RemoteException | DatabaseErrorException ex) {
+//
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -121,10 +141,10 @@ public class QuerySupplierController extends Controller implements Initializable
 
     @Override
     public void selectTable(Object o) {
-        if(o!=null){
-            Supplier cp = (Supplier)o;
-            for(Supplier p : suppliersTable.getItems()){
-                if(p.getId() == cp.getId()){
+        if (o != null) {
+            Supplier cp = (Supplier) o;
+            for (Supplier p : suppliersTable.getItems()) {
+                if (p.getId() == cp.getId()) {
                     suppliersTable.getSelectionModel().select(p);
                 }
             }
@@ -134,9 +154,9 @@ public class QuerySupplierController extends Controller implements Initializable
     @Override
     public void setTableAction() {
         suppliersTable.setOnKeyReleased((event) -> {
-            if(event.getCode() == KeyCode.ENTER){
+            if (event.getCode() == KeyCode.ENTER) {
                 Supplier item = suppliersTable.getSelectionModel().getSelectedItem();
-                if(item!=null){
+                if (item != null) {
                     GUIController.getInstance().callScreen(ScreenType.SUPPLIER_DISPLAY, item);
                 }
             }

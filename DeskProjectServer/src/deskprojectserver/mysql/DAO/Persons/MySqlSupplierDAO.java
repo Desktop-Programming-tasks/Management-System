@@ -43,8 +43,8 @@ public class MySqlSupplierDAO extends SupplierDAO {
             + " FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
     private static final String GET_ALL_SQL = "SELECT `JuridicalPerson_Person_idPerson` "
             + "FROM `Supplier` WHERE 1";
-    private static final String GET_LIKE_SQL = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier`,`Person` WHERE \n"
-            + "Supplier.JuridicalPerson_Person_idPerson=Person.idPerson AND Person.namePerson LIKE ?";
+    private static final String GET_LIKE_SQL = "SELECT `JuridicalPerson_Person_idPerson` FROM `Supplier`,`Person` WHERE "
+            + "Supplier.JuridicalPerson_Person_idPerson=Person.idDocumentPerson AND Person.namePerson LIKE ?";
     private static final String REMOVE_ONE_BRANDS_SQL = "DELETE "
             + "FROM `Brand_has_Supplier` WHERE Supplier_JuridicalPerson_Person_idPerson=?";
 

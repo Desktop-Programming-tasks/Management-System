@@ -39,8 +39,8 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             + ",`isActiveServiceType` FROM `ServiceType` WHERE isActiveServiceType";
     private static final String UPDATE_SQL = "UPDATE `ServiceType` "
             + "SET `nameServiceType`=?,`priceServiceType`=?,`isActiveServiceType`=? WHERE idServiceType=?";
-    private static final String GET_LIKE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType` "
-            + "FROM `ServiceType` WHERE nameServiceType LIKE ? AND isActiveServiceType";
+    private static final String GET_LIKE_SQL = "SELECT `idServiceType`,`nameServiceType`, `priceServiceType`, "
+            + " `isActiveServiceType` FROM `ServiceType` WHERE nameServiceType LIKE ? AND isActiveServiceType";
 
     @Override
     protected void insertBasicServiceType(ServiceType st) throws DatabaseErrorException, DuplicatedEntryException {
@@ -127,6 +127,7 @@ public class MySqlServiceTypeDAO extends ServiceTypeDAO {
             }
             qr.closeAll();
         } catch (SQLException e) {
+            e.printStackTrace();    
             throw new DatabaseErrorException();
         }
         return services;

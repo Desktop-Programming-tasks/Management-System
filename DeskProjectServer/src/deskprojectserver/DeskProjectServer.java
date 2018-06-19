@@ -39,10 +39,12 @@ public class DeskProjectServer {
      * @throws Exceptions.OutOfStockException
      */
     public static void main(String[] args) throws DatabaseErrorException, NoResultsException, DuplicatedEntryException, OutOfStockException {
-        ArrayList<Brand> brands = DAOBuilder.getInstance().getBrandDAO().getLikeBrands("AM");
-        for(Brand brand : brands){
-            System.out.println(brand);
-        }
+//        ArrayList<Brand> brands = DAOBuilder.getInstance().getBrandDAO().getLikeBrands("AM");
+//        for(Brand brand : brands){
+//            System.out.println(brand);
+//        }
+    ArrayList<ServiceType> services = DAOBuilder.getInstance().getServiceTypeDAO().getLikeServiceTypes("");
+    services.forEach((el)->{System.out.println(el);});
     }
 
 }
