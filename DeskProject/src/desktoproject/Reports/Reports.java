@@ -9,6 +9,7 @@ package desktoproject.Reports;
  *
  * @author ecsanchesjr
  */
-public class Report {
-    
+public interface Reports {
+    public static String packagePath = "DeskProject/src/desktoproject";
+    public void generateReport();
 }
