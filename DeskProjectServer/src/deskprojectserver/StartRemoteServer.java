@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package deskprojectserver.RMI;
+package deskprojectserver;
 
 import Observables.SocketData;
 import RMI.RemoteLogin;
@@ -11,6 +11,8 @@ import RMI.RemoteMethods;
 import deskprojectserver.Observable.Aggregator;
 import deskprojectserver.Observable.ObservableThread;
 import deskprojectserver.Observable.Observables.ObservablesHolder;
+import deskprojectserver.RMI.LoginServer;
+import deskprojectserver.RMI.RemoteServer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.rmi.AlreadyBoundException;

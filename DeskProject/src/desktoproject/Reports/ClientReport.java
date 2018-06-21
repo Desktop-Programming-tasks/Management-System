@@ -7,12 +7,11 @@ package desktoproject.Reports;
 
 import Classes.Persons.Person;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  *
@@ -29,7 +28,38 @@ public class ClientReport extends Report {
 
     @Override
     protected JasperPrint generatePrint() throws JRException {
-        return (JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(persons)));
+        return (JasperFillManager.fillReport(report, null, new ClientDataSource()));
     }
 
+    private class ClientDataSource implements JRDataSource {
+
+        private int counter = -1;
+
+        @Override
+        public boolean next() throws JRException {
+            if (counter < persons.size() - 1) {
+                counter++;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public Object getFieldValue(JRField jrf) throws JRException {
+            switch (jrf.getName()) {
+                case "name": {
+                    return persons.get(counter).getName();
+                }
+                case "documentId": {
+                    return persons.get(counter).getDocumentId();
+                }
+                case "phone": {
+                    return persons.get(counter).getTelephones().get(0);
+                }
+                default:
+                    return "";
+            }
+        }
+    }
 }
