@@ -29,6 +29,13 @@ public abstract class Report {
     public void showReport() {
         viewerReport.setVisible(true);
     }
+
+    public Report() {
+    }
+    
+    public Report(String file) {
+        this.file = file;
+    }
     
     public void generateReport() throws JRException {
         JasperDesign design = JRXmlLoader.load(PACKAGE_PATH+file);

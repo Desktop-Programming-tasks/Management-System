@@ -6,8 +6,6 @@
 	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="assignedEmployee" class="java.lang.String"/>
-	<field name="customer" class="java.lang.String"/>
 	<field name="totalPrice" class="java.lang.String"/>
 	<field name="type" class="java.lang.String"/>
 	<background>
@@ -33,12 +31,6 @@
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="210" y="0" width="100" height="20" uuid="897eaf95-b7d1-415e-be2b-d873b4d80717"/>
-				<box topPadding="0" leftPadding="0"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{customer.getName()}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="315" y="0" width="100" height="20" uuid="6d82939d-efbd-4d29-a158-eb122081eaa9"/>
 				<box topPadding="0" leftPadding="0"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
@@ -49,10 +41,6 @@
 				<box topPadding="0" leftPadding="0"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="105" y="0" width="100" height="20" uuid="b9801e0f-c1b4-4f31-aa5a-6ab7fcd95cbc"/>
-				<textFieldExpression><![CDATA[$F{assignedEmployee}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
