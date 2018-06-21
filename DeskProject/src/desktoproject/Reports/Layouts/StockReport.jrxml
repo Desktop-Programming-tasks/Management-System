@@ -2,11 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf073752-ed58-4b57-adba-13264083a244">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="15"/>
+	<property name="ireport.y" value="0"/>
 	<field name="barCode" class="java.lang.String"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="price" class="java.lang.Float"/>
-	<field name="quantityInStock" class="java.lang.Integer"/>
+	<field name="price" class="java.lang.String"/>
+	<field name="quantityInStock" class="java.lang.String"/>
 	<field name="brand" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -23,80 +23,92 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="413" y="0" width="142" height="20" uuid="a1c53f51-e1c2-4b79-a41e-478b80d10520"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="0" width="60" height="20" uuid="9145c7f3-4142-495f-9c9c-cf45cbc804fc"/>
+				<text><![CDATA[Gerado em ]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="125" height="20" uuid="2a5637eb-5a46-4c32-800a-891fe35b6d16"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Código de Barras]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="135" y="1" width="170" height="20" uuid="dececa2b-30b5-4fdf-85b9-e3c534b3ac6a"/>
-				<textElement>
+				<reportElement x="135" y="0" width="170" height="20" uuid="dececa2b-30b5-4fdf-85b9-e3c534b3ac6a"/>
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="400" y="0" width="65" height="20" uuid="2d13fdc5-6683-412b-96fd-fef2f9f79e5e"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Preço]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="475" y="1" width="80" height="20" uuid="71de0477-b09e-4428-9bdb-ac2461728b3c"/>
-				<textElement>
+				<reportElement x="475" y="0" width="80" height="20" uuid="71de0477-b09e-4428-9bdb-ac2461728b3c"/>
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Quantidate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="314" y="1" width="78" height="20" uuid="e92e203d-1ea1-4906-a645-ee79703e09d3"/>
-				<textElement>
+				<reportElement x="314" y="0" width="78" height="20" uuid="e92e203d-1ea1-4906-a645-ee79703e09d3"/>
+				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Marca]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="d2ee3176-7f6f-4404-bf6b-29df721693e0"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="125" height="20" uuid="b65d1251-c9b3-4f28-a24c-72aef8cf3e02"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{barCode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="136" y="0" width="170" height="20" uuid="ef0eb529-b198-4144-9920-f4223b2fa332"/>
-				<textElement>
+				<reportElement x="135" y="0" width="170" height="20" uuid="ef0eb529-b198-4144-9920-f4223b2fa332"/>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="400" y="0" width="65" height="20" uuid="ace177b2-47a5-4aba-9197-fa5e512086db"/>
-				<textElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="475" y="0" width="80" height="20" uuid="486972ba-aff3-41c7-aeb8-00c77dbcd7d7"/>
-				<textElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantityInStock}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="314" y="0" width="78" height="20" uuid="0e2bbc3b-5ca0-45fd-a396-db86d2b577f3"/>
-				<textElement>
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{brand}]]></textFieldExpression>
@@ -107,7 +119,20 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="bb6559b3-0fe2-4ac2-92f6-7d9511a462d2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="10e87d61-56cb-4d53-b0a1-c86dccf38804"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="f9fa5a9d-440c-4033-a919-07526557001d"/>
+			</line>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
