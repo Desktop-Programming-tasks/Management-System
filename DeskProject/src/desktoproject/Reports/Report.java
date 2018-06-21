@@ -29,9 +29,6 @@ public abstract class Report {
     public void showReport() {
         viewerReport.setVisible(true);
     }
-
-    public Report() {
-    }
     
     public Report(String file) {
         this.file = file;

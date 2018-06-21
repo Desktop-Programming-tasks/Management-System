@@ -22,8 +22,8 @@ public class ClientReport extends Report {
 
     private final ArrayList<Person> persons;
 
-    public ClientReport(String file, ArrayList<Person> persons) {
-        this.file = file;
+    public ClientReport(ArrayList<Person> persons) {
+        super("ClientsReport.jrxml");
         this.persons = persons;
     }
 

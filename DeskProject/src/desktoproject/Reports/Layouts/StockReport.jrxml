@@ -2,11 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf073752-ed58-4b57-adba-13264083a244">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="15"/>
 	<field name="barCode" class="java.lang.String"/>
 	<field name="name" class="java.lang.String"/>
-	<field name="price" class="java.lang.String"/>
-	<field name="quantityInStock" class="java.lang.String"/>
+	<field name="price" class="java.lang.Float"/>
+	<field name="quantityInStock" class="java.lang.Integer"/>
+	<field name="brand" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -34,7 +35,7 @@
 				<text><![CDATA[Código de Barras]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="136" y="1" width="254" height="20" uuid="dececa2b-30b5-4fdf-85b9-e3c534b3ac6a"/>
+				<reportElement x="135" y="1" width="170" height="20" uuid="dececa2b-30b5-4fdf-85b9-e3c534b3ac6a"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
@@ -54,10 +55,17 @@
 				</textElement>
 				<text><![CDATA[Quantidate]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="314" y="1" width="78" height="20" uuid="e92e203d-1ea1-4906-a645-ee79703e09d3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="125" height="20" uuid="b65d1251-c9b3-4f28-a24c-72aef8cf3e02"/>
 				<textElement>
@@ -66,7 +74,7 @@
 				<textFieldExpression><![CDATA[$F{barCode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="136" y="0" width="254" height="20" uuid="ef0eb529-b198-4144-9920-f4223b2fa332"/>
+				<reportElement x="136" y="0" width="170" height="20" uuid="ef0eb529-b198-4144-9920-f4223b2fa332"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -80,11 +88,18 @@
 				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="475" y="0" width="69" height="20" uuid="486972ba-aff3-41c7-aeb8-00c77dbcd7d7"/>
+				<reportElement x="475" y="0" width="80" height="20" uuid="486972ba-aff3-41c7-aeb8-00c77dbcd7d7"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quantityInStock}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="0" width="78" height="20" uuid="0e2bbc3b-5ca0-45fd-a396-db86d2b577f3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{brand}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
