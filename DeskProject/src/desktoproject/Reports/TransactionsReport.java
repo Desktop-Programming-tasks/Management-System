@@ -7,6 +7,7 @@ package desktoproject.Reports;
 
 import Classes.Constants.RecordTypeConstants;
 import Classes.Transactions.Record;
+import desktoproject.Utils.Misc;
 import java.util.ArrayList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -29,7 +30,6 @@ public class TransactionsReport extends Report {
 
     @Override
     protected JasperPrint generatePrint() throws JRException {
-        System.out.println(report == null);
         return (JasperFillManager.fillReport(report, null, new TransactionDataSource()));
     }
 
@@ -55,15 +55,15 @@ public class TransactionsReport extends Report {
         public Object getFieldValue(JRField jrf) throws JRException {
             switch (jrf.getName()) {
                 case "id":
-                    return Integer.toString(records.get(counter).getId());
+                    return String.valueOf(records.get(counter).getId());
                 case "date":
-                    return records.get(counter).getRegisterDate().toString();
+                    return Misc.dateToString(records.get(counter).getRegisterDate());
                 case "employee":
                     return records.get(counter).getAssignedEmployee().getName();
                 case "customer":
                     return records.get(counter).getCustomer().getName();
                 case "price":
-                    return Float.toString(records.get(counter).getTotalprice());
+                    return Misc.changeToComma(String.valueOf(records.get(counter).getTotalprice()));
                 case "type":
                     if (records.get(counter).getType() == RecordTypeConstants.PURCHASE) {
                         return "Compra";
