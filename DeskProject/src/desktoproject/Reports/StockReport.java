@@ -6,6 +6,7 @@
 package desktoproject.Reports;
 
 import Classes.Transactions.Product;
+import desktoproject.Utils.Misc;
 import java.util.ArrayList;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -59,13 +60,13 @@ public class StockReport extends Report {
                     return products.get(counter).getBarCode();
                 }
                 case "quantityInStock": {
-                    return products.get(counter).getQuantityInStock();
+                    return String.valueOf(products.get(counter).getQuantityInStock());
                 }
                 case "brand": {
                     return products.get(counter).getBrand().getName();
                 }
                 case "price": {
-                    return products.get(counter).getPrice();
+                    return Misc.changeToComma(String.valueOf(products.get(counter).getPrice()));
                 }
                 default:
                     return "";

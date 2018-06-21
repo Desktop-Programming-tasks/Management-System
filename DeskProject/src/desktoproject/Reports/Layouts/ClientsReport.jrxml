@@ -62,8 +62,10 @@
 				<textFieldExpression><![CDATA[$F{documentId}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="175" height="20" uuid="c593ce31-6382-454e-ae12-47b30f227a13"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="380" y="0" width="175" height="20" uuid="f9cb3e35-bd0e-413b-9095-1c3d8a580972"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 		</band>

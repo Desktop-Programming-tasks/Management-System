@@ -18,7 +18,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author ecsanchesjr
  */
 public abstract class Report {
-    protected static String PACKAGE_PATH = "src/desktoproject/Reports/Layouts/";
+    private static final String PACKAGE_PATH = "src/desktoproject/Reports/Layouts/";
     protected String file;
     protected JasperReport report;
     private JasperPrint printReport;
@@ -26,7 +26,7 @@ public abstract class Report {
     
     protected abstract JasperPrint generatePrint() throws JRException;
     
-    public void showReport() {
+    public void show() {
         viewerReport.setVisible(true);
     }
     
@@ -39,6 +39,6 @@ public abstract class Report {
         report = JasperCompileManager.compileReport(design);
         printReport = generatePrint();
         viewerReport = new JasperViewer(printReport, true);
-        showReport();
+        show();
     }
 }
