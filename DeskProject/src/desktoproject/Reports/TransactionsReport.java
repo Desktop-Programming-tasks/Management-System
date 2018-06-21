@@ -24,7 +24,7 @@ public class TransactionsReport extends Report {
     private final ArrayList<Record> records;
 
     public TransactionsReport(ArrayList<Record> records) {
-        super("TransactionsReport.jrxml");
+        super("TransactionsReport.jasper");
         this.records = records;
     }
 

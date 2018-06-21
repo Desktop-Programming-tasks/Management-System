@@ -23,7 +23,7 @@ public class StockReport extends Report {
     private final ArrayList<Product> products;
 
     public StockReport(ArrayList<Product> products) {
-        super("StockReport.jrxml");
+        super("StockReport.jasper");
         this.products = products;
     }
 

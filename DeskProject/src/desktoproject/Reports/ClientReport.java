@@ -22,7 +22,7 @@ public class ClientReport extends Report {
     private final ArrayList<Person> persons;
 
     public ClientReport(ArrayList<Person> persons) {
-        super("ClientsReport.jrxml");
+        super("ClientsReport.jasper");
         this.persons = persons;
     }
 

@@ -22,24 +22,24 @@ import desktoproject.Controller.Interfaces.FXMLPaths;
  * @author noda
  */
 public class TelephoneComponentController extends ControllerEdit implements Initializable {
-    
+
     @Override
     public void fillScreen() {
-        setFields(telephones.get(0),((telephones.size()>1)?(telephones.get(1)):("")));
+        setFields(telephones.get(0), ((telephones.size() > 1) ? (telephones.get(1)) : ("")));
     }
-    
-    private void setFields(String primary, String secondary){
+
+    private void setFields(String primary, String secondary) {
         telTextField.setText(primary);
         secTelTextField.setText(secondary);
     }
-    
+
     private ArrayList<String> telephones;
-    
+
     @FXML
     private TextField telTextField;
     @FXML
     private TextField secTelTextField;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -49,35 +49,35 @@ public class TelephoneComponentController extends ControllerEdit implements Init
         Animation.bindAnimation(telTextField);
         Animation.bindAnimation(secTelTextField);
         telephones = new ArrayList<>();
-    }    
+    }
 
     private void setTelephones(ArrayList<String> telephones) {
         this.telephones = telephones;
     }
-    
-    public String getPrimary(){
+
+    public String getPrimary() {
         return telTextField.getText();
     }
-    
-    public String getSecondary(){
+
+    public String getSecondary() {
         return secTelTextField.getText();
     }
-    
-    public ArrayList<String> getTelephones(){
+
+    public ArrayList<String> getTelephones() {
         telephones.clear();
         telephones.add(telTextField.getText());
-        if(!secTelTextField.getText().isEmpty()){
+        if (!secTelTextField.getText().isEmpty()) {
             telephones.add(secTelTextField.getText());
-        }else{
+        } else {
             telephones.add("");
         }
-        return(telephones);
+        return (telephones);
     }
-    
-    public String validateFields(){
+
+    public String validateFields() {
         Validate valObj = new Validate();
         valObj.validateTelephone(telTextField.getText());
-        if(!secTelTextField.getText().isEmpty()){
+        if (!secTelTextField.getText().isEmpty()) {
             valObj.validateTelephone(secTelTextField.getText());
         }
         return valObj.getErrorMessage();
@@ -91,6 +91,7 @@ public class TelephoneComponentController extends ControllerEdit implements Init
     @Override
     public void setScreenObject(Object obj) {
         this.telephones = (ArrayList<String>) obj;
+
     }
 
     @Override

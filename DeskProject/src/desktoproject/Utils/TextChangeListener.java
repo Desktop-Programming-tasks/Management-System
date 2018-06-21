@@ -18,18 +18,17 @@ public abstract class TextChangeListener implements ChangeListener {
 
     Timer timer;
 
-    public TextChangeListener() {
-        this.timer = new Timer();
-    }
-
     @Override
     public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-        timer.cancel();
+        if(timer!=null){
+            timer.cancel();
+        }
         timer = new Timer(true);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 runLogic(observable, oldValue, newValue);
+                timer.cancel();
             }
         }, 300);
     }
