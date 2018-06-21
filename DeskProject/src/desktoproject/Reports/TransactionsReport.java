@@ -33,7 +33,7 @@ public class TransactionsReport extends Report {
         return (JasperFillManager.fillReport(report, null, new TransactionDataSource()));
     }
 
-    private class TransactionDataSource implements JRDataSource {
+    public class TransactionDataSource implements JRDataSource {
 
         private int counter;
 

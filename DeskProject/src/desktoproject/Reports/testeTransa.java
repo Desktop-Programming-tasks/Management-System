@@ -21,7 +21,7 @@ public class testeTransa {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws RemoteException, NoResultsException, DatabaseErrorException, JRException {
-        new TransactionsReport(RecordDAO.queryAllRecords()).generatePrint();
+        new TransactionsReport(RecordDAO.queryAllRecords()).generateReport();
     }
     
 }
