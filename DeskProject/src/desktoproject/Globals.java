@@ -6,6 +6,7 @@
 package desktoproject;
 
 import Classes.Persons.Employee;
+import Observables.SocketData;
 import RMI.RemoteMethods;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -41,8 +42,8 @@ public class Globals {
 
     private Globals() throws RemoteException {
         try {
-            observerServer = new ObserverThread("Observer");
-            Registry rmiRegistry = LocateRegistry.getRegistry("localhost", RemoteMethods.RMI_PORT);
+            observerServer = new ObserverThread(SocketData.THREAD_NAME);
+            Registry rmiRegistry = LocateRegistry.getRegistry(SocketData.SERVER_HOST, RemoteMethods.RMI_PORT);
             this.rmiChannel = (RemoteMethods) rmiRegistry.lookup(RemoteMethods.RMI_BD);
         } catch (NotBoundException | RemoteException ex) {
             throw new RemoteException();
