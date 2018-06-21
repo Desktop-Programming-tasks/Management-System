@@ -18,7 +18,10 @@ import desktoproject.Controller.GUIController;
 import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
+import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
+import desktoproject.Reports.StockReport;
+import desktoproject.Reports.TransactionsReport;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.TextChangeListener;
@@ -26,6 +29,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -44,6 +48,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -74,6 +79,8 @@ public class GenericTransactionController extends Controller implements Initiali
     private Button detailsBtn;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button relatoryBtn;
 
     /**
      * Initializes the controller class.
@@ -85,6 +92,7 @@ public class GenericTransactionController extends Controller implements Initiali
 
         Animation.bindShadowAnimation(detailsBtn);
         Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(relatoryBtn);
 
         setUpTable();
         comboBoxSetup();
@@ -170,19 +178,20 @@ public class GenericTransactionController extends Controller implements Initiali
 
     @Override
     public void populateTable() {
+        transactionTable.setItems(FXCollections.observableArrayList(getRecords()));
+    }
+    
+    private ArrayList<Record> getRecords(){
         try {
             switch (typeComboBox.getSelectionModel().getSelectedItem()) {
                 case ALL: {
-                    transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryAllRecords()));
-                    break;
+                    return RecordDAO.queryAllRecords();
                 }
                 case PURCHASES: {
-                    transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryRecodsBuy()));
-                    break;
+                    return RecordDAO.queryRecodsBuy();
                 }
                 case SALES: {
-                    transactionTable.setItems(FXCollections.observableArrayList(RecordDAO.queryRecodsSale()));
-                    break;
+                    return RecordDAO.queryRecodsSale();
                 }
             }
         } catch (RemoteException | DatabaseErrorException ex) {
@@ -190,7 +199,7 @@ public class GenericTransactionController extends Controller implements Initiali
         } catch (NoResultsException ex) {
             //
         }
-
+        return new ArrayList<>();
     }
 
     private void comboBoxSetup() {
@@ -302,6 +311,14 @@ public class GenericTransactionController extends Controller implements Initiali
                 ObservableServer.getSale().addObserver(this);
                 break;
             }
+        }
+    }
+    
+    @FXML
+    private void relatory(){
+        try {
+            new TransactionsReport(new ArrayList<>(transactionTable.getItems())).generateReport();
+        } catch (JRException ex) {
         }
     }
 }

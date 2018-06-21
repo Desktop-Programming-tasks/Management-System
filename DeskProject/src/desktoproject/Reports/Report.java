@@ -38,7 +38,7 @@ public abstract class Report {
         JasperDesign design = JRXmlLoader.load(PACKAGE_PATH+file);
         report = JasperCompileManager.compileReport(design);
         printReport = generatePrint();
-        viewerReport = new JasperViewer(printReport, true);
+        viewerReport = new JasperViewer(printReport, false);
         show();
     }
 }

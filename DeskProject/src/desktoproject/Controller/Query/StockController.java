@@ -15,12 +15,18 @@ import desktoproject.Controller.GUIController;
 import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
+import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.ProductDAO;
+import desktoproject.Reports.ClientReport;
+import desktoproject.Reports.StockReport;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.TextChangeListener;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -35,6 +41,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -63,6 +70,8 @@ public class StockController extends Controller implements Initializable, TableS
     private Button backBtn;
     @FXML
     private Button deleteBtn;
+    @FXML
+    private Button relatoryBtn;
 
     /**
      * Initializes the controller class.
@@ -73,6 +82,7 @@ public class StockController extends Controller implements Initializable, TableS
         Animation.bindShadowAnimation(editBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
+        Animation.bindShadowAnimation(relatoryBtn);
 
         Animation.bindAnimation(searchTextField);
 
@@ -226,5 +236,13 @@ public class StockController extends Controller implements Initializable, TableS
     @Override
     public void subscribe() {
         ObservableServer.getProduct().addObserver(this);
+    }
+    
+    @FXML
+    private void relatory(){
+        try {
+            new StockReport(new ArrayList<>(StockTable.getItems())).generateReport();
+        }catch (JRException ex) {
+        }
     }
 }

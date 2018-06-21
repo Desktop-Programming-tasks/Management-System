@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9507fd1d-b5e7-48c1-bc2b-615c9ca3a45d">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="60"/>
+	<property name="ireport.y" value="0"/>
 	<field name="name" class="java.lang.String"/>
 	<field name="documentId" class="java.lang.String"/>
 	<field name="phone" class="java.lang.String"/>
@@ -21,55 +21,67 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="63" splitType="Stretch"/>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="353" y="0" width="60" height="20" uuid="94c17ef3-a94d-481d-b789-e480fc56c04e"/>
+				<text><![CDATA[Gerado em ]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="413" y="0" width="142" height="20" uuid="47766e2c-63e0-4adb-b282-f16712a15939"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="64" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="41" width="201" height="23" uuid="40a6129f-d478-4cc1-bb91-9d6bd3c80acd"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="6fcb42d8-81b7-446d-b998-3956d868862a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Contato]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="1a41dedd-1647-4f35-a4b2-059f9534bdd4"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="295" height="20" uuid="40a6129f-d478-4cc1-bb91-9d6bd3c80acd"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="201" y="41" width="175" height="23" uuid="d0a859fa-fa27-4064-b62b-797a703547cd"/>
+				<reportElement x="305" y="0" width="120" height="20" uuid="d0a859fa-fa27-4064-b62b-797a703547cd"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[CPF / CNPJ]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="380" y="41" width="175" height="23" uuid="6fcb42d8-81b7-446d-b998-3956d868862a"/>
-				<textElement verticalAlignment="Middle">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[Contato]]></text>
-			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="201" height="20" uuid="808fafb8-8fe7-4662-81fd-529ad0797fdf"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="f9cb3e35-bd0e-413b-9095-1c3d8a580972"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="295" height="20" uuid="808fafb8-8fe7-4662-81fd-529ad0797fdf"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="201" y="0" width="175" height="20" uuid="f03c983f-ce43-4748-97af-c4c608c8e9ca"/>
+				<reportElement x="305" y="0" width="120" height="20" uuid="f03c983f-ce43-4748-97af-c4c608c8e9ca"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{documentId}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="376" y="0" width="175" height="20" uuid="f9cb3e35-bd0e-413b-9095-1c3d8a580972"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{phone}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -77,7 +89,20 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="271de82c-bec9-431e-8add-b5583b5f6484"/>
+			</line>
+			<textField>
+				<reportElement x="435" y="34" width="80" height="20" uuid="32ce7827-a8e7-4f9c-b561-a64ac0530725"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Páginas "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="34" width="40" height="20" uuid="6a61ba94-f02e-4e3e-a405-464f79163d15"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

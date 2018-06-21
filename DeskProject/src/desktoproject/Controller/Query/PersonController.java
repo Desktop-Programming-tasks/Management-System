@@ -20,13 +20,17 @@ import desktoproject.Controller.Interfaces.TableScreen;
 import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Reports.ClientReport;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Pairs.ScreenData;
 import desktoproject.Utils.TextChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,6 +44,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -68,12 +73,14 @@ public class PersonController extends Controller implements Initializable, Table
                 mainLabel.setText("Consulta de Clientes");
                 personDocColumn.setText("CPF/CNPJ");
                 deleteBtn.setText("Excluir");
+                relatoryBtn.setVisible(true);
                 break;
             }
             case EMPLOYEE: {
                 mainLabel.setText("Consulta de Funcionários");
                 personDocColumn.setText("CPF");
                 deleteBtn.setText("Desativar");
+                relatoryBtn.setVisible(false);
                 break;
             }
         }
@@ -99,7 +106,9 @@ public class PersonController extends Controller implements Initializable, Table
     private Button createBtn;
     @FXML
     private Button backBtn;
-
+    @FXML
+    private Button relatoryBtn;
+    
     /**
      * Initializes the controller class.
      */
@@ -110,6 +119,7 @@ public class PersonController extends Controller implements Initializable, Table
         Animation.bindShadowAnimation(createBtn);
         Animation.bindShadowAnimation(backBtn);
         Animation.bindShadowAnimation(deleteBtn);
+        Animation.bindShadowAnimation(relatoryBtn);
 
         personDocColumn.setCellValueFactory(new PropertyValueFactory<>("documentId"));
         personNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -291,6 +301,14 @@ public class PersonController extends Controller implements Initializable, Table
             ObservableServer.getClient().addObserver(this);
         } else {
             ObservableServer.getEmployee().addObserver(this);
+        }
+    }
+    
+    @FXML
+    private void relatory(){
+        try {
+            new ClientReport(new ArrayList<>(personTable.getItems())).generateReport();
+        }catch (JRException ex) {
         }
     }
 }
