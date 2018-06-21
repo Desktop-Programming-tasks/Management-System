@@ -7,7 +7,9 @@ package desktoproject.Reports;
 
 import Classes.Transactions.Product;
 import java.util.ArrayList;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -16,7 +18,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  *
  * @author ecsanchesjr
  */
-public class StockReport extends Report {
+public class StockReport extends Report  {
 
     private final ArrayList<Product> products;
 

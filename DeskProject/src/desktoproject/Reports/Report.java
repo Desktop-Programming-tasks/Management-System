@@ -18,7 +18,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author ecsanchesjr
  */
 public abstract class Report {
-    protected static String PACKAGE_PATH = "src/desktoproject/Reports/";
+    protected static String PACKAGE_PATH = "src/desktoproject/Reports/Layouts/";
     protected String file;
     protected JasperReport report;
     private JasperPrint printReport;

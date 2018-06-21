@@ -5,6 +5,8 @@
  */
 package desktoproject.Reports;
 
+import Classes.Transactions.Product;
+import desktoproject.Controller.Query.StockController;
 import java.util.ArrayList;
 import net.sf.jasperreports.engine.JRException;
 
@@ -20,7 +22,15 @@ public class NewMain {
     public static void main(String[] args) throws JRException {
         // TODO code application logic here
         
-        new ClientReport("StockReport.jrxml", new ArrayList<>()).generateReport();
+        ArrayList<Product> products = new ArrayList<>();
+        
+        products.add(new Product("212313221"));
+        products.add(new Product("212313221"));
+        products.add(new Product("212313221"));
+        products.add(new Product("212313221"));
+        
+        
+        new StockReport("StockReport.jrxml", products).generateReport();
     }
     
 }
