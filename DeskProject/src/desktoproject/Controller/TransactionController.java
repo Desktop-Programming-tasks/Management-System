@@ -405,9 +405,9 @@ public class TransactionController extends ControllerEdit implements Initializab
                 try {
                     Product productFromDatabase = ProductDAO.queryProduct(((Product) product).getBarCode());
                     int newQuantity = transactions.get(index).getQuantity()+product.getQuantity();
-                    if(newQuantity > productFromDatabase.getQuantityInStock()){
+                    if(newQuantity > productFromDatabase.getQuantityInStock() && type == TransactionType.SALE){
                         newQuantity = productFromDatabase.getQuantityInStock();
-                    }
+                    } 
                     float newPrice = ProductDAO.queryProduct(((Product) product).getBarCode()).getPrice()*newQuantity;
                     product.setPrice(newPrice);
                     product.setQuantity(newQuantity);

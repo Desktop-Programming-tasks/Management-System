@@ -100,7 +100,7 @@
                     <columns>
                       <TableColumn fx:id="nameColumn" prefWidth="${transactionsTable.width * 0.595}" resizable="false" text="Nome" />
                       <TableColumn fx:id="priceColumn" prefWidth="${transactionsTable.width * 0.20}" resizable="false" text="Valor" />
-                        <TableColumn fx:id="quantityColumn" prefWidth="${transactionsTable.width * 20}" resizable="false" text="Quantidade" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="${transactionsTable.width * 0.20}" resizable="false" text="Quantidade" />
                     </columns>
                   </TableView>
                   <Label layoutX="5.0" text="Registro de transações" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
