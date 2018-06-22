@@ -14,6 +14,7 @@ import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
 import Exceptions.NoResultsException;
 import Exceptions.OutOfStockException;
+import deskprojectserver.Observable.Observables.ObservablesHolder;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -56,6 +57,8 @@ public abstract class RecordDAO {
                 }
             }
         }
+        ObservablesHolder.getRegister().setChanged();
+        ObservablesHolder.getTransaction().setChanged();
     }
 
     public Record getRegister(String id) throws NoResultsException, DatabaseErrorException {
