@@ -11,11 +11,9 @@ import desktoproject.Controller.Interfaces.ControllerEdit;
 import Classes.Constants.RecordTypeConstants;
 import Classes.Persons.Employee;
 import Classes.Persons.Person;
-import Classes.Persons.Supplier;
 import Classes.Transactions.Product;
 import Classes.Transactions.Record;
 import Classes.Transactions.Service;
-import Classes.Transactions.ServiceType;
 import Classes.Transactions.Transaction;
 import Exceptions.DatabaseErrorException;
 import Exceptions.DuplicatedEntryException;
@@ -29,6 +27,7 @@ import desktoproject.Controller.Observable.AppObserver;
 import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Globals;
 import desktoproject.Model.DAO.Persons.PersonDAO;
+import desktoproject.Model.DAO.Transactions.ProductDAO;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
 import desktoproject.Reports.RecordReport;
 import desktoproject.Utils.Animation;
@@ -39,8 +38,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +56,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -404,10 +400,41 @@ public class TransactionController extends ControllerEdit implements Initializab
     private void showModalAddProduct() {
         Transaction product = GUIController.getInstance().callModalForResult(ModalType.PRODUCT_ADD, type);
         if (product != null) {
-            transactions.add(product);
+            int index = alreadyExists((Product) product);
+            if(index!=-1){
+                try {
+                    Product productFromDatabase = ProductDAO.queryProduct(((Product) product).getBarCode());
+                    int newQuantity = transactions.get(index).getQuantity()+product.getQuantity();
+                    if(newQuantity > productFromDatabase.getQuantityInStock() && type == TransactionType.SALE){
+                        newQuantity = productFromDatabase.getQuantityInStock();
+                    } 
+                    float newPrice = ProductDAO.queryProduct(((Product) product).getBarCode()).getPrice()*newQuantity;
+                    product.setPrice(newPrice);
+                    product.setQuantity(newQuantity);
+                    transactions.set(index, product);
+                } catch (RemoteException|DatabaseErrorException ex) {
+                    GUIController.getInstance().showConnectionErrorAlert();
+                } catch (NoResultsException ex) {
+                    System.out.println("Ops it should never throw this exception, from inside transaction controller\n"+ex.getMessage());
+                }
+            }else{
+                transactions.add(product);
+            }
             populateTable();
             updatePrice();
         }
+    }
+    
+    private int alreadyExists(Product product){
+        for(int i=0;i<transactions.size();i++){
+            Transaction t = transactions.get(i);
+            if(t instanceof Product){
+                if(((Product) t).getBarCode().equals(product.getBarCode())){
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     @FXML
