@@ -14,6 +14,9 @@ import desktoproject.Globals;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
@@ -150,5 +153,22 @@ public class MenuController extends Controller implements Initializable {
     @Override
     public void setPath() {
         this.path = FXMLPaths.MENU_SCREEN;
+    }
+    
+    @FXML
+    private void logout(){
+        try {
+            Globals.getInstance().setEmployee(null);
+            Globals.getInstance().getObserverThread().setRun(false);
+            GUIController.getInstance().callLogin();
+        } catch (RemoteException ex) {
+            
+        }
+        
+    }
+    
+    @FXML
+    private void close(){
+        Platform.exit();
     }
 }

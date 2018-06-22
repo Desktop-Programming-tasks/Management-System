@@ -23,11 +23,11 @@
                      <KeyCodeCombination alt="UP" code="H" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                   </accelerator></MenuItem>
                   <MenuItem onAction="#showHelp" text="S_obre" />
-               <MenuItem text="_Sair">
+               <MenuItem onAction="#logout" text="_Sair">
                   <accelerator>
                      <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                   </accelerator></MenuItem>
-              <MenuItem text="_Fechar" />
+              <MenuItem onAction="#close" text="_Fechar" />
             </items>
           </Menu>
          <Menu text="_Transações">

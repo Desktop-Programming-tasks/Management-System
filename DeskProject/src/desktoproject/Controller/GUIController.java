@@ -92,6 +92,7 @@ public class GUIController {
             isMenu = false;
             this.dynamic = null;
             ObservableServer.clearAll();
+            executionStack.clear();
         } catch (IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }

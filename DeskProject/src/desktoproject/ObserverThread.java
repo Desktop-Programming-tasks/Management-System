@@ -22,10 +22,16 @@ import java.util.logging.Logger;
 public class ObserverThread extends Thread {
     private Socket connection;
     private DataInputStream notification;
+    private boolean run;
 
     public ObserverThread(String name) {
         super(name);
         this.setDaemon(true);
+        run = true;
+    }
+
+    public void setRun(boolean run) {
+        this.run = run;
     }
     
     @Override
@@ -34,7 +40,7 @@ public class ObserverThread extends Thread {
             connection = new Socket(SocketData.SERVER_HOST, SocketData.SERVER_PORT);
             notification = new DataInputStream(connection.getInputStream());
             
-            while(true) {
+            while(run) {
                 String serverAtt = notification.readUTF();
                 if(serverAtt.equals(".")) {
                     DataOutputStream output = new DataOutputStream(connection.getOutputStream());
