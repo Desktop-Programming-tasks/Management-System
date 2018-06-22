@@ -30,6 +30,7 @@ import desktoproject.Controller.Observable.Observables.ObservableServer;
 import desktoproject.Globals;
 import desktoproject.Model.DAO.Persons.PersonDAO;
 import desktoproject.Model.DAO.Transactions.RecordDAO;
+import desktoproject.Reports.RecordReport;
 import desktoproject.Utils.Animation;
 import desktoproject.Utils.Misc;
 import desktoproject.Utils.Pairs.ScreenData;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -62,6 +65,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  * FXML Controller class
@@ -69,32 +73,6 @@ import javafx.stage.Stage;
  * @author noda
  */
 public class TransactionController extends ControllerEdit implements Initializable, TableScreen, AppObserver {
-//    private static final String PATH = "desktoproject/View/Transaction.fxml";
-//    private Stage stage;
-//    //call to create a new transaction
-//    public static Parent call(TransactionType type) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        TransactionController controller = loader.getController();
-//        controller.setTransactionType(type);
-//        controller.setEdit(false);
-//        controller.setComponents();
-//        return p;
-//    }
-//
-//    //call to display information about an existing transaction
-//    public static Parent call(TransactionType type, Object obj) throws IOException {
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(TransactionController.class.getClassLoader().getResource(PATH));
-//        Parent p = loader.load();
-//        TransactionController controller = loader.getController();
-//        controller.setRecord((Record) obj);
-//        controller.setTransactionType(type);
-//        controller.setEdit(true);
-//        controller.setComponents();
-//        return p;
-//    }
 
     public ScreenData call(TransactionType type) throws IOException {
         ScreenData callReturn = super.call();
@@ -130,6 +108,8 @@ public class TransactionController extends ControllerEdit implements Initializab
     private Button deleteEntry;
     @FXML
     private Button backBtn;
+    @FXML
+    private Button relatoryBtn;
 
     @FXML
     private Label mainActionScreenTitle;
@@ -185,6 +165,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         Animation.bindShadowAnimation(addServiceBtn);
         Animation.bindShadowAnimation(deleteEntry);
         Animation.bindShadowAnimation(backBtn);
+        Animation.bindShadowAnimation(relatoryBtn);
         Animation.bindAnimation(searchTextField);
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -304,6 +285,7 @@ public class TransactionController extends ControllerEdit implements Initializab
         if (isEdit()) {
             mainLabelString += "Consultar ";
             primaryBtn.setVisible(false);
+            relatoryBtn.setVisible(true);
             clientTable.setDisable(true);
 //            transactionsTable.setDisable(true);
             addProductBtn.setVisible(false);
@@ -316,6 +298,7 @@ public class TransactionController extends ControllerEdit implements Initializab
             fillScreen();
         } else { 
             primaryBtn.setVisible(true);
+            relatoryBtn.setVisible(false);
             this.transactions = new ArrayList<>();
             clientPane.setVisible(true);
             clientPaneDisplay.setVisible(false);
@@ -491,6 +474,14 @@ public class TransactionController extends ControllerEdit implements Initializab
             ObservableServer.getClient().addObserver(this);
         } else {
             ObservableServer.getSupplier().addObserver(this);
+        }
+    }
+    
+    @FXML
+    private void relatory(){
+        try {
+            new RecordReport(record).generateReport();
+        } catch (JRException ex) {
         }
     }
 }

@@ -138,7 +138,8 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Button fx:id="primaryBtn" defaultButton="true" layoutX="971.0" layoutY="621.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="primaryButton" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="-5.0" />
+      <Button fx:id="primaryBtn" defaultButton="true" layoutX="971.0" layoutY="621.0" mnemonicParsing="false" onAction="#register" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="primaryButton" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="relatoryBtn" mnemonicParsing="false" onAction="#relatory" prefHeight="35.0" prefWidth="250.0" text="Gerar Relatório" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <Button fx:id="backBtn" cancelButton="true" layoutX="46.0" layoutY="559.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="250.0" styleClass="level-1" text="Voltar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
    </children>
 </AnchorPane>
